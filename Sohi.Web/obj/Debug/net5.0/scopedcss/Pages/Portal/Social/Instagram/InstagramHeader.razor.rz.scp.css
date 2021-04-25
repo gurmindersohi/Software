@@ -1,0 +1,136 @@
+.page[b-2n16jye96s] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-2n16jye96s] {
+    flex: 1;
+}
+
+.sidebar[b-2n16jye96s] {
+    background-color: white;
+}
+.heading[b-2n16jye96s] {
+    text-decoration: none;
+}
+
+
+.top-row[b-2n16jye96s] {
+    /*    background-color: #f7f7f7;*/
+    border-bottom: 1px solid #d6d5d5;
+    /*    justify-content: flex-end; */
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    /*    z-index: 1030;*/
+}
+
+    .top-row[b-2n16jye96s]  a, .top-row .btn-link[b-2n16jye96s] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-2n16jye96s] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-2n16jye96s] {
+        display: none;
+    }
+
+    .top-row.auth[b-2n16jye96s] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-2n16jye96s], .top-row .btn-link[b-2n16jye96s] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-2n16jye96s] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-2n16jye96s] {
+        width: 250px;
+        height: calc(100vh - 20px);
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-2n16jye96s] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .main > div[b-2n16jye96s] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+
+
+
+.navbar-toggler[b-2n16jye96s] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-2n16jye96s] {
+    border-bottom: 1px solid #dee2e6 !important;
+    /*    background-color: rgba(0,0,0,0.4);*/
+}
+
+.navbar-brand[b-2n16jye96s] {
+    font-size: 1.1rem;
+    color: black;
+}
+
+.oi[b-2n16jye96s] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-2n16jye96s] {
+    font-size: 0.9rem;
+/*    border-bottom: 1px solid #dee2e6 !important;*/
+}
+
+
+    .nav-item[b-2n16jye96s]  a {
+        color: black;
+        /*        border-radius: 4px;*/
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+        .nav-item[b-2n16jye96s]  a.active {
+            /*            background-color: #D9ECFF !important;*/
+            color: #0B90FF;
+            border-bottom: 1px solid #0B90FF !important;
+        }
+
+        .nav-item[b-2n16jye96s]  a:hover {
+            color: #0B90FF;
+            border-bottom: 1px solid #0B90FF !important;
+        }
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-2n16jye96s] {
+        display: none;
+    }
+
+    .collapse[b-2n16jye96s] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

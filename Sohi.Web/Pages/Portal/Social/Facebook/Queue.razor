@@ -1,0 +1,145 @@
+﻿@layout Common
+
+@page "/Portal/Social/Facebook"
+@page "/Portal/Social/Facebook/Queue"
+
+@code {
+
+}
+
+
+<div class="container-fluid m-0" style="max-width: 1000px; min-height:3000px;">
+    <div class="card mt-3">
+
+        <div class="card-body">
+            <blockquote class="blockquote">
+                <p>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
+                        </div>
+                        <div type="button" data-bs-toggle="modal" data-bs-target="#createPostPopup" class="col-md-11 p-2" style="background-color:#f0f2f5;  border-radius: 25px; font-size: 1.0625rem; line-height:2; padding-left: 20px!important; color:#838589">
+                            What's on your mind, Gurminder?
+                        </div>
+                    </div>
+                </p>
+            </blockquote>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            Post on April 9th
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="/images/img_avatar.png" height="200" width="200" class="img-fluid rounded mx-auto d-block" />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-md-9 ">
+                    <p class="align-items-middle" style="font-size: 14px;">This Post will be sent on April 9th at 9:30 AM (BST).</p>
+                </div>
+                <div class="col-md-3 end-0">
+
+                    <a href="#" class="btn btn-danger btn-sm" tabindex="-1" role="button" aria-disabled="true">Delete</a>
+                    <a href="#" class="btn btn-warning btn-sm" tabindex="-1" role="button" aria-disabled="true">Edit</a>
+                    <a href="#" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="true">Share Now</a>
+
+                    @*<button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-warning">Edit</button>
+                        <button type="button" class="btn btn-primary">Share Now</button>*@
+                </div>
+            </div>
+            @*<table style="">
+                    <tbody>
+                        <tr>
+                            <td class="align-middle col-md-8s">
+                                This Post will be sent on April 9th at 9:30 AM (BST).
+                            </td>
+                            <td class="align-middle col-md-4 me-auto">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-warning">Edit</button>
+                                <button type="button" class="btn btn-primary">Share Now</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>*@
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="createPostPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PopupLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+
+        <form asp-controller="Facebook" asp-action="Share" method="post">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title " id="PopupLabel">Create Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row pb-3">
+                        <div class="col-md-12">
+
+                            <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
+                            <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
+
+                        </div>
+                    </div>
+
+                    <div class="">
+
+                        <div class="row pt-2 pb-2">
+                            <div class="col-md-12">
+                                <textarea asp-for="Description" class="form-control border-0" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row pt-2 pb-2">
+                            <div class="col-md-12">
+                                <input asp-for="File" type="file" class="form-control" id="customFile" />
+                                <span asp-validation-for="File" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="row pt-3">
+                            <div class="col-md-11">
+
+                                <div class="form-check form-switch p-0">
+                                    <label class="form-check-label" for="ScheduleSwitch"><i class="fa fa-calendar" aria-hidden="true"></i>Schedule Post</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-1">
+
+                                <div class="form-check form-switch p-0">
+                                    <input class="form-check-input" type="checkbox" id="ScheduleSwitch">
+                                </div>
+
+                            </div>
+                        </div>*@
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-primary">Schedule</button>*@
+                    <button type="button" class="btn btn-primary" asp-action="Share" asp-controller="Facebook">Share</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

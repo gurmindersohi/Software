@@ -1,0 +1,42 @@
+﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
+  <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Program.cs">
+    <Files>
+      <File FileName="Sohi.Web/Services/Leads/ILeadService.cs" Line="10" Column="44" />
+      <File FileName="Sohi.Web/Services/Leads/LeadService.cs" Line="20" Column="10" />
+      <File FileName="Sohi.Web/Pages/Portal/Leads/LeadListBase.cs" Line="13" Column="17" />
+      <File FileName="Sohi.Web/Pages/Portal/Leads/LeadList.razor" Line="8" Column="2" />
+      <File FileName="Sohi.Web/Pages/EmployeeList.razor" Line="3" Column="1" />
+      <File FileName="Sohi.Web/Pages/EmployeeListBase.cs" Line="13" Column="33" />
+      <File FileName="Sohi.Web/Shared/NavMenu.razor" Line="27" Column="14" />
+      <File FileName="Sohi.Api/Program.cs" Line="16" Column="1" />
+      <File FileName="Sohi.Web/Program.cs" Line="16" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Sohi" expanded="True">
+            <Node name="Sohi.Api" expanded="True" />
+            <Node name="Sohi.Web" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="Multiple Projects" Name="Multiple Projects">
+      <Items>
+        <StartupItem ItemId="{9F3BB3E1-D529-438F-92EE-07B051EF3863}" ItemName="Sohi.Api" ConfigurationId="Default" />
+        <StartupItem ItemId="{285E0899-F27B-4B02-A43C-9A6F552348FA}" ItemName="Sohi.Web" ConfigurationId="Default" />
+      </Items>
+    </MultiItemSolutionRunConfiguration>
+  </MultiItemStartupConfigurations>
+</Properties>

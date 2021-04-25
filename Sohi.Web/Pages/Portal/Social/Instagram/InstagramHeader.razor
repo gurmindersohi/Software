@@ -1,0 +1,56 @@
+﻿
+@inherits LayoutComponentBase
+
+@layout SocialLayout
+
+
+<div class="page">
+
+
+    <div class="main">
+
+
+
+
+
+        <div class="top-row px-4">
+
+            <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+                <ul class="nav">
+
+                    <li class="nav-item px-0">
+                        <NavLink class="nav-link" href="/Portal/Social/Instagram" Match="NavLinkMatch.All">
+                            Queue
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-0">
+                        <NavLink class="nav-link" href="/Portal/Social/Instagram/Posts">
+                            Posts
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-0">
+                        <NavLink class="nav-link" href="/Portal/Social/Instagram/Analytics">
+                            Analytics
+                        </NavLink>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="px-4 container-fluid">
+            @Body
+        </div>
+    </div>
+</div>
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

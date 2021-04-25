@@ -1,0 +1,51 @@
+﻿
+@inherits LayoutComponentBase
+
+@layout MainLayout
+
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <span class="navbar-brand ps-2">Platforms</span>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="/Portal/Social" Match="NavLinkMatch.All">
+                <span class="oi oi-plus" aria-hidden="true"></span> Create
+            </NavLink>
+        </li>
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="/Portal/Social/Facebook">
+                <span class="oi oi-home" aria-hidden="true"></span>
+                @*<i class="fa fa-facebook" aria-hidden="true"></i>*@
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                @*<img src="/images/fb.png" height="50" width="50" class="rounded-circle" />*@
+                Facebook
+            </NavLink>
+        </li>
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="/Portal/Social/Instagram">
+                <span class="oi oi-plus" aria-hidden="true"></span>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                Instagram
+            </NavLink>
+        </li>
+
+
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
