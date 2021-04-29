@@ -44,9 +44,40 @@ namespace Sohi.Api.Models.Leads
             return await context.Leads.FirstOrDefaultAsync(l => l.LeadId == id);
         }
 
-        public Lead Update(Lead user)
+        public async Task<Lead> UpdateLead(Lead lead)
         {
-            throw new NotImplementedException();
+            var result = await context.Leads.FirstOrDefaultAsync(l => l.LeadId == lead.LeadId);
+
+            if (result != null)
+            {
+                result.FirstName = lead.FirstName;
+                result.LastName = lead.LastName ;
+                result.FullName = lead.FirstName + " " + lead.LastName;
+                result.Email = lead.Email;
+                result.PrimaryPhone = lead.PrimaryPhone;
+                result.SecondaryPhone = lead.SecondaryPhone;
+                result.DateOfBirth = lead.DateOfBirth;
+                result.Gender = lead.Gender;
+                result.Address = lead.Address;
+                result.City = lead.City;
+                result.Province = lead.Province;
+                result.Country = lead.Country;
+                result.AccountId = lead.AccountId;
+                result.LeadSource = lead.LeadSource;
+                result.IsPhoneCallAllowed = lead.IsPhoneCallAllowed;
+                result.IsEmailAllowed = lead.IsEmailAllowed;
+                result.IsTextAllowed = lead.IsTextAllowed;
+                result.IsMember = lead.IsMember;
+
+                result.ModifiedBy = lead.ModifiedBy;
+                result.ModifiedOn = lead.ModifiedOn;
+                result.IsActive = lead.IsActive;
+
+                await context.SaveChangesAsync();
+                return result;
+
+            }
+            return null;
         }
 
 

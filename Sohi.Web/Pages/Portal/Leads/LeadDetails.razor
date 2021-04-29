@@ -1,0 +1,231 @@
+﻿@page "/Portal/Leads/LeadDetails/{LeadId}"
+@inherits LeadDetailsBase
+
+@if (Lead == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+
+    <div class="container pt-5 pb-5" style="background-color: #fff !important; margin-top:50px;">
+        <div class="row">
+            <div class="col-md-4" style="background-color: #fff !important; ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="/images/img_avatar.png" height="300px" width="300px" class="img-fluid rounded mx-auto d-block" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-7 pt-2" style="background-color: #fff !important;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1>@Lead.FullName</h1>
+                    </div>
+                    <div class="col-md-4 p-3">
+                        <h6>Edit Profile</h6>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <h6>Software Engineer</h6>
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                    </div>
+                    <div class="col-md-12">
+                        <h6>Ranking: 8/10</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <ul class="nav nav-tabs" id="tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">About</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Address-tab" data-bs-toggle="tab" data-bs-target="#Address" type="button" role="tab" aria-controls="Address" aria-selected="false">Address</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Actions-tab" data-bs-toggle="tab" data-bs-target="#Actions" type="button" role="tab" aria-controls="Actions" aria-selected="false">Actions</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="TabContent">
+                            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+
+                                <table class="table borderless pt-3">
+
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">First Name</th>
+                                            <td>@Lead.FirstName</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Last Name</th>
+                                            <td>@Lead.LastName</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Email</th>
+                                            <td>@Lead.Email</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Gender</th>
+                                            <td>@Lead.Gender</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Date Of Birth</th>
+                                            <td>@Lead.DateOfBirth</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Primary Phone</th>
+                                            <td>@Lead.PrimaryPhone</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                                <table class="table borderless pt-3">
+
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">Email</th>
+                                            <td>@Lead.Email</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Primary Phone</th>
+                                            <td>@Lead.PrimaryPhone</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Secondary Phone</th>
+                                            <td>@Lead.SecondaryPhone</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">IsPhoneCallAllowed</th>
+                                            <td>@Lead.IsPhoneCallAllowed</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">IsTextAllowed</th>
+                                            <td>@Lead.IsTextAllowed</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">IsEmailAllowed</th>
+                                            <td>@Lead.IsEmailAllowed</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="tab-pane fade" id="Address" role="tabpanel" aria-labelledby="Address-tab">
+
+                                <table class="table borderless pt-3">
+
+                                    <tbody>
+
+
+                                        <tr>
+                                            <th scope="row">Address</th>
+                                            <td>@Lead.Address</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">City</th>
+                                            <td>@Lead.City</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Province</th>
+                                            <td>@Lead.Province</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Country</th>
+                                            <td>@Lead.Country</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Postal Code</th>
+                                            <td>@Lead.PostalCode</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="tab-pane fade" id="Actions" role="tabpanel" aria-labelledby="Actions-tab">
+
+                                <table class="table borderless pt-3">
+
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">LeadSource</th>
+                                            <td>@Lead.LeadSource</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Created By</th>
+                                            <td>@Lead.CreatedBy</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Created On</th>
+                                            <td>@Lead.CreatedOn</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Modified By</th>
+                                            <td>@Lead.ModifiedBy</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Modified On</th>
+                                            <td>@Lead.ModifiedOn</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Active</th>
+                                            <td>@Lead.IsActive</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+    @*@section Scripts{
+
+            <script>$('.nav li').click(function () {
+
+                    $(this).toggleClass('active').siblings().removeClass('active');
+                });</script>
+
+
+        }*@
+
+    <style>
+        th, td {
+            border-bottom-width: 0px !important;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+        }
+
+            .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+                color: #0B90FF !important;
+                border: none;
+                border-bottom: 1px solid #0B90FF !important;
+            }
+    </style>
+

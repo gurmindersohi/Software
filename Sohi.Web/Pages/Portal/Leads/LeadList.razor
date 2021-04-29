@@ -1,8 +1,12 @@
 ﻿@page "/Portal/Leads/LeadList"
 @inherits LeadListBase
 
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h3>Leads</h3>
 
-<h3>Leads</h3>
+    </div>
+</div>
 
 @if (Leads == null)
 {
@@ -12,7 +16,7 @@ else
 {
     <div class="row">
         <div class="col  mt-10 mb-10">
-            <a class="btn btn-primary" asp-controller="Leads" asp-action="Create">
+            <a class="btn btn-primary" href="@($"Portal/Leads/EditLead")">
                 Create
             </a>
         </div>
@@ -21,27 +25,19 @@ else
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>FullName</th>
+                <th>Full Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>DOB</th>
                 <th>Gender</th>
                 <th>Lead Source</th>
                 <th>Created On</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var lead in Leads)
             {
-                <tr>
-                    <td><a asp-controller="Leads" asp-action="Details" asp-route-id="@lead.LeadId">@lead.FullName</a></td>
-                    <td>@lead.Email</td>
-                    <td>@lead.PrimaryPhone</td>
-                    <td>@lead.DateOfBirth</td>
-                    <td>@lead.Gender</td>
-                    <td>@lead.LeadSource</td>
-                    <td>@lead.CreatedOn</td>
-                </tr>
+                <DisplayLead Lead="lead" OnLeadDeleted="LeadDeleted"></DisplayLead>
             }
         </tbody>
     </table>

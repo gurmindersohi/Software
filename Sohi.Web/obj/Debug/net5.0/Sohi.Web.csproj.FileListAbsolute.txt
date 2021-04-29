@@ -1,4 +1,3 @@
-/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.csprojAssemblyReference.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.GeneratedMSBuildEditorConfig.editorconfig
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.AssemblyInfoInputs.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.AssemblyInfo.cs
@@ -7,8 +6,11 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.MvcApplicationPartsAssemblyInfo.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.RazorComponent.input.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/App.razor.g.cs
-/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/EmployeeList.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Dashboard.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Leads/DisplayLead.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Leads/EditLead.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Leads/LeadDetails.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Leads/LeadList.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Social/Create.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Social/Facebook/Posts.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Social/Facebook/Queue.razor.g.cs
@@ -316,7 +318,10 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/refs/WindowsBase.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Sohi.Web.Views.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Sohi.Web.Views.pdb
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/AutoMapper.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Microsoft.AspNetCore.Blazor.HttpClient.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Microsoft.AspNetCore.Components.DataAnnotations.Validation.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Microsoft.AspNetCore.Razor.Language.dll
@@ -352,14 +357,15 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Sohi.Models.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Debug/net5.0/Sohi.Models.pdb
-/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Leads/LeadList.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Sohi.Web.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.TagHelpers.input.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.TagHelpers.output.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.RazorCoreGenerate.cache
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/App.razor.g.cs
-/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/EmployeeList.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Dashboard.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Leads/DisplayLead.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Leads/EditLead.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Leads/LeadDetails.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Leads/LeadList.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Social/Create.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Social/Facebook/Posts.razor.g.cs
@@ -395,3 +401,5 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/ref/Sohi.Web.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.pdb
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.genruntimeconfig.cache
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Shared/Confirm.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Shared/Confirm.razor.g.cs

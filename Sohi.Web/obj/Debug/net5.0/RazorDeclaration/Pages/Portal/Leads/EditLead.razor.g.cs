@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Sohi.Web.Pages
+namespace Sohi.Web.Pages.Portal.Leads
 {
     #line hidden
     using System;
@@ -82,8 +82,9 @@ using Sohi.Web.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/EmployeeList")]
-    public partial class EmployeeList : EmployeeListBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Leads/EditLead/{LeadId}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Leads/EditLead")]
+    public partial class EditLead : EditLeadBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
