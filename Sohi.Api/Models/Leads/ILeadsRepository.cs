@@ -12,17 +12,17 @@ namespace Sohi.Api.Models.Leads
         Task<Lead> GetLead(Guid id, Guid accountid);
         Task<Lead> GetLeadByEmail(string email);
         Task<Lead> DeleteLead(Guid id);
+        Task<Lead> UpdateLead(Lead lead);
+        Task<Lead> CreateLead(Lead lead);
 
         Task<IEnumerable<Lead>> Search(string name, string email, string accountid);
 
 
         Lead Add(Lead lead);
-        Lead Update(Lead lead);
 
         //API
 
         //IEnumerable<Lead> GetAllLeads(string accountid);
-        Task<Lead> CreateLead(Lead lead);
 
     }
 }

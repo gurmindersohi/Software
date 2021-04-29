@@ -9,3 +9,4 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Debug/net5.0/Sohi.Models.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Debug/net5.0/ref/Sohi.Models.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Debug/net5.0/Sohi.Models.pdb
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Debug/net5.0/Sohi.Models.csprojAssemblyReference.cache

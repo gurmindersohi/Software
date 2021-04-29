@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sohi.Web.Models;
 using Sohi.Web.Services.Leads;
 
 namespace Sohi.Web
@@ -32,6 +33,8 @@ namespace Sohi.Web
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services.AddAutoMapper(typeof(LeadProfile));
 
             services.AddHttpClient<ILeadService, LeadService>(client =>
             {

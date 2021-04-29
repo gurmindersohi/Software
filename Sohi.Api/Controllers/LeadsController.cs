@@ -63,11 +63,11 @@ namespace Sohi.Api.Controllers
                 if (lead == null)
                     return BadRequest();
 
-                var existinglead = _leadsRepository.GetLeadByEmail(lead.Email);
+                var existinglead = await _leadsRepository.GetLeadByEmail(lead.Email);
 
                 if (existinglead != null)
                 {
-                    ModelState.AddModelError("email", "Employee email already in use");
+                    ModelState.AddModelError("email", "Lead email already in use");
                     return BadRequest(ModelState);
                 }
 
@@ -79,33 +79,28 @@ namespace Sohi.Api.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new employee record");
+                    "Error creating new lead record");
             }
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<Lead>> UpdateEmployee(string id, Lead lead)
-        //{
-        //    try
-        //    {
-        //        Guid leadId = Guid.Parse(id);
+        [HttpPut]
+        public async Task<ActionResult<Lead>> UpdateLead(Lead lead)
+        {
+            try
+            {
+                var leadToUpdate = await _leadsRepository.GetLead(lead.LeadId, lead.AccountId);
 
-        //        if (leadId != lead.LeadId)
-        //            return BadRequest("Lead ID mismatch");
+                if (leadToUpdate == null)
+                    return NotFound($"Lead with Id = {lead.LeadId} not found");
 
-        //        var leadToUpdate = await _leadsRepository.GetLead(leadId);
-
-        //        if (leadToUpdate == null)
-        //            return NotFound($"Lead with Id = {id} not found");
-
-        //        return await _leadsRepository.UpdateLead(lead);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError,
-        //            "Error updating data");
-        //    }
-        //}
+                return await _leadsRepository.UpdateLead(lead);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
+            }
+        }
 
         [HttpDelete("{id:Guid}/{accountid:Guid}")]
         public async Task<ActionResult<Lead>> DeleteLead(string id, Guid accountid)

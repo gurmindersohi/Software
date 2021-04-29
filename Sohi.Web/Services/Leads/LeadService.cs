@@ -16,9 +16,29 @@ namespace Sohi.Web.Services.Leads
             this.httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Lead>> GetLeads()
+        public async Task<Lead> CreateLead(Lead newlead)
         {
-            return await httpClient.GetJsonAsync<Lead[]>("api/leads/7458fd55-4b47-434b-9a68-613f4ca9a059");
+            return await httpClient.PostJsonAsync<Lead>("api/Leads", newlead);
+        }
+
+        public async Task DeleteLead(Guid leadId, Guid accountid)
+        {
+            await httpClient.DeleteAsync($"api/leads/{leadId}/{accountid}");
+        }
+
+        public async Task<Lead> GetLead(Guid leadId, Guid accountid)
+        {
+            return await httpClient.GetJsonAsync<Lead>($"api/leads/{leadId}/{accountid}");
+        }
+
+        public async Task<IEnumerable<Lead>> GetLeads(Guid accountid)
+        {
+            return await httpClient.GetJsonAsync<Lead[]>($"api/leads/{accountid}");
+        }
+
+        public async Task<Lead> UpdateLead(Lead updatedlead)
+        {
+            return await httpClient.PutJsonAsync<Lead>("api/leads/", updatedlead);
         }
     }
 }

@@ -18,7 +18,16 @@ namespace Sohi.Web.Pages.Portal.Leads
         protected override async Task OnInitializedAsync()
         {
 
-            Leads = (await LeadService.GetLeads()).ToList();
+            Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+
+            Leads = (await LeadService.GetLeads(accountid)).ToList();
+        }
+
+        protected async Task LeadDeleted()
+        {
+            Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+
+            Leads = (await LeadService.GetLeads(accountid)).ToList();
         }
     }
 }
