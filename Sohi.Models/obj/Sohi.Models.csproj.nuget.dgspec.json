@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {}
+    "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj": {}
   },
   "projects": {
-    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {
+    "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj",
+        "projectUniqueName": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj",
         "projectName": "Sohi.Models",
-        "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj",
-        "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
-        "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/",
+        "projectPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj",
+        "packagesPath": "C:\\Users\\gurmi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
+          "C:\\Users\\gurmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
