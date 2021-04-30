@@ -1,35 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Api\\Sohi.Api.csproj": {}
+    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Api/Sohi.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Api\\Sohi.Api.csproj": {
+    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Api/Sohi.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Api\\Sohi.Api.csproj",
+        "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Api/Sohi.Api.csproj",
         "projectName": "Sohi.Api",
-        "projectPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Api\\Sohi.Api.csproj",
-        "packagesPath": "C:\\Users\\gurmi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Api\\obj\\",
+        "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Api/Sohi.Api.csproj",
+        "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
+        "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gurmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj": {
-                "projectPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj"
+              "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {
+                "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj"
               }
             }
           }
@@ -77,28 +75,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj": {
+    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj",
+        "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj",
         "projectName": "Sohi.Models",
-        "projectPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\Sohi.Models.csproj",
-        "packagesPath": "C:\\Users\\gurmi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gurmi\\Source\\Repos\\Software\\Sohi.Models\\obj\\",
+        "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj",
+        "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
+        "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gurmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -131,7 +127,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
         }
       }
     }
