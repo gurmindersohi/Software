@@ -34,6 +34,10 @@ namespace Sohi.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            // For Getting user
+            services.AddHttpContextAccessor();
+            //
+
             services.AddAutoMapper(typeof(LeadProfile));
 
             services.AddHttpClient<ILeadService, LeadService>(client =>

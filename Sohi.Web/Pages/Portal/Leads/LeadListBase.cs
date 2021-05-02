@@ -5,7 +5,9 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Sohi.Models;
+using Sohi.Web.Models;
 using Sohi.Web.Services.Leads;
 
 namespace Sohi.Web.Pages.Portal.Leads
@@ -17,17 +19,32 @@ namespace Sohi.Web.Pages.Portal.Leads
 
         public IEnumerable<Lead> Leads { get; set; }
 
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        [Inject]
+        public UserManager<User> userManager { get; set; }
+
+        public User user { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
+            var authState = await authenticationStateTask;
 
-            Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+            if (authState.User.Identity.IsAuthenticated)
+            {
+                user = await userManager.GetUserAsync(authState.User);
+            }
+
+            Guid accountid = Guid.Parse(user.AccountId);
 
             Leads = (await LeadService.GetLeads(accountid)).ToList();
         }
 
         protected async Task LeadDeleted()
         {
-            Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+
+            Guid accountid = Guid.Parse(user.AccountId);
 
             Leads = (await LeadService.GetLeads(accountid)).ToList();
         }

@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Sohi.Models;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Leads;
@@ -27,15 +29,31 @@ namespace Sohi.Web.Pages.Portal.Leads
         [Parameter]
         public string LeadId { get; set; }
 
+
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        [Inject]
+        public UserManager<User> userManager { get; set; }
+
+        public User user { get; set; }
+
         protected async override Task OnInitializedAsync()
         {
+            var authState = await authenticationStateTask;
+
+            if (authState.User.Identity.IsAuthenticated)
+            {
+                user = await userManager.GetUserAsync(authState.User);
+            }
+
             if (LeadId != null)
             {
                 PageHeader = "Edit Lead";
 
                 Guid leadId = Guid.Parse(LeadId);
 
-                Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+                Guid accountid = Guid.Parse(user.AccountId);
 
                 Lead = await LeadService.GetLead(leadId, accountid);
             }
@@ -66,8 +84,8 @@ namespace Sohi.Web.Pages.Portal.Leads
                     LastName = Lead.LastName,
                     FullName = Lead.FirstName + " " + Lead.LastName,
                     Email = Lead.Email,
-                    AccountId = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059"),
-                    CreatedBy = "Gurminder",
+                    AccountId = Guid.Parse(user.AccountId),
+                    CreatedBy = user.FirstName + " " + user.LastName,
                     CreatedOn = DateTime.Now,
                     DateOfBirth = Lead.DateOfBirth,
                     IsActive = true
@@ -84,9 +102,9 @@ namespace Sohi.Web.Pages.Portal.Leads
 
         protected async Task Delete_Click()
         {
-            Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+            //Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
 
-            await LeadService.DeleteLead(Lead.LeadId, accountid);
+            await LeadService.DeleteLead(Lead.LeadId, Lead.AccountId);
             NavigationManager.NavigateTo("/Portal/Leads/LeadList");
         }
     }
