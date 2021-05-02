@@ -1,0 +1,12 @@
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/bin/Release/net5.0/Sohi.Models.deps.json
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/bin/Release/net5.0/Sohi.Models.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/bin/Release/net5.0/ref/Sohi.Models.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/bin/Release/net5.0/Sohi.Models.pdb
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.csprojAssemblyReference.cache
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.AssemblyInfoInputs.cache
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.AssemblyInfo.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.csproj.CoreCompileInputs.cache
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/ref/Sohi.Models.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/Release/net5.0/Sohi.Models.pdb

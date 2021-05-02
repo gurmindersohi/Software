@@ -89,6 +89,13 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/Common.razor"
+using Sohi.Models;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
     public partial class Common : LayoutComponentBase
     {
@@ -98,7 +105,7 @@ using System.Net;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 47 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/Common.razor"
+#line 52 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/Common.razor"
        
     private bool collapseNavMenu = true;
 
@@ -108,6 +115,9 @@ using System.Net;
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+
+    public IEnumerable<Lead> Leads { get; set; }
 
 #line default
 #line hidden

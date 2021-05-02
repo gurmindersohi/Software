@@ -1,49 +1,54 @@
-﻿
+﻿@using Sohi.Models
+
 @inherits LayoutComponentBase
 
 @layout SocialLayout
 
 
-<div class="page">
+@if (Leads == null)
+{
+    <div class="spinner">Gurminder</div>
+}
+else
+{
+    <div class="page">
 
 
-    <div class="main">
+        <div class="main">
 
+            <div class="top-row px-4">
 
+                <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+                    <ul class="nav">
 
+                        <li class="nav-item px-0">
+                            <NavLink class="nav-link" href="/Portal/Social/Facebook" Match="NavLinkMatch.All">
+                                Queue
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-0">
+                            <NavLink class="nav-link" href="/Portal/Social/Facebook/Posts">
+                                Posts
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-0">
+                            <NavLink class="nav-link" href="/Portal/Social/Facebook/Analytics">
+                                Analytics
+                            </NavLink>
+                        </li>
 
+                    </ul>
+                </div>
 
-        <div class="top-row px-4">
-
-            <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-                <ul class="nav">
-
-                    <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Facebook" Match="NavLinkMatch.All">
-                            Queue
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Facebook/Posts">
-                            Posts
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Facebook/Analytics">
-                            Analytics
-                        </NavLink>
-                    </li>
-
-                </ul>
             </div>
 
-        </div>
-
-        <div class="px-4 container-fluid">
-            @Body
+            <div class="px-4 container-fluid">
+                @Body
+            </div>
         </div>
     </div>
-</div>
+
+}
 @code {
     private bool collapseNavMenu = true;
 
@@ -53,4 +58,7 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+
+    public IEnumerable<Lead> Leads { get; set; }
 }

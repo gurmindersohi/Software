@@ -55,6 +55,10 @@ namespace Sohi.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sohi.Api v1"));
             }
 
+
+            //app.UseDeveloperExceptionPage();
+
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
