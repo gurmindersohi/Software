@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Leads;
+using Sohi.Web.Services.Social;
 
 namespace Sohi.Web
 {
@@ -41,6 +42,12 @@ namespace Sohi.Web
             services.AddAutoMapper(typeof(LeadProfile));
 
             services.AddHttpClient<ILeadService, LeadService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7368/");
+                //client.BaseAddress = new Uri("https://sohi-api.azurewebsites.net/");
+            });
+
+            services.AddHttpClient<ISocialService, SocialService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7368/");
                 //client.BaseAddress = new Uri("https://sohi-api.azurewebsites.net/");

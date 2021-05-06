@@ -89,39 +89,13 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 1 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/Common.razor"
-using Sohi.Models;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
-    public partial class Common : LayoutComponentBase
+    public partial class Common : CommonBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 52 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/Common.razor"
-       
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-
-    public IEnumerable<Lead> Leads { get; set; }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

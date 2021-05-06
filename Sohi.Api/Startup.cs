@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Sohi.Api.Models;
 using Sohi.Api.Models.Leads;
+using Sohi.Api.Models.Social;
 
 namespace Sohi.Api
 {
@@ -36,6 +37,7 @@ namespace Sohi.Api
 
 
             services.AddScoped<ILeadsRepository, LeadsRepository>();
+            services.AddScoped<ISocialRepository, SocialRepository>();
 
 
             services.AddControllers();

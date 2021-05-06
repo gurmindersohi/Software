@@ -89,7 +89,7 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Common))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Queue")]
     public partial class Queue : Microsoft.AspNetCore.Components.ComponentBase
