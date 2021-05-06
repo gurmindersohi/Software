@@ -32,9 +32,9 @@ namespace Sohi.Web.Pages.Portal.Leads
         {
             if (deleteConfirmed)
             {
-                Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
+                //Guid accountid = Guid.Parse("7458fd55-4b47-434b-9a68-613f4ca9a059");
 
-                await LeadService.DeleteLead(Lead.LeadId, accountid);
+                await LeadService.DeleteLead(Lead.LeadId, Lead.AccountId);
                 await OnLeadDeleted.InvokeAsync(Lead.LeadId);
             }
         }

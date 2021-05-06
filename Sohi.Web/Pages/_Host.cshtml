@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sohi.Web</title>
+    <title>DC</title>
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
@@ -31,5 +31,18 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+    <div id="fb-root"></div>
+    <script src="https://connect.facebook.net/en_US/sdk.js" nonce="Jvlg9Dza"></script>
+    <script nonce="Jvlg9Dza">FB.init({
+            appId: 1133254180447928,
+            status: true,
+            xfbml: true,
+            version: 'v10.0'
+        });
+        FB.AppEvents.logPageView();</script>
+
+    <script src="js/FacebookJS.js"></script>
+
 </body>
 </html>

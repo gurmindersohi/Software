@@ -82,6 +82,13 @@ using Sohi.Web.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using System.Net;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLayout))]
     public partial class SocialMenu : LayoutComponentBase
     {
@@ -91,7 +98,7 @@ using Sohi.Web.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
+#line 43 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
        
     private bool collapseNavMenu = true;
 

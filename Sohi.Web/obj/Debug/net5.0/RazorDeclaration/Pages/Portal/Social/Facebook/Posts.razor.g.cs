@@ -82,9 +82,16 @@ using Sohi.Web.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Common))]
+#nullable restore
+#line 11 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using System.Net;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Posts")]
-    public partial class Posts : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Posts : PostsBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

@@ -82,7 +82,14 @@ using Sohi.Web.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(InstagramHeader))]
+#nullable restore
+#line 11 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using System.Net;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(InstagramLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/Queue")]
     public partial class Queue : Microsoft.AspNetCore.Components.ComponentBase
