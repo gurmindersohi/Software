@@ -30,7 +30,7 @@
 
     .top-row ::deep a, .top-row .btn-link {
         white-space: nowrap;
-        margin-left: 1.5rem;
+        margin-left: 0rem;
     }
 
     .top-row a:first-child {
@@ -38,11 +38,13 @@
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
+@media (max-width: 800px) {
     .top-row:not(.auth) {
-        display: none;
+        display: flex!important;
     }
-
+    .top-row ::deep a, .top-row .btn-link {
+        margin-left: 0rem!important;
+    }
     .top-row.auth {
         justify-content: space-between;
     }

@@ -101,7 +101,7 @@ using System.Net;
        
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "" : null;
 
     private void ToggleNavMenu()
     {

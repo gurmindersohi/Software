@@ -30,7 +30,7 @@
 
     .top-row[b-ofirg05gb0]  a, .top-row .btn-link[b-ofirg05gb0] {
         white-space: nowrap;
-        margin-left: 1.5rem;
+        margin-left: 0rem;
     }
 
     .top-row a:first-child[b-ofirg05gb0] {
@@ -38,11 +38,13 @@
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
+@media (max-width: 800px) {
     .top-row:not(.auth)[b-ofirg05gb0] {
-        display: none;
+        display: flex!important;
     }
-
+    .top-row[b-ofirg05gb0]  a, .top-row .btn-link[b-ofirg05gb0] {
+        margin-left: 0rem!important;
+    }
     .top-row.auth[b-ofirg05gb0] {
         justify-content: space-between;
     }

@@ -4,8 +4,13 @@
     background-color: #fff !important;
 }
 
+.navbar {
+    /*    justify-content:center;*/
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+}
 .navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+/*    background-color: rgba(255, 255, 255, 0.1);*/
 }
 
 .top-row {

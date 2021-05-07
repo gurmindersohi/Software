@@ -29,13 +29,17 @@
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
-    .top-row:not(.auth) {
+@media (max-width: 800px) {
+/*    .top-row:not(.auth) {
         display: none;
-    }
+    }*/
 
     .top-row.auth {
         justify-content: space-between;
+    }
+    .top-row ::deep a, .top-row .btn-link {
+        white-space: nowrap;
+        margin-left: 0rem;
     }
 
     .top-row a, .top-row .btn-link {

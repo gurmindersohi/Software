@@ -29,13 +29,17 @@
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
-    .top-row:not(.auth)[b-erzb3gxwfu] {
+@media (max-width: 800px) {
+/*    .top-row:not(.auth) {
         display: none;
-    }
+    }*/
 
     .top-row.auth[b-erzb3gxwfu] {
         justify-content: space-between;
+    }
+    .top-row[b-erzb3gxwfu]  a, .top-row .btn-link[b-erzb3gxwfu] {
+        white-space: nowrap;
+        margin-left: 0rem;
     }
 
     .top-row a[b-erzb3gxwfu], .top-row .btn-link[b-erzb3gxwfu] {
