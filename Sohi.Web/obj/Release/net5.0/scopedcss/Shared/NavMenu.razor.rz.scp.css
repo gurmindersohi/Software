@@ -3,7 +3,9 @@
 }
 
 .navbar[b-wkq20j8qpd] {
-    justify-content:center;
+    /*    justify-content:center;*/
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
 }
 
 .navbar-toggler[b-wkq20j8qpd] {

@@ -1,5 +1,4 @@
-﻿
-@inherits FacebookLayoutBase
+﻿@inherits FacebookLayoutBase
 
 @layout SocialLayout
 
@@ -44,14 +43,14 @@ else
 
             <div class="top-row">
                 <FacebookMenu />
-
+                
                 <ul class="nav ms-auto me-2">
 
                     <li class="nav-item px-0">
-                        <select class="form-select">
+                        <select class="form-select" value="@FacebookProfile[0].Id" @onchange="@OnPageSelection">
                             @foreach (var profile in FacebookProfile)
                             {
-                                <option selected>@profile.Name</option>
+                                <option value="@profile.Id" >@profile.Name</option>
                             }
                         </select>
                     </li>
@@ -59,10 +58,13 @@ else
                 </ul>
 
             </div>
-
-            <div class="container-fluid px-0">
-                @Body
-            </div>
-        </div>
+            <CascadingValue Value="PageId" Name="Id">
+                <CascadingValue Value="AccessToken" Name="Token">
+                    <div class="container-fluid px-0">
+                        @Body
+                    </div>
+                </CascadingValue>
+            </CascadingValue>
+</div>
     </div>
 }

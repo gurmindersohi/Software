@@ -4,6 +4,9 @@
 @page "/Portal/Social/Facebook/Posts"
 
 <div class="container-fluid m-0" style="max-width: 1000px; min-height: calc(100vh - 100px);">
+    @*<h1>Page id is: @PageId</h1>
+
+    <h1>Access Token is: @AccessToken</h1>*@
 
     @if (Posts == null)
     {
@@ -27,7 +30,7 @@
                                     Gurminder Singh
                                 </div>
                                 <div class="" style="font-size: 13px;">
-                                    May 7, 2020 at 6:04 PM
+                                    @post.CreatedTime
 
                                 </div>
                             </div>
@@ -41,7 +44,7 @@
                             <p class="card-text"></p>
                         </div>
                         <div class="col-md-3">
-                            <img src="/images/img_avatar.png" height="200" width="200" class="img-fluid rounded mx-auto d-block" asp-append-version="true" />
+                            <img src="@post.Picture" height="200" width="200" class="img-fluid rounded mx-auto d-block" asp-append-version="true" />
                         </div>
                     </div>
                 </div>
@@ -51,7 +54,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="">
-                                        <span class="" dir="auto">0</span>
+                                        <span class="" dir="auto">@post.Insights.Post_reactions_like_total</span>
                                     </div>
                                     <div class="">
                                         <span class="" dir="auto">Likes</span>
@@ -65,7 +68,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="">
-                                        <span class="" dir="auto">0</span>
+                                        <span class="" dir="auto">@post.Insights.Post_engaged_users</span>
                                     </div>
                                     <div class="">
                                         <span class="" dir="auto">People Reached</span>
@@ -78,7 +81,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="">
-                                        <span class="" dir="auto">0</span>
+                                        <span class="" dir="auto">@post.Insights.Post_impressions</span>
                                     </div>
                                     <div class="">
                                         <span class="" dir="auto">Engagements</span>
@@ -91,7 +94,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="">
-                                        <span class="" dir="auto">0</span>
+                                        <span class="" dir="auto">@post.Insights.Post_clicks</span>
                                     </div>
                                     <div class="">
                                         <span class="" dir="auto">Post Clicks</span>

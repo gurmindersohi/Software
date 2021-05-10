@@ -62,6 +62,7 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.js.map
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.min.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.min.js.map
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/FacebookJS.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/popper.min.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/lib/.DS_Store
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/lib/jquery-validate/additional-methods.js

@@ -98,7 +98,7 @@ using System.Net;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
+#line 43 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
        
     private bool collapseNavMenu = true;
 
