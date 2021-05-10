@@ -13,7 +13,7 @@ namespace Sohi.Models
 
         public PostInsights Insights { get; set; }
 
-        //public Profile Profile { get; set; }
+        public Profile Profile { get; set; }
 
     }
 }

@@ -182,10 +182,11 @@ namespace Sohi.Web.Services.Social
 
                     Post post = new Post();
                     post.Insights = new PostInsights();
+                    post.Profile = new Profile();
 
-                    //post.Profile.Id = parsedobj["id"].ToString();
-                    //post.Profile.Name = parsedobj["name"].ToString();
-                    //post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
+                    post.Profile.Id = parsedobj["id"].ToString();
+                    post.Profile.Name = parsedobj["name"].ToString();
+                    post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
 
                     post.Id = item["id"].ToString();
                     if (item["full_picture"] != null)
@@ -198,6 +199,13 @@ namespace Sohi.Web.Services.Social
                         post.Description = item["message"].ToString();
                     }
 
+                    if (item["created_time"] != null)
+                    {
+                        var time = Convert.ToDateTime(item["created_time"].ToString());
+                        var createdBy = time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.Minute.ToString() + " " + time.ToString("tt"); ;
+                        post.CreatedTime = createdBy;
+                    }
+
                     if (item["admin_creator"] != null)
                     {
                         string publishedBy = item["admin_creator"]["name"].ToString();
@@ -205,6 +213,7 @@ namespace Sohi.Web.Services.Social
                         var createdBy = "Published by " + publishedBy + " on " + time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.Minute.ToString() + " " + time.ToString("tt"); ;
                         post.CreatedTime = createdBy;
                     }
+
 
                     var result = await GetPostInsights(item["id"].ToString(), pagetoken, endPoint);
 
