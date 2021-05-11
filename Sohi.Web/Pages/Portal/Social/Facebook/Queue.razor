@@ -9,15 +9,26 @@
 <div class="container-fluid m-0 mb-1" style="max-width: 1000px; min-height: calc(100vh - 100px);">
     @if (Posts == null)
     {
-        <div class="spinner"></div>
+        if (!flag)
+        {
+            <div class="conatiner pt-5">
+                <div class="row text-center">
+                    <div class="col-md-12 p-3 header">
+                        Nothing to Show.
+                    </div>
+                </div>
+               
+
+            </div>
+        }
+        else
+        {
+            <div class="spinner"></div>
+
+        }
 
     }
 
-    @*else if (Posts.Em)
-    {
-        <h1>@Posts</h1>
-
-    }*@
     else
     {
         <div class="card mt-3">
