@@ -1,0 +1,457 @@
+﻿@page
+@model Sohi.Web.Pages.Website.IndexModel
+@{
+    ViewBag.Title = "DC - Home";
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        .font-weight-bold {
+            font-weight: 600 !important;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid p-0 m-0">
+
+        <header id="home">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+                <div class="container">
+                    <a class="navbar-brand px-3" href="Home">DC</a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationbar" aria-controls="navigationbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navigationbar" style="flex-grow: 0;">
+
+
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="Home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Services">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Features">Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Pricing">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="About">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Contact">Contact us</a>
+                            </li>
+
+                        </ul>
+                        <ul class="navbar-nav me-auto pl-5 mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://localhost:5001/">Login</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="DC/Register">Register</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+            <div class="p-5 bg-light" style="padding-top:200px!important;">
+                <div class="container">
+                    <h2 class="mb-3">Build your website with us</h2>
+                    <h6 class="mb-3">Expertise in building website for organizations.</h6>
+                    <a class="btn btn-primary" href="#contact" role="button">Get Started</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="container pt-2 pe-5 pb-5 ps-5" id="services">
+            <section class="team-section text-center my-5">
+                <h2 class="h1-responsive font-weight-bold my-5">Services</h2>
+                <div class="card-group">
+                    <div class="card">
+                        <img src="~/Images/code.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Websites</h5>
+                            <p class="card-text">Build your website .</p>
+                            @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="~/Images/code.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">.Net/.Net Core Project</h5>
+                            <p class="card-text">Build your .Net/.Net Core Project with us using Mvc or three tier Architecture.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="~/Images/code.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Html/Css Project</h5>
+                            <p class="card-text">Build your Html/Css Project with us.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-group">
+                    <div class="card">
+                        <img src="~/Images/code.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Javascript Project</h5>
+                            <p class="card-text">Build your Javascript Project with us.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="~/Images/code.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">AngularJs Project</h5>
+                            <p class="card-text">Build your AngularJs Project with us.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="~/Images/code.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">NodeJs Project</h5>
+                            <p class="card-text">Build your NodeJs Project with us.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="container pt-2 pe-5 pb-5 ps-5" id="pricing">
+            <section>
+                <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+                    <h1 class="h1-responsive font-weight-bold my-5">Pricing</h1>
+                    <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Free</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>10 users included</li>
+                                    <li>2 GB of storage</li>
+                                    <li>Email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Pro</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>20 users included</li>
+                                    <li>10 GB of storage</li>
+                                    <li>Priority email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                            <div class="card-header py-3 text-white bg-primary border-primary">
+                                <h4 class="my-0 fw-normal">Enterprise</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>30 users included</li>
+                                    <li>15 GB of storage</li>
+                                    <li>Phone and email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="display-6 text-center mb-4">Compare plans</h2>
+
+                <div class="table-responsive">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th style="width: 34%;"></th>
+                                <th style="width: 22%;">Free</th>
+                                <th style="width: 22%;">Pro</th>
+                                <th style="width: 22%;">Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-start">Public</th>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-start">Private</th>
+                                <td></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                            </tr>
+                        </tbody>
+
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-start">Permissions</th>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-start">Sharing</th>
+                                <td></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-start">Unlimited members</th>
+                                <td></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-start">Extra security</th>
+                                <td></td>
+                                <td></td>
+                                <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div class="bg-light pt-2 pe-5 pb-5 ps-5" id="contact">
+            <div class="container">
+
+                <h2 class="h1-responsive text-center font-weight-bold my-5">Contact us for building your Project</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <form>
+                            <div class="mb-3">
+                                <label for="Name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="Name" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Description" class="form-label">Description</label>
+                                <textarea type="text" cols="6" class="form-control" id="Description"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary" style="width:100%">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team -->
+        <div class="container" id="team">
+            <section class="team-section text-center my-5">
+
+                <h2 class="h1-responsive font-weight-bold my-5">Our team</h2>
+                <p class="grey-text w-responsive mx-auto mb-5">
+                    Our team works hard for delivering the High-Quality software solutions to our clients.
+                </p>
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-6 mb-lg-0 mb-5">
+                        <div class="avatar mx-auto">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg" class="rounded-circle z-depth-1"
+                                 alt="Sample avatar">
+                        </div>
+                        <h5 class="font-weight-bold mt-4 mb-3">Harjinder Kaur</h5>
+                        <p class="text-uppercase blue-text"><strong>Software Engineer</strong></p>
+                        <p class="grey-text">
+                            Harjinder Kaur is a software engineer with skills of Java, Javascript, Html, Css, Angular Js, Nodejs.
+                        </p>
+                        <ul class="list-unstyled mb-0">
+                            <!-- Facebook -->
+                            <a class="p-2 fa-lg fb-ic">
+                                <i class="fab fa-facebook-f blue-text"> </i>
+                            </a>
+                            <!-- Twitter -->
+                            <a class="p-2 fa-lg tw-ic">
+                                <i class="fab fa-twitter blue-text"> </i>
+                            </a>
+                            <!-- Instagram -->
+                            <a class="p-2 fa-lg ins-ic">
+                                <i class="fab fa-instagram blue-text"> </i>
+                            </a>
+                        </ul>
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-6 mb-lg-0 mb-5">
+                        <div class="avatar mx-auto">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" class="rounded-circle z-depth-1"
+                                 alt="Sample avatar">
+                        </div>
+                        <h5 class="font-weight-bold mt-4 mb-3">Gurminder Singh</h5>
+                        <p class="text-uppercase blue-text"><strong>Software Engineer</strong></p>
+                        <p class="grey-text">
+                            Gurminder Singh is a software engineer with skills of .Net, .Net core, Javascript, Html, Css, Swift, C#.
+                        </p>
+                        <ul class="list-unstyled mb-0">
+                            <!-- Facebook -->
+                            <a class="p-2 fa-lg fb-ic">
+                                <i class="fab fa-facebook-f blue-text"> </i>
+                            </a>
+                            <!-- Instagram -->
+                            <a class="p-2 fa-lg ins-ic">
+                                <i class="fab fa-instagram blue-text"> </i>
+                            </a>
+                        </ul>
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-6 mb-md-0 mb-5">
+                        <div class="avatar mx-auto">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="rounded-circle z-depth-1"
+                                 alt="Sample avatar">
+                        </div>
+                        <h5 class="font-weight-bold mt-4 mb-3">Raminder Kaur</h5>
+                        <p class="text-uppercase blue-text"><strong>Software Testing Engineer</strong></p>
+                        <p class="grey-text">
+                            Raminder Kaur is a software testing engineer who focus on delivering the secured bugs free projects.
+                        </p>
+                        <ul class="list-unstyled mb-0">
+                            <!-- Facebook -->
+                            <a class="p-2 fa-lg fb-ic">
+                                <i class="fab fa-facebook-f blue-text"> </i>
+                            </a>
+                            <!-- Instagram -->
+                            <a class="p-2 fa-lg ins-ic">
+                                <i class="fab fa-instagram blue-text"> </i>
+                            </a>
+                            <a class="p-2 fa-lg ins-ic">
+                                <i class="fab fa-dribbble blue-text"> </i>
+                            </a>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-light text-lg-start">
+            <div class="container p-4">
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                        <h2>DC Projects</h2>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">About us</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#!" class="text-dark">About us</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">Contact</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">Company</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">Jobs</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-0">Social</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!" class="text-dark">Facebook</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">Instagram</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">Twitter</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-dark">LinkedIn</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @*<div class="col-lg-2 col-md-6 mb-4 mb-md-0"></div>
+                        <div class="col-lg-4 text-right col-md-12 mb-4 mb-md-0">
+                            <h2 class="text">Subscribe</h2>
+
+                            <span class="pt-4" style="font-size:0.8em">Subscribe to our newsletter to receive exclusive offers and the latest news</span>
+
+                            <form class="text-left">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>*@
+
+                </div>
+            </div>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-dark" href="#">DC.com</a>
+            </div>
+        </footer>
+    </div>
+
+
+</body>
+
+
+
+</html>

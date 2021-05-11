@@ -4,7 +4,7 @@ using Sohi.Models;
 
 namespace Sohi.Web.Models
 {
-    public class LeadProfile : Profile
+    public class LeadProfile : AutoMapper.Profile
     {
         public LeadProfile()
         {

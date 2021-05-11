@@ -11,6 +11,7 @@ namespace Sohi.Api.Models
         }
 
         public DbSet<Lead> Leads { get; set; }
+        public DbSet<SocialMedia> SocialMediaAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

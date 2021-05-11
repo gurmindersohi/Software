@@ -1,17 +1,39 @@
 ﻿
-@inherits LayoutComponentBase
+@inherits CommonBase
 
-@layout SocialLayout
+<!--
+<div class="top-row pl-4 navbar navbar-dark">
+</div>-->
+@*@if (Leads == null)
+    {
+        <div class="conatiner pt-5">
+            <div class="row text-center">
+                <div class="col-md-12 p-3 header">
+                    Connect a Facebook account
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center pt-4">
+                <a class="col-md-2 btn" asp-action="FacebookLogin" asp-controller="Connect">
+                    <div class="ConnectBox">
+                        <div class="InsideConnectBox">
+                            <img src="/images/Fb.png" class="rounded-circle" width="35" height="35" />
+                            <h5 class="btnConnect">Facebook</h5>
+                            <span>Page</span>
+                            <span>Connect</span>
 
 
-<div class="page">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {*@
+<!--<div class="page">
 
 
     <div class="main">
-
-
-
-
 
         <div class="top-row px-4">
 
@@ -43,14 +65,5 @@
             @Body
         </div>
     </div>
-</div>
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+</div>-->
+@*}*@

@@ -22,7 +22,7 @@
     /*    justify-content: flex-end; */
     display: flex;
     align-items: center;
-    background-color: #f8f9fa;
+    background-color: #fff;
     /*    z-index: 1030;*/
 }
 
@@ -69,8 +69,8 @@
     }
 
     .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+/*        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;*/
     }
 }
 
@@ -134,3 +134,63 @@
         display: block;
     }
 }
+
+.ConnectBox {
+    appearance: none;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(119, 121, 122);
+    cursor: pointer;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    min-width: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    position: relative;
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    user-select: none;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+    height: 190px;
+    border: 1px solid rgb(184, 184, 184);
+}
+
+.InsideConnectBox {
+    padding: 1rem;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.header {
+    color: rgb(61, 61, 61);
+    font-family: Roboto, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 44px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.btnConnect {
+    color: rgb(61, 61, 61);
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+}
+

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Leads;
+using Sohi.Web.Services.Social;
 
 namespace Sohi.Web
 {
@@ -27,18 +28,29 @@ namespace Sohi.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddAuthentication("Identity.Application").AddCookie();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            // For Getting user
+            services.AddHttpContextAccessor();
+            //
+
             services.AddAutoMapper(typeof(LeadProfile));
 
             services.AddHttpClient<ILeadService, LeadService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7368/");
+                //client.BaseAddress = new Uri("https://sohi-api.azurewebsites.net/");
+            });
+
+            services.AddHttpClient<ISocialService, SocialService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7368/");
+                //client.BaseAddress = new Uri("https://sohi-api.azurewebsites.net/");
             });
         }
 
@@ -52,14 +64,20 @@ namespace Sohi.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //app.UseDeveloperExceptionPage();
+
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
