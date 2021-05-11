@@ -6,84 +6,92 @@
 
 @if (Profiles == null)
 {
-    <div class="spinner"></div>
+    if (!flag)
+    {
+       <Connect></Connect>
+    }
+    else
+    {
+        <div class="spinner"></div>
+
+    }
 
 }
 
 else
 {
-<div class="top-create-row">
+    <div class="top-create-row">
 
-</div>
+    </div>
 
-<div class="container-fluid m-0 pt-2" style="max-width: 1000px;">
-    <form method="post">
-        <EditForm Model="@Post" OnValidSubmit="CreatePost">
-            <div class="content">
-                <div class="header text-center">
-                    <h5 class="title " id="PopupLabel">Create Post</h5>
-                </div>
-                <div class="body">
+    <div class="container-fluid m-0 pt-2" style="max-width: 1000px;">
+        <form method="post">
+            <EditForm Model="@Post" OnValidSubmit="CreatePost">
+                <div class="content">
+                    <div class="header text-center">
+                        <h5 class="title " id="PopupLabel">Create Post</h5>
+                    </div>
+                    <div class="body">
 
-                    <div class="row pb-3">
-                        <div class="col-md-12">
-                            @foreach (var profile in Profiles)
-                            {
-                                <img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />
+                        <div class="row pb-3">
+                            <div class="col-md-12">
+                                @foreach (var profile in Profiles)
+                                {
+                                    <img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />
 
-                            }
+                                }
 
+                            </div>
                         </div>
+
+                        <div class="">
+
+                            <div class="row pt-2 pb-2">
+                                <div class="col-md-12">
+                                    <textarea asp-for="Description" class="form-control border-0" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row pt-2 pb-2">
+                                <div class="col-md-12">
+                                    <input asp-for="File" type="file" class="form-control" id="customFile" />
+                                    <span asp-validation-for="File" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="row pt-3">
+                                <div class="col-md-11">
+
+                                    <div class="form-check form-switch p-0">
+                                        <label class="form-check-label" for="ScheduleSwitch"><i class="fa fa-calendar" aria-hidden="true"></i>Schedule Post</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-1">
+
+                                    <div class="form-check form-switch p-0">
+                                        <input class="form-check-input" type="checkbox" id="ScheduleSwitch">
+                                    </div>
+
+                                </div>
+                            </div>*@
                     </div>
 
-                    <div class="">
+                    <div asp-validation-summary="All" class="text-danger"></div>
 
-                        <div class="row pt-2 pb-2">
-                            <div class="col-md-12">
-                                <textarea asp-for="Description" class="form-control border-0" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="row pt-2 pb-2">
-                            <div class="col-md-12">
-                                <input asp-for="File" type="file" class="form-control" id="customFile" />
-                                <span asp-validation-for="File" class="text-danger"></span>
+                    <div class="footer">
+                        @*<button type="button" class="btn btn-primary">Schedule</button>*@
 
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Share</button>
                     </div>
-
-                    @*<div class="row pt-3">
-                            <div class="col-md-11">
-
-                                <div class="form-check form-switch p-0">
-                                    <label class="form-check-label" for="ScheduleSwitch"><i class="fa fa-calendar" aria-hidden="true"></i>Schedule Post</label>
-                                </div>
-
-                            </div>
-                            <div class="col-md-1">
-
-                                <div class="form-check form-switch p-0">
-                                    <input class="form-check-input" type="checkbox" id="ScheduleSwitch">
-                                </div>
-
-                            </div>
-                        </div>*@
                 </div>
 
-                <div asp-validation-summary="All" class="text-danger"></div>
+            </EditForm>
+        </form>
 
-                <div class="footer">
-                    @*<button type="button" class="btn btn-primary">Schedule</button>*@
-
-                    <button type="submit" class="btn btn-primary">Share</button>
-                </div>
-            </div>
-
-        </EditForm>
-    </form>
-
-</div>
+    </div>
 
 }
 <style>

@@ -24,5 +24,10 @@ namespace Sohi.Web.Services.Social
 
         Task<List<SocialMedia>> GetAllTokens(string accountid);
 
+
+        Task<List<Post>> GetFacebookScheduledPosts(string PageId, string PageToken, string endPoint);
+
+        Task<Profile> GetFacebookPage(string pageid, string pagetoken, string endPoint);
+
     }
 }

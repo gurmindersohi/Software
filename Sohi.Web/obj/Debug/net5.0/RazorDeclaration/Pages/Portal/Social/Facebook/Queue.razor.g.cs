@@ -92,7 +92,7 @@ using System.Net;
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Queue")]
-    public partial class Queue : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Queue : QueueBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

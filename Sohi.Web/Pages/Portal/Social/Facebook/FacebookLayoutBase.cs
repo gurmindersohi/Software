@@ -51,10 +51,12 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
         public string AccessToken { get; set; }
 
+        public bool flag { get; set; } = true;
+
         //[Parameter]
         //public EventCallback<string> PageSelection { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnParametersSetAsync()
         {
             var authState = await authenticationStateTask;
 
@@ -85,7 +87,8 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
             else
             {
-                NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                flag = false;
+                //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
             }
 
 
