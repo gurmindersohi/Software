@@ -1,27 +1,11 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Facebook/QueueBase.cs">
-    <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor" Line="11" Column="30" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayoutBase.cs" Line="58" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Queue.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/QueueBase.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Web" expanded="True">
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True">
-                      <Node name="QueueBase.cs" selected="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
+          <Node name="Sohi" expanded="True" selected="True">
+            <Node name="Sohi.Web" expanded="True" />
           </Node>
         </State>
       </Pad>
