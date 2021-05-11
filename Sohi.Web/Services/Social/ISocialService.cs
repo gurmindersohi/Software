@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Sohi.Models;
 
@@ -18,6 +19,10 @@ namespace Sohi.Web.Services.Social
         Task<string> GenerateFacebookPageTokenAsync(string pageid, string pagetoken, string endPoint);
 
         Task<List<Post>> GetFacebookPosts(string PageId, string PageToken, string endPoint);
+
+        Task<Post> CreatePost(string PageId, string endPoint, FormUrlEncodedContent content);
+
+        Task<List<SocialMedia>> GetAllTokens(string accountid);
 
     }
 }

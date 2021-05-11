@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Sohi.Models
 {
     public class Post
@@ -10,5 +11,10 @@ namespace Sohi.Models
         public string Picture { get; set; }
 
         public string CreatedTime { get; set; }
+
+        public PostInsights Insights { get; set; }
+
+        public Profile Profile { get; set; }
+
     }
 }

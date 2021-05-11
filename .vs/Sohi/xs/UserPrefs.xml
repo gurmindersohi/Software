@@ -1,20 +1,20 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Facebook/FacebookMenu.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Services/Leads/LeadService.cs">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor" Line="34" Column="23" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayoutBase.cs" Line="42" Column="29" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" Line="110" Column="7" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/PostsBase.cs" Line="29" Column="37" />
-      <File FileName="Sohi.Web/Pages/Portal/Leads/DisplayLead.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Leads/DisplayLeadBase.cs" Line="38" Column="43" />
-      <File FileName="Sohi.Web/Pages/Portal/Leads/EditLeadBase.cs" Line="22" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Leads/LeadListBase.cs" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Leads/LeadList.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookMenu.razor.css" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookMenu.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="15" Column="1" NotebookId="1" />
-      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="185" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Create.razor" Line="132" Column="65" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="46" Column="67" />
+      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="25" Column="39" />
+      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="53" Column="20" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Queue.razor" Line="5" Column="1" />
+      <File FileName="Sohi.Web/Shared/SocialLayout.razor" Line="15" Column="18" />
+      <File FileName="Sohi.Web/Services/Leads/LeadService.cs" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayoutBase.cs" Line="26" Column="10" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" Line="32" Column="40" NotebookId="1" />
+      <File FileName="Sohi.Models/Post.cs" Line="21" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Api/Controllers/SocialController.cs" Line="68" Column="30" NotebookId="1" />
+      <File FileName="Sohi.Api/Models/Social/ISocialRepository.cs" Line="16" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Api/Models/Social/SocialRepository.cs" Line="13" Column="1" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,39 +22,27 @@
           <Node name="Sohi" expanded="True">
             <Node name="Sohi.Api" expanded="True">
               <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Leads" expanded="True" />
+                <Node name="Social" expanded="True" />
+              </Node>
             </Node>
             <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
-                </Node>
-              </Node>
-              <Node name="Models" expanded="True" />
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
-                  <Node name="Leads" expanded="True" />
                   <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True">
-                      <Node name="FacebookLayout.razor" expanded="True" />
-                      <Node name="FacebookMenu.razor" expanded="True" selected="True" />
-                    </Node>
+                    <Node name="Facebook" expanded="True" />
                   </Node>
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
-                <Node name="Leads" expanded="True" />
+                <Node name="Leads" expanded="True">
+                  <Node name="LeadService.cs" selected="True" />
+                </Node>
                 <Node name="Social" expanded="True" />
               </Node>
-              <Node name="Shared" expanded="True">
-                <Node name="MainLayout.razor" expanded="True" />
-                <Node name="SocialLayout.razor" expanded="True" />
-                <Node name="SocialMenu.razor" expanded="True" />
-              </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="css" expanded="True" />
-                <Node name="js" expanded="True" />
-              </Node>
+              <Node name="Shared" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -67,6 +55,7 @@
     <BreakpointStore>
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" relfile="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" line="101" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />

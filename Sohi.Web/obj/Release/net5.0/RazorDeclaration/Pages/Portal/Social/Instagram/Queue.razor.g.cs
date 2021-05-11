@@ -89,7 +89,7 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(InstagramHeader))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(InstagramLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/Queue")]
     public partial class Queue : Microsoft.AspNetCore.Components.ComponentBase

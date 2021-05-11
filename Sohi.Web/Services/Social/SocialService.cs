@@ -50,6 +50,38 @@ namespace Sohi.Web.Services.Social
 
         }
 
+        public async Task<List<SocialMedia>> GetAllTokens(string accountid)
+        {
+            Guid id = new Guid(accountid);
+
+            List<SocialMedia> accounts = new List<SocialMedia>();
+
+            var response = await httpClient.GetAsync($"api/Social/{accountid}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JArray)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj)
+                {
+
+                    SocialMedia account = new SocialMedia();
+                    account.AccessToken = item["accessToken"].ToString();
+                    account.Type = item["type"].ToString();
+
+                    accounts.Add(account);
+
+                }
+                return accounts;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         public async Task<SocialMedia> SaveToken(SocialMedia account)
         {
             return await httpClient.PostJsonAsync<SocialMedia>("api/Social", account);
@@ -159,18 +191,34 @@ namespace Sohi.Web.Services.Social
         {
             List<Post> posts = new List<Post>();
 
-            string url = string.Format(endPoint + "/{0}/posts?fields=id,full_picture,message,created_time,admin_creator&access_token={1}", pageid, pagetoken);
+
+            string url = string.Format(endPoint + "/{0}?fields=id,name,picture,posts%7Bid,full_picture,message,created_time,admin_creator%7D&access_token={1}", pageid, pagetoken);
 
             var response = await httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
+                //post.Profile = new Profile();
+
+                //Post post = new Post();
+                //post.Insights = new PostInsights();
+
                 var jsonResponse = response.Content.ReadAsStringAsync().Result;
                 var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
 
-                foreach (var item in parsedobj["data"])
+
+                var data = parsedobj["posts"]["data"];
+
+                foreach (var item in data)
                 {
+
                     Post post = new Post();
+                    post.Insights = new PostInsights();
+                    post.Profile = new Profile();
+
+                    post.Profile.Id = parsedobj["id"].ToString();
+                    post.Profile.Name = parsedobj["name"].ToString();
+                    post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
 
                     post.Id = item["id"].ToString();
                     if (item["full_picture"] != null)
@@ -183,6 +231,13 @@ namespace Sohi.Web.Services.Social
                         post.Description = item["message"].ToString();
                     }
 
+                    if (item["created_time"] != null)
+                    {
+                        var time = Convert.ToDateTime(item["created_time"].ToString());
+                        var createdBy = time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.Minute.ToString() + " " + time.ToString("tt"); ;
+                        post.CreatedTime = createdBy;
+                    }
+
                     if (item["admin_creator"] != null)
                     {
                         string publishedBy = item["admin_creator"]["name"].ToString();
@@ -192,7 +247,18 @@ namespace Sohi.Web.Services.Social
                     }
 
 
+                    var result = await GetPostInsights(item["id"].ToString(), pagetoken, endPoint);
+
+                    post.Insights.Post_reactions_like_total = result.Post_reactions_like_total.ToString();
+
+                    post.Insights.Post_engaged_users = result.Post_engaged_users.ToString();
+
+                    post.Insights.Post_impressions = result.Post_impressions.ToString();
+
+                    post.Insights.Post_clicks = result.Post_clicks.ToString();
+
                     posts.Add(post);
+
                 }
 
                 return posts;
@@ -203,5 +269,95 @@ namespace Sohi.Web.Services.Social
             }
         }
 
+
+        public async Task<PostInsights> GetPostInsights(string postid, string pagetoken, string endPoint)
+        {
+            PostInsights postInsights = new PostInsights();
+            string url = string.Format(endPoint + "/{0}?fields=insights.metric(post_reactions_like_total,post_engaged_users,post_impressions, post_clicks)&access_token={1}", postid, pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var data = parsedobj["insights"]["data"];
+
+                postInsights.Id = postid;
+
+                foreach (var item in data)
+                {
+                    if (item["name"].ToString() == "post_reactions_like_total")
+                    {
+                        postInsights.Post_reactions_like_total = item["values"][0]["value"].ToString();
+
+                    }
+                    if (item["name"].ToString() == "post_engaged_users")
+                    {
+                        postInsights.Post_engaged_users = item["values"][0]["value"].ToString();
+
+                    }
+                    if (item["name"].ToString() == "post_impressions")
+                    {
+                        postInsights.Post_impressions = item["values"][0]["value"].ToString();
+
+                    }
+                    if (item["name"].ToString() == "post_clicks")
+                    {
+                        postInsights.Post_clicks = item["values"][0]["value"].ToString();
+
+                    }
+
+
+                    //if (data[0]["name"].ToString() == "post_reactions_like_total")
+                    //{
+                    //    postInsights.Post_reactions_like_total = data[0]["values"][0]["value"].ToString();
+
+                    //}
+                    //if (data[1]["name"].ToString() == "Post_engaged_users")
+                    //{
+                    //    postInsights.Post_engaged_users = data[1]["values"][1]["value"].ToString();
+
+                    //}
+                    //if (data[2]["name"].ToString() == "Post_impressions")
+                    //{
+                    //    postInsights.Post_impressions = data[2]["values"][2]["value"].ToString();
+
+                    //}
+                    //if (data[3]["name"].ToString() == "Post_clicks")
+                    //{
+                    //    postInsights.Post_clicks = data[3]["values"][3]["value"].ToString();
+
+                    //}
+
+                }
+
+                return postInsights;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<Post> CreatePost(string PageId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            string url = string.Format(endPoint + "/feed");
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

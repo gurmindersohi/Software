@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,17 @@ namespace Sohi.Api.Models.Social
             SocialMedia accounts = new SocialMedia();
 
             accounts = await context.SocialMediaAccounts.FirstOrDefaultAsync(a => a.AccountId == accountid && a.Type == platform);
+
+            return accounts;
+
+        }
+
+        public async Task<IEnumerable<SocialMedia>> GetAllTokens(string accountid)
+        {
+
+            List<SocialMedia> accounts = new List<SocialMedia>();
+
+            accounts = await context.SocialMediaAccounts.Where(a => a.AccountId == accountid).ToListAsync();
 
             return accounts;
 

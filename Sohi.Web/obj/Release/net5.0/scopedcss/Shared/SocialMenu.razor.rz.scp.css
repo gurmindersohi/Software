@@ -1,13 +1,23 @@
 
 
+.sidebar[b-l8gdda4nhs] {
+    background-color: #fff !important;
+}
+
+.navbar[b-l8gdda4nhs] {
+    /*    justify-content:center;*/
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+}
 .navbar-toggler[b-l8gdda4nhs] {
-    background-color: rgba(255, 255, 255, 0.1);
+/*    background-color: rgba(255, 255, 255, 0.1);*/
 }
 
 .top-row[b-l8gdda4nhs] {
     height: 3.5rem;
     border-bottom: 1px solid #dee2e6 !important;
     /*    background-color: rgba(0,0,0,0.4);*/
+    background-color: #f7f7f7 !important;
 }
 
 .navbar-brand[b-l8gdda4nhs] {

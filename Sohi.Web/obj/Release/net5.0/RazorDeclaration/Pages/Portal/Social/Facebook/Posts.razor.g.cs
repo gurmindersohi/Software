@@ -89,9 +89,9 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Common))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Posts")]
-    public partial class Posts : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Posts : PostsBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

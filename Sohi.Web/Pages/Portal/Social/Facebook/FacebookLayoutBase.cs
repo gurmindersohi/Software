@@ -47,6 +47,13 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
         public User user { get; set; }
 
+        public string PageId { get; set; }
+
+        public string AccessToken { get; set; }
+
+        //[Parameter]
+        //public EventCallback<string> PageSelection { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authState = await authenticationStateTask;
@@ -66,12 +73,36 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
             {
                 //FacebookProfile = await SocialService.GetFacebookAccountAsync(account.AccessToken, endPoint);
 
-
+                AccessToken = account.AccessToken;
                 FacebookProfile = await SocialService.GetFacebookPages(account.AccessToken, endPoint);
+
+                if (FacebookProfile != null)
+                {
+                    PageId = FacebookProfile[0].Id;
+                }
 
             }
 
+            else
+            {
+                NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+            }
+
+
         }
+
+        protected async Task OnPageSelection(ChangeEventArgs e)
+        {
+            PageId = e.Value.ToString();
+
+            //await PageSelection.InvokeAsync(PageId);
+            //StateHasChanged();
+
+            NavigationManager.NavigateTo(NavigationManager.Uri);
+
+
+        }
+
 
         protected async void ConnectFacebook()
         {
