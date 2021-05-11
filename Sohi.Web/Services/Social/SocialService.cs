@@ -182,7 +182,8 @@ namespace Sohi.Web.Services.Social
                     return response.ReasonPhrase;
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return ex.Message;
             }
         }
@@ -353,6 +354,100 @@ namespace Sohi.Web.Services.Social
 
 
                 return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        public async Task<List<Post>> GetFacebookScheduledPosts(string pageid, string pagetoken, string endPoint)
+        {
+            List<Post> posts = new List<Post>();
+
+
+            string url = string.Format(endPoint + "/{0}?fields=id,name,picture,scheduled_posts%7Bid,full_picture,message,created_time,admin_creator,scheduled_publish_time%7D&access_token={1}", pageid, pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var data = parsedobj["scheduled_posts"]["data"];
+
+                foreach (var item in data)
+                {
+                    Post post = new Post();
+
+                    post.Profile = new Profile();
+
+                    post.Profile.Id = parsedobj["id"].ToString();
+                    post.Profile.Name = parsedobj["name"].ToString();
+                    post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
+
+                    post.Id = item["id"].ToString();
+                    if (item["full_picture"] != null)
+                    {
+                        post.Picture = item["full_picture"].ToString();
+                    }
+
+                    if (item["message"] != null)
+                    {
+                        post.Description = item["message"].ToString();
+                    }
+
+                    if (item["scheduled_publish_time"] != null)
+                    {
+                        var dateStamp = item["scheduled_publish_time"].ToString();
+
+                        Double date = Double.Parse(dateStamp);
+
+                        DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(date).ToLocalTime();
+
+                        //var time = Convert.ToDateTime(item["scheduled_publish_time"].ToString());
+                        var createdBy = time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.Minute.ToString() + " " + time.ToString("tt"); ;
+                        post.CreatedTime = createdBy;
+                    }
+
+
+
+                    posts.Add(post);
+
+                }
+
+                return posts;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<Profile> GetFacebookPage(string pageid, string accesstoken, string endPoint)
+        {
+            Profile page = new Profile();
+
+            string url = string.Format(endPoint + "/me?fields=id,name,picture&access_token={0}", accesstoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                page.Id = parsedobj["id"].ToString();
+                page.Name = parsedobj["name"].ToString();
+
+                if (parsedobj["picture"]["data"]["url"] != null)
+                {
+                    page.Image = parsedobj["picture"]["data"]["url"].ToString();
+                }
+
+                return page;
             }
             else
             {

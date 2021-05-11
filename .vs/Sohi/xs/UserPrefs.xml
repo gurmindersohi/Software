@@ -1,48 +1,32 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Services/Leads/LeadService.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Facebook/Queue.razor">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Social/Create.razor" Line="132" Column="65" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="46" Column="67" />
-      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="25" Column="39" />
-      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="53" Column="20" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Queue.razor" Line="5" Column="1" />
-      <File FileName="Sohi.Web/Shared/SocialLayout.razor" Line="15" Column="18" />
-      <File FileName="Sohi.Web/Services/Leads/LeadService.cs" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayoutBase.cs" Line="26" Column="10" NotebookId="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" Line="32" Column="40" NotebookId="1" />
-      <File FileName="Sohi.Models/Post.cs" Line="21" Column="1" NotebookId="1" />
-      <File FileName="Sohi.Api/Controllers/SocialController.cs" Line="68" Column="30" NotebookId="1" />
-      <File FileName="Sohi.Api/Models/Social/ISocialRepository.cs" Line="16" Column="1" NotebookId="1" />
-      <File FileName="Sohi.Api/Models/Social/SocialRepository.cs" Line="13" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/QueueBase.cs" Line="43" Column="29" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Queue.razor" Line="33" Column="6" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" Line="8" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/PostsBase.cs" Line="42" Column="1" />
+      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="30" Column="38" />
+      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="452" Column="14" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="67" Column="55" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Api" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Leads" expanded="True" />
-                <Node name="Social" expanded="True" />
-              </Node>
-            </Node>
-            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
                   <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True" />
+                    <Node name="Facebook" expanded="True">
+                      <Node name="Queue.razor" selected="True" />
+                    </Node>
                   </Node>
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
-                <Node name="Leads" expanded="True">
-                  <Node name="LeadService.cs" selected="True" />
-                </Node>
                 <Node name="Social" expanded="True" />
               </Node>
-              <Node name="Shared" expanded="True" />
             </Node>
           </Node>
         </State>
