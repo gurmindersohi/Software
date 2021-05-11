@@ -243,7 +243,7 @@ namespace Sohi.Web.Services.Social
                     {
                         string publishedBy = item["admin_creator"]["name"].ToString();
                         var time = Convert.ToDateTime(item["created_time"].ToString());
-                        var createdBy = "Published by " + publishedBy + " on " + time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.Minute.ToString() + " " + time.ToString("tt"); ;
+                        var createdBy = "Published by " + publishedBy + " on " + time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.ToString("mm") + " " + time.ToString("tt"); ;
                         post.CreatedTime = createdBy;
                     }
 
@@ -376,49 +376,55 @@ namespace Sohi.Web.Services.Social
                 var jsonResponse = response.Content.ReadAsStringAsync().Result;
                 var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
 
-                var data = parsedobj["scheduled_posts"]["data"];
 
-                foreach (var item in data)
+                if (parsedobj["scheduled_posts"]["data"] != null)
                 {
-                    Post post = new Post();
+                    var data = parsedobj["scheduled_posts"]["data"];
 
-                    post.Profile = new Profile();
-
-                    post.Profile.Id = parsedobj["id"].ToString();
-                    post.Profile.Name = parsedobj["name"].ToString();
-                    post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
-
-                    post.Id = item["id"].ToString();
-                    if (item["full_picture"] != null)
+                    foreach (var item in data)
                     {
-                        post.Picture = item["full_picture"].ToString();
+                        Post post = new Post();
+
+                        post.Profile = new Profile();
+
+                        post.Profile.Id = parsedobj["id"].ToString();
+                        post.Profile.Name = parsedobj["name"].ToString();
+                        post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
+
+                        post.Id = item["id"].ToString();
+                        if (item["full_picture"] != null)
+                        {
+                            post.Picture = item["full_picture"].ToString();
+                        }
+
+                        if (item["message"] != null)
+                        {
+                            post.Description = item["message"].ToString();
+                        }
+
+                        if (item["scheduled_publish_time"] != null)
+                        {
+                            var dateStamp = item["scheduled_publish_time"].ToString();
+
+                            Double date = Double.Parse(dateStamp);
+
+                            DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(date).ToLocalTime();
+
+                            //var time = Convert.ToDateTime(item["scheduled_publish_time"].ToString());
+                            var createdBy = time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.ToString("mm") + " " + time.ToString("tt"); ;
+                            post.CreatedTime = createdBy;
+                        }
+
+
+
+                        posts.Add(post);
+
                     }
 
-                    if (item["message"] != null)
-                    {
-                        post.Description = item["message"].ToString();
-                    }
-
-                    if (item["scheduled_publish_time"] != null)
-                    {
-                        var dateStamp = item["scheduled_publish_time"].ToString();
-
-                        Double date = Double.Parse(dateStamp);
-
-                        DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(date).ToLocalTime();
-
-                        //var time = Convert.ToDateTime(item["scheduled_publish_time"].ToString());
-                        var createdBy = time.ToString("MMMM") + " " + time.Day.ToString() + ", " + time.Year.ToString() + " at " + time.ToString("hh") + ":" + time.Minute.ToString() + " " + time.ToString("tt"); ;
-                        post.CreatedTime = createdBy;
-                    }
-
-
-
-                    posts.Add(post);
-
+                    return posts;
                 }
 
-                return posts;
+                return null;
             }
             else
             {
