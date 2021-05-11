@@ -6,7 +6,7 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column" style="min-height: calc(100vh - 200px);">
+    <ul class="nav flex-column" style="min-height: calc(100vh - 250px);">
         <li class="nav-item px-0">
             <NavLink class="nav-link p-2" href="/Portal/Dashboard">
                 <span class="oi oi-home" aria-hidden="true"></span>
@@ -56,6 +56,11 @@
             </NavLink>
             <NavLink class="nav-link p-2" href="/Account">
                 <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
+            </NavLink>
+
+            <NavLink class="nav-link p-2" href="identity/account/logout">
+                <span class="oi oi-power-standby" aria-hidden="true"></span>
+                <br />Logout
             </NavLink>
         </li>
     </ul>

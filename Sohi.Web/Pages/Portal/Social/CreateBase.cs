@@ -38,7 +38,10 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public List<Profile> Profiles { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        public bool flag { get; set; } = true;
+
+
+        protected override async Task OnParametersSetAsync()
         {
             var authState = await authenticationStateTask;
 
@@ -49,7 +52,7 @@ namespace Sohi.Web.Pages.Portal.Social
 
             List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
-            if (accounts != null)
+            if (accounts != null && accounts.Count != 0)
             {
                 //FacebookProfile = await SocialService.GetFacebookAccountAsync(account.AccessToken, endPoint);
                 foreach (var account in accounts)
@@ -75,7 +78,8 @@ namespace Sohi.Web.Pages.Portal.Social
 
             else
             {
-                NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                flag = false;
+                //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
             }
 
 
@@ -106,5 +110,6 @@ namespace Sohi.Web.Pages.Portal.Social
                 NavigationManager.NavigateTo("/Portal/Social/Facebook/Posts");
             }
         }
+
     }
 }
