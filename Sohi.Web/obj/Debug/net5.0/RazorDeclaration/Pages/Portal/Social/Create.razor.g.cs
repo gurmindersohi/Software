@@ -92,7 +92,7 @@ using System.Net;
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Create")]
-    public partial class Create : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Create : CreateBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

@@ -50,6 +50,38 @@ namespace Sohi.Web.Services.Social
 
         }
 
+        public async Task<List<SocialMedia>> GetAllTokens(string accountid)
+        {
+            Guid id = new Guid(accountid);
+
+            List<SocialMedia> accounts = new List<SocialMedia>();
+
+            var response = await httpClient.GetAsync($"api/Social/{accountid}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JArray)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj)
+                {
+
+                    SocialMedia account = new SocialMedia();
+                    account.AccessToken = item["accessToken"].ToString();
+                    account.Type = item["type"].ToString();
+
+                    accounts.Add(account);
+
+                }
+                return accounts;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         public async Task<SocialMedia> SaveToken(SocialMedia account)
         {
             return await httpClient.PostJsonAsync<SocialMedia>("api/Social", account);
@@ -309,5 +341,23 @@ namespace Sohi.Web.Services.Social
             }
         }
 
+        public async Task<Post> CreatePost(string PageId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            string url = string.Format(endPoint + "/feed");
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

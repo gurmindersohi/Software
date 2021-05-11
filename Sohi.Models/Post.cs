@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Sohi.Models
 {
     public class Post

@@ -57,5 +57,19 @@ namespace Sohi.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
+
+        [HttpGet("{accountid}")]
+        public async Task<ActionResult<SocialMedia>> GetAllTokens(string accountid)
+        {
+            try
+            {
+                return Ok(await _socialRepository.GetAllTokens(accountid));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
     }
 }

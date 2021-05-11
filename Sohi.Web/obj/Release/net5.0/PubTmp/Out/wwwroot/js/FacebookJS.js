@@ -16,6 +16,7 @@ function LoginDialog() {
     return token;
 }
 
+
 //function LoginDialog() {
 //    FB.login(function (response) {
 //        if (response.authResponse) {
