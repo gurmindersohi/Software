@@ -89,6 +89,7 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Dashboard")]
     public partial class Dashboard : Microsoft.AspNetCore.Components.ComponentBase
     {
