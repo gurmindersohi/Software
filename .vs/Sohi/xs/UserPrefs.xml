@@ -1,38 +1,34 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/CreateBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Services/Social/SocialService.cs">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor" Line="11" Column="30" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayoutBase.cs" Line="124" Column="14" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Create.razor" Line="9" Column="14" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="78" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Connect.razor" Line="2" Column="20" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/ConnectBase.cs" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor" Line="38" Column="6" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayoutBase.cs" Line="33" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Instagram/InstagramLayout.razor" Line="16" Column="37" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Instagram/InstagramLayoutBase.cs" Line="63" Column="1" />
+      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="33" Column="49" />
+      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="464" Column="99" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
-                </Node>
-              </Node>
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
                   <Node name="Social" expanded="True">
-                    <Node name="CreateBase.cs" selected="True" />
+                    <Node name="Facebook" expanded="True" />
+                    <Node name="Instagram" expanded="True" />
                   </Node>
                 </Node>
+                <Node name="Website" expanded="True" />
               </Node>
               <Node name="Services" expanded="True">
-                <Node name="Social" expanded="True" />
+                <Node name="Social" expanded="True">
+                  <Node name="SocialService.cs" selected="True" />
+                </Node>
               </Node>
               <Node name="Shared" expanded="True" />
-              <Node name="wwwroot" expanded="True">
-                <Node name="images" expanded="True" />
-              </Node>
             </Node>
           </Node>
         </State>

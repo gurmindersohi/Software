@@ -56,7 +56,7 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
         //[Parameter]
         //public EventCallback<string> PageSelection { get; set; }
 
-        protected override async Task OnParametersSetAsync()
+        protected override async Task OnInitializedAsync()
         {
             var authState = await authenticationStateTask;
 

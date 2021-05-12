@@ -90,7 +90,7 @@ using System.Net;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
-    public partial class InstagramLayout : LayoutComponentBase
+    public partial class InstagramLayout : InstagramLayoutBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

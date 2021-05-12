@@ -29,5 +29,8 @@ namespace Sohi.Web.Services.Social
 
         Task<Profile> GetFacebookPage(string pageid, string pagetoken, string endPoint);
 
+
+        Task<List<Profile>> GetInstagramAccounts(string accesstoken, string endPoint);
+
     }
 }

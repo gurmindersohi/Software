@@ -29,6 +29,7 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
         public Profile Profile { get; set; }
 
+        public bool flag { get; set; } = true;
 
         protected override void OnParametersSet()
         {
@@ -55,6 +56,10 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
                 if (result != null)
                 {
                     Posts = result;
+                }
+                else
+                {
+                    flag = false;
                 }
             }
            

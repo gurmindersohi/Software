@@ -35,5 +35,7 @@
     <Folder Include="Models\" />
     <Folder Include="Pages\Website\" />
     <Folder Include="Services\Social\" />
+    <Folder Include="Pages\Portal\Ads\" />
+    <Folder Include="Pages\Portal\Ads\Facebook\" />
   </ItemGroup>
 </Project>

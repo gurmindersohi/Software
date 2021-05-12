@@ -97,7 +97,7 @@ using System.Net;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 30 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/FacebookMenu.razor"
+#line 36 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/FacebookMenu.razor"
        
     private bool collapseNavMenu = true;
 
