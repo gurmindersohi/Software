@@ -90,7 +90,6 @@ using System.Net;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social")]
     public partial class SocialLayout : SocialLayoutBase
     {
         #pragma warning disable 1998

@@ -89,13 +89,47 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
-    public partial class SocialMenu : SocialMenuBase
+#nullable restore
+#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
+using Sohi.Models;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class SocialMenu : LayoutComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 93 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
+       
+
+    [Parameter]
+    public List<Profile> FacebookProfile { get; set; }
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    [Parameter]
+    public EventCallback<Profile> OnPageSelection { get; set; }
+
+    protected async Task ReturnPageId(Profile profile)
+    {
+        await OnPageSelection.InvokeAsync(profile);
+    }
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

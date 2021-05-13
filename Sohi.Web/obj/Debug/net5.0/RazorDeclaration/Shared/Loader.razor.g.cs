@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Sohi.Web.Pages.Portal.Social.Facebook
+namespace Sohi.Web.Shared
 {
     #line hidden
     using System;
@@ -89,32 +89,13 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 1 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/CreatePost.razor"
-using Sohi.Models;
-
-#line default
-#line hidden
-#nullable disable
-    public partial class CreatePost : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Loader : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 22 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/CreatePost.razor"
-           
-
-        [CascadingParameter(Name = "FacebookProfile")]
-        public Profile FacebookProfile { get; set; }
-
-    
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

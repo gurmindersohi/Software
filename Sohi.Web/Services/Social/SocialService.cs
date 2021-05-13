@@ -377,7 +377,7 @@ namespace Sohi.Web.Services.Social
                 var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
 
 
-                if (parsedobj["scheduled_posts"]["data"] != null)
+                if (parsedobj["scheduled_posts"] != null)
                 {
                     var data = parsedobj["scheduled_posts"]["data"];
 
@@ -432,7 +432,7 @@ namespace Sohi.Web.Services.Social
             }
         }
 
-        public async Task<Profile> GetFacebookPage(string pageid, string accesstoken, string endPoint)
+        public async Task<Profile> GetFacebookPage(string accesstoken, string endPoint)
         {
             Profile page = new Profile();
 

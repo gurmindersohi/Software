@@ -1,82 +1,112 @@
-﻿@inherits SocialMenuBase 
+﻿@inherits LayoutComponentBase
+@using Sohi.Models; 
 
-<div class="top-row pl-4 ps-3 navbar navbar-light bg-light">
-    <span class="navbar-brand ps-2">Platforms</span>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+@if (FacebookProfile == null)
+{
+    <Loader></Loader>
+}
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-0">
-            <NavLink class="nav-link" href="/Portal/Social" Match="NavLinkMatch.All">
-                <span class="oi oi-plus" aria-hidden="true"></span> Create
-            </NavLink>
-        </li>
+else
+{
+    <div class="top-row pl-4 ps-3 navbar navbar-light bg-light">
+        <span class="navbar-brand ps-2">Platforms</span>
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 
-        @if (FacebookProfile != null)
-        {
-    <li class="nav-item px-0">
-
-        <h5 class="ps-3 pt-3">Facebook</h5>
-
-        @foreach (var profile in FacebookProfile)
-        {
-            @*<NavLink class="nav-link" href="@($"Portal/Social/Facebook/{profile.Id}")">*@
-            <NavLink class="nav-link" href="@($"Portal/Social/Facebook/{profile.Id}")" @onclick="() => ReturnPageId(profile.Id)">
-
-                <div class="row p-1">
-                    <div class="col pe-0" style="flex:0;">
-                        <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
-                    </div>
-                    <div class="col">
-                        <div class="" style="color:black; font-weight:600;">
-                            @profile.Name
-                        </div>
-
-                    </div>
-                </div>
-
-            </NavLink>
-
-        }
-
-    </li>
-        }
-
-        @if (InstagramProfile != null)
-        {
-
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <ul class="nav flex-column">
             <li class="nav-item px-0">
+                <NavLink class="nav-link" href="/Portal/Social/Create" Match="NavLinkMatch.All">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Create
+                </NavLink>
+            </li>
 
-                <h5 class="ps-3 pt-3">Instagram</h5>
+            @if (FacebookProfile != null)
+            {
+                <li class="nav-item px-0">
 
-                @foreach (var profile in InstagramProfile)
-                {
-                    <NavLink class="nav-link" href="/Portal/Social/Instagram">
+                    <h5 class="ps-3 pt-3">Facebook</h5>
 
-                        <div class="row p-1">
-                            <div class="col pe-0" style="flex:0;">
-                                <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                    @foreach (var profile in FacebookProfile)
+                    {
+                        <NavLink class="nav-link" href="@($"Portal/Social/Facebook/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
+                            <div class="row p-1">
+                                <div class="col pe-0" style="flex:0;">
+                                    <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                </div>
+                                <div class="col">
+                                    <div class="" style="color:black; font-weight:600;">
+                                        @profile.Name
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col">
-                                <div class="" style="color:black; font-weight:600;">
-                                    @profile.Name
+
+                        </NavLink>
+
+                    }
+
+                </li>
+            }
+
+            @*@if (InstagramProfile != null)
+                {
+
+                    <li class="nav-item px-0">
+
+                        <h5 class="ps-3 pt-3">Instagram</h5>
+
+                        @foreach (var profile in InstagramProfile)
+                        {
+                            <NavLink class="nav-link" href="/Portal/Social/Instagram">
+
+                                <div class="row p-1">
+                                    <div class="col pe-0" style="flex:0;">
+                                        <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                    </div>
+                                    <div class="col">
+                                        <div class="" style="color:black; font-weight:600;">
+                                            @profile.Name
+                                        </div>
+
+                                    </div>
                                 </div>
 
-                            </div>
-                        </div>
 
 
+                            </NavLink>
 
-                    </NavLink>
-
-                }
-            </li>
-        }
+                        }
+                    </li>
+                }*@
 
 
-    </ul>
-</div>
+        </ul>
+    </div>
 
+}
+
+@code {
+
+    [Parameter]
+    public List<Profile> FacebookProfile { get; set; }
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    [Parameter]
+    public EventCallback<Profile> OnPageSelection { get; set; }
+
+    protected async Task ReturnPageId(Profile profile)
+    {
+        await OnPageSelection.InvokeAsync(profile);
+    }
+}

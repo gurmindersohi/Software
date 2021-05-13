@@ -4,7 +4,7 @@
 
 @inherits CreateBase
 
-@if (Profiles == null)
+@if (FacebookProfile == null)
 {
     if (!flag)
     {
@@ -35,7 +35,7 @@ else
 
                         <div class="row pb-3">
                             <div class="col-md-12">
-                                @foreach (var profile in Profiles)
+                                @foreach (var profile in FacebookProfile)
                                 {
                                     <img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />
 

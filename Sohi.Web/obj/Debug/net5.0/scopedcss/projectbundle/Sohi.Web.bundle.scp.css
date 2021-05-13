@@ -682,6 +682,44 @@
     font-weight: 700;
     line-height: 28px;
 }
+/* _content/Sohi.Web/Shared/Loader.razor.rz.scp.css */
+
+.spinner[b-ll1nxg8rlk] {
+    border: 16px solid silver;
+    border-top: 16px solid #337AB7;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin-b-ll1nxg8rlk 700ms linear infinite;
+    top: 30%;
+    left: 48%;
+    position: absolute;
+}
+
+@keyframes spin-b-ll1nxg8rlk {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
+@media (max-width: 641px) {
+    .spinner[b-ll1nxg8rlk] {
+        border: 16px solid silver;
+        border-top: 16px solid #337AB7;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        animation: spin-b-ll1nxg8rlk 700ms linear infinite;
+        top: 30%;
+        left: 40%;
+        position: absolute;
+    }
+}
 /* _content/Sohi.Web/Shared/MainLayout.razor.rz.scp.css */
 .page[b-nxgqjyz87z] {
     position: relative;

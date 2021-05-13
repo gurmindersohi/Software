@@ -1,12 +1,11 @@
-﻿@page "/Portal/Social"
-@inherits SocialLayoutBase
+﻿@inherits SocialLayoutBase
 
 @layout MainLayout
 
 
-@if (FacebookProfile == null)
+@if (user == null)
 {
-    <div class="spinner"></div>
+    <Loader></Loader>
 }
 
 else
@@ -14,17 +13,18 @@ else
 
     <div class="page">
         <div class="sidebar">
-            <SocialMenu FacebookProfile="FacebookProfile" FacebookAccessToken="@FacebookAccessToken" InstagramProfile="InstagramProfile" OnPageSelection="PageSelectionChanged" />
+
+            <SocialMenu FacebookProfile="FacebookProfile" OnPageSelection="PageSelectionChanged" />
+
         </div>
 
         <div class="main">
 
-            <CascadingValue Value="PageId" Name="Id">
-                <CascadingValue Value="PageToken" Name="PageToken">
-                    <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
-                        @Body
-                    </div>
-                </CascadingValue>
+
+            <CascadingValue Value="Profile" Name="SocialProfile">
+                <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
+                    @Body
+                </div>
             </CascadingValue>
         </div>
     </div>

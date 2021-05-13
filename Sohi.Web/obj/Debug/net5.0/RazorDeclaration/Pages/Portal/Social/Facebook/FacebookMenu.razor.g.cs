@@ -89,6 +89,13 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/FacebookMenu.razor"
+using Sohi.Models;
+
+#line default
+#line hidden
+#nullable disable
     public partial class FacebookMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -108,8 +115,16 @@ using System.Net;
         collapseNavMenu = !collapseNavMenu;
     }
 
+    [CascadingParameter(Name = "SocialProfile")]
+    public Profile Profile { get; set; }
+
     [Parameter]
     public string Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id = Profile.Id;
+    }
 
 #line default
 #line hidden
