@@ -1,0 +1,18 @@
+﻿@page "/Portal/Settings"
+
+@inherits LayoutComponentBase
+@layout MainLayout
+
+
+    <div class="page">
+        <div class="sidebar">
+            <SettingsMenu />
+        </div>
+
+        <div class="main">
+
+            <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
+                @Body
+            </div>
+        </div>
+    </div>

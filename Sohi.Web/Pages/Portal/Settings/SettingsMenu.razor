@@ -1,0 +1,79 @@
+﻿@inherits Settings
+
+<div class="top-row pl-4 ps-3 navbar navbar-light bg-light">
+    <span class="navbar-brand ps-2">Settings</span>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="/Portal/Settings/General">
+                <div class="row p-1">
+                    <div class="col pe-0" style="flex:0;">
+                        <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
+                    </div>
+                    <div class="col">
+                        <div class="" style="color:black; font-weight:600;">
+                            General
+                        </div>
+
+                    </div>
+                </div>
+
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="/Portal/Settings/User">
+                <div class="row p-1">
+                    <div class="col pe-0" style="flex:0;">
+                        <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
+                    </div>
+                    <div class="col">
+                        <div class="" style="color:black; font-weight:600;">
+                            Create user
+                        </div>
+
+                    </div>
+                </div>
+
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="/Portal/Settings/Roles">
+                <div class="row p-1">
+                    <div class="col pe-0" style="flex:0;">
+                        <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
+                    </div>
+                    <div class="col">
+                        <div class="" style="color:black; font-weight:600;">
+                            Manage roles
+                        </div>
+
+                    </div>
+                </div>
+
+            </NavLink>
+        </li>
+
+
+    </ul>
+</div>
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+}

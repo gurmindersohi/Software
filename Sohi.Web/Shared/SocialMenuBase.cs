@@ -28,6 +28,9 @@ namespace Sohi.Web.Shared
         [Parameter]
         public string FacebookAccessToken { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected bool collapseNavMenu = true;
 
         protected string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -52,6 +55,8 @@ namespace Sohi.Web.Shared
                 socialMedia.AccessToken = pagetoken;
 
                 await OnPageSelection.InvokeAsync(socialMedia);
+
+                NavigationManager.NavigateTo(NavigationManager.Uri);
             }
 
         }
