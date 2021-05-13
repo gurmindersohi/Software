@@ -22,12 +22,17 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
         private string EndPoint { get; set; }
 
+
         [CascadingParameter(Name = "Id")]
+        public string Id { get; set; }
+
+
+        [CascadingParameter(Name = "PageToken")]
+        public string PageToken { get; set; }
+
+
+        [Parameter]
         public string PageId { get; set; }
-
-        [CascadingParameter(Name = "Token")]
-        public string AccessToken { get; set; }
-
         //protected async override Task OnInitializedAsync()
         //{
 
@@ -68,14 +73,14 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
             {
                 List<Post> posts = new List<Post>();
 
-                string pageid = PageId;
-                string accessToken = AccessToken;
+                string pageid = Id;
+                //string accessToken = AccessToken;
 
-                var pagetoken = await SocialService.GenerateFacebookPageTokenAsync(pageid, accessToken, EndPoint);
+                //var pagetoken = await SocialService.GenerateFacebookPageTokenAsync(pageid, accessToken, EndPoint);
 
-                if (pagetoken != null)
+                if (PageToken != null)
                 {
-                    posts = await SocialService.GetFacebookPosts(pageid, pagetoken, EndPoint);
+                    posts = await SocialService.GetFacebookPosts(pageid, PageToken, EndPoint);
                 }
 
                 return posts;

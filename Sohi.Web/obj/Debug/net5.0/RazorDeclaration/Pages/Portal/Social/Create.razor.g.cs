@@ -90,7 +90,6 @@ using System.Net;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Create")]
     public partial class Create : CreateBase
     {

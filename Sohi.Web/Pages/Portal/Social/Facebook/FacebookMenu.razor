@@ -6,12 +6,12 @@
                 <ul class="nav">
 
                     <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Facebook" Match="NavLinkMatch.All">
+                        <NavLink class="nav-link" href="@($"Portal/Social/Facebook/{Id}")" Match="NavLinkMatch.All">
                             Queue
                         </NavLink>
                     </li>
                     <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Facebook/Posts">
+                        <NavLink class="nav-link" href="@($"Portal/Social/Facebook/{Id}/Posts")">
                             Posts
                         </NavLink>
                     </li>
@@ -43,4 +43,6 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
+    [Parameter]
+    public string Id { get; set; }
 }

@@ -1,18 +1,31 @@
-﻿
-@inherits LayoutComponentBase
+﻿@page "/Portal/Social"
+@inherits SocialLayoutBase
 
 @layout MainLayout
 
 
-<div class="page">
-    <div class="sidebar">
-        <SocialMenu />
-    </div>
+@if (FacebookProfile == null)
+{
+    <div class="spinner"></div>
+}
 
-    <div class="main">
+else
+{
 
-        <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
-            @Body
+    <div class="page">
+        <div class="sidebar">
+            <SocialMenu FacebookProfile="FacebookProfile" FacebookAccessToken="@FacebookAccessToken" InstagramProfile="InstagramProfile" OnPageSelection="PageSelectionChanged" />
+        </div>
+
+        <div class="main">
+
+            <CascadingValue Value="PageId" Name="Id">
+                <CascadingValue Value="PageToken" Name="PageToken">
+                    <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
+                        @Body
+                    </div>
+                </CascadingValue>
+            </CascadingValue>
         </div>
     </div>
-</div>
+}

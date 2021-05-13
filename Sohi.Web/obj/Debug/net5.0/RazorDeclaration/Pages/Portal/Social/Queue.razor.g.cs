@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Sohi.Web.Pages.Portal.Social.Facebook
+namespace Sohi.Web.Pages.Portal.Social
 {
     #line hidden
     using System;
@@ -90,8 +90,7 @@ using System.Net;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/{PageId}")]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Queue")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Queue")]
     public partial class Queue : QueueBase
     {
         #pragma warning disable 1998

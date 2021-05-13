@@ -108,6 +108,8 @@ using System.Net;
         collapseNavMenu = !collapseNavMenu;
     }
 
+    [Parameter]
+    public string Id { get; set; }
 
 #line default
 #line hidden

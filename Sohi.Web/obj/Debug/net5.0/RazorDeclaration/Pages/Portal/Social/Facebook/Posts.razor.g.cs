@@ -90,7 +90,7 @@ using System.Net;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Posts")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/{PageId}/Posts")]
     public partial class Posts : PostsBase
     {
         #pragma warning disable 1998

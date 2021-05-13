@@ -1,9 +1,12 @@
-﻿@inherits FacebookLayoutBase
+﻿
+@*@page "/Portal/Social/Facebook/{Id}"*@
+
+@inherits FacebookLayoutBase
 
 @layout SocialLayout
 
 
-@if (FacebookProfile == null)
+@*@if (FacebookProfile == null)
 {
 
     if (!flag)
@@ -43,36 +46,34 @@
 
 
 else
-{
+{*@
     @*<div class="spinner"></div>*@
 
     <div class="page">
         <div class="main">
 
             <div class="top-row">
-                <FacebookMenu />
+                <FacebookMenu Id="@Id"/>
+                @*<ul class="nav ms-auto me-2">
 
-                <ul class="nav ms-auto me-2">
+            <li class="nav-item px-0">
+                <select class="form-select" value="@FacebookProfile[0].Id" @onchange="@OnPageSelection">
+                    @foreach (var profile in FacebookProfile)
+                    {
+                        <option value="@profile.Id"><img src="@profile.Image" height="50" width="50" class="rounded-circle" />@profile.Name</option>
+                    }
+                </select>
+            </li>
 
-                    <li class="nav-item px-0">
-                        <select class="form-select" value="@FacebookProfile[0].Id" @onchange="@OnPageSelection">
-                            @foreach (var profile in FacebookProfile)
-                            {
-                                <option value="@profile.Id"><img src="@profile.Image" height="50" width="50" class="rounded-circle" />@profile.Name</option>
-                            }
-                        </select>
-                    </li>
-
-                </ul>
+        </ul>*@
             </div>
 
-            <CascadingValue Value="PageId" Name="Id">
-                <CascadingValue Value="AccessToken" Name="Token">
+                @*<CascadingValue Value="PageToken" Name="PageToken">*@
+                   
                     <div class="container-fluid px-0">
                         @Body
                     </div>
-                </CascadingValue>
-            </CascadingValue>
+                @*</CascadingValue>*@
         </div>
     </div>
-}
+@*}*@

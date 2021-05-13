@@ -90,7 +90,8 @@ using System.Net;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(MainLayout))]
-    public partial class SocialLayout : LayoutComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social")]
+    public partial class SocialLayout : SocialLayoutBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

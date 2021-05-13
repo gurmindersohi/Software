@@ -16,7 +16,9 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
         [Inject]
         public IConfiguration _config { get; set; }
 
-        [CascadingParameter(Name = "Id")]
+        //[CascadingParameter(Name = "Id")]
+
+        [Parameter]
         public string PageId { get; set; }
 
         [CascadingParameter(Name = "Token")]
@@ -31,6 +33,14 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
         public bool flag { get; set; } = true;
 
+
+        [CascadingParameter(Name = "Id")]
+        public string Id { get; set; }
+
+
+        [CascadingParameter(Name = "PageToken")]
+        public string PageToken { get; set; }
+
         protected override void OnParametersSet()
         {
             Posts = null;
@@ -41,17 +51,14 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
             EndPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-            string pageid = PageId;
-            string accessToken = AccessToken;
-
-            var pagetoken = await SocialService.GenerateFacebookPageTokenAsync(pageid, accessToken, EndPoint);
-
-            if (pagetoken != null)
+            string pageid = Id;
+           
+            if (PageToken != null)
             {
 
-                Profile = await SocialService.GetFacebookPage(pageid, pagetoken, EndPoint);
+                Profile = await SocialService.GetFacebookPage(pageid, PageToken, EndPoint);
 
-                var result = await GetScheduledPosts(pageid, pagetoken, EndPoint);
+                var result = await GetScheduledPosts(pageid, PageToken, EndPoint);
 
                 if (result != null)
                 {
