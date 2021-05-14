@@ -37,6 +37,14 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         public List<Profile> Profiles { get; set; }
 
+        public List<SocialMedia> Accounts { get; set; }
+
+        public bool SelectPage { get; set; } = false;
+
+        public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
+
+        public bool flag { get; set; } = false;
+
         protected override async Task OnParametersSetAsync()
         {
             var authState = await authenticationStateTask;
@@ -46,68 +54,19 @@ namespace Sohi.Web.Pages.Portal.Settings
                 user = await userManager.GetUserAsync(authState.User);
             }
 
-        }
+            List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
-
-
-
-
-        protected FacebookPages facebookPages { get; set; }
-
-        protected void ShowFacebookPages()
-        {
-            facebookPages.Show();
-        }
-
-
-
-
-
-        protected async void ConnectFacebook()
-        {
-
-            var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
-
-            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-            Profiles =  await SocialService.GetFacebookPages(response, endPoint);
-
-            StateHasChanged();
-
-            string platform = "FACEBOOKPAGE";
-
-            //SocialMedia result = await SaveToken(response, platform);
-
-
-            //if (result != null)
-            //{
-            //    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-            //}
-
-        }
-
-        protected async Task<SocialMedia> SaveToken(string response, string platform)
-        {
-
-            SocialMedia result = null;
-
-            var account = new SocialMedia
+            if (accounts != null && accounts.Count != 0)
             {
-                Id = Guid.NewGuid(),
-                Type = platform,
-                AccessToken = response,
-                CreatedOn = DateTime.Now,
-                TokenExpiryDate = DateTime.Now.AddDays(90),
-                Email = user.Email,
-                UserId = user.Id,
-                AccountId = user.AccountId
+                Accounts = accounts;
 
-            };
+            }
 
-            result = await SocialService.SaveToken(account);
+            else
+            {
+                flag = true;
+            }
 
-
-            return result;
         }
 
 
