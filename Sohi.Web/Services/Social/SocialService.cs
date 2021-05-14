@@ -67,8 +67,22 @@ namespace Sohi.Web.Services.Social
                 {
 
                     SocialMedia account = new SocialMedia();
-                    account.AccessToken = item["accessToken"].ToString();
+                    account.Id = new Guid(item["id"].ToString());
+
+                    account.PageId = item["pageId"].ToString();
+
+                    account.Name = item["name"].ToString();
+
+                    account.Image = item["image"].ToString();
+
                     account.Type = item["type"].ToString();
+                    account.AccessToken = item["accessToken"].ToString();
+                    account.Secret = item["secret"].ToString();
+                    account.CreatedOn = DateTime.Parse(item["createdOn"].ToString());
+                    account.TokenExpiryDate = DateTime.Parse(item["tokenExpiryDate"].ToString());
+                    account.Email = item["email"].ToString();
+                    account.UserId = item["userId"].ToString();
+                    account.AccountId = item["accountId"].ToString();
 
                     accounts.Add(account);
 
@@ -126,7 +140,7 @@ namespace Sohi.Web.Services.Social
         {
             List<Profile> pages = new List<Profile>();
 
-            string url = string.Format(endPoint + "/me/accounts?fields=id,name,picture&access_token={0}&limit=100", accesstoken);
+            string url = string.Format(endPoint + "/me/accounts?fields=id,name,picture,access_token&access_token={0}&limit=100", accesstoken);
 
             //string facebook_EndPoint = string.Format(FacebookAPIEndpoints.GetFacebookAccounts + "?access_token={0}&fields=id,name,about&limit=100", access_token);
 
@@ -148,6 +162,8 @@ namespace Sohi.Web.Services.Social
                     {
                         page.Image = item["picture"]["data"]["url"].ToString();
                     }
+
+                    page.Token = item["access_token"].ToString();
 
                     pages.Add(page);
                 }
@@ -487,6 +503,37 @@ namespace Sohi.Web.Services.Social
                 }
 
                 return instagramAccounts;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> LongLivedUserToken(string client_id, string client_secret, string endPoint, string shortLivedUserToken)
+        {
+
+            //string endPoint = configuration.GetSection("FacebookApp").GetSection("EndPoint").Value;
+            //string client_id = configuration.GetSection("FacebookApp").GetSection("ClientId").Value;
+            //string client_secret = configuration.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+
+            string longLivedUserToken = "";
+
+            string grant_type = "fb_exchange_token";
+
+            string url = string.Format(endPoint + "/oauth/access_token?grant_type={0}&client_id={1}&client_secret={2}&fb_exchange_token={3}", grant_type, client_id, client_secret, shortLivedUserToken);
+
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                longLivedUserToken = parsedobj["access_token"].ToString();
+
+                return longLivedUserToken;
             }
             else
             {
