@@ -86,6 +86,13 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using Sohi.Web.Pages.Portal.Social.Facebook;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Leads/EditLead/{LeadId}")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Leads/EditLead")]
     public partial class EditLead : EditLeadBase

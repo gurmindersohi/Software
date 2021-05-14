@@ -377,7 +377,7 @@ namespace Sohi.Web.Services.Social
                 var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
 
 
-                if (parsedobj["scheduled_posts"]["data"] != null)
+                if (parsedobj["scheduled_posts"] != null)
                 {
                     var data = parsedobj["scheduled_posts"]["data"];
 
@@ -432,7 +432,7 @@ namespace Sohi.Web.Services.Social
             }
         }
 
-        public async Task<Profile> GetFacebookPage(string pageid, string accesstoken, string endPoint)
+        public async Task<Profile> GetFacebookPage(string accesstoken, string endPoint)
         {
             Profile page = new Profile();
 
@@ -454,6 +454,39 @@ namespace Sohi.Web.Services.Social
                 }
 
                 return page;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Profile>> GetInstagramAccounts(string accesstoken, string endPoint)
+        {
+            List<Profile> instagramAccounts = new List<Profile>();
+
+            string url = string.Format(endPoint + "/me/instagram_accounts?fields=id,profile_pic,username&access_token={0}", accesstoken);
+
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj["data"])
+                {
+                    Profile instagramAccount = new Profile();
+
+                    instagramAccount.Id = item["id"].ToString();
+                    instagramAccount.Name = item["username"].ToString();
+                    instagramAccount.Image = item["profile_pic"].ToString();
+
+                    instagramAccounts.Add(instagramAccount);
+                }
+
+                return instagramAccounts;
             }
             else
             {

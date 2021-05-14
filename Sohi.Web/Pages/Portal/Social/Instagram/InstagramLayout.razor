@@ -1,8 +1,8 @@
 ﻿
-@inherits LayoutComponentBase
 
 @layout SocialLayout
 
+@inherits InstagramLayoutBase
 
 <div class="page">
     <div class="main">
@@ -10,6 +10,19 @@
         <div class="top-row">
             <InstagramMenu />
 
+            <ul class="nav ms-auto me-2">
+
+                <li class="nav-item px-0">
+                    @*DC Instagram*@
+                    <select class="form-select" value="@InstagramProfile[0].Id">
+                        @foreach (var profile in InstagramProfile)
+                        {
+                            <option value="@profile.Id"><img src="@profile.Image" height="50" width="50" class="rounded-circle" />@profile.Name</option>
+                        }
+                    </select>
+                </li>
+
+            </ul>
         </div>
 
         <div class="container-fluid">

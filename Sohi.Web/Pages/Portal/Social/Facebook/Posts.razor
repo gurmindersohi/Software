@@ -1,7 +1,7 @@
 ﻿@inherits PostsBase
 @layout FacebookLayout
 
-@page "/Portal/Social/Facebook/Posts"
+@page "/Portal/Social/Facebook/{PageId}/Posts"
 
 <div class="container-fluid m-0" style="max-width: 1000px; min-height: calc(100vh - 100px);">
     @*<h1>Page id is: @PageId</h1>
@@ -10,7 +10,7 @@
 
     @if (Posts == null)
     {
-        <div class="spinner"></div>
+        <Loader></Loader>
 
     }
     else
