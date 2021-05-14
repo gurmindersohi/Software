@@ -1,3 +1,146 @@
+/* _content/Sohi.Web/Pages/Portal/Settings/Settings.razor.rz.scp.css */
+.page[b-gkyi5dfgig] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-gkyi5dfgig] {
+    flex: 1;
+}
+
+.sidebar[b-gkyi5dfgig] {
+    background-color: #fff !important;
+    border-right: 1px solid rgba(0,0,0,.125);
+}
+
+.top-row[b-gkyi5dfgig] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-start;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-gkyi5dfgig]  a, .top-row .btn-link[b-gkyi5dfgig] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-gkyi5dfgig] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-gkyi5dfgig] {
+        display: none;
+    }
+
+    .top-row.auth[b-gkyi5dfgig] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-gkyi5dfgig], .top-row .btn-link[b-gkyi5dfgig] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-gkyi5dfgig] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-gkyi5dfgig] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-gkyi5dfgig] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+}
+/* _content/Sohi.Web/Pages/Portal/Settings/SettingsMenu.razor.rz.scp.css */
+
+
+.sidebar[b-cn2phkjmkf] {
+    background-color: #fff !important;
+}
+
+.navbar[b-cn2phkjmkf] {
+    /*    justify-content:center;*/
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+}
+.navbar-toggler[b-cn2phkjmkf] {
+/*    background-color: rgba(255, 255, 255, 0.1);*/
+}
+
+.top-row[b-cn2phkjmkf] {
+    height: 3.5rem;
+    border-bottom: 1px solid #dee2e6 !important;
+    /*    background-color: rgba(0,0,0,0.4);*/
+    background-color: #f7f7f7 !important;
+}
+
+.navbar-brand[b-cn2phkjmkf] {
+    font-size: 1.1rem;
+    color: black;
+}
+
+.oi[b-cn2phkjmkf] {
+    width: 1rem;
+    font-size: 0.7rem;
+    vertical-align: text-top;
+    padding-top: 0.1rem;
+    /*    top: -2px;*/
+}
+
+.nav-item[b-cn2phkjmkf] {
+    font-size: 0.9rem;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+    .nav-item:first-of-type[b-cn2phkjmkf] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-cn2phkjmkf] {
+    }
+
+    .nav-item[b-cn2phkjmkf]  a {
+        color: black;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+        .nav-item[b-cn2phkjmkf]  a.active {
+            background-color: #D9ECFF !important;
+            color: black;
+        }
+
+        .nav-item[b-cn2phkjmkf]  a:hover {
+            background-color: #D9ECFF !important;
+            color: black;
+        }
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-cn2phkjmkf] {
+        display: none;
+    }
+
+    .collapse[b-cn2phkjmkf] {
+        display: block;
+    }
+}
 /* _content/Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor.rz.scp.css */
 .page[b-erzb3gxwfu] {
     position: relative;
@@ -538,6 +681,44 @@
     font-weight: 700;
     line-height: 28px;
 }
+/* _content/Sohi.Web/Shared/Loader.razor.rz.scp.css */
+
+.spinner[b-ll1nxg8rlk] {
+    border: 16px solid silver;
+    border-top: 16px solid #337AB7;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin-b-ll1nxg8rlk 700ms linear infinite;
+    top: 30%;
+    left: 48%;
+    position: absolute;
+}
+
+@keyframes spin-b-ll1nxg8rlk {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
+@media (max-width: 641px) {
+    .spinner[b-ll1nxg8rlk] {
+        border: 16px solid silver;
+        border-top: 16px solid #337AB7;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        animation: spin-b-ll1nxg8rlk 700ms linear infinite;
+        top: 30%;
+        left: 40%;
+        position: absolute;
+    }
+}
 /* _content/Sohi.Web/Shared/MainLayout.razor.rz.scp.css */
 .page[b-nxgqjyz87z] {
     position: relative;
@@ -662,7 +843,7 @@
 
     .nav-item[b-wkq20j8qpd]  a {
         color: #d7d7d7;
-        border-radius: 4px;
+/*        border-radius: 4px;*/
 /*        height: 3rem;*/
 /*        display: flex;*/
         align-items: center;
@@ -794,11 +975,11 @@
 
 .nav-item[b-l8gdda4nhs] {
     font-size: 0.9rem;
-    border-bottom: 1px solid #dee2e6 !important;
+/*    border-bottom: 1px solid #dee2e6 !important;*/
 }
 
     .nav-item:first-of-type[b-l8gdda4nhs] {
-        padding-top: 1rem;
+/*        padding-top: 1rem;*/
     }
 
     .nav-item:last-of-type[b-l8gdda4nhs] {

@@ -34,51 +34,76 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public User user { get; set; }
 
-        public string FacebookAccessToken { get; set; }
-
-        public List<Profile> Profiles { get; set; }
 
         public bool flag { get; set; } = true;
 
+        public List<Profile> FacebookProfile { get; set; } = new List<Profile>();
 
-        protected override async Task OnParametersSetAsync()
+        public List<Profile> InstagramProfile { get; set; } = new List<Profile>();
+
+        public Profile Profile { get; set; } = new Profile();
+
+
+        protected override async Task OnInitializedAsync()
         {
-            var authState = await authenticationStateTask;
+            var authenticateState = await authenticationStateTask;
 
-            if (authState.User.Identity.IsAuthenticated)
+            if (!authenticateState.User.Identity.IsAuthenticated)
             {
-                user = await userManager.GetUserAsync(authState.User);
             }
+
+            user = await userManager.GetUserAsync(authenticateState.User);
+
 
             List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
             if (accounts != null && accounts.Count != 0)
             {
-                //FacebookProfile = await SocialService.GetFacebookAccountAsync(account.AccessToken, endPoint);
                 foreach (var account in accounts)
                 {
-                    if (account.Type == "FACEBOOK")
+                    if (account.Type == "FACEBOOKPAGE")
                     {
-                        FacebookAccessToken = account.AccessToken;
 
                         string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-                        Profiles = await SocialService.GetFacebookPages(account.AccessToken, endPoint);
+                        Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
 
-                        //FacebookProfile = await SocialService.GetFacebookPages(account.AccessToken, endPoint);
+                        if (Profile != null)
+                        {
+                            Profile.Token = account.AccessToken;
+                            FacebookProfile.Add(Profile);
 
-                        //if (FacebookProfile != null)
-                        //{
-                        //    PageId = FacebookProfile[0].Id;
-                        //}
+                        }
+
                     }
+
+                    //if (account.Type == "INSTAGRAM")
+                    //{
+
+                    //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                    //    Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
+
+                    //    if (pagetoken != null)
+                    //    {
+                    //        InstagramProfile = await SocialService.GetInstagramAccounts(pagetoken, endPoint);
+
+                    //    }
+
+                    //    if (Profile != null)
+                    //    {
+                    //        InstagramProfile.Add(Profile);
+
+                    //    }
+
+                    //}
                 }
 
             }
 
             else
             {
-                flag = false;
+                //flag = false;
                 //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
             }
 

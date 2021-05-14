@@ -1,7 +1,7 @@
 ﻿@layout FacebookLayout
 
-@page "/Portal/Social/Facebook"
-@page "/Portal/Social/Facebook/Queue"
+@page "/Portal/Social/Facebook/{PageId}"
+@page "/Portal/Social/Facebook/{PageId}/Queue"
 
 @inherits QueueBase
 
@@ -9,10 +9,27 @@
 <div class="container-fluid m-0 mb-1" style="max-width: 1000px; min-height: calc(100vh - 100px);">
     @if (Posts == null)
     {
-        if (!flag)
+
+        if (flag)
         {
 
-            <CreatePost Profile="Profile"></CreatePost>
+            @*<CreatePost Profile="Profile"></CreatePost>*@
+            <div class="card mt-3">
+
+                <div class="card-body">
+                    <blockquote class="blockquote" style="margin-bottom:0rem;">
+                        <div class="row">
+                            <div class="col" style="flex:0;">
+                                <img src="@Profile.Image" height="50" width="50" class="rounded-circle" />
+                            </div>
+                            <div type="button" data-bs-toggle="modal" data-bs-target="#createPostPopup" class="col p-2" style="background-color:#f0f2f5;  border-radius: 25px; font-size: 0.9rem; line-height:2; padding-left: 20px!important; color:#838589">
+                                What's on your mind, @Profile.Name?
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+
 
             <div class="conatiner pt-5">
                 <div class="row text-center">
@@ -26,7 +43,7 @@
         }
         else
         {
-            <div class="spinner"></div>
+            <Loader></Loader>
 
         }
 
@@ -34,7 +51,22 @@
 
     else
     {
-        <CreatePost Profile="Profile"></CreatePost>
+        @*<CreatePost Profile="Profile"></CreatePost>*@
+        <div class="card mt-3">
+
+            <div class="card-body">
+                <blockquote class="blockquote" style="margin-bottom:0rem;">
+                    <div class="row">
+                        <div class="col" style="flex:0;">
+                            <img src="@Profile.Image" height="50" width="50" class="rounded-circle" />
+                        </div>
+                        <div type="button" data-bs-toggle="modal" data-bs-target="#createPostPopup" class="col p-2" style="background-color:#f0f2f5;  border-radius: 25px; font-size: 0.9rem; line-height:2; padding-left: 20px!important; color:#838589">
+                            What's on your mind, @Profile.Name?
+                        </div>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
 
 
         @foreach (var post in Posts)

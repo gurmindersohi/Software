@@ -89,9 +89,16 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using Sohi.Web.Pages.Portal.Social.Facebook;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook")]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/Queue")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/{PageId}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Facebook/{PageId}/Queue")]
     public partial class Queue : QueueBase
     {
         #pragma warning disable 1998

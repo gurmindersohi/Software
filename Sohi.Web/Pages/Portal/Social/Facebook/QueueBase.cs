@@ -16,20 +16,21 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
         [Inject]
         public IConfiguration _config { get; set; }
 
-        [CascadingParameter(Name = "Id")]
+        [Parameter]
         public string PageId { get; set; }
-
-        [CascadingParameter(Name = "Token")]
-        public string AccessToken { get; set; }
 
         [Inject]
         public ISocialService SocialService { get; set; }
 
         public List<Post> Posts { get; set; }
 
+
+        public bool flag { get; set; } = false;
+
+
+        [CascadingParameter(Name = "SocialProfile")]
         public Profile Profile { get; set; }
 
-        public bool flag { get; set; } = true;
 
         protected override void OnParametersSet()
         {
@@ -41,17 +42,17 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
             EndPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-            string pageid = PageId;
-            string accessToken = AccessToken;
+            string pageid = Profile.Id;
 
-            var pagetoken = await SocialService.GenerateFacebookPageTokenAsync(pageid, accessToken, EndPoint);
+            string PageToken = Profile.Token;
 
-            if (pagetoken != null)
+
+            if (PageToken != null)
             {
 
-                Profile = await SocialService.GetFacebookPage(pageid, pagetoken, EndPoint);
+                //Profile = await SocialService.GetFacebookPage(pageid, PageToken, EndPoint);
 
-                var result = await GetScheduledPosts(pageid, pagetoken, EndPoint);
+                var result = await SocialService.GetFacebookScheduledPosts(pageid, PageToken, EndPoint);
 
                 if (result != null)
                 {
@@ -59,29 +60,29 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
                 }
                 else
                 {
-                    flag = false;
+                    flag = true;
                 }
             }
            
         }
 
-        private async Task<List<Post>> GetScheduledPosts(string pageid, string pagetoken, string EndPoint)
-        {
-            try
-            {
-                List<Post> posts = new List<Post>();
+        //private async Task<List<Post>> GetScheduledPosts(string pageid, string pagetoken, string EndPoint)
+        //{
+        //    try
+        //    {
+        //        List<Post> posts = new List<Post>();
 
                 
-                posts = await SocialService.GetFacebookScheduledPosts(pageid, pagetoken, EndPoint);
+        //        posts = await 
                 
 
-                return posts;
+        //        return posts;
 
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
     }
 }

@@ -17,6 +17,28 @@ function LoginDialog() {
 }
 
 
+//async function PagesLoginDialog() {
+
+//    var result;
+
+//    FB.login(async function (response) {
+//        if (response.authResponse) {
+
+//            FB.api('me/accounts?fields=id,name,picture,access_token', function (response) {
+//                result = response.data;
+//                //console.log('Good to see you, ' + response.data[0].name + '.');
+//            });
+
+//        } else {
+//            console.log('User cancelled login or did not fully authorize.');
+//        }
+//    });
+
+//    return result;
+//}
+
+
+
 //function LoginDialog() {
 //    FB.login(function (response) {
 //        if (response.authResponse) {

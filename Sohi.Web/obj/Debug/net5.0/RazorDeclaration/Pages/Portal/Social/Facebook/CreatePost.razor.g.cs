@@ -90,6 +90,13 @@ using System.Net;
 #line hidden
 #nullable disable
 #nullable restore
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using Sohi.Web.Pages.Portal.Social.Facebook;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/CreatePost.razor"
 using Sohi.Models;
 
@@ -104,12 +111,13 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 21 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/CreatePost.razor"
-       
+#line 22 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/CreatePost.razor"
+           
 
-    [Parameter]
-    public Profile Profile { get; set; }
+        [CascadingParameter(Name = "FacebookProfile")]
+        public Profile FacebookProfile { get; set; }
 
+    
 
 #line default
 #line hidden

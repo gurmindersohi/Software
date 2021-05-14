@@ -54,7 +54,7 @@ namespace Sohi.Web.Pages.Portal.Social
 
             if (result != null)
             {
-                NavigationManager.NavigateTo("/Portal/Social");
+                NavigationManager.NavigateTo("/Portal/Social/Facebook");
             }
 
         }
