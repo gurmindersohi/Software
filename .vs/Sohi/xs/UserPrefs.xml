@@ -1,35 +1,39 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Manage.razor" Line="15" Column="37" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/ConnectBase.cs" Line="7" Column="19" />
-      <File FileName="Sohi.Web/appsettings.json" Line="15" Column="70" />
-      <File FileName="Sohi.Web/Shared/SocialMenu.razor" Line="102" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/SettingsMenu.razor" Line="48" Column="72" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/Accounts.razor" Line="58" Column="71" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs" Line="44" Column="51" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/FacebookPages.razor" Line="28" Column="23" />
+      <File FileName="Sohi.Models/Profile.cs" Line="9" Column="27" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Queue.razor" Line="65" Column="31" />
+      <File FileName="Sohi.Web/Shared/SocialLayout.razor" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Shared/SocialMenu.razor" Line="55" Column="87" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
+            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True">
-                    <Node name="AccountsBase.cs" selected="True" />
-                  </Node>
+                  <Node name="Leads" expanded="True" />
+                  <Node name="Settings" expanded="True" />
                   <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True" />
+                    <Node name="Facebook" expanded="True">
+                      <Node name="Posts.razor" selected="True" />
+                    </Node>
                   </Node>
                 </Node>
               </Node>
-              <Node name="Shared" expanded="True">
-                <Node name="NavMenu.razor" expanded="True" />
-                <Node name="SocialMenu.razor" expanded="True" />
+              <Node name="Services" expanded="True">
+                <Node name="Social" expanded="True" />
               </Node>
+              <Node name="Shared" expanded="True" />
               <Node name="wwwroot" expanded="True">
-                <Node name="css" expanded="True" />
+                <Node name="js" expanded="True" />
               </Node>
             </Node>
           </Node>

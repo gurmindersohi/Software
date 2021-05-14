@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 using Sohi.Models;
 using Sohi.Web.Models;
+using Sohi.Web.Pages.Portal.Social.Facebook;
 using Sohi.Web.Services.Social;
 
 namespace Sohi.Web.Pages.Portal.Settings
@@ -29,6 +32,11 @@ namespace Sohi.Web.Pages.Portal.Settings
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
+        [Inject]
+        public IConfiguration _config { get; set; }
+
+        public List<Profile> Profiles { get; set; }
+
         protected override async Task OnParametersSetAsync()
         {
             var authState = await authenticationStateTask;
@@ -40,21 +48,41 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         }
 
+
+
+
+
+        protected FacebookPages facebookPages { get; set; }
+
+        protected void ShowFacebookPages()
+        {
+            facebookPages.Show();
+        }
+
+
+
+
+
         protected async void ConnectFacebook()
         {
 
             var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
 
+            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+            Profiles =  await SocialService.GetFacebookPages(response, endPoint);
+
+            StateHasChanged();
 
             string platform = "FACEBOOKPAGE";
 
-            SocialMedia result = await SaveToken(response, platform);
+            //SocialMedia result = await SaveToken(response, platform);
 
 
-            if (result != null)
-            {
-                NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-            }
+            //if (result != null)
+            //{
+            //    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
+            //}
 
         }
 
