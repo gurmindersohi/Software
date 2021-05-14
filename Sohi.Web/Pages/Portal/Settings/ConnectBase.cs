@@ -55,14 +55,12 @@ namespace Sohi.Web.Pages.Portal.Settings
 
 
 
-
         protected FacebookPages facebookPages { get; set; }
 
         protected void ShowFacebookPages()
         {
             facebookPages.Show();
         }
-
 
 
 
@@ -122,7 +120,7 @@ namespace Sohi.Web.Pages.Portal.Settings
             {
                 if (pages != null)
                 {
-                    string platform = "FACEBOOKPAGE";
+                    string platform = "Facebook";
 
                     foreach (var page in pages)
                     {

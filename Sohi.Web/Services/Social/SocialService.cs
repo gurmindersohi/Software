@@ -67,8 +67,22 @@ namespace Sohi.Web.Services.Social
                 {
 
                     SocialMedia account = new SocialMedia();
-                    account.AccessToken = item["accessToken"].ToString();
+                    account.Id = new Guid(item["id"].ToString());
+
+                    account.PageId = item["pageId"].ToString();
+
+                    account.Name = item["name"].ToString();
+
+                    account.Image = item["image"].ToString();
+
                     account.Type = item["type"].ToString();
+                    account.AccessToken = item["accessToken"].ToString();
+                    account.Secret = item["secret"].ToString();
+                    account.CreatedOn = DateTime.Parse(item["createdOn"].ToString());
+                    account.TokenExpiryDate = DateTime.Parse(item["tokenExpiryDate"].ToString());
+                    account.Email = item["email"].ToString();
+                    account.UserId = item["userId"].ToString();
+                    account.AccountId = item["accountId"].ToString();
 
                     accounts.Add(account);
 

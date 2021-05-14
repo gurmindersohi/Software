@@ -58,7 +58,7 @@ namespace Sohi.Web.Shared
             {
                 foreach (var account in accounts)
                 {
-                    if (account.Type == "FACEBOOKPAGE")
+                    if (account.Type == "Facebook")
                     {
 
                         string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;

@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Settings/Accounts.razor">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Accounts.razor" Line="8" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs" Line="86" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Connect.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/ConnectBase.cs" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/Accounts.razor" Line="11" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs" Line="57" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/Connect.razor" Line="2" Column="8" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/ConnectBase.cs" Line="115" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

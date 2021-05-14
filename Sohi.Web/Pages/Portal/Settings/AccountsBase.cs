@@ -37,9 +37,13 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         public List<Profile> Profiles { get; set; }
 
+        public List<SocialMedia> Accounts { get; set; }
+
         public bool SelectPage { get; set; } = false;
 
         public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
+
+        public bool flag { get; set; } = false;
 
         protected override async Task OnParametersSetAsync()
         {
@@ -50,132 +54,19 @@ namespace Sohi.Web.Pages.Portal.Settings
                 user = await userManager.GetUserAsync(authState.User);
             }
 
-        }
+            List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
-
-
-
-
-        protected FacebookPages facebookPages { get; set; }
-
-        protected void ShowFacebookPages()
-        {
-            facebookPages.Show();
-        }
-
-
-
-
-
-        protected async void ConnectFacebook()
-        {
-
-            var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
-
-
-            if (response != null)
+            if (accounts != null && accounts.Count != 0)
             {
-                string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-                string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
-                string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+                Accounts = accounts;
 
-                string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, response);
-
-                Profiles = await SocialService.GetFacebookPages(longLivedUserToken, endPoint);
-
-                StateHasChanged();
             }
 
-
-            //SocialMedia result = await SaveToken(response, platform);
-
-
-            //if (result != null)
-            //{
-            //    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-            //}
-
-        }
-
-
-        protected void CheckboxClicked(Profile profile)
-        {
-
-            var item = (SelectedProfiles.Find(p => p.Id == profile.Id));
-
-            if (item == null)
-            {
-                SelectedProfiles.Add(profile);
-            }
             else
             {
-                SelectedProfiles.Remove(item);
-            }
-        }
-
-        protected async void ConnectFacebookPages()
-        {
-
-            var pages = SelectedProfiles;
-
-            try
-            {
-                if (pages != null)
-                {
-                    string platform = "FACEBOOKPAGE";
-
-                    foreach (var page in pages)
-                    {
-                        SocialMedia result = await SaveToken(page.Token, page.Id, page.Name, page.Image, platform);
-                    }
-
-                    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-                }
+                flag = true;
             }
 
-            catch
-            {
-
-            }
-
-
-            //SocialMedia result = await SaveToken(response, platform);
-
-
-            //if (result != null)
-            //{
-            //    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-            //}
-
-        }
-
-
-
-        protected async Task<SocialMedia> SaveToken(string token, string pageId, string name, string image, string platform)
-        {
-
-            SocialMedia result = null;
-
-            var account = new SocialMedia
-            {
-                Id = Guid.NewGuid(),
-                PageId = pageId,
-                Name = name,
-                Image = image,
-                Type = platform,
-                AccessToken = token,
-                CreatedOn = DateTime.Now,
-                TokenExpiryDate = DateTime.Now.AddDays(90),
-                Email = user.Email,
-                UserId = user.Id,
-                AccountId = user.AccountId
-
-            };
-
-            result = await SocialService.SaveToken(account);
-
-
-            return result;
         }
 
 
