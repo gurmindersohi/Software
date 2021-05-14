@@ -105,7 +105,7 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 32 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor"
+#line 20 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Facebook/FacebookLayout.razor"
        
 
 

@@ -98,7 +98,8 @@
     width: 1rem;
     font-size: 0.7rem;
     vertical-align: text-top;
-/*    top: -2px;*/
+    padding-top: 0.1rem;
+    /*    top: -2px;*/
 }
 
 .nav-item[b-cn2phkjmkf] {
@@ -842,7 +843,7 @@
 
     .nav-item[b-wkq20j8qpd]  a {
         color: #d7d7d7;
-        border-radius: 4px;
+/*        border-radius: 4px;*/
 /*        height: 3rem;*/
 /*        display: flex;*/
         align-items: center;
@@ -974,11 +975,11 @@
 
 .nav-item[b-l8gdda4nhs] {
     font-size: 0.9rem;
-    border-bottom: 1px solid #dee2e6 !important;
+/*    border-bottom: 1px solid #dee2e6 !important;*/
 }
 
     .nav-item:first-of-type[b-l8gdda4nhs] {
-        padding-top: 1rem;
+/*        padding-top: 1rem;*/
     }
 
     .nav-item:last-of-type[b-l8gdda4nhs] {

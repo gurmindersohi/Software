@@ -29,7 +29,8 @@
     width: 1rem;
     font-size: 0.7rem;
     vertical-align: text-top;
-/*    top: -2px;*/
+    padding-top: 0.1rem;
+    /*    top: -2px;*/
 }
 
 .nav-item {

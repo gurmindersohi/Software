@@ -54,3 +54,8 @@ a, .btn-link {
     width: auto;
 }
 
+.CustomFont {
+    color: rgb(99, 99, 99);
+    font-size: 14px;
+    font-weight: 500;
+}

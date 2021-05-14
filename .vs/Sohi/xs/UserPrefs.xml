@@ -1,33 +1,32 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Shared/SocialMenu.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs">
     <Files>
-      <File FileName="Sohi.Web/Shared/SocialMenu.razor" Line="35" Column="29" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/Manage.razor" Line="15" Column="37" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/ConnectBase.cs" Line="7" Column="19" />
+      <File FileName="Sohi.Web/appsettings.json" Line="15" Column="70" />
+      <File FileName="Sohi.Web/Shared/SocialMenu.razor" Line="102" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/SettingsMenu.razor" Line="48" Column="72" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/AccountsBase.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True" selected="True">
-            <Node name="Sohi.Api" expanded="True">
-              <Node name="Controllers" expanded="True" />
-            </Node>
-            <Node name="Sohi.Models" expanded="True" />
+          <Node name="Sohi" expanded="True">
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True" />
-              </Node>
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
+                  <Node name="Settings" expanded="True">
+                    <Node name="AccountsBase.cs" selected="True" />
+                  </Node>
                   <Node name="Social" expanded="True">
                     <Node name="Facebook" expanded="True" />
                   </Node>
                 </Node>
               </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Social" expanded="True" />
-              </Node>
               <Node name="Shared" expanded="True">
-                <Node name="Loader.razor" expanded="True" />
+                <Node name="NavMenu.razor" expanded="True" />
+                <Node name="SocialMenu.razor" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="css" expanded="True" />

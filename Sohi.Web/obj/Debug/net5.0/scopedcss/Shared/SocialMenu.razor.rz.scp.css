@@ -34,11 +34,11 @@
 
 .nav-item[b-l8gdda4nhs] {
     font-size: 0.9rem;
-    border-bottom: 1px solid #dee2e6 !important;
+/*    border-bottom: 1px solid #dee2e6 !important;*/
 }
 
     .nav-item:first-of-type[b-l8gdda4nhs] {
-        padding-top: 1rem;
+/*        padding-top: 1rem;*/
     }
 
     .nav-item:last-of-type[b-l8gdda4nhs] {
