@@ -13,7 +13,7 @@ using Sohi.Web.Services.Social;
 
 namespace Sohi.Web.Pages.Portal.Settings
 {
-    public class AccountsBase : ComponentBase
+    public class ConnectBase : ComponentBase
     {
         [Inject]
         public NavigationManager NavigationManager { get; set; }

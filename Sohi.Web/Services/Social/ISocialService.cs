@@ -24,13 +24,14 @@ namespace Sohi.Web.Services.Social
 
         Task<List<SocialMedia>> GetAllTokens(string accountid);
 
-
         Task<List<Post>> GetFacebookScheduledPosts(string PageId, string PageToken, string endPoint);
 
         Task<Profile> GetFacebookPage(string pagetoken, string endPoint);
 
-
         Task<List<Profile>> GetInstagramAccounts(string accesstoken, string endPoint);
+
+
+        Task<string> LongLivedUserToken(string client_id, string client_secret, string endPoint, string shortLivedUserToken);
 
     }
 }
