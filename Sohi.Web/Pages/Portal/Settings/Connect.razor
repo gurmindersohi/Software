@@ -6,7 +6,7 @@
 
 
 
-@if (Profiles == null)
+@if (Profiles == null && InstagramProfiles == null)
 {
     <div class="container mt-5 pt-2" style="max-width: 30rem; margin-top:5rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
 
@@ -17,10 +17,6 @@
                         CONNECT YOUR ACCOUNTS
                     </div>
                 </div>
-
-                @*<div class="col me-0" style="flex:0;">
-                        <a type="button" href="/Portal/Settings/Accounts/Connect" class="btn btn-white btn-lg" style="border: 1px solid rgba(0,0,0,.125); justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;">Connect</a>
-                    </div>*@
             </div>
 
             <div class="row p-3 pt-1">
@@ -61,7 +57,7 @@
                         </div>
 
                         <div class="col me-0" style="flex:0;">
-                            <a href="/Portal/Settings/Accounts/Connect" class="btn btn-primary" style="justify-content: center; font-size: 14px; font-weight: 500;">Connect</a>
+                            <a type="button" @onclick="ConnectInstagram" class="btn btn-primary" style="justify-content: center; font-size: 14px; font-weight: 500;">Connect</a>
                         </div>
 
                     </div>
@@ -80,97 +76,111 @@
             </div>
 
 
-            </div>
         </div>
+    </div>
+
+}
+
+else if (Profiles != null)
+{
+    <div class="modal d-block" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="background-color:rgba(40,43,49,.7);">
+        <div class="modal-dialog" style="top:5%;">
 
 
-        @*<div class="conatiner">
-            <div class="row text-center">
-                <div class="col-md-12 p-3 header">
-                    Connect a Facebook account
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center pt-4">
-                <a class="col-md-2 btn" @onclick="ConnectFacebook" style="border:1px solid #d6d5d5;">
-                    <div class="ConnectBox">
-                        <div class="InsideConnectBox">
-                            <img src="/images/Fb.png" class="rounded-circle" width="35" height="35" />
-                            <h5 class="btnConnect">Facebook</h5>
-                            <span>Page</span>
-                            <span>Connect</span>
-
-
-                        </div>
+            <EditForm Model="@Profiles" OnValidSubmit="ConnectFacebookPages">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Which pages would you like to connect?</h5>
                     </div>
-                </a>
 
-                <a class="col-md-2 btn" style="border:1px solid #d6d5d5;">
-                    <div class="ConnectBox">
-                        <div class="InsideConnectBox">
-                            <img src="/images/Fb.png" class="rounded-circle" width="35" height="35" />
-                            <h5 class="btnConnect">Facebook</h5>
-                            <span>Page</span>
-                            <span>Connect</span>
-
-
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-        </div>*@
-
-        }
-
-        else
-        {
-        <div class="modal d-block" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="background-color:rgba(40,43,49,.7);">
-            <div class="modal-dialog" style="top:5%;">
-
-
-                <EditForm Model="@Profiles" OnValidSubmit="ConnectFacebookPages">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Which pages would you like to connect?</h5>
-                        </div>
-
-                        @foreach (var profile in Profiles)
-                        {
-                            <div class="modal-body">
-                                <div class="row ps-2 pe-5">
-                                    <div class="col" style="flex:0;">
-                                        <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
-                                    </div>
-                                    <div class="col ps-0">
-                                        <div class="row">
-                                            <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
-                                                @profile.Name
-                                            </div>
-                                            <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
-                                                Facebook
-                                            </div>
+                    @foreach (var profile in Profiles)
+                    {
+                        <div class="modal-body">
+                            <div class="row ps-2 pe-5">
+                                <div class="col" style="flex:0;">
+                                    <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                </div>
+                                <div class="col ps-0">
+                                    <div class="row">
+                                        <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                            @profile.Name
                                         </div>
-
-                                    </div>
-                                    <div class="col ms-0 me-0" style="flex:0; ">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="chkPage" @onchange="() => CheckboxClicked(profile)">
+                                        <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                                            Facebook
                                         </div>
+                                    </div>
+
+                                </div>
+                                <div class="col ms-0 me-0" style="flex:0; ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="chkPage" @onchange="() => CheckboxClicked(profile)">
                                     </div>
                                 </div>
-
                             </div>
 
-                        }
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Connect</button>
                         </div>
+
+                    }
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Connect</button>
+                    </div>
+                </div>
+
+            </EditForm>
+        </div>
+    </div>
+
+}
+
+
+else if (InstagramProfiles != null)
+{
+    <div class="modal d-block" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" style="background-color:rgba(40,43,49,.7);">
+        <div class="modal-dialog" style="top:5%;">
+
+            <EditForm Model="@InstagramProfiles" OnValidSubmit="ConnectInstagramAccounts">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Which account would you like to connect?</h5>
                     </div>
 
-                </EditForm>
-            </div>
+                    @foreach (var profile in InstagramProfiles)
+                    {
+                        <div class="modal-body">
+                            <div class="row ps-2 pe-5">
+                                <div class="col" style="flex:0;">
+                                    <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                </div>
+                                <div class="col ps-0">
+                                    <div class="row">
+                                        <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                            @profile.Name
+                                        </div>
+                                        <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                                            Instagram
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col ms-0 me-0" style="flex:0; ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="chkPage" @onchange="() => CheckboxClicked(profile)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Connect</button>
+                    </div>
+                </div>
+
+            </EditForm>
         </div>
+    </div>
 
-        }
-
+}

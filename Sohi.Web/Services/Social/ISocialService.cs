@@ -30,6 +30,8 @@ namespace Sohi.Web.Services.Social
 
         Task<List<Profile>> GetInstagramAccounts(string accesstoken, string endPoint);
 
+        Task<Profile> GetInstagramAccountInfo(string pagetoken, string endPoint);
+
 
         Task<string> LongLivedUserToken(string client_id, string client_secret, string endPoint, string shortLivedUserToken);
 
