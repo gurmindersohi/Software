@@ -45,5 +45,20 @@ namespace Sohi.Api.Models.Social
             return accounts;
 
         }
+
+        public async Task<SocialMedia> DeleteAccount(Guid id)
+        {
+            var result = await context.SocialMediaAccounts.FirstOrDefaultAsync(l => l.Id == id);
+
+            if (result != null)
+            {
+                context.SocialMediaAccounts.Remove(result);
+                await context.SaveChangesAsync();
+                return result;
+            }
+
+            return null;
+
+        }
     }
 }

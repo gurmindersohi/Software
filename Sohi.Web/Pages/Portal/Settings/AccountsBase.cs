@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -47,6 +48,7 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         protected override async Task OnParametersSetAsync()
         {
+
             var authState = await authenticationStateTask;
 
             if (authState.User.Identity.IsAuthenticated)
@@ -54,6 +56,26 @@ namespace Sohi.Web.Pages.Portal.Settings
                 user = await userManager.GetUserAsync(authState.User);
             }
 
+            await GetAccounts();
+
+        }
+
+
+        protected async Task DeleteAccount(Guid Id)
+        {
+            if (Id != Guid.Empty)
+            {
+                await SocialService.DeleteAccount(Id);
+
+            }
+
+            await GetAccounts();
+
+        }
+
+
+        private async Task GetAccounts()
+        {
             List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
             if (accounts != null && accounts.Count != 0)
@@ -66,8 +88,8 @@ namespace Sohi.Web.Pages.Portal.Settings
             {
                 flag = true;
             }
-
         }
+
 
 
 

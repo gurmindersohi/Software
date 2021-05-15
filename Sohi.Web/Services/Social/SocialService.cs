@@ -50,6 +50,11 @@ namespace Sohi.Web.Services.Social
 
         }
 
+        public async Task DeleteAccount(Guid id)
+        {
+            await httpClient.DeleteAsync($"api/social/{id}");
+        }
+
         public async Task<List<SocialMedia>> GetAllTokens(string accountid)
         {
             Guid id = new Guid(accountid);
