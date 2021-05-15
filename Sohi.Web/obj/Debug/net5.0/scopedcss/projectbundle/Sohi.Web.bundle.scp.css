@@ -684,20 +684,20 @@
     line-height: 28px;
 }
 /* _content/Sohi.Web/Shared/Loader.razor.rz.scp.css */
-
-.spinner[b-ll1nxg8rlk] {
+/*
+.spinner {
     border: 16px solid silver;
     border-top: 16px solid #337AB7;
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    animation: spin-b-ll1nxg8rlk 700ms linear infinite;
+    animation: spin 700ms linear infinite;
     top: 30%;
     left: 48%;
     position: absolute;
 }
 
-@keyframes spin-b-ll1nxg8rlk {
+@keyframes spin {
     0% {
         transform: rotate(0deg)
     }
@@ -709,16 +709,127 @@
 
 
 @media (max-width: 641px) {
-    .spinner[b-ll1nxg8rlk] {
+    .spinner {
         border: 16px solid silver;
         border-top: 16px solid #337AB7;
         border-radius: 50%;
         width: 80px;
         height: 80px;
-        animation: spin-b-ll1nxg8rlk 700ms linear infinite;
+        animation: spin 700ms linear infinite;
         top: 30%;
         left: 40%;
         position: absolute;
+    }
+}
+*/
+
+.lds-spinner[b-ll1nxg8rlk] {
+    color: official;
+    display: inline-block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 30%;
+    left: 48%;
+}
+
+@media (max-width: 641px) {
+    .lds-spinner[b-ll1nxg8rlk] {
+        color: official;
+        display: inline-block;
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: 30%;
+        left: 40%;
+    }
+}
+
+
+.lds-spinner div[b-ll1nxg8rlk] {
+    transform-origin: 40px 40px;
+    animation: lds-spinner-b-ll1nxg8rlk 1.2s linear infinite;
+}
+
+        .lds-spinner div[b-ll1nxg8rlk]:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 3px;
+            left: 37px;
+            width: 6px;
+            height: 18px;
+            border-radius: 20%;
+            background: grey;
+        }
+
+        .lds-spinner div:nth-child(1)[b-ll1nxg8rlk] {
+            transform: rotate(0deg);
+            animation-delay: -1.1s;
+        }
+
+        .lds-spinner div:nth-child(2)[b-ll1nxg8rlk] {
+            transform: rotate(30deg);
+            animation-delay: -1s;
+        }
+
+        .lds-spinner div:nth-child(3)[b-ll1nxg8rlk] {
+            transform: rotate(60deg);
+            animation-delay: -0.9s;
+        }
+
+        .lds-spinner div:nth-child(4)[b-ll1nxg8rlk] {
+            transform: rotate(90deg);
+            animation-delay: -0.8s;
+        }
+
+        .lds-spinner div:nth-child(5)[b-ll1nxg8rlk] {
+            transform: rotate(120deg);
+            animation-delay: -0.7s;
+        }
+
+        .lds-spinner div:nth-child(6)[b-ll1nxg8rlk] {
+            transform: rotate(150deg);
+            animation-delay: -0.6s;
+        }
+
+        .lds-spinner div:nth-child(7)[b-ll1nxg8rlk] {
+            transform: rotate(180deg);
+            animation-delay: -0.5s;
+        }
+
+        .lds-spinner div:nth-child(8)[b-ll1nxg8rlk] {
+            transform: rotate(210deg);
+            animation-delay: -0.4s;
+        }
+
+        .lds-spinner div:nth-child(9)[b-ll1nxg8rlk] {
+            transform: rotate(240deg);
+            animation-delay: -0.3s;
+        }
+
+        .lds-spinner div:nth-child(10)[b-ll1nxg8rlk] {
+            transform: rotate(270deg);
+            animation-delay: -0.2s;
+        }
+
+        .lds-spinner div:nth-child(11)[b-ll1nxg8rlk] {
+            transform: rotate(300deg);
+            animation-delay: -0.1s;
+        }
+
+        .lds-spinner div:nth-child(12)[b-ll1nxg8rlk] {
+            transform: rotate(330deg);
+            animation-delay: 0s;
+        }
+
+@keyframes lds-spinner-b-ll1nxg8rlk {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
 /* _content/Sohi.Web/Shared/MainLayout.razor.rz.scp.css */

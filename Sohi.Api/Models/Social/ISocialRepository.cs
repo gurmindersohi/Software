@@ -14,5 +14,7 @@ namespace Sohi.Api.Models.Social
 
         Task<IEnumerable<SocialMedia>> GetAllTokens(string accountid);
 
+        Task<SocialMedia> DeleteAccount(Guid id);
+
     }
 }
