@@ -1,77 +1,55 @@
 ﻿
-<div class="top-row pl-4 navbar navbar-dark">
+@using Sohi.Models;
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav">
+
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{Profile.Id}")" Match="NavLinkMatch.All">
+                Queue
+            </NavLink>
+        </li>
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{Profile.Id}/Posts")">
+                Posts
+            </NavLink>
+        </li>
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{Profile.Id}/Analytics")">
+                Analytics
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{Profile.Id}/Settings")">
+                Settings
+            </NavLink>
+        </li>
+
+    </ul>
 </div>
 
 
-@*@if (Leads == null)
-    {
-        <div class="conatiner pt-5">
-            <div class="row text-center">
-                <div class="col-md-12 p-3 header">
-                    Connect a Facebook account
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center pt-4">
-                <a class="col-md-2 btn" asp-action="FacebookLogin" asp-controller="Connect">
-                    <div class="ConnectBox">
-                        <div class="InsideConnectBox">
-                            <img src="/images/Fb.png" class="rounded-circle" width="35" height="35" />
-                            <h5 class="btnConnect">Facebook</h5>
-                            <span>Page</span>
-                            <span>Connect</span>
 
-
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    }
-    else
-    {*@
-<div class="page">
-
-
-    <div class="main">
-
-        <div class="top-row px-4">
-
-            <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-                <ul class="nav">
-
-                    <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Instagram" Match="NavLinkMatch.All">
-                            Queue
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Instagram/Posts">
-                            Posts
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-0">
-                        <NavLink class="nav-link" href="/Portal/Social/Instagram/Analytics">
-                            Analytics
-                        </NavLink>
-                    </li>
-
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-@*}*@
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    [CascadingParameter(Name = "SocialProfile")]
+    public Profile Profile { get; set; }
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id = Profile.Id;
     }
 }

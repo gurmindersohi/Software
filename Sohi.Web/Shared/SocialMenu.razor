@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@using Sohi.Models; 
+@using Sohi.Models;
 
 @if (FacebookProfile == null)
 {
@@ -66,16 +66,16 @@ else
                 </li>
             }
 
-            @*@if (InstagramProfile != null)
+            @if (InstagramProfile != null)
             {
 
                 <li class="nav-item px-0">
 
-                    <h5 class="ps-3 pt-3">Instagram</h5>
+                    <h5 class="ps-3 pt-3 CustomFont">Instagram</h5>
 
                     @foreach (var profile in InstagramProfile)
                     {
-                        <NavLink class="nav-link" href="/Portal/Social/Instagram">
+                        <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
 
                             <div class="row p-1">
                                 <div class="col pe-0" style="flex:0;">
@@ -95,7 +95,7 @@ else
 
                     }
                 </li>
-            }*@
+            }
 
 
         </ul>
@@ -114,6 +114,9 @@ else
 
     [Parameter]
     public List<Profile> FacebookProfile { get; set; }
+
+    [Parameter]
+    public List<Profile> InstagramProfile { get; set; }
 
     private bool collapseNavMenu = true;
 

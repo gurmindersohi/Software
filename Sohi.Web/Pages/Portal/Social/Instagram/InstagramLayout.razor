@@ -1,32 +1,32 @@
 ﻿
 
-@layout SocialLayout
+@inherits LayoutComponentBase
+@using Sohi.Models;
 
-@inherits InstagramLayoutBase
+@layout SocialLayout
 
 <div class="page">
     <div class="main">
 
         <div class="top-row">
             <InstagramMenu />
-
-            <ul class="nav ms-auto me-2">
-
-                <li class="nav-item px-0">
-                    @*DC Instagram*@
-                    <select class="form-select" value="@InstagramProfile[0].Id">
-                        @foreach (var profile in InstagramProfile)
-                        {
-                            <option value="@profile.Id"><img src="@profile.Image" height="50" width="50" class="rounded-circle" />@profile.Name</option>
-                        }
-                    </select>
-                </li>
-
-            </ul>
         </div>
 
-        <div class="container-fluid">
+        <div class="container-fluid px-0">
             @Body
         </div>
     </div>
 </div>
+
+@code {
+
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

@@ -545,5 +545,30 @@ namespace Sohi.Web.Services.Social
                 return null;
             }
         }
+
+        public async Task<Profile> GetInstagramAccountInfo(string pagetoken, string endPoint)
+        {
+            Profile instagramAccount = new Profile();
+
+            string url = string.Format(endPoint + "?fields=id,profile_pic,username&access_token={0}", pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                instagramAccount.Id = parsedobj["id"].ToString();
+                instagramAccount.Name = parsedobj["username"].ToString();
+                instagramAccount.Image = parsedobj["profile_pic"].ToString();
+
+                return instagramAccount;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
