@@ -71,5 +71,27 @@ namespace Sohi.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult<SocialMedia>> DeleteAccount(Guid id)
+        {
+            try
+            {
+
+                //var leadToDelete = await _socialRepository.GetLead(leadId, accountid);
+
+                //if (leadToDelete == null)
+                //{
+                //    return NotFound($"Lead with Id = {id} not found");
+                //}
+
+                return await _socialRepository.DeleteAccount(id);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
+        }
     }
 }

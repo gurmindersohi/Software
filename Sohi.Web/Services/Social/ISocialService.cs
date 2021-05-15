@@ -33,5 +33,7 @@ namespace Sohi.Web.Services.Social
 
         Task<string> LongLivedUserToken(string client_id, string client_secret, string endPoint, string shortLivedUserToken);
 
+        Task DeleteAccount(Guid id);
+
     }
 }
