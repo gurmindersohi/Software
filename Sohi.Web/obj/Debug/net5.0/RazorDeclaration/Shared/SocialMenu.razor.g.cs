@@ -117,6 +117,9 @@ using Sohi.Models;
     [Parameter]
     public List<Profile> FacebookProfile { get; set; }
 
+    [Parameter]
+    public List<Profile> InstagramProfile { get; set; }
+
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;

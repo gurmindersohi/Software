@@ -74,26 +74,20 @@ namespace Sohi.Web.Shared
 
                     }
 
-                    //if (account.Type == "INSTAGRAM")
-                    //{
+                    if (account.Type == "Instagram")
+                    {
 
-                    //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value + "/" + account.PageId;
 
-                    //    Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
+                        Profile = await SocialService.GetInstagramAccountInfo(account.AccessToken, endPoint);
 
-                    //    if (pagetoken != null)
-                    //    {
-                    //        InstagramProfile = await SocialService.GetInstagramAccounts(pagetoken, endPoint);
+                        if (Profile != null)
+                        {
+                            InstagramProfile.Add(Profile);
 
-                    //    }
+                        }
 
-                    //    if (Profile != null)
-                    //    {
-                    //        InstagramProfile.Add(Profile);
-
-                    //    }
-
-                    //}
+                    }
                 }
 
             }

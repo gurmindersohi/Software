@@ -37,6 +37,9 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         public List<Profile> Profiles { get; set; }
 
+
+        public List<Profile> InstagramProfiles { get; set; }
+
         public bool SelectPage { get; set; } = false;
 
         public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
@@ -64,12 +67,10 @@ namespace Sohi.Web.Pages.Portal.Settings
 
 
 
-
         protected async void ConnectFacebook()
         {
 
             var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
-
 
             if (response != null)
             {
@@ -84,14 +85,44 @@ namespace Sohi.Web.Pages.Portal.Settings
                 StateHasChanged();
             }
 
+        }
 
-            //SocialMedia result = await SaveToken(response, platform);
+        protected async void ConnectInstagram()
+        {
 
+            List<Profile> instagramAccounts = new List<Profile>();
 
-            //if (result != null)
-            //{
-            //    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-            //}
+            var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
+
+            if (response != null)
+            {
+                string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+                string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
+                string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+
+                string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, response);
+
+                var facebookPages = await SocialService.GetFacebookPages(longLivedUserToken, endPoint);
+
+                foreach (var facebookPage in facebookPages)
+                {
+                    var accounts = await SocialService.GetInstagramAccounts(facebookPage.Token, endPoint);
+
+                    if (accounts.Count != 0)
+                    {
+                        foreach (var account in accounts)
+                        {
+                            account.Token = facebookPage.Token;
+                            instagramAccounts.Add(account);
+                        }
+                    }
+
+                }
+
+                InstagramProfiles = instagramAccounts;
+
+                StateHasChanged();
+            }
 
         }
 
@@ -136,14 +167,32 @@ namespace Sohi.Web.Pages.Portal.Settings
 
             }
 
+        }
 
-            //SocialMedia result = await SaveToken(response, platform);
+        protected async void ConnectInstagramAccounts()
+        {
 
+            var pages = SelectedProfiles;
 
-            //if (result != null)
-            //{
-            //    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
-            //}
+            try
+            {
+                if (pages != null)
+                {
+                    string platform = "Instagram";
+
+                    foreach (var page in pages)
+                    {
+                        SocialMedia result = await SaveToken(page.Token, page.Id, page.Name, page.Image, platform);
+                    }
+
+                    NavigationManager.NavigateTo("/Portal/Settings/Accounts");
+                }
+            }
+
+            catch
+            {
+
+            }
 
         }
 

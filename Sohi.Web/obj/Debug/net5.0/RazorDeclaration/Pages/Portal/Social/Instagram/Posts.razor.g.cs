@@ -97,8 +97,8 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(InstagramLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/Posts")]
-    public partial class Posts : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/{PageId}/Posts")]
+    public partial class Posts : PostsBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
