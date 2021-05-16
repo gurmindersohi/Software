@@ -570,5 +570,36 @@ namespace Sohi.Web.Services.Social
                 return null;
             }
         }
+
+        public async Task<string> GenerateFacebookTokenAsync(string client_id, string client_secret, string endPoint, string redirectUrl, string code)
+        {
+            
+            string url = string.Format(endPoint + "/oauth/access_token?");
+
+            var values = new Dictionary<string, string>{
+                  { "client_id", client_id },
+                  { "client_secret", client_secret },
+                  { "redirect_uri", redirectUrl },
+                  { "code", code },
+                };
+
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+                string token = parsedobj["access_token"].ToString();
+                return token;
+
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+        }
     }
 }
