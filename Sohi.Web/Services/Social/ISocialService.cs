@@ -37,5 +37,6 @@ namespace Sohi.Web.Services.Social
 
         Task DeleteAccount(Guid id);
 
+        Task<string> GenerateFacebookTokenAsync(string client_id, string client_secret, string endPoint, string redirectUrl, string code);
     }
 }
