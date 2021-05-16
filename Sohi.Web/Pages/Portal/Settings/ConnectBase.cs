@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 using Sohi.Models;
@@ -44,6 +45,26 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
 
+
+        [Parameter]
+        public string code { get; set; }
+
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+                if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("code", out var _code))
+                {
+                    //string c = _code;
+
+                    await GenerateFacebookTokenFromCode(_code);
+                }
+            }
+        }
+
+
         protected override async Task OnParametersSetAsync()
         {
             var authState = await authenticationStateTask;
@@ -52,6 +73,14 @@ namespace Sohi.Web.Pages.Portal.Settings
             {
                 user = await userManager.GetUserAsync(authState.User);
             }
+
+            //if (code != null)
+            //{
+            //    string c = code;
+            //}
+
+            
+
 
         }
 
@@ -66,24 +95,59 @@ namespace Sohi.Web.Pages.Portal.Settings
         }
 
 
+        protected async Task GenerateFacebookTokenFromCode(string code) {
 
-        protected async void ConnectFacebook()
-        {
-
-            var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
-
-            if (response != null)
+            if (code != null)
             {
                 string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
                 string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
                 string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+                string RedirectURL = _config.GetSection("FacebookApp").GetSection("RedirectURL").Value;
 
-                string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, response);
+
+                string userToken = await SocialService.GenerateFacebookTokenAsync(client_id, client_secret, endPoint, RedirectURL, code);
+
+                string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, userToken);
 
                 Profiles = await SocialService.GetFacebookPages(longLivedUserToken, endPoint);
 
                 StateHasChanged();
             }
+        }
+
+
+
+        protected async void ConnectFacebook()
+        {
+            string version = _config.GetSection("FacebookApp").GetSection("version").Value;
+
+            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+            string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
+            string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+            string RedirectURL = _config.GetSection("FacebookApp").GetSection("RedirectURL").Value;
+
+            string socialScopes = _config.GetSection("FacebookApp").GetSection("SocialScopes").Value;
+
+            string url = string.Format("https://www.facebook.com/v" + version + "/dialog/oauth?client_id={0}&redirect_uri={1}&scope={2}", client_id, RedirectURL, socialScopes);
+
+            NavigationManager.NavigateTo(url);
+
+
+
+            //var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
+
+            //if (response != null)
+            //{
+            //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+            //    string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
+            //    string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+
+            //    string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, response);
+
+            //    Profiles = await SocialService.GetFacebookPages(longLivedUserToken, endPoint);
+
+            //    StateHasChanged();
+            //}
 
         }
 
