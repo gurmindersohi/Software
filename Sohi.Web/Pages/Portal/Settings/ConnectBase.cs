@@ -57,8 +57,6 @@ namespace Sohi.Web.Pages.Portal.Settings
                 var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
                 if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("code", out var _code))
                 {
-                    //string c = _code;
-
                     await GenerateFacebookTokenFromCode(_code);
                 }
             }
@@ -74,24 +72,6 @@ namespace Sohi.Web.Pages.Portal.Settings
                 user = await userManager.GetUserAsync(authState.User);
             }
 
-            //if (code != null)
-            //{
-            //    string c = code;
-            //}
-
-            
-
-
-        }
-
-
-
-
-        protected FacebookPages facebookPages { get; set; }
-
-        protected void ShowFacebookPages()
-        {
-            facebookPages.Show();
         }
 
 
