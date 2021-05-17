@@ -70,6 +70,7 @@ namespace Sohi.Web.Pages.Portal.Settings
             }
 
             await GetAccounts();
+            
 
         }
 
@@ -81,11 +82,11 @@ namespace Sohi.Web.Pages.Portal.Settings
             if (accounts != null && accounts.Count != 0)
             {
                 Accounts = accounts;
-
             }
 
-            else
+            else if(accounts.Count == 0)
             {
+                Accounts = accounts;
                 flag = true;
             }
         }
