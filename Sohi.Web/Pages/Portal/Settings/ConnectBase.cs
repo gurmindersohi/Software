@@ -154,14 +154,14 @@ namespace Sohi.Web.Pages.Portal.Settings
         protected void ConnectInstagram()
         {
 
-            string version = _config.GetSection("FacebookApp").GetSection("version").Value;
+            string version = _config.GetSection("Instagram").GetSection("Version").Value;
 
-            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-            string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
-            string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
-            string RedirectURL = _config.GetSection("FacebookApp").GetSection("InstagramRedirectURL").Value;
+            string endPoint = _config.GetSection("Instagram").GetSection("EndPoint").Value;
+            string client_id = _config.GetSection("Instagram").GetSection("ClientId").Value;
+            string client_secret = _config.GetSection("Instagram").GetSection("ClientSecret").Value;
+            string RedirectURL = _config.GetSection("Instagram").GetSection("RedirectURL").Value;
 
-            string socialScopes = _config.GetSection("FacebookApp").GetSection("SocialScopes").Value;
+            string socialScopes = _config.GetSection("Instagram").GetSection("Scopes").Value;
 
             string url = string.Format("https://www.facebook.com/v" + version + "/dialog/oauth?client_id={0}&redirect_uri={1}&scope={2}", client_id, RedirectURL, socialScopes);
 
