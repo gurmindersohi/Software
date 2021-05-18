@@ -780,5 +780,52 @@ namespace Sohi.Web.Services.Social
             }
         }
 
+
+        public async Task<string> CreateInstagramPostContainer(string PageId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            //string url = string.Format(endPoint + "/{0}/media_publish?creation_id={1}&access_token={2}", PageId, containerId, token);
+
+            string url = string.Format(endPoint + "/{0}/media", PageId);
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var containerId = parsedobj["id"];
+
+                return containerId.ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public async Task<string> CreateInstagramPost(string PageId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            //string url = string.Format(endPoint + "/{0}/media_publish?creation_id={1}&access_token={2}", PageId, containerId, token);
+
+            string url = string.Format(endPoint + "/{0}/media_publish", PageId);
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var data = parsedobj["id"];
+
+                return data.ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
