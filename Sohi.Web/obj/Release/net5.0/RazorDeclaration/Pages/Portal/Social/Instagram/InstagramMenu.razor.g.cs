@@ -89,6 +89,20 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using Sohi.Web.Pages.Portal.Social.Facebook;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Instagram/InstagramMenu.razor"
+using Sohi.Models;
+
+#line default
+#line hidden
+#nullable disable
     public partial class InstagramMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -97,15 +111,26 @@ using System.Net;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 68 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Instagram/InstagramMenu.razor"
+#line 35 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Instagram/InstagramMenu.razor"
        
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    [CascadingParameter(Name = "SocialProfile")]
+    public Profile Profile { get; set; }
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id = Profile.Id;
     }
 
 #line default

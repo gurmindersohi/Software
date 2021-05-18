@@ -47,9 +47,11 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/.DS_Store
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/code.jpg
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/email-marketing.png
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/facebook.png
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/fb.png
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/img_avatar.png
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/Insta.png
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/images/instagram.png
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.bundle.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.bundle.js.map
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.bundle.min.js

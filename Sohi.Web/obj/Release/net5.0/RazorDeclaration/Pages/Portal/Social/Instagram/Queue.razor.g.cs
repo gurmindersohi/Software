@@ -89,10 +89,17 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using Sohi.Web.Pages.Portal.Social.Facebook;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(InstagramLayout))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram")]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/Queue")]
-    public partial class Queue : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/{PageId}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Instagram/{PageId}/Queue")]
+    public partial class Queue : QueueBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
