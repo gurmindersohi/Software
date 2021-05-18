@@ -89,6 +89,20 @@ using System.Net;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+using Sohi.Web.Pages.Portal.Social.Facebook;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Instagram/InstagramLayout.razor"
+using Sohi.Models;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
     public partial class InstagramLayout : LayoutComponentBase
     {
@@ -97,6 +111,23 @@ using System.Net;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 21 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Instagram/InstagramLayout.razor"
+       
+
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

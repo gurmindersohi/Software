@@ -117,7 +117,7 @@ namespace Sohi.Web.Pages.Portal.Settings
 
 
 
-        protected async void ConnectFacebook()
+        protected void ConnectFacebook()
         {
             string version = _config.GetSection("FacebookApp").GetSection("version").Value;
 
@@ -151,42 +151,56 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         }
 
-        protected async void ConnectInstagram()
+        protected void ConnectInstagram()
         {
 
-            List<Profile> instagramAccounts = new List<Profile>();
+            string version = _config.GetSection("Instagram").GetSection("Version").Value;
 
-            var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
+            string endPoint = _config.GetSection("Instagram").GetSection("EndPoint").Value;
+            string client_id = _config.GetSection("Instagram").GetSection("ClientId").Value;
+            string client_secret = _config.GetSection("Instagram").GetSection("ClientSecret").Value;
+            string RedirectURL = _config.GetSection("Instagram").GetSection("RedirectURL").Value;
 
-            if (response != null)
-            {
-                string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-                string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
-                string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
+            string socialScopes = _config.GetSection("Instagram").GetSection("Scopes").Value;
 
-                string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, response);
+            string url = string.Format("https://www.facebook.com/v" + version + "/dialog/oauth?client_id={0}&redirect_uri={1}&scope={2}", client_id, RedirectURL, socialScopes);
 
-                var facebookPages = await SocialService.GetFacebookPages(longLivedUserToken, endPoint);
+            NavigationManager.NavigateTo(url);
 
-                foreach (var facebookPage in facebookPages)
-                {
-                    var accounts = await SocialService.GetInstagramAccounts(facebookPage.Token, endPoint);
 
-                    if (accounts.Count != 0)
-                    {
-                        foreach (var account in accounts)
-                        {
-                            account.Token = facebookPage.Token;
-                            instagramAccounts.Add(account);
-                        }
-                    }
+            //List<Profile> instagramAccounts = new List<Profile>();
 
-                }
+            //var response = await JSRuntime.InvokeAsync<string>(identifier: "LoginDialog");
 
-                InstagramProfiles = instagramAccounts;
+            //if (response != null)
+            //{
+            //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+            //    string client_id = _config.GetSection("FacebookApp").GetSection("ClientId").Value;
+            //    string client_secret = _config.GetSection("FacebookApp").GetSection("ClientSecret").Value;
 
-                StateHasChanged();
-            }
+            //    string longLivedUserToken = await SocialService.LongLivedUserToken(client_id, client_secret, endPoint, response);
+
+            //    var facebookPages = await SocialService.GetFacebookPages(longLivedUserToken, endPoint);
+
+            //    foreach (var facebookPage in facebookPages)
+            //    {
+            //        var accounts = await SocialService.GetInstagramAccounts(facebookPage.Token, endPoint);
+
+            //        if (accounts.Count != 0)
+            //        {
+            //            foreach (var account in accounts)
+            //            {
+            //                account.Token = facebookPage.Token;
+            //                instagramAccounts.Add(account);
+            //            }
+            //        }
+
+            //    }
+
+            //    InstagramProfiles = instagramAccounts;
+
+            //    StateHasChanged();
+            //}
 
         }
 

@@ -12,6 +12,8 @@ namespace Sohi.Models
 
         public string CreatedTime { get; set; }
 
+        public string MediaType { get; set; }
+
         public PostInsights Insights { get; set; }
 
         public Profile Profile { get; set; }

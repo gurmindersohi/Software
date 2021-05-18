@@ -1,32 +1,27 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/wwwroot/js/FacebookJS.js">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/ConnectBase.cs" Line="102" Column="10" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Connect.razor" Line="2" Column="42" />
-      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="603" Column="1" />
-      <File FileName="Sohi.Web/appsettings.json" Line="20" Column="4" />
-      <File FileName="Sohi.Web/wwwroot/js/FacebookJS.js" Line="37" Column="22" />
-      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="40" Column="139" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Create.razor" Line="39" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="116" Column="1" />
+      <File FileName="Sohi.Web/Shared/SocialMenu.razor" Line="57" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
+            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True" />
                   <Node name="Social" expanded="True" />
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
                 <Node name="Social" expanded="True" />
               </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True">
-                  <Node name="FacebookJS.js" selected="True" />
-                </Node>
+              <Node name="Shared" expanded="True">
+                <Node name="SocialLayoutBase.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -40,7 +35,7 @@
     <BreakpointStore>
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Services/Social/SocialService.cs" relfile="Sohi.Web/Services/Social/SocialService.cs" line="588" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Create.razor" relfile="Sohi.Web/Pages/Portal/Social/Create.razor" line="39" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />
