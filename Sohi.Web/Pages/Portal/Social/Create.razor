@@ -4,11 +4,11 @@
 
 @inherits CreateBase
 
-@if (FacebookProfile == null)
+@if (TotalAccounts == null)
 {
     if (!flag)
     {
-       <Connect></Connect>
+        <Connect></Connect>
     }
     else
     {
@@ -24,7 +24,7 @@ else
 
     </div>
 
-    <div class="container-fluid m-0 pt-2" style="max-width: 1000px;">
+    <div class="container-fluid m-0 pt-2" style="max-width: 800px;">
         <form method="post">
             <EditForm Model="@Post" OnValidSubmit="CreatePost">
                 <div class="content">
@@ -35,30 +35,53 @@ else
 
                         <div class="row pb-3">
                             <div class="col-md-12">
-                                @foreach (var profile in FacebookProfile)
+
+                                @if (TotalAccounts.Count == 0)
                                 {
-                                    <img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />
 
+                                    <div class="col-md-12 text-center">
+                                        <div class="spinner-border" role="status">
+                                            <span class="sr-only"></span>
+                                        </div>
+                                    </div>
                                 }
+                                else
+                                {
 
+                                    @foreach (var profile in TotalAccounts)
+                                    {
+                                        <img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />
+                                    }
+                                }
                             </div>
+
                         </div>
 
                         <div class="">
 
                             <div class="row pt-2 pb-2">
                                 <div class="col-md-12">
-                                    <textarea asp-for="Description" class="form-control border-0" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
+                                    <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                        Add text to your post
+                                    </div>
+                                    <textarea asp-for="Description" class="form-control" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                             </div>
+
                             <div class="row pt-2 pb-2">
                                 <div class="col-md-12">
-                                    <input asp-for="File" type="file" class="form-control" id="customFile" />
-                                    <span asp-validation-for="File" class="text-danger"></span>
-
+                                    <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                        Media
+                                    </div>
+                                    <div class="form-control">
+                                        <input asp-for="File" type="file" class="form-control mt-4 mb-4" id="customFile" />
+                                        <span asp-validation-for="File" class="text-danger"></span>
+                                    </div>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                             </div>
+
                         </div>
 
                         @*<div class="row pt-3">
