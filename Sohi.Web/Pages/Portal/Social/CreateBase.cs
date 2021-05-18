@@ -37,9 +37,9 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public bool flag { get; set; } = true;
 
-        public List<Profile> FacebookProfile { get; set; } = new List<Profile>();
+        public List<Profile> TotalAccounts { get; set; } = new List<Profile>();
 
-        public List<Profile> InstagramProfile { get; set; } = new List<Profile>();
+        //public List<Profile> InstagramProfile { get; set; } = new List<Profile>();
 
         public Profile Profile { get; set; } = new Profile();
 
@@ -54,61 +54,67 @@ namespace Sohi.Web.Pages.Portal.Social
 
             user = await userManager.GetUserAsync(authenticateState.User);
 
+           
 
-            List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
+        }
 
-            if (accounts != null && accounts.Count != 0)
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
             {
-                foreach (var account in accounts)
+                List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
+
+
+                if (accounts != null && accounts.Count != 0)
                 {
-                    if (account.Type == "FACEBOOKPAGE")
+                    foreach (var account in accounts)
                     {
-
-                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-                        Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
-
-                        if (Profile != null)
+                        if (account.Type == "Facebook")
                         {
-                            Profile.Token = account.AccessToken;
-                            FacebookProfile.Add(Profile);
+
+                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                            var profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
+
+                            if (profile != null)
+                            {
+                                profile.Token = account.AccessToken;
+                                TotalAccounts.Add(profile);
+
+                            }
 
                         }
 
+                        if (account.Type == "Instagram")
+                        {
+
+                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                            var profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
+
+                            if (profile != null)
+                            {
+                                profile.Token = account.AccessToken;
+                                TotalAccounts.Add(profile);
+
+                            }
+
+                        }
                     }
 
-                    //if (account.Type == "INSTAGRAM")
-                    //{
+                    StateHasChanged();
 
-                    //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-                    //    Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
-
-                    //    if (pagetoken != null)
-                    //    {
-                    //        InstagramProfile = await SocialService.GetInstagramAccounts(pagetoken, endPoint);
-
-                    //    }
-
-                    //    if (Profile != null)
-                    //    {
-                    //        InstagramProfile.Add(Profile);
-
-                    //    }
-
-                    //}
                 }
 
+                else
+                {
+                    //flag = false;
+                    //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                }
             }
-
-            else
-            {
-                //flag = false;
-                //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
-            }
-
-
         }
+
 
         protected async Task CreatePost()
         {

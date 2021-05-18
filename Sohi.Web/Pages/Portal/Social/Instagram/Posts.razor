@@ -3,16 +3,138 @@
 
 @inherits PostsBase
 
-@code {
 
-}
+<div class="container-fluid m-0" style="max-width: 1000px; min-height: calc(100vh - 100px);">
+    @*<h1>Page id is: @PageId</h1>
 
-<div class="page">
+        <h1>Access Token is: @AccessToken</h1>*@
 
-    <div class="main">
-        <div class="content px-4 container-fluid">
-            <h3>Instagram Posts</h3>
+    @if (Posts == null)
+    {
+        <Loader></Loader>
 
-        </div>
-    </div>
+    }
+    else
+    {
+        @foreach (var post in Posts)
+        {
+            <div class="card mt-3">
+                <div class="card-header">
+
+                    <div class="row">
+                        <div class="col" style="flex:0;">
+                            <img src="@post.Profile.Image" height="50" width="50" class="rounded-circle" />
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="" style="color:black; font-weight:600;">
+                                    @post.Profile.Name
+                                </div>
+                                <div class="" style="font-size: 13px;">
+                                    @post.CreatedTime
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p class="card-text">@post.Description</p>
+                        </div>
+
+                        @if (post.Picture != null)
+                        {
+                            <div class="col-md-3">
+                                <img src="@post.Picture" height="200" width="200" class="img-fluid rounded mx-auto d-block" asp-append-version="true" />
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+
+                @if (post.Insights != null)
+                {
+
+                    @if (post.Insights.Post_impressions == null)
+                    {
+                        <div class="card-footer text-muted alert alert-warning mb-0">
+                            <div class="row" style="text-align: center; ">
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <span class="" dir="auto">This media was posted before the most recent time that the user's account was converted to a business account from a personal account. So, there is nothing to show here.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-footer text-muted">
+                            <div class="row" style="text-align: center; ">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="">
+                                                <span class="" dir="auto">@post.Insights.Post_reactions_like_total</span>
+                                            </div>
+                                            <div class="">
+                                                <span class="" dir="auto">Likes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="">
+                                                <span class="" dir="auto">@post.Insights.Post_impressions</span>
+                                            </div>
+                                            <div class="">
+                                                <span class="" dir="auto">People Reached</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="">
+                                                <span class="" dir="auto">@post.Insights.Post_engaged_users</span>
+                                            </div>
+                                            <div class="">
+                                                <span class="" dir="auto">Engagements</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="">
+                                                <span class="" dir="auto">@post.Insights.Post_clicks</span>
+                                            </div>
+                                            <div class="">
+                                                <span class="" dir="auto">Post Clicks</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
 </div>
