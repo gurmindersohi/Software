@@ -146,7 +146,6 @@ namespace Sohi.Web.Pages.Portal.Social
         protected async Task CreatePost()
         {
 
-            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
             if (SelectedProfiles.Count != 0)
             {
@@ -155,25 +154,45 @@ namespace Sohi.Web.Pages.Portal.Social
                 {
                     string pageId = profile.Id;
 
-                    string token = profile.Token;
+                    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-                    var content = new FormUrlEncodedContent(new[]
-                    {
-                         new KeyValuePair<string, string>("message", "Hello Fans!"),
-                         new KeyValuePair<string, string>("access_token", token),
-                    });
+                    string token = profile.Token;
 
 
                     try
                     {
                         if (profile.Type == "Facebook")
                         {
+                            var content = new FormUrlEncodedContent(new[]
+                            {
+                                new KeyValuePair<string, string>("message", "Hello Fans!"),
+                                new KeyValuePair<string, string>("access_token", token),
+                            });
+
                             var result = await SocialService.CreatePost(pageId, endPoint, content);
                         }
 
                         else if (profile.Type == "Instagram")
                         {
-                            var result = await SocialService.CreateInstagramPost(pageId, endPoint, content);
+                            var content = new FormUrlEncodedContent(new[]
+                            {
+                                new KeyValuePair<string, string>("image_url", "https://sohi.blob.core.windows.net/software/Accounts/DC/DC.png"),
+                                new KeyValuePair<string, string>("caption", "Test!"),
+                                new KeyValuePair<string, string>("access_token", token),
+                            });
+
+                            var conatinerId = await SocialService.CreateInstagramPostContainer(pageId, endPoint, content);
+
+                            if (conatinerId != null)
+                            {
+                                var post = new FormUrlEncodedContent(new[]
+                                {
+                                    new KeyValuePair<string, string>("creation_id", conatinerId),
+                                    new KeyValuePair<string, string>("access_token", token),
+                                });
+
+                                var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
+                            }
                         }
                     }
 

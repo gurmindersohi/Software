@@ -43,7 +43,9 @@ namespace Sohi.Web.Services.Social
 
         Task<List<Post>> GetInstagramMedia(string accountId, string pagetoken, string endPoint);
 
-        Task<Post> CreateInstagramPost(string PageId, string endPoint, FormUrlEncodedContent content);
+        Task<string> CreateInstagramPostContainer(string PageId, string endPoint, FormUrlEncodedContent content);
+
+        Task<string> CreateInstagramPost(string PageId, string endPoint, FormUrlEncodedContent content);
 
     }
 }
