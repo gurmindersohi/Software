@@ -44,6 +44,9 @@ namespace Sohi.Web.Pages.Portal.Social
         public Profile Profile { get; set; } = new Profile();
 
 
+        public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
+
+
         protected override async Task OnInitializedAsync()
         {
             var authenticateState = await authenticationStateTask;
@@ -54,7 +57,7 @@ namespace Sohi.Web.Pages.Portal.Social
 
             user = await userManager.GetUserAsync(authenticateState.User);
 
-           
+
 
         }
 
@@ -80,7 +83,10 @@ namespace Sohi.Web.Pages.Portal.Social
                             if (profile != null)
                             {
                                 profile.Token = account.AccessToken;
+                                profile.Type = account.Type;
                                 TotalAccounts.Add(profile);
+
+                                SelectedProfiles.Add(profile);
 
                             }
 
@@ -96,12 +102,17 @@ namespace Sohi.Web.Pages.Portal.Social
                             if (profile != null)
                             {
                                 profile.Token = account.AccessToken;
+                                profile.Type = account.Type;
                                 TotalAccounts.Add(profile);
+
+                                SelectedProfiles.Add(profile);
 
                             }
 
                         }
                     }
+
+                    //SelectedProfiles = TotalAccounts;
 
                     StateHasChanged();
 
@@ -116,30 +127,89 @@ namespace Sohi.Web.Pages.Portal.Social
         }
 
 
+        protected void CheckboxClicked(Profile profile)
+        {
+
+            var item = (SelectedProfiles.Find(p => p.Id == profile.Id));
+
+            if (item == null)
+            {
+                SelectedProfiles.Add(profile);
+            }
+            else
+            {
+                SelectedProfiles.Remove(item);
+            }
+        }
+
+
         protected async Task CreatePost()
         {
 
-            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-            string pageId = "102420827994118";
-
-            string token = "EAAQGsEzdprgBAJDGUx6W8PvqpBwL79rNYNVUKMTo6HTs4auWovToZBpkveMW56l1mtZA1ZB60j0WtT6udR2s6mUHQeDjXhvnVDoxznVWj1DnZCP4jkVVGXXC8ugvblCaSjs6XLOWZAyZAdZCKJUu0O48YZC3KbPFVU3ZBwy1t0EtjKQTn0dMarJ9PTxTyQgFwqe0ZD";
-
-
-            var content = new FormUrlEncodedContent(new[]
+            if (SelectedProfiles.Count != 0)
             {
-                new KeyValuePair<string, string>("message", "Hello Fans!"),
-                new KeyValuePair<string, string>("access_token", token),
-            });
+
+                foreach (var profile in SelectedProfiles)
+                {
+                    string pageId = profile.Id;
+
+                    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                    string token = profile.Token;
 
 
+                    try
+                    {
+                        if (profile.Type == "Facebook")
+                        {
+                            var content = new FormUrlEncodedContent(new[]
+                            {
+                                new KeyValuePair<string, string>("message", "Hello Fans!"),
+                                new KeyValuePair<string, string>("access_token", token),
+                            });
 
-            var result = await SocialService.CreatePost(pageId, endPoint, content);
+                            var result = await SocialService.CreatePost(pageId, endPoint, content);
+                        }
 
-            if (result != null)
-            {
-                NavigationManager.NavigateTo("/Portal/Social/Facebook/Posts");
+                        else if (profile.Type == "Instagram")
+                        {
+                            var content = new FormUrlEncodedContent(new[]
+                            {
+                                new KeyValuePair<string, string>("image_url", "https://sohi.blob.core.windows.net/software/Accounts/DC/DC.png"),
+                                new KeyValuePair<string, string>("caption", "Test!"),
+                                new KeyValuePair<string, string>("access_token", token),
+                            });
+
+                            var conatinerId = await SocialService.CreateInstagramPostContainer(pageId, endPoint, content);
+
+                            if (conatinerId != null)
+                            {
+                                var post = new FormUrlEncodedContent(new[]
+                                {
+                                    new KeyValuePair<string, string>("creation_id", conatinerId),
+                                    new KeyValuePair<string, string>("access_token", token),
+                                });
+
+                                var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
+                            }
+                        }
+                    }
+
+                    catch (Exception)
+                    {
+
+                    }
+
+                }
+
+
             }
+
+            //if (result != null)
+            //{
+            //    NavigationManager.NavigateTo("/Portal/Social/Facebook/Posts");
+            //}
         }
 
     }

@@ -33,30 +33,6 @@ else
                     </div>
                     <div class="body">
 
-                        <div class="row pb-3">
-                            <div class="col-md-12">
-
-                                @if (TotalAccounts.Count == 0)
-                                {
-
-                                    <div class="col-md-12 text-center">
-                                        <div class="spinner-border" role="status">
-                                            <span class="sr-only"></span>
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-
-                                    @foreach (var profile in TotalAccounts)
-                                    {
-                                        <img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />
-                                    }
-                                }
-                            </div>
-
-                        </div>
-
                         <div class="">
 
                             <div class="row pt-2 pb-2">
@@ -82,7 +58,67 @@ else
                                 </div>
                             </div>
 
+                            <div class="row pt-2 pb-2">
+                                <div class="col-md-12">
+                                    <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                        Post on
+                                    </div>
+                                    <div class="form-control">
+                                        @if (TotalAccounts.Count == 0)
+                                        {
+
+                                            <div class="col-md-12 text-center">
+                                               <SmallLoader></SmallLoader>
+                                            </div>
+                                        }
+                                        else
+                                        {
+
+                                            @foreach (var profile in TotalAccounts)
+                                            {
+                                                @*<img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />*@
+
+                                                <div class="row p-2 px-3 pt-3 pb-3 no-border" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
+                                                    <div class="col" style="flex:0; padding-left:0;">
+                                                        <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <div class="row">
+                                                            <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                                                @profile.Name
+                                                            </div>
+                                                            <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                                                                @profile.Type
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col me-0 pe-0 text-end" style="flex:0.5; padding-left:1%; padding-top: 5px;">
+                                                        <div class="row">
+                                                            <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" checked @onchange="() => CheckboxClicked(profile)">
+                                                                    <span class="slider round"></span>
+                                                                </label>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
+
+
 
                         @*<div class="row pt-3">
                                 <div class="col-md-11">
@@ -181,4 +217,76 @@ else
         border-bottom-right-radius: calc(.3rem - 1px);
         border-bottom-left-radius: calc(.3rem - 1px);
     }
+</style>
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 43px;
+        height: 25px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(18px);
+        -ms-transform: translateX(18px);
+        transform: translateX(18px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 25px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+
+    .no-border:first-of-type {
+        border-top: none !important;
+    }
+
+    .no-border:last-of-type {
+        border-bottom: none !important;
+    }
+
 </style>

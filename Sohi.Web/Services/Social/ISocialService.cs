@@ -41,7 +41,11 @@ namespace Sohi.Web.Services.Social
 
         Task<string> GenerateFacebookTokenAsync(string client_id, string client_secret, string endPoint, string redirectUrl, string code);
 
-
         Task<List<Post>> GetInstagramMedia(string accountId, string pagetoken, string endPoint);
+
+        Task<string> CreateInstagramPostContainer(string PageId, string endPoint, FormUrlEncodedContent content);
+
+        Task<string> CreateInstagramPost(string PageId, string endPoint, FormUrlEncodedContent content);
+
     }
 }
