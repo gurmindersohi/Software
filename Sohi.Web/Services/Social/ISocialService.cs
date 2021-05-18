@@ -32,11 +32,16 @@ namespace Sohi.Web.Services.Social
 
         Task<Profile> GetInstagramAccountInfo(string pageId, string pagetoken, string endPoint);
 
+        Task<Profile> GetInstagramBusinessAccountDetails(string accountId, string pagetoken, string endPoint);
+
 
         Task<string> LongLivedUserToken(string client_id, string client_secret, string endPoint, string shortLivedUserToken);
 
         Task DeleteAccount(Guid id);
 
         Task<string> GenerateFacebookTokenAsync(string client_id, string client_secret, string endPoint, string redirectUrl, string code);
+
+
+        Task<List<Post>> GetInstagramMedia(string accountId, string pagetoken, string endPoint);
     }
 }

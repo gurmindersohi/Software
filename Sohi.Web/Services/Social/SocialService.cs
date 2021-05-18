@@ -550,7 +550,7 @@ namespace Sohi.Web.Services.Social
         {
             Profile instagramAccount = new Profile();
 
-            string url = string.Format(endPoint + "/{0}?fields=instagram_business_account%7Bid,username%7D,instagram_accounts%7Bprofile_pic%7D&access_token={1}", pageId, pagetoken);
+            string url = string.Format(endPoint + "/{0}?fields=instagram_business_account%7Bid,username,profile_picture_url%7D&access_token={1}", pageId, pagetoken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -563,7 +563,40 @@ namespace Sohi.Web.Services.Social
                 {
                     instagramAccount.Id = parsedobj["instagram_business_account"]["id"].ToString();
                     instagramAccount.Name = parsedobj["instagram_business_account"]["username"].ToString();
-                    instagramAccount.Image = parsedobj["instagram_accounts"]["data"][0]["profile_pic"].ToString();
+                    instagramAccount.Image = parsedobj["instagram_business_account"]["profile_picture_url"].ToString();
+
+                    return instagramAccount;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<Profile> GetInstagramBusinessAccountDetails(string accountId, string pagetoken, string endPoint)
+        {
+            Profile instagramAccount = new Profile();
+
+            string url = string.Format(endPoint + "/{0}?fields=id,name,profile_picture_url&access_token={1}", accountId, pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                if (parsedobj != null)
+                {
+                    instagramAccount.Id = parsedobj["id"].ToString();
+                    instagramAccount.Name = parsedobj["name"].ToString();
+                    instagramAccount.Image = parsedobj["profile_picture_url"].ToString();
 
                     return instagramAccount;
                 }
@@ -581,7 +614,7 @@ namespace Sohi.Web.Services.Social
 
         public async Task<string> GenerateFacebookTokenAsync(string client_id, string client_secret, string endPoint, string redirectUrl, string code)
         {
-            
+
             string url = string.Format(endPoint + "/oauth/access_token?");
 
             var values = new Dictionary<string, string>{
@@ -609,5 +642,143 @@ namespace Sohi.Web.Services.Social
                 return response.ReasonPhrase;
             }
         }
+
+        public async Task<List<Post>> GetInstagramMedia(string accountId, string pagetoken, string endPoint)
+        {
+            List<Post> posts = new List<Post>();
+
+            string url = string.Format(endPoint + "/{0}?fields=id,name,profile_picture_url,media%7Bid,caption,media_product_type,media_url%7D&access_token={1}", accountId, pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+
+                if (parsedobj != null)
+                {
+                    var data = parsedobj["media"]["data"];
+
+                    foreach (var item in data)
+                    {
+                        Post post = new Post();
+                        post.Profile = new Profile();
+
+                        post.Insights = new PostInsights();
+
+                        post.Profile.Id = parsedobj["id"].ToString();
+                        post.Profile.Name = parsedobj["name"].ToString();
+                        post.Profile.Image = parsedobj["profile_picture_url"].ToString();
+
+
+
+                        post.Id = item["id"].ToString();
+
+                        if (item["media_product_type"] != null)
+                        {
+                            post.MediaType = item["media_product_type"].ToString();
+                        }
+                        if (item["caption"] != null)
+                        {
+                            post.Description = item["caption"].ToString();
+                        }
+                        if (item["media_url"] != null)
+                        {
+                            post.Picture = item["media_url"].ToString();
+                        }
+
+                        if (item["username"] != null)
+                        {
+                            post.CreatedTime = item["username"].ToString();
+                        }
+
+
+                        var result = await GetInstagramMediaInsights(item["id"].ToString(), pagetoken, endPoint);
+
+                        if (result != null)
+                        {
+                            post.Insights.Post_reactions_like_total = result.Post_reactions_like_total.ToString();
+
+                            post.Insights.Post_engaged_users = result.Post_engaged_users.ToString();
+
+                            post.Insights.Post_impressions = result.Post_impressions.ToString();
+
+                            post.Insights.Post_clicks = result.Post_clicks.ToString();
+
+                        }
+
+                        posts.Add(post);
+
+
+                    }
+
+
+                    return posts;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<PostInsights> GetInstagramMediaInsights(string postid, string token, string endPoint)
+        {
+            PostInsights postInsights = new PostInsights();
+            string url = string.Format(endPoint + "/{0}?fields=like_count,insights.metric(engagement,reach,impressions)&access_token={1}", postid, token);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var data = parsedobj["insights"]["data"];
+
+                postInsights.Id = postid;
+
+                if (parsedobj["like_count"].ToString() != null)
+                {
+                    postInsights.Post_reactions_like_total = parsedobj["like_count"].ToString();
+
+                }
+
+                foreach (var item in data)
+                {
+
+                    if (item["name"].ToString() == "engagement")
+                    {
+                        postInsights.Post_engaged_users = item["values"][0]["value"].ToString();
+
+                    }
+                    if (item["name"].ToString() == "impressions")
+                    {
+                        postInsights.Post_impressions = item["values"][0]["value"].ToString();
+
+                    }
+                    if (item["name"].ToString() == "reach")
+                    {
+                        postInsights.Post_clicks = item["values"][0]["value"].ToString();
+
+                    }
+
+                }
+
+                return postInsights;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }
