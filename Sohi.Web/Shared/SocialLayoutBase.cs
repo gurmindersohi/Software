@@ -77,9 +77,9 @@ namespace Sohi.Web.Shared
                     if (account.Type == "Instagram")
                     {
 
-                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value + "/" + account.PageId;
+                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value + "/";
 
-                        Profile = await SocialService.GetInstagramAccountInfo(account.AccessToken, endPoint);
+                        Profile = await SocialService.GetInstagramAccountInfo(account.PageId, account.AccessToken, endPoint);
 
                         if (Profile != null)
                         {

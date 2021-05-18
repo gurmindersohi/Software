@@ -546,11 +546,11 @@ namespace Sohi.Web.Services.Social
             }
         }
 
-        public async Task<Profile> GetInstagramAccountInfo(string pagetoken, string endPoint)
+        public async Task<Profile> GetInstagramAccountInfo(string pageId, string pagetoken, string endPoint)
         {
             Profile instagramAccount = new Profile();
 
-            string url = string.Format(endPoint + "?fields=id,profile_pic,username&access_token={0}", pagetoken);
+            string url = string.Format(endPoint + "/{0}?fields=instagram_business_account%7Bid,username%7D,instagram_accounts%7Bprofile_pic%7D&access_token={1}", pageId, pagetoken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -559,11 +559,19 @@ namespace Sohi.Web.Services.Social
                 var jsonResponse = response.Content.ReadAsStringAsync().Result;
                 var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
 
-                instagramAccount.Id = parsedobj["id"].ToString();
-                instagramAccount.Name = parsedobj["username"].ToString();
-                instagramAccount.Image = parsedobj["profile_pic"].ToString();
+                if (parsedobj["instagram_business_account"] != null)
+                {
+                    instagramAccount.Id = parsedobj["instagram_business_account"]["id"].ToString();
+                    instagramAccount.Name = parsedobj["instagram_business_account"]["username"].ToString();
+                    instagramAccount.Image = parsedobj["instagram_accounts"]["data"][0]["profile_pic"].ToString();
 
-                return instagramAccount;
+                    return instagramAccount;
+                }
+                else
+                {
+                    return null;
+                }
+
             }
             else
             {

@@ -1,32 +1,18 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Services/Social/SocialService.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Program.cs">
     <Files>
       <File FileName="Sohi.Web/Pages/Portal/Settings/Instagram.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/InstagramBase.cs" Line="79" Column="60" />
-      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="24" Column="1" />
-      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/InstagramBase.cs" Line="83" Column="1" />
+      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="33" Column="47" />
+      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="573" Column="18" />
+      <File FileName="Sohi.Web/Shared/SocialLayoutBase.cs" Line="50" Column="14" />
+      <File FileName="Sohi.Web/Program.cs" Line="16" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Web" expanded="True">
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True" />
-                  <Node name="Social" expanded="True">
-                    <Node name="Instagram" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Social" expanded="True">
-                  <Node name="SocialService.cs" selected="True" />
-                </Node>
-              </Node>
-            </Node>
-          </Node>
+          <Node name="Sohi" expanded="True" />
         </State>
       </Pad>
     </Pads>
@@ -37,6 +23,7 @@
     <BreakpointStore>
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Services/Social/SocialService.cs" relfile="Sohi.Web/Services/Social/SocialService.cs" line="550" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />

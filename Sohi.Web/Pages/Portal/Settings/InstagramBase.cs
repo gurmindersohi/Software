@@ -80,15 +80,12 @@ namespace Sohi.Web.Pages.Portal.Settings
 
                 foreach (var facebookPage in facebookPages)
                 {
-                    var accounts = await SocialService.GetInstagramAccounts(facebookPage.Token, endPoint);
+                    var accounts = await SocialService.GetInstagramAccountInfo(facebookPage.Id, facebookPage.Token, endPoint);
 
-                    if (accounts.Count != 0)
+                    if (accounts != null)
                     {
-                        foreach (var account in accounts)
-                        {
-                            account.Token = facebookPage.Token;
-                            instagramAccounts.Add(account);
-                        }
+                        accounts.Token = facebookPage.Token;
+                        instagramAccounts.Add(accounts);
                     }
 
                 }
