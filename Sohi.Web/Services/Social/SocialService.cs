@@ -780,5 +780,25 @@ namespace Sohi.Web.Services.Social
             }
         }
 
+
+        public async Task<Post> CreateInstagramPost(string PageId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            string url = string.Format(endPoint + "/feed");
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }
