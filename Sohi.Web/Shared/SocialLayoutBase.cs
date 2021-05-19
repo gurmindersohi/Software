@@ -43,63 +43,81 @@ namespace Sohi.Web.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var authenticateState = await authenticationStateTask;
-
-            if (!authenticateState.User.Identity.IsAuthenticated)
+            try
             {
-            }
+                var authenticateState = await authenticationStateTask;
 
-            user = await userManager.GetUserAsync(authenticateState.User);
-
-
-            List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
-
-            if (accounts != null && accounts.Count != 0)
-            {
-                foreach (var account in accounts)
+                if (!authenticateState.User.Identity.IsAuthenticated)
                 {
-                    if (account.Type == "Facebook")
-                    {
-
-                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-                        Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
-
-                        if (Profile != null)
-                        {
-                            Profile.Token = account.AccessToken;
-                            FacebookProfile.Add(Profile);
-
-                        }
-
-                    }
-
-                    if (account.Type == "Instagram")
-                    {
-
-                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-                        Profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
-
-                        if (Profile != null)
-                        {
-                            Profile.Token = account.AccessToken;
-                            InstagramProfile.Add(Profile);
-
-                        }
-
-                    }
                 }
 
-            }
+                var result = await userManager.GetUserAsync(authenticateState.User);
 
-            else
+                if (result != null)
+                {
+                    user = result;
+                }
+            }
+            catch (Exception ex)
             {
-                //flag = false;
-                //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                
             }
 
+        }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
+
+                if (accounts != null && accounts.Count != 0)
+                {
+                    foreach (var account in accounts)
+                    {
+                        if (account.Type == "Facebook")
+                        {
+
+                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                            Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
+
+                            if (Profile != null)
+                            {
+                                Profile.Token = account.AccessToken;
+                                FacebookProfile.Add(Profile);
+
+                            }
+
+                        }
+
+                        if (account.Type == "Instagram")
+                        {
+
+                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                            Profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
+
+                            if (Profile != null)
+                            {
+                                Profile.Token = account.AccessToken;
+                                InstagramProfile.Add(Profile);
+
+                            }
+
+                        }
+                    }
+
+                    StateHasChanged();
+
+                }
+
+                else
+                {
+                    //flag = false;
+                    //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                }
+            }
         }
 
 

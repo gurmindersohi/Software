@@ -1,6 +1,17 @@
 ﻿@inherits LayoutComponentBase
-    <AuthorizeView>
-        <Authorized>
+@using Sohi.Web.Models;
+@using Microsoft.AspNetCore.Identity;
+
+<AuthorizeView>
+    <Authorized>
+
+        @if (user == null)
+        {
+            <Loader></Loader>
+        }
+
+        else
+        {
             <div class="page">
                 <div class="sidebar">
                     <NavMenu />
@@ -15,8 +26,9 @@
                     </div>
                 </div>
             </div>
+        }
         </Authorized>
-    </AuthorizeView>
+</AuthorizeView>
 
 
 @code{
@@ -27,6 +39,12 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
+
+    [Inject]
+    public UserManager<User> userManager { get; set; }
+
+    public User user { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         var authenticationState = await authenticationStateTask;
@@ -35,6 +53,20 @@
         {
             string returnUrl = WebUtility.UrlEncode("/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
             NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+        }
+
+        try
+        {
+            var result = await userManager.GetUserAsync(authenticationState.User);
+
+            if (result != null)
+            {
+                user = result;
+            }
+        }
+        catch (Exception ex)
+        {
+
         }
 
     }

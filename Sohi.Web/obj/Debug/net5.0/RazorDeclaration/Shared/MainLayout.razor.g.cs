@@ -96,6 +96,20 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+using Sohi.Web.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -104,7 +118,7 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 22 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 34 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
       
 
     [CascadingParameter]
@@ -112,6 +126,12 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
+
+
+    [Inject]
+    public UserManager<User> userManager { get; set; }
+
+    public User user { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -121,6 +141,20 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
         {
             string returnUrl = WebUtility.UrlEncode("/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
             NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+        }
+
+        try
+        {
+            var result = await userManager.GetUserAsync(authenticationState.User);
+
+            if (result != null)
+            {
+                user = result;
+            }
+        }
+        catch (Exception ex)
+        {
+
         }
 
     }

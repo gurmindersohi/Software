@@ -103,6 +103,17 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 10 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SmallLoader.razor"
+       
+
+    [Parameter]
+    public string StyleClass { get; set; }
+
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591
