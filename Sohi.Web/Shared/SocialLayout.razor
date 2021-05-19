@@ -2,31 +2,20 @@
 
 @layout MainLayout
 
+<div class="page">
+    <div class="sidebar">
 
-@if (user == null)
-{
-    <Loader></Loader>
-}
+        <SocialMenu FacebookProfile="FacebookProfile" InstagramProfile="InstagramProfile" OnPageSelection="PageSelectionChanged" />
 
-else
-{
-
-    <div class="page">
-        <div class="sidebar">
-
-           
-            <SocialMenu FacebookProfile="FacebookProfile" InstagramProfile="InstagramProfile" OnPageSelection="PageSelectionChanged" />
-
-        </div>
-
-        <div class="main">
-
-
-            <CascadingValue Value="Profile" Name="SocialProfile">
-                <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
-                    @Body
-                </div>
-            </CascadingValue>
-        </div>
     </div>
-}
+
+    <div class="main">
+
+
+        <CascadingValue Value="Profile" Name="SocialProfile">
+            <div class="container-fluid ps-0 pe-0" style="min-height: 100vh;">
+                @Body
+            </div>
+        </CascadingValue>
+    </div>
+</div>

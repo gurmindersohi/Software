@@ -21,6 +21,7 @@ namespace Sohi.Web.Shared
         [Inject]
         public UserManager<User> userManager { get; set; }
 
+        [CascadingParameter(Name = "CurrentUser")]
         public User user { get; set; }
 
         [Inject]
@@ -41,29 +42,29 @@ namespace Sohi.Web.Shared
         public string PageToken { get; set; }
 
 
-        protected override async Task OnInitializedAsync()
-        {
-            try
-            {
-                var authenticateState = await authenticationStateTask;
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    try
+        //    {
+        //        var authenticateState = await authenticationStateTask;
 
-                if (!authenticateState.User.Identity.IsAuthenticated)
-                {
-                }
+        //        if (!authenticateState.User.Identity.IsAuthenticated)
+        //        {
+        //        }
 
-                var result = await userManager.GetUserAsync(authenticateState.User);
+        //        var result = await userManager.GetUserAsync(authenticateState.User);
 
-                if (result != null)
-                {
-                    user = result;
-                }
-            }
-            catch (Exception ex)
-            {
+        //        if (result != null)
+        //        {
+        //            user = result;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
                 
-            }
+        //    }
 
-        }
+        //}
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -88,6 +89,7 @@ namespace Sohi.Web.Shared
                                 FacebookProfile.Add(Profile);
 
                             }
+
 
                         }
 
