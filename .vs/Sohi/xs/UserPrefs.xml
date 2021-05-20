@@ -1,33 +1,10 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/CreateBase.cs">
-    <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Facebook.razor" Line="11" Column="22" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/FacebookBase.cs" Line="76" Column="1" />
-      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="45" Column="1" />
-      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="795" Column="23" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Models" expanded="True" />
-            <Node name="Sohi.Web" expanded="True">
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True" />
-                  <Node name="Social" expanded="True">
-                    <Node name="CreateBase.cs" selected="True" />
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Social" expanded="True" />
-              </Node>
-              <Node name="Shared" expanded="True" />
-            </Node>
-          </Node>
+          <Node name="Sohi" selected="True" />
         </State>
       </Pad>
     </Pads>

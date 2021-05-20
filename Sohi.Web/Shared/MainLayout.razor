@@ -1,22 +1,37 @@
 ﻿@inherits LayoutComponentBase
-    <AuthorizeView>
-        <Authorized>
-            <div class="page">
-                <div class="sidebar">
-                    <NavMenu />
-                </div>
+@using Sohi.Web.Models;
+@using Microsoft.AspNetCore.Identity;
 
-                <div class="main">
-                    @*<div class="top-row">
-                        <a class="ml-md-auto" style="text-decoration: none;" href="identity/account/logout">Logout</a>
-                    </div>*@
-                    <div class="container-fluid ps-0 pe-0">
-                        @Body
+<AuthorizeView>
+    <Authorized>
+
+        @if (user == null)
+        {
+            <Loader></Loader>
+        }
+
+        else
+        {
+
+            <CascadingValue Value="user" Name="CurrentUser">
+                <div class="page">
+                    <div class="sidebar">
+                        <NavMenu />
+                    </div>
+
+                    <div class="main">
+                        @*<div class="top-row">
+                                <a class="ml-md-auto" style="text-decoration: none;" href="identity/account/logout">Logout</a>
+                            </div>*@
+                        <div class="container-fluid ps-0 pe-0">
+                            @Body
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Authorized>
-    </AuthorizeView>
+            </CascadingValue>
+        }
+    </Authorized>
+</AuthorizeView>
 
 
 @code{
@@ -27,6 +42,12 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
+
+    [Inject]
+    public UserManager<User> userManager { get; set; }
+
+    public User user { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         var authenticationState = await authenticationStateTask;
@@ -35,6 +56,20 @@
         {
             string returnUrl = WebUtility.UrlEncode("/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
             NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+        }
+
+        try
+        {
+            var result = await userManager.GetUserAsync(authenticationState.User);
+
+            if (result != null)
+            {
+                user = result;
+            }
+        }
+        catch (Exception ex)
+        {
+
         }
 
     }
