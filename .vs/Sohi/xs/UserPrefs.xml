@@ -1,38 +1,10 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Shared/SmallLoader.razor">
-    <Files>
-      <File FileName="Sohi.Web/Shared/SmallLoader.razor" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Models" expanded="True" />
-            <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True" />
-              </Node>
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True" />
-                  <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True" />
-                    <Node name="Instagram" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Social" expanded="True" />
-              </Node>
-              <Node name="Shared" expanded="True">
-                <Node name="SmallLoader.razor" selected="True" />
-              </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="Sohi" selected="True" />
         </State>
       </Pad>
     </Pads>

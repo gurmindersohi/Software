@@ -19,6 +19,7 @@
     <Folder Include="Models\Leads\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Models\Social\" />
+    <Folder Include="Models\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sohi.Models\Sohi.Models.csproj">
