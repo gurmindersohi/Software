@@ -21,6 +21,7 @@ namespace Sohi.Web.Shared
         [Inject]
         public UserManager<User> userManager { get; set; }
 
+        [CascadingParameter(Name = "CurrentUser")]
         public User user { get; set; }
 
         [Inject]
@@ -41,65 +42,84 @@ namespace Sohi.Web.Shared
         public string PageToken { get; set; }
 
 
-        protected override async Task OnInitializedAsync()
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    try
+        //    {
+        //        var authenticateState = await authenticationStateTask;
+
+        //        if (!authenticateState.User.Identity.IsAuthenticated)
+        //        {
+        //        }
+
+        //        var result = await userManager.GetUserAsync(authenticateState.User);
+
+        //        if (result != null)
+        //        {
+        //            user = result;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+                
+        //    }
+
+        //}
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            var authenticateState = await authenticationStateTask;
-
-            if (!authenticateState.User.Identity.IsAuthenticated)
+            if (firstRender)
             {
-            }
+                List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
-            user = await userManager.GetUserAsync(authenticateState.User);
-
-
-            List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
-
-            if (accounts != null && accounts.Count != 0)
-            {
-                foreach (var account in accounts)
+                if (accounts != null && accounts.Count != 0)
                 {
-                    if (account.Type == "Facebook")
+                    foreach (var account in accounts)
                     {
-
-                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-                        Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
-
-                        if (Profile != null)
+                        if (account.Type == "Facebook")
                         {
-                            Profile.Token = account.AccessToken;
-                            FacebookProfile.Add(Profile);
+
+                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                            Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
+
+                            if (Profile != null)
+                            {
+                                Profile.Token = account.AccessToken;
+                                FacebookProfile.Add(Profile);
+
+                            }
+
 
                         }
 
-                    }
-
-                    if (account.Type == "Instagram")
-                    {
-
-                        string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-                        Profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
-
-                        if (Profile != null)
+                        if (account.Type == "Instagram")
                         {
-                            Profile.Token = account.AccessToken;
-                            InstagramProfile.Add(Profile);
+
+                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+                            Profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
+
+                            if (Profile != null)
+                            {
+                                Profile.Token = account.AccessToken;
+                                InstagramProfile.Add(Profile);
+
+                            }
 
                         }
-
                     }
+
+                    StateHasChanged();
+
                 }
 
+                else
+                {
+                    //flag = false;
+                    //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                }
             }
-
-            else
-            {
-                //flag = false;
-                //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
-            }
-
-
         }
 
 

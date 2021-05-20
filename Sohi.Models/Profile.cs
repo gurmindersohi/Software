@@ -14,5 +14,7 @@ namespace Sohi.Models
         public string Token { get; set; }
 
         public string Type { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
