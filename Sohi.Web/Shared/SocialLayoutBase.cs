@@ -36,6 +36,7 @@ namespace Sohi.Web.Shared
 
         public Profile Profile { get; set; } = new Profile();
 
+        public bool flag { get; set; } = false;
 
         public string PageId { get; set; }
 
@@ -116,8 +117,9 @@ namespace Sohi.Web.Shared
 
                 else
                 {
-                    //flag = false;
-                    //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
+                    flag = true;
+
+                    StateHasChanged();
                 }
             }
         }

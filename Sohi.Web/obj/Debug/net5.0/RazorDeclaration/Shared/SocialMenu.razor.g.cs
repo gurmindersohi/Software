@@ -111,8 +111,12 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 108 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
+#line 118 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
        
+
+
+    [Parameter]
+    public bool flag { get; set; } = false;
 
     [Parameter]
     public List<Profile> FacebookProfile { get; set; }

@@ -35,7 +35,7 @@ namespace Sohi.Web.Pages.Portal.Social
         public User user { get; set; }
 
 
-        public bool flag { get; set; } = true;
+        public bool flag { get; set; } = false;
 
         public List<Profile> TotalAccounts { get; set; } = new List<Profile>();
 
@@ -120,7 +120,8 @@ namespace Sohi.Web.Pages.Portal.Social
 
                 else
                 {
-                    //flag = false;
+                    flag = true;
+                    StateHasChanged();
                     //NavigationManager.NavigateTo("/Portal/Social/Facebook/Connect");
                 }
             }
