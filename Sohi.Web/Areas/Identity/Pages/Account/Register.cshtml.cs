@@ -14,11 +14,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Sohi.Web.Models;
+using Sohi.Web.Services.Accounts;
 
 namespace Sohi.Web.Areas.Identity.Pages.Account
 {
-    //[AllowAnonymous]
-    [Authorize(Roles = "Gurminder")]
+    [AllowAnonymous]
+    //[Authorize(Roles = "Gurminder")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
@@ -26,16 +27,20 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly IAccountService _accountService;
+
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IAccountService accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _accountService = accountService;
         }
 
         [BindProperty]
@@ -76,7 +81,19 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+
+                Sohi.Models.Account newAccount = MapAccountValues();
+                newAccount.Email = Input.Email;
+
+                Sohi.Models.Account account = await _accountService.CreateAccount(newAccount);
+
+                var user = new User
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    AccountId = account.AccountId.ToString()
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -112,5 +129,29 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+
+        private Sohi.Models.Account MapAccountValues()
+        {
+            Sohi.Models.Account account = new Sohi.Models.Account();
+            account.AccountId = Guid.NewGuid();
+            account.AccountType = "Diamond";
+            account.Email = "";
+            account.UsersLimit = "10";
+
+            account.TrialExpiry = DateTime.Now.AddDays(14);
+            account.IsAccountPaid = false;
+            account.IsDeleted = false;
+            account.OnHold = false;
+
+            account.CreatedBy = "Home";
+            account.CreatedOn = DateTime.Now;
+            account.ModifiedBy = "Home";
+            account.ModifiedOn = DateTime.Now;
+            account.IsActive = true;
+
+            return account;
+        }
     }
 }
+

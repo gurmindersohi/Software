@@ -66,10 +66,16 @@ else
                                     <div class="form-control">
                                         @if (TotalAccounts.Count == 0)
                                         {
-
-                                            <div class="col-md-12 text-center">
-                                               <SmallLoader></SmallLoader>
-                                            </div>
+                                            @if (!flag)
+                                            {
+                                                <SmallLoader StyleClass="p-1"></SmallLoader>
+                                            }
+                                            else
+                                            {
+                                                <div class="pb-2 text-center" style="color:rgb(99, 99, 99); font-weight:600;">
+                                                    No account is connected!
+                                                </div>
+                                            }
                                         }
                                         else
                                         {

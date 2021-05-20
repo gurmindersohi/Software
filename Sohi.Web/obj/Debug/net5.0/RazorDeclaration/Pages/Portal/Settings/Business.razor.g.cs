@@ -96,29 +96,15 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
-    public partial class SettingsMenu : Settings
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Settings))]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Settings/Business")]
+    public partial class Business : BusinessBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 101 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Settings/SettingsMenu.razor"
-       
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

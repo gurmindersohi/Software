@@ -39,5 +39,6 @@
     <Folder Include="Pages\Portal\Ads\Facebook\" />
     <Folder Include="Pages\Portal\Settings\" />
     <Folder Include="Services\Settings\" />
+    <Folder Include="Services\Accounts\" />
   </ItemGroup>
 </Project>

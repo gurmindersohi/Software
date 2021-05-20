@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sohi.Web.Models;
+using Sohi.Web.Services.Accounts;
 using Sohi.Web.Services.Leads;
 using Sohi.Web.Services.Settings;
 using Sohi.Web.Services.Social;
@@ -55,6 +56,12 @@ namespace Sohi.Web
             });
 
             services.AddHttpClient<ISettingsService, SettingsService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7368/");
+                //client.BaseAddress = new Uri("https://sohi-api.azurewebsites.net/");
+            });
+
+            services.AddHttpClient<IAccountService, AccountService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7368/");
                 //client.BaseAddress = new Uri("https://sohi-api.azurewebsites.net/");
