@@ -1,15 +1,9 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Shared/SmallLoader.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml.cs">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Accounts.razor" Line="22" Column="15" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Connect.razor" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Shared/SocialMenu.razor" Line="40" Column="1" />
-      <File FileName="Sohi.Web/Shared/SocialLayout.razor" Line="9" Column="1" />
-      <File FileName="Sohi.Web/Shared/SocialLayoutBase.cs" Line="123" Column="18" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/CreateBase.cs" Line="121" Column="21" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Create.razor" Line="79" Column="1" />
-      <File FileName="Sohi.Web/Shared/SmallLoader.razor" Line="13" Column="1" />
+      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml.cs" Line="76" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,19 +11,26 @@
           <Node name="Sohi" expanded="True">
             <Node name="Sohi.Api" expanded="True">
               <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Accounts" expanded="True" />
+                <Node name="Leads" expanded="True" />
+                <Node name="Settings" expanded="True" />
+              </Node>
             </Node>
-            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True" />
-                  <Node name="Social" expanded="True">
-                    <Node name="Instagram" expanded="True" />
+              <Node name="Areas" expanded="True">
+                <Node name="Identity" expanded="True">
+                  <Node name="Pages" expanded="True">
+                    <Node name="Account" expanded="True">
+                      <Node name="Register.cshtml" expanded="True">
+                        <Node name="Register.cshtml.cs" selected="True" />
+                      </Node>
+                    </Node>
                   </Node>
                 </Node>
               </Node>
-              <Node name="Shared" expanded="True">
-                <Node name="SmallLoader.razor" selected="True" />
+              <Node name="Services" expanded="True">
+                <Node name="Accounts" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -43,7 +44,6 @@
     <BreakpointStore>
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Social/Create.razor" relfile="Sohi.Web/Pages/Portal/Social/Create.razor" line="69" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Sohi.Models;
 using Sohi.Web.Models;
-using Sohi.Web.Services.Settings;
+using Sohi.Web.Services.Accounts;
 
 namespace Sohi.Web.Pages.Portal.Settings
 {
@@ -13,7 +13,7 @@ namespace Sohi.Web.Pages.Portal.Settings
     {
 
         [Inject]
-        public ISettingsService SettingsService { get; set; }
+        public IAccountService AccountService { get; set; }
 
         public Account Account { get; set; } = new Account();
 
@@ -39,7 +39,7 @@ namespace Sohi.Web.Pages.Portal.Settings
 
             Guid accountid = Guid.Parse(user.AccountId);
 
-            Account = await SettingsService.GetAccount(accountid);
+            Account = await AccountService.GetAccount(accountid);
 
 
         }
@@ -50,7 +50,7 @@ namespace Sohi.Web.Pages.Portal.Settings
 
             if (Account.AccountId != Guid.Empty)
             {
-                result = await SettingsService.UpdateAccount(Account);
+                result = await AccountService.UpdateAccount(Account);
             }
 
             if (result != null)
