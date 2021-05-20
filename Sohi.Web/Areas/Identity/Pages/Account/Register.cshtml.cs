@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Accounts;
@@ -25,7 +28,13 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+
+        //private readonly IEmailSender _emailSender;
+
+
+        private IConfiguration _config;
 
         private readonly IAccountService _accountService;
 
@@ -33,14 +42,19 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            IAccountService accountService)
+            //IEmailSender emailSender,
+            IAccountService accountService,
+            RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+            //_emailSender = emailSender;
             _accountService = accountService;
+
+            _roleManager = roleManager;
+            _config = configuration;
         }
 
         [BindProperty]
@@ -95,20 +109,30 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    var role = await _roleManager.FindByIdAsync("cd9a0163-fde3-4bc1-a9b6-1c76926e78ff");
+
+                    var assigned = await _userManager.AddToRoleAsync(user, role.Name);
+
+
+                    //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    SendEmailConfirmation(Input.Email, "Confirm your email", $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -152,6 +176,32 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
 
             return account;
         }
+
+        public void SendEmailConfirmation(string emailTo, string subject, string body)
+        {
+
+            string Email = _config.GetSection("noreplyEmailCredentials").GetSection("Email").Value;
+            string Password = _config.GetSection("noreplyEmailCredentials").GetSection("Password").Value;
+
+            MailMessage mail = new MailMessage();
+
+            mail.From = new MailAddress(Email);
+            mail.To.Add(emailTo);
+            mail.Subject = subject;
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+
+            client.Port = 587;
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential(Email, Password);
+
+            client.Send(mail);
+
+        }
+
+
     }
 }
 

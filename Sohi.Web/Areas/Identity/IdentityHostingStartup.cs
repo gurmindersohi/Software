@@ -20,8 +20,8 @@ namespace Sohi.Web.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("SohiDbConnection")));
 
-                services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<SohiWebContext>();
+                services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<SohiWebContext>().AddDefaultTokenProviders();
             });
         }
     }
