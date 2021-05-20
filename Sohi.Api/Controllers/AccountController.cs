@@ -83,7 +83,7 @@ namespace Sohi.Api.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new lead record");
+                    "Error creating new Account record");
             }
         }
     }

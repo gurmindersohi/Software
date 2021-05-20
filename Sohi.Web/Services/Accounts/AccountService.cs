@@ -17,19 +17,19 @@ namespace Sohi.Web.Services.Accounts
 
         public async Task<Account> GetAccount(Guid accountid)
         {
-            var result = await httpClient.GetJsonAsync<Account>($"api/accounts/{accountid}");
+            var result = await httpClient.GetJsonAsync<Account>($"api/account/{accountid}");
 
             return result;
         }
 
         public async Task<Account> CreateAccount(Account newAccount)
         {
-            return await httpClient.PostJsonAsync<Account>("api/accounts/", newAccount);
+            return await httpClient.PostJsonAsync<Account>("api/account/", newAccount);
         }
 
         public async Task<Account> UpdateAccount(Account updatedAccount)
         {
-            return await httpClient.PutJsonAsync<Account>("api/accounts/", updatedAccount);
+            return await httpClient.PutJsonAsync<Account>("api/account/", updatedAccount);
         }
 
     }
