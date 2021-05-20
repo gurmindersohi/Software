@@ -4,7 +4,20 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" selected="True" />
+          <Node name="Sohi" expanded="True" selected="True">
+            <Node name="Sohi.Api" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+            <Node name="Sohi.Models" expanded="True" />
+            <Node name="Sohi.Web" expanded="True">
+              <Node name="Pages" expanded="True">
+                <Node name="Portal" expanded="True">
+                  <Node name="Settings" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Shared" expanded="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
