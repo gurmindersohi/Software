@@ -1,11 +1,18 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Registration successful";
 }
 
 <h1>@ViewData["Title"]</h1>
-@{
+
+
+<p>
+    Before you can Login, please confirm your email, by clicking on the confirmation link we have emailed you"
+</p>
+
+
+@*@{
     if (@Model.DisplayConfirmAccountLink)
     {
 <p>
@@ -19,4 +26,4 @@
         Please check your email to confirm your account.
 </p>
     }
-}
+}*@
