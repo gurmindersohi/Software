@@ -40,5 +40,6 @@
     <Folder Include="Pages\Portal\Settings\" />
     <Folder Include="Services\Settings\" />
     <Folder Include="Services\Accounts\" />
+    <Folder Include="Services\Emails\" />
   </ItemGroup>
 </Project>
