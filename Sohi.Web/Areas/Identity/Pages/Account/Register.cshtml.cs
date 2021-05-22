@@ -31,7 +31,7 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        //private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
 
 
         private IConfiguration _config;
@@ -42,7 +42,7 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            //IEmailSender emailSender,
+            IEmailSender emailSender,
             IAccountService accountService,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
@@ -50,7 +50,7 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            //_emailSender = emailSender;
+            _emailSender = emailSender;
             _accountService = accountService;
 
             _roleManager = roleManager;
@@ -116,9 +116,6 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
 
                     var assigned = await _userManager.AddToRoleAsync(user, role.Name);
 
-
-                    //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
@@ -128,11 +125,8 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    SendEmailConfirmation(Input.Email, "Confirm your email", $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -175,30 +169,6 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
             account.IsActive = true;
 
             return account;
-        }
-
-        public void SendEmailConfirmation(string emailTo, string subject, string body)
-        {
-
-            string Email = _config.GetSection("noreplyEmailCredentials").GetSection("Email").Value;
-            string Password = _config.GetSection("noreplyEmailCredentials").GetSection("Password").Value;
-
-            MailMessage mail = new MailMessage();
-
-            mail.From = new MailAddress(Email);
-            mail.To.Add(emailTo);
-            mail.Subject = subject;
-            mail.Body = body;
-            mail.IsBodyHtml = true;
-
-            SmtpClient client = new SmtpClient("smtp.gmail.com");
-
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(Email, Password);
-
-            client.Send(mail);
-
         }
 
 

@@ -1,40 +1,10 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Areas/Identity/Pages/Account/Login.cshtml">
-    <Files>
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml" Line="64" Column="7" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml.cs" Line="89" Column="56" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Accounts.razor" Line="9" Column="126" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml" Line="27" Column="34" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Login.cshtml" Line="51" Column="10" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
-                  <Node name="Pages" expanded="True">
-                    <Node name="Account" expanded="True">
-                      <Node name="Login.cshtml" selected="True" />
-                      <Node name="Register.cshtml" expanded="True" />
-                      <Node name="RegisterConfirmation.cshtml" expanded="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True" />
-                </Node>
-              </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Accounts" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="Sohi" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
