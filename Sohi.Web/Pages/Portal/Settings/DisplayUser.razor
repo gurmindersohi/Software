@@ -21,11 +21,25 @@
     <div class="col me-0 pe-0" style="flex:0.5; padding-left:1%;">
         <div class="row">
             <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
-                Admin
-                @*@foreach (var role in Role)
+
+
+                @if (Roles == null)
+                {
+                <div class="" style="font-size: 15px; font-weight: 500; color:rgba(40,43,49,.7);">
+                    <span class="oi oi-eye"></span>&nbsp;<a type="button" @onclick="ViewRole" style="text-decoration:none;">&nbsp;View Role</a>
+                </div>
+
+
+                    @*<SmallLoader StyleClass="pt-2 p-5"></SmallLoader>*@
+                }
+
+                else
+                {
+                    @foreach (var role in Roles)
                     {
                         @role
-                    }*@
+                    }
+                }
             </div>
             <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
                 <a type="button" @onclick="() => DeleteAccount(user)" style="text-decoration:none;">(delete)</a>

@@ -28,6 +28,9 @@ namespace Sohi.Web.Pages.Portal.Settings
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+
+        protected bool ShowConfirmation { get; set; } = false;
+
         protected async override Task OnInitializedAsync()
         {
             var authState = await authenticationStateTask;
@@ -55,7 +58,7 @@ namespace Sohi.Web.Pages.Portal.Settings
 
             if (result != null)
             {
-                NavigationManager.NavigateTo("/Portal/Settings/Business");
+                ShowConfirmation = true;
             }
 
         }

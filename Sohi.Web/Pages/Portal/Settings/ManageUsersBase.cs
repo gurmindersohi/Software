@@ -65,34 +65,5 @@ namespace Sohi.Web.Pages.Portal.Settings
             Users = userManager.Users.Where(a => a.AccountId == user.AccountId.ToString());
         }
 
-        protected async Task GetRole(User user)
-        {
-            var roles = await userManager.GetRolesAsync(user);
-
-
-
-            //var roleId = roleManager.AspNetUserRoles.Where(a => a.Id == user.roleId.ToString();
-
-            //Role = roleManager.Roles.Where(a => a.Id == roleId);
-        }
-
-        //protected async Task DeleteAccount(User deletedUser)
-        //{
-        //    DeleteConfirmation.Show();
-        //}
-
-
-        //protected async Task ConfirmDelete_Click(bool deleteConfirmed)
-        //{
-        //    if (deleteConfirmed)
-        //    {
-        //        if (deletedUser != null)
-        //        {
-        //            await userManager.DeleteAsync(deletedUser);
-
-        //        }
-        //    }
-        //}
-
     }
 }

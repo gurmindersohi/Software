@@ -118,7 +118,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 40 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
       
 
     [CascadingParameter]
@@ -132,6 +132,8 @@ using Microsoft.AspNetCore.Identity;
     public UserManager<User> userManager { get; set; }
 
     public User user { get; set; }
+
+    public bool flag { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -150,6 +152,13 @@ using Microsoft.AspNetCore.Identity;
             if (result != null)
             {
                 user = result;
+            }
+            else
+            {
+                flag = true;
+
+                NavigationManager.NavigateTo("/Identity/Account/Login");
+                StateHasChanged();
             }
         }
         catch (Exception ex)

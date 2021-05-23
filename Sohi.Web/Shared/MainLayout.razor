@@ -7,7 +7,10 @@
 
         @if (user == null)
         {
-            <Loader></Loader>
+            @if (!flag)
+            {
+                <SmallLoader StyleClass="pt-2 p-5"></SmallLoader>
+            }
         }
 
         else
@@ -21,8 +24,8 @@
 
                     <div class="main">
                         @*<div class="top-row">
-                                <a class="ml-md-auto" style="text-decoration: none;" href="identity/account/logout">Logout</a>
-                            </div>*@
+                            <a class="ml-md-auto" style="text-decoration: none;" href="identity/account/logout">Logout</a>
+                        </div>*@
                         <div class="container-fluid ps-0 pe-0">
                             @Body
                         </div>
@@ -48,6 +51,8 @@
 
     public User user { get; set; }
 
+    public bool flag { get; set; } = false;
+
     protected override async Task OnInitializedAsync()
     {
         var authenticationState = await authenticationStateTask;
@@ -65,6 +70,13 @@
             if (result != null)
             {
                 user = result;
+            }
+            else
+            {
+                flag = true;
+
+                NavigationManager.NavigateTo("/Identity/Account/Login");
+                StateHasChanged();
             }
         }
         catch (Exception ex)

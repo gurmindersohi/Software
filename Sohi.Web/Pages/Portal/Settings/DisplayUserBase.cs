@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,9 @@ namespace Sohi.Web.Pages.Portal.Settings
         [Inject]
         public UserManager<User> userManager { get; set; }
 
+
+        protected IList<string> Roles { get; set; }
+
         protected void Delete_Click()
         {
             DeleteConfirmation.Show();
@@ -44,6 +48,16 @@ namespace Sohi.Web.Pages.Portal.Settings
                 await OnUserDeleted.InvokeAsync(user.Id);
 
             }
+        }
+
+
+        protected async Task ViewRole()
+        {
+
+            var role = await userManager.GetRolesAsync(user);
+
+            Roles = role;
+
         }
     }
 }
