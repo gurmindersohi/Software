@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {}
+    "/Users/gurmindersingh/Documents/Software/Sohi.Models/Sohi.Models.csproj": {}
   },
   "projects": {
-    "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {
+    "/Users/gurmindersingh/Documents/Software/Sohi.Models/Sohi.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj",
+        "projectUniqueName": "/Users/gurmindersingh/Documents/Software/Sohi.Models/Sohi.Models.csproj",
         "projectName": "Sohi.Models",
-        "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj",
+        "projectPath": "/Users/gurmindersingh/Documents/Software/Sohi.Models/Sohi.Models.csproj",
         "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
-        "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/obj/",
+        "outputPath": "/Users/gurmindersingh/Documents/Software/Sohi.Models/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
         ],
@@ -52,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
         }
       }
     }
