@@ -9,11 +9,11 @@
 <div class="container mt-5 pt-2" style=" margin-top:5rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; max-width:1000px; ">
 
     <div class="row p-2 ps-5 pe-4">
-        <EditForm Model="@Account" OnValidSubmit="HandleValidSubmit">
+        <EditForm Model="@user" OnValidSubmit="HandleValidSubmit">
 
             <div class="col" style="flex:0;">
                 <DataAnnotationsValidator />
-                <h3>General Info</h3>
+                <h3>General Account Settings</h3>
                 <hr />
                 <ValidationSummary />
             </div>
@@ -21,218 +21,191 @@
 
             <div class="row">
 
-                <div class="col" style="flex:0;">
-                    <img src="/images/img_avatar.png" height="150" width="150" class="rounded-circle ms-1" />
-                </div>
 
-                @if (Account == null)
+
+                @if (user == null)
                 {
                     <SmallLoader StyleClass="pt-5"></SmallLoader>
                 }
                 else
                 {
 
-                    <div class="col ps-5">
 
-                        <div class="form-group row">
+                    <div class="card mt-3 p-0">
+                        <div class="card-header">
 
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="BusinessName" class="col-form-label CustomFont">
-                                            Business Name
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="BusinessName" class="form-control"
-                                                   @bind-Value="user.FirstName" />
-                                        <ValidationMessage For="@(() => user.FirstName)" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Email" class="col-form-label CustomFont">
-                                            Email
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="Email" class="form-control"
-                                                   @bind-Value="user.LastName" />
-                                        <ValidationMessage For="@(() => user.LastName)" />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Phone" class="col-form-label CustomFont">
-                                            Phone
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="Phone" class="form-control"
-                                                   @bind-Value="Account.Phone" />
-                                        <ValidationMessage For="@(() => Account.Phone)" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Plan" class="col-form-label CustomFont">
-                                            Plan
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="Plan" class="form-control" disabled
-                                                   @bind-Value="Account.AccountType" />
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Address" class="col-form-label CustomFont">
-                                            Address
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="Address" class="form-control"
-                                                   @bind-Value="Account.Address" />
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="City" class="col-form-label CustomFont">
-                                            City
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="City" class="form-control"
-                                                   @bind-Value="Account.City" />
-                                        <ValidationMessage For="@(() => Account.City)" />
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="form-group row">
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Province" class="col-form-label CustomFont">
-                                            Province
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="Province" class="form-control"
-                                                   @bind-Value="Account.Province" />
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Country" class="col-form-label CustomFont">
-                                            Country
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="Country" class="form-control"
-                                                   @bind-Value="Account.Country" />
-                                        <ValidationMessage For="@(() => Account.Country)" />
-
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="" style="color:black; font-weight:600;">
+                                            Personal
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="form-group row">
+                        <div class="card-body">
+                            <div class="row">
 
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="PostalCode" class="col-form-label CustomFont">
-                                            Postal Code
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="PostalCode" class="form-control"
-                                                   @bind-Value="Account.PostalCode" />
-
-                                    </div>
+                                <div class="col" style="flex:0;">
+                                    <img src="/images/img_avatar.png" height="150" width="150" class="rounded-circle ms-1" />
                                 </div>
 
+                                <div class="col">
+                                    <div class="form-group row">
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="FirstName" class="col-form-label CustomFont">
+                                                        First Name
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <InputText id="FirstName" class="form-control"
+                                                               @bind-Value="user.FirstName" />
+                                                    <ValidationMessage For="@(() => user.FirstName)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="LastName" class="col-form-label CustomFont">
+                                                        Last Name
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <InputText id="Email" class="form-control"
+                                                               @bind-Value="user.LastName" />
+                                                    <ValidationMessage For="@(() => user.LastName)" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="Email" class="col-form-label CustomFont">
+                                                        Email
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <InputText id="FirstName" class="form-control"
+                                                               @bind-Value="user.Email" />
+                                                    <ValidationMessage For="@(() => user.Email)" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="PhoneNumber" class="col-form-label CustomFont">
+                                                        Phone Number
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <InputText id="Email" class="form-control"
+                                                               @bind-Value="user.PhoneNumber" />
+                                                    <ValidationMessage For="@(() => user.PhoneNumber)" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="form-group row">
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="Gender" class="col-form-label CustomFont">
+                                                        Gender
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <InputText id="Gender" class="form-control"
+                                                               @bind-Value="user.Gender" />
+                                                    <ValidationMessage For="@(() => user.Gender)" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="DateOfBirth" class="col-form-label CustomFont">
+                                                        Date Of Birth
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <InputDate id="DateOfBirth" class="form-control"
+                                                               @bind-Value="user.DateOfBirth" />
+                                                    <ValidationMessage For="@(() => user.DateOfBirth)" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary m-1">Save</button>
+
+                                </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="UsersLimit" class="col-form-label CustomFont">
-                                            Users Limit
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <InputText id="UsersLimit" class="form-control" disabled
-                                                   @bind-Value="Account.UsersLimit" />
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-
-                        <button type="submit" class="btn btn-primary m-1">Save</button>
 
                     </div>
+
+
+                    <div class="card mt-3 p-0">
+                        <div class="card-header">
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="" style="color:black; font-weight:600;">
+                                            Login
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                </div>
+
+                                <div class="col-md-3">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
 
                 }
             </div>
