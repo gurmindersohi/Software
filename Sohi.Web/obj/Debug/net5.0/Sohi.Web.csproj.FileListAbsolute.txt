@@ -1650,3 +1650,7 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Settings/ManageUsers.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Settings/NewUser.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Settings/NewUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Shared/Success.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Shared/Success.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Settings/DisplayUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Settings/DisplayUser.razor.g.cs

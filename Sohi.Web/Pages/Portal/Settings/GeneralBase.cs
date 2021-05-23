@@ -25,6 +25,8 @@ namespace Sohi.Web.Pages.Portal.Settings
 
         public User user { get; set; }
 
+        protected bool ShowConfirmation { get; set; } = false;
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
@@ -44,10 +46,9 @@ namespace Sohi.Web.Pages.Portal.Settings
 
             var result = await userManager.UpdateAsync(user);
 
-
             if (result != null)
             {
-                NavigationManager.NavigateTo("/Portal/Settings/General");
+                ShowConfirmation = true;
             }
 
         }

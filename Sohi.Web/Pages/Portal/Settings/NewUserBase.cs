@@ -45,6 +45,8 @@ namespace Sohi.Web.Pages.Portal.Settings
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        protected bool ShowConfirmation { get; set; } = false;
+
         protected override async Task OnParametersSetAsync()
         {
 

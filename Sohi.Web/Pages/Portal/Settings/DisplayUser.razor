@@ -1,0 +1,41 @@
+﻿@inherits DisplayUserBase
+
+
+
+<div class="row p-2 pt-3 pb-3" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
+    <div class="col" style="flex:0; padding-left:0;">
+        <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
+    </div>
+    <div class="col ps-0">
+        <div class="row">
+            <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                @user.Email
+            </div>
+            <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                @user.FirstName @user.LastName
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col me-0 pe-0" style="flex:0.5; padding-left:1%;">
+        <div class="row">
+            <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                Admin
+                @*@foreach (var role in Role)
+                    {
+                        @role
+                    }*@
+            </div>
+            <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                <a type="button" @onclick="() => DeleteAccount(user)" style="text-decoration:none;">(delete)</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
+         ConfirmationMessage=@($"Are you sure you want to delete \"{user.Email}\"")>
+</Confirm>

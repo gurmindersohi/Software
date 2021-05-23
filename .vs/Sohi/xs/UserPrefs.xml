@@ -1,41 +1,23 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Settings/NewUser.razor">
-    <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/General.razor" Line="16" Column="45" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/GeneralBase.cs" Line="40" Column="55" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Posts.razor" Line="23" Column="38" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml" Line="36" Column="2" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml.cs" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/NewUser.razor" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True">
+          <Node name="Sohi" expanded="True" selected="True">
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Pages" expanded="True">
-                    <Node name="Account" expanded="True">
-                      <Node name="Manage" expanded="True">
-                        <Node name="ChangePassword.cshtml" expanded="True" />
-                      </Node>
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
               <Node name="Models" expanded="True" />
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True">
-                    <Node name="NewUser.razor" selected="True" />
-                  </Node>
-                  <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True" />
-                  </Node>
+                  <Node name="Leads" expanded="True" />
+                  <Node name="Settings" expanded="True" />
+                  <Node name="Social" expanded="True" />
+                </Node>
+                <Node name="Website" expanded="True">
+                  <Node name="Home.cshtml" expanded="True" />
                 </Node>
               </Node>
+              <Node name="Shared" expanded="True" />
             </Node>
           </Node>
         </State>

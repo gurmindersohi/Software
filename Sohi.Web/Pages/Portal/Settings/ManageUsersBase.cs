@@ -13,6 +13,7 @@ using Sohi.Web.Models;
 using Sohi.Web.Pages.Portal.Social.Facebook;
 using Sohi.Web.Services.Accounts;
 using Sohi.Web.Services.Social;
+using Sohi.Web.Shared;
 
 namespace Sohi.Web.Pages.Portal.Settings
 {
@@ -42,6 +43,9 @@ namespace Sohi.Web.Pages.Portal.Settings
         public bool flag { get; set; } = false;
 
 
+        protected ConfirmBase DeleteConfirmation { get; set; }
+
+
         protected override async Task OnParametersSetAsync()
         {
 
@@ -52,11 +56,14 @@ namespace Sohi.Web.Pages.Portal.Settings
                 user = await userManager.GetUserAsync(authState.User);
             }
 
-            Users = userManager.Users.Where(a => a.AccountId == user.AccountId.ToString());
-
+            GetUsers();
 
         }
 
+        protected void GetUsers()
+        {
+            Users = userManager.Users.Where(a => a.AccountId == user.AccountId.ToString());
+        }
 
         protected async Task GetRole(User user)
         {
@@ -68,6 +75,24 @@ namespace Sohi.Web.Pages.Portal.Settings
 
             //Role = roleManager.Roles.Where(a => a.Id == roleId);
         }
+
+        //protected async Task DeleteAccount(User deletedUser)
+        //{
+        //    DeleteConfirmation.Show();
+        //}
+
+
+        //protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        //{
+        //    if (deleteConfirmed)
+        //    {
+        //        if (deletedUser != null)
+        //        {
+        //            await userManager.DeleteAsync(deletedUser);
+
+        //        }
+        //    }
+        //}
 
     }
 }
