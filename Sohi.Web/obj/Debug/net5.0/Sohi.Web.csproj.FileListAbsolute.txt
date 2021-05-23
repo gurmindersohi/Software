@@ -1646,3 +1646,7 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.genruntimeconfig.cache
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Settings/ManageUsers.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Settings/ManageUsers.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Settings/ManageUsers.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Settings/ManageUsers.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Settings/NewUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Settings/NewUser.razor.g.cs

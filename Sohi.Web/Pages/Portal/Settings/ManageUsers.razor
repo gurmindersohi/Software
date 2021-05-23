@@ -5,8 +5,78 @@
 @inherits ManageUsersBase
 @layout Settings
 
-<h3>Manage Users</h3>
 
-@code {
+<div class="container mt-5 pt-2" style="max-width: 30rem; margin-top:5rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
 
-}
+    <div class="row ps-5 pe-4">
+        <div class="row p-3 px-0">
+            <div class="col">
+                <div class="" style="color: rgb(61, 61, 61); font-family: Roboto, sans-serif; font-size: 32px; font-weight: 700; line-height: 44px;">
+                    Manage Users
+                </div>
+            </div>
+
+            <div class="col me-0" style="flex:0.5;">
+                <a type="button" href="/Portal/Settings/ManageUsers/NewUser" class="btn btn-white btn-lg" style="border: 1px solid rgba(0,0,0,.125); justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;">New User</a>
+            </div>
+        </div>
+
+        @if (Users == null)
+        {
+            @if (!flag)
+            {
+                <SmallLoader StyleClass="pt-2 p-5"></SmallLoader>
+            }
+        }
+
+        else
+        {
+
+            <div class="row p-3 pt-1 px-0">
+                <div class="col pe-0">
+
+                    @foreach (var user in Users)
+                    {
+                        @*@GetRole(user);*@
+
+                        <div class="row p-2 pt-3 pb-3" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
+                            <div class="col" style="flex:0; padding-left:0;">
+                                <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
+                            </div>
+                            <div class="col ps-0">
+                                <div class="row">
+                                    <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                        @user.Email
+                                    </div>
+                                    <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                                        @user.FirstName @user.LastName
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col me-0 pe-0" style="flex:0.5; padding-left:1%;">
+                                <div class="row">
+                                    <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                        Admin
+                                        @*@foreach (var role in Role)
+                            {
+                                @role
+                            }*@
+                                    </div>
+                                    <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                                        <a type="button" href="#" style="text-decoration:none;">(delete)</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+

@@ -3,11 +3,23 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Sohi.Models;
+using Sohi.Web.Models;
+using Sohi.Web.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sohi.Web.Services.Accounts
 {
     public class AccountService : IAccountService
     {
+        private readonly SohiWebContext context;
+
+        public AccountService(SohiWebContext context)
+        {
+            this.context = context;
+        }
+
         private readonly HttpClient httpClient;
 
         public AccountService(HttpClient httpClient)

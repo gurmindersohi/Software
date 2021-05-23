@@ -1,0 +1,110 @@
+﻿
+
+@page "/Portal/Settings/ManageUsers/NewUser"
+
+@inherits NewUserBase
+@layout Settings
+
+
+<div class="container mt-5 pt-2" style="max-width: 30rem; margin-top:5rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
+
+    <div class="row ps-5 pe-4">
+            <div class="row p-3 pt-1 px-0">
+                <div class="col pe-0">
+
+                        <div class="row p-2 pt-3 pb-3" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
+                            <div class="col ps-0">
+                                <div class="row">
+
+                                    <EditForm Model="@NewUserModel" OnValidSubmit="HandleValidSubmit">
+                                        <DataAnnotationsValidator />
+                                        <h3>New User</h3>
+                                        <hr />
+                                        <ValidationSummary />
+
+                                        <div class="form-group row p-1">
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="Email" class="col-sm-12 col-form-label">
+                                                            Email
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <InputText id="Email" class="form-control"
+                                                                   @bind-Value="NewUserModel.Email" />
+                                                        <ValidationMessage For="@(() => NewUserModel.Email)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row p-1">
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="Password" class="col-sm-12 col-form-label">
+                                                            Password
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <InputText id="Password" class="form-control"
+                                                                   @bind-Value="NewUserModel.Password" />
+                                                        <ValidationMessage For="@(() => NewUserModel.Password)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row p-1">
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="ConfirmPassword" class="col-sm-12 col-form-label">
+                                                            Confirm Password
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <InputText id="ConfirmPassword" class="form-control"
+                                                                   @bind-Value="NewUserModel.ConfirmPassword" />
+                                                        <ValidationMessage For="@(() => NewUserModel.ConfirmPassword)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     
+                                        <button type="submit" class="btn btn-primary m-1">Create</button>
+                                    </EditForm>
+                                  
+                                </div>
+
+                            </div>
+                           
+                        </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+<div class="container mt-5 pt-2" style="max-width: 30rem; margin-top:5rem;">
+    <div class="row">
+        <div class="row">
+
+            <div class="col ps-0 me-0">
+                <a type="button" href="/Portal/Settings/ManageUsers" class="btn btn-white btn-lg" style=" justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;"><span class="oi oi-arrow-left"></span>&nbsp;Back to Manage Users</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>

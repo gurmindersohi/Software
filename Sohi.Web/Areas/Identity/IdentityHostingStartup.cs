@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sohi.Web.Data;
 using Sohi.Web.Models;
+using Sohi.Web.Services.Accounts;
 using Sohi.Web.Services.Emails;
 
 [assembly: HostingStartup(typeof(Sohi.Web.Areas.Identity.IdentityHostingStartup))]
@@ -26,6 +27,7 @@ namespace Sohi.Web.Areas.Identity
                     .AddEntityFrameworkStores<SohiWebContext>().AddDefaultTokenProviders();
 
                 services.AddTransient<IEmailSender, EmailSender>();
+                //services.AddScoped<IAccountService, AccountService>();
             });
         }
     }

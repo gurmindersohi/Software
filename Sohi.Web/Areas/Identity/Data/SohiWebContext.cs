@@ -17,12 +17,7 @@ namespace Sohi.Web.Data
         {
         }
 
-
         public DbSet<User> Users { get; set; }
-
-        //public DbSet<Account.Account> Accounts { get; set; }
-
-        //public DbSet<SocialMedia.SocialMedia> SocialMediaAccounts { get; set; }
 
         public DbSet<Lead> Leads { get; set; }
 

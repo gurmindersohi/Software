@@ -1,12 +1,73 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
+using Sohi.Models;
+using Sohi.Web.Models;
+using Sohi.Web.Pages.Portal.Social.Facebook;
+using Sohi.Web.Services.Accounts;
+using Sohi.Web.Services.Social;
 
 namespace Sohi.Web.Pages.Portal.Settings
 {
     public class ManageUsersBase : ComponentBase
     {
-        public ManageUsersBase()
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        public IAccountService AccountService { get; set; }
+
+        [Inject]
+        public UserManager<User> userManager { get; set; }
+
+        [Inject]
+        public RoleManager<IdentityRole> roleManager { get; set; }
+
+        public IEnumerable<User> Users { get; set; }
+
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        public User user { get; set; }
+
+        public IList<string> Role { get; set; }
+
+        public bool flag { get; set; } = false;
+
+
+        protected override async Task OnParametersSetAsync()
         {
+
+            var authState = await authenticationStateTask;
+
+            if (authState.User.Identity.IsAuthenticated)
+            {
+                user = await userManager.GetUserAsync(authState.User);
+            }
+
+            Users = userManager.Users.Where(a => a.AccountId == user.AccountId.ToString());
+
+
         }
+
+
+        protected async Task GetRole(User user)
+        {
+            var roles = await userManager.GetRolesAsync(user);
+
+
+
+            //var roleId = roleManager.AspNetUserRoles.Where(a => a.Id == user.roleId.ToString();
+
+            //Role = roleManager.Roles.Where(a => a.Id == roleId);
+        }
+
     }
 }
