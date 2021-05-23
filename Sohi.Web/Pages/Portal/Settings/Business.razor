@@ -21,6 +21,11 @@
 
             <div class="row">
 
+                @if (ShowConfirmation)
+                {
+                    <Success SuccessMessage="Successfully Updated!"></Success>
+                }
+
                 <div class="col" style="flex:0;">
                     <img src="/images/img_avatar.png" height="150" width="150" class="rounded-circle ms-1" />
                 </div>
