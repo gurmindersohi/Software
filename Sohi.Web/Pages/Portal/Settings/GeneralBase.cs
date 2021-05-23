@@ -15,7 +15,7 @@ namespace Sohi.Web.Pages.Portal.Settings
         [Inject]
         public ISettingsService SettingsService { get; set; }
 
-        public Account Account { get; set; } = new Account();
+        //public User User { get; set; } = new User();
 
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -24,6 +24,8 @@ namespace Sohi.Web.Pages.Portal.Settings
         public UserManager<User> userManager { get; set; }
 
         public User user { get; set; }
+
+        protected bool ShowConfirmation { get; set; } = false;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -37,25 +39,16 @@ namespace Sohi.Web.Pages.Portal.Settings
                 user = await userManager.GetUserAsync(authState.User);
             }
           
-                Guid accountid = Guid.Parse(user.AccountId);
-
-                Account = await SettingsService.GetAccount(accountid);
-            
-
         }
 
         protected async Task HandleValidSubmit()
         {
-            Account result = null;
 
-            if (Account.AccountId != Guid.Empty)
-            {
-                result = await SettingsService.UpdateAccount(Account);
-            }
+            var result = await userManager.UpdateAsync(user);
 
             if (result != null)
             {
-                NavigationManager.NavigateTo("/Portal/Settings/General");
+                ShowConfirmation = true;
             }
 
         }

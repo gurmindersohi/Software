@@ -1,21 +1,36 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Settings/DisplayUser.razor">
+    <Files>
+      <File FileName="Sohi.Web/Pages/Portal/Settings/ManageUsers.razor" Line="41" Column="22" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/ManageUsersBase.cs" Line="52" Column="59" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/DisplayUser.razor" Line="38" Column="17" />
+      <File FileName="Sohi.Web/Pages/Portal/Settings/DisplayUserBase.cs" Line="54" Column="49" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True" selected="True">
+          <Node name="Sohi" expanded="True">
             <Node name="Sohi.Web" expanded="True">
               <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True" />
+                <Node name="Identity" expanded="True">
+                  <Node name="Data" expanded="True" />
+                  <Node name="Pages" expanded="True" />
+                </Node>
               </Node>
               <Node name="Pages" expanded="True">
-                <Node name="Website" expanded="True" />
+                <Node name="Portal" expanded="True">
+                  <Node name="Settings" expanded="True">
+                    <Node name="DisplayUser.razor" selected="True" />
+                  </Node>
+                  <Node name="Social" expanded="True" />
+                </Node>
+                <Node name="Shared" expanded="True" />
+                <Node name="Website" expanded="True">
+                  <Node name="Home.cshtml" expanded="True" />
+                </Node>
               </Node>
               <Node name="Shared" expanded="True" />
-              <Node name="wwwroot" expanded="True">
-                <Node name="css" expanded="True" />
-              </Node>
             </Node>
           </Node>
         </State>

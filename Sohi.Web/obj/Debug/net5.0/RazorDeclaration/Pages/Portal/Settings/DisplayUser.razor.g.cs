@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Sohi.Web.Shared
+namespace Sohi.Web.Pages.Portal.Settings
 {
     #line hidden
     using System;
@@ -96,82 +96,13 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
-using Sohi.Web.Models;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
-using Microsoft.AspNetCore.Identity;
-
-#line default
-#line hidden
-#nullable disable
-    public partial class MainLayout : LayoutComponentBase
+    public partial class DisplayUser : DisplayUserBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 40 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
-      
-
-    [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
-
-
-    [Inject]
-    public UserManager<User> userManager { get; set; }
-
-    public User user { get; set; }
-
-    public bool flag { get; set; } = false;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authenticationState = await authenticationStateTask;
-
-        if (!authenticationState.User.Identity.IsAuthenticated)
-        {
-            string returnUrl = WebUtility.UrlEncode("/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
-            NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
-        }
-
-        try
-        {
-            var result = await userManager.GetUserAsync(authenticationState.User);
-
-            if (result != null)
-            {
-                user = result;
-            }
-            else
-            {
-                flag = true;
-
-                NavigationManager.NavigateTo("/Identity/Account/Login");
-                StateHasChanged();
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
-
-    }
-
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

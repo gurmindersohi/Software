@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sohi.Models;
+using Sohi.Web.Models;
 
 namespace Sohi.Web.Services.Accounts
 {
@@ -11,6 +13,7 @@ namespace Sohi.Web.Services.Accounts
         Task<Account> CreateAccount(Account newAccount);
 
         Task<Account> UpdateAccount(Account updatedAccount);
+
 
     }
 }
