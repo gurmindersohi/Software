@@ -1,34 +1,43 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Settings/DisplayUser.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Ads/AdsLayoutBase.cs">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/ManageUsers.razor" Line="41" Column="22" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/ManageUsersBase.cs" Line="52" Column="59" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/DisplayUser.razor" Line="38" Column="17" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/DisplayUserBase.cs" Line="54" Column="49" />
+      <File FileName="Sohi.Web/Shared/NavMenu.razor" Line="20" Column="30" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/AdsLayout.razor" Line="18" Column="19" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/AdsLayoutBase.cs" Line="27" Column="58" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/AdsMenu.razor" Line="46" Column="22" NotebookId="1" />
+      <File FileName="Sohi.Web/Services/Leads/ILeadService.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Services/Leads/LeadService.cs" Line="8" Column="34" NotebookId="1" />
+      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="93" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Services/Social/ISocialService.cs" Line="7" Column="35" NotebookId="1" />
+      <File FileName="Sohi.Api/Controllers/SocialController.cs" Line="22" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Api/Models/Social/ISocialRepository.cs" Line="21" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Api/Models/Social/SocialRepository.cs" Line="25" Column="10" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
-                  <Node name="Pages" expanded="True" />
-                </Node>
+            <Node name="Sohi.Api" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Ads" expanded="True" />
+                <Node name="Social" expanded="True" />
               </Node>
+            </Node>
+            <Node name="Sohi.Models" expanded="True" />
+            <Node name="Sohi.Web" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
-                  <Node name="Settings" expanded="True">
-                    <Node name="DisplayUser.razor" selected="True" />
+                  <Node name="Ads" expanded="True">
+                    <Node name="AdsLayoutBase.cs" selected="True" />
                   </Node>
-                  <Node name="Social" expanded="True" />
                 </Node>
-                <Node name="Shared" expanded="True" />
-                <Node name="Website" expanded="True">
-                  <Node name="Home.cshtml" expanded="True" />
-                </Node>
+              </Node>
+              <Node name="Services" expanded="True">
+                <Node name="Ads" expanded="True" />
+                <Node name="Leads" expanded="True" />
+                <Node name="Social" expanded="True" />
               </Node>
               <Node name="Shared" expanded="True" />
             </Node>

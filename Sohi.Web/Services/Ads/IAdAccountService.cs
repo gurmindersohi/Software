@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Sohi.Models;
+
+namespace Sohi.Web.Services.Ads
+{
+    public interface IAdAccountService
+    {
+        Task<AdAccount> SaveAccount(AdAccount account);
+
+        Task<List<AdAccount>> GetAllAccounts(string accountid);
+    }
+}

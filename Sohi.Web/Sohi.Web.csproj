@@ -41,5 +41,6 @@
     <Folder Include="Services\Settings\" />
     <Folder Include="Services\Accounts\" />
     <Folder Include="Services\Emails\" />
+    <Folder Include="Services\Ads\" />
   </ItemGroup>
 </Project>
