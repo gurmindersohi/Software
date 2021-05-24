@@ -11,5 +11,7 @@ namespace Sohi.Web.Services.Ads
         Task<AdAccount> SaveAccount(AdAccount account);
 
         Task<List<AdAccount>> GetAllAccounts(string accountid);
+
+        Task<List<Profile>> GetFacebookAdAccounts(string accesstoken, string endPoint);
     }
 }

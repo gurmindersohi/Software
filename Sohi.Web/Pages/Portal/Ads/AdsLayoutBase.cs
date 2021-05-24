@@ -41,59 +41,59 @@ namespace Sohi.Web.Pages.Portal.Ads
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
-            {
-                List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
+            //if (firstRender)
+            //{
+            //    List<SocialMedia> accounts = await SocialService.GetAllTokens(user.AccountId.ToString());
 
-                if (accounts != null && accounts.Count != 0)
-                {
-                    foreach (var account in accounts)
-                    {
-                        if (account.Type == "Facebook")
-                        {
+            //    if (accounts != null && accounts.Count != 0)
+            //    {
+            //        foreach (var account in accounts)
+            //        {
+            //            if (account.Type == "Facebook")
+            //            {
 
-                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+            //                string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-                            Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
+            //                Profile = await SocialService.GetFacebookPage(account.AccessToken, endPoint);
 
-                            if (Profile != null)
-                            {
-                                Profile.Token = account.AccessToken;
-                                FacebookProfile.Add(Profile);
+            //                if (Profile != null)
+            //                {
+            //                    Profile.Token = account.AccessToken;
+            //                    FacebookProfile.Add(Profile);
 
-                            }
+            //                }
 
 
-                        }
+            //            }
 
-                        if (account.Type == "Instagram")
-                        {
+            //            if (account.Type == "Instagram")
+            //            {
 
-                            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+            //                string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-                            Profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
+            //                Profile = await SocialService.GetInstagramBusinessAccountDetails(account.PageId, account.AccessToken, endPoint);
 
-                            if (Profile != null)
-                            {
-                                Profile.Token = account.AccessToken;
-                                InstagramProfile.Add(Profile);
+            //                if (Profile != null)
+            //                {
+            //                    Profile.Token = account.AccessToken;
+            //                    InstagramProfile.Add(Profile);
 
-                            }
+            //                }
 
-                        }
-                    }
+            //            }
+            //        }
 
-                    StateHasChanged();
+            //        StateHasChanged();
 
-                }
+            //    }
 
-                else
-                {
-                    flag = true;
+            //    else
+            //    {
+            //        flag = true;
 
-                    StateHasChanged();
-                }
-            }
+            //        StateHasChanged();
+            //    }
+            //}
         }
 
 
