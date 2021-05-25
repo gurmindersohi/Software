@@ -1,0 +1,99 @@
+﻿
+@using Sohi.Models;
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+
+    <div class="ui ordered steps">
+        <div class="completed step">
+            <div class="content">
+                <div class="title">Campaigns</div>
+                <div class="description"></div>
+            </div>
+        </div>
+        <div class="completed step">
+            <div class="content">
+                <div class="title">Adsets</div>
+                <div class="description"></div>
+            </div>
+        </div>
+        <div class="active step">
+            <div class="content">
+                <div class="title">Ads</div>
+                <div class="description"></div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="list-group list-group-horizontal">
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">Some placeholder content in a paragraph.</p>
+            <small>And some small print.</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small class="text-muted">3 days ago</small>
+            </div>
+            <p class="mb-1">Some placeholder content in a paragraph.</p>
+            <small class="text-muted">And some muted small print.</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small class="text-muted">3 days ago</small>
+            </div>
+            <p class="mb-1">Some placeholder content in a paragraph.</p>
+            <small class="text-muted">And some muted small print.</small>
+        </a>
+    </div>*@
+
+    @*<ul class="nav">
+
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/Manage/Campaigns")" Match="NavLinkMatch.All">
+                Campaigns
+            </NavLink>
+        </li>
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/Manage/Adsets")">
+                Adsets
+            </NavLink>
+        </li>
+        <li class="nav-item px-0">
+            <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/Manage/Ads")">
+                Ads
+            </NavLink>
+        </li>
+
+    </ul>*@
+</div>
+
+       
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    [CascadingParameter(Name = "SocialProfile")]
+    public Profile Profile { get; set; }
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id = Profile.Id;
+    }
+}

@@ -11,28 +11,8 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column" style="min-height: calc(100vh - 150px);">
-        <li class="nav-item px-0">
 
-            <h5 class="ps-3 pt-3 CustomFont">Create Mass Post</h5>
-
-            <NavLink class="nav-link" href="/Portal/Social/Create" Match="NavLinkMatch.All">
-
-
-                <div class="row p-1">
-                    <div class="col pe-0" style="flex:0;">
-                        <span class="oi oi-plus" aria-hidden="true"></span>
-                    </div>
-                    <div class="col">
-                        <div class="" style="color:black; font-weight:600;">
-                            Create
-                        </div>
-
-                    </div>
-                </div>
-            </NavLink>
-        </li>
-
-        @if (FacebookProfile.Count == 0 || InstagramProfile.Count == 0)
+        @if (FacebookProfile.Count == 0)
         {
             @if (!flag)
             {
@@ -55,17 +35,18 @@
 
                 @foreach (var profile in FacebookProfile)
                 {
-                    <NavLink class="nav-link" href="@($"Portal/Social/Facebook/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
+                    <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
                         <div class="row p-1">
                             <div class="col pe-0" style="flex:0;">
-                                <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                <img src="/images/img_avatar.png" height="35" width="35" class="rounded-circle" />
                             </div>
                             <div class="col">
-                                <div class="" style="color:black; font-weight:600;">
+                                <div class="" style="color:black; font-weight:600; font-size: 15px;">
                                     @profile.Name
                                 </div>
 
                             </div>
+
                         </div>
 
                     </NavLink>
@@ -76,39 +57,39 @@
 
 
 
-            <li class="nav-item px-0">
+            @*<li class="nav-item px-0">
 
-                <h5 class="ps-3 pt-3 CustomFont">Instagram</h5>
+                    <h5 class="ps-3 pt-3 CustomFont">Instagram</h5>
 
-                @foreach (var profile in InstagramProfile)
-                {
-                    <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
+                    @foreach (var profile in InstagramProfile)
+                    {
+                        <NavLink class="nav-link" href="@($"Portal/Social/Instagram/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
 
-                        <div class="row p-1">
-                            <div class="col pe-0" style="flex:0;">
-                                <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
-                            </div>
-                            <div class="col">
-                                <div class="" style="color:black; font-weight:600;">
-                                    @profile.Name
+                            <div class="row p-1">
+                                <div class="col pe-0" style="flex:0;">
+                                    <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
                                 </div>
+                                <div class="col">
+                                    <div class="" style="color:black; font-weight:600;">
+                                        @profile.Name
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
 
 
 
-                    </NavLink>
+                        </NavLink>
 
-                }
-            </li>
+                    }
+                </li>*@
         }
 
     </ul>
 
     <ul class="nav flex-column">
         <li class="nav-item p-2">
-            <a type="button" href="/Portal/Settings/Accounts" class="btn btn-white btn-lg" style="border: 1px solid rgba(0,0,0,.125); justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;">Manage Accounts</a>
+            <a type="button" href="/Portal/Settings/Ads/Accounts" class="btn btn-white btn-lg" style="border: 1px solid rgba(0,0,0,.125); justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;">Manage Accounts</a>
         </li>
     </ul>
 

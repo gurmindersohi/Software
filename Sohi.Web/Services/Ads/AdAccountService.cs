@@ -115,5 +115,39 @@ namespace Sohi.Web.Services.Ads
                 return null;
             }
         }
+
+        public async Task<Profile> GetFacebookAdAccount(string accesstoken, string endPoint)
+        {
+            Profile account = new Profile();
+
+            string url = string.Format(endPoint + "?fields=id,name&access_token={0}", accesstoken);
+
+            //string facebook_EndPoint = string.Format(FacebookAPIEndpoints.GetFacebookAccounts + "?access_token={0}&fields=id,name,about&limit=100", access_token);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                account.Id = parsedobj["id"].ToString();
+                account.Name = parsedobj["name"].ToString();
+
+                //if (item["picture"]["data"]["url"] != null)
+                //{
+                //    page.Image = item["picture"]["data"]["url"].ToString();
+                //}
+
+                account.Token = accesstoken;
+
+
+                return account;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

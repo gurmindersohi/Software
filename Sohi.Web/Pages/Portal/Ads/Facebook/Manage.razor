@@ -1,0 +1,31 @@
+﻿
+@inherits LayoutComponentBase
+@using Sohi.Models;
+
+@layout FacebookAdsLayout
+
+    <div class="page">
+        <div class="main">
+
+            <div class="top-row">
+                <ManageMenu />
+            </div>
+
+            <div class="container-fluid px-0">
+                @Body
+            </div>
+        </div>
+    </div>
+
+@code {
+
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

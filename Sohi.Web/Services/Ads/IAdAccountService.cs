@@ -13,5 +13,7 @@ namespace Sohi.Web.Services.Ads
         Task<List<AdAccount>> GetAllAccounts(string accountid);
 
         Task<List<Profile>> GetFacebookAdAccounts(string accesstoken, string endPoint);
+
+        Task<Profile> GetFacebookAdAccount(string accesstoken, string endPoint);
     }
 }
