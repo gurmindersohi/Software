@@ -116,7 +116,7 @@ using Sohi.Models;
 #line 10 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Ads.razor"
        
 
-    [CascadingParameter(Name = "SocialProfile")]
+    [CascadingParameter(Name = "AdsProfile")]
     public Profile Profile { get; set; }
 
 

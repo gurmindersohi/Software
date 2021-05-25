@@ -98,6 +98,13 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #nullable disable
 #nullable restore
 #line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Adsets.razor"
+using Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Adsets.razor"
 using Sohi.Models;
 
 #line default
@@ -105,6 +112,7 @@ using Sohi.Models;
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Manage))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Ads/Facebook/{AccountId}/Create/Adsets")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Ads/Facebook/{AccountId}/Create/Adsets/{CampaignId}")]
     public partial class Adsets : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -113,15 +121,19 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 11 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Adsets.razor"
+#line 14 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Adsets.razor"
        
 
-    [CascadingParameter(Name = "SocialProfile")]
+    [CascadingParameter(Name = "AdsProfile")]
     public Profile Profile { get; set; }
 
 
     [Parameter]
     public string AccountId { get; set; }
+
+
+    [Parameter]
+    public string CampaignId { get; set; }
 
 #line default
 #line hidden

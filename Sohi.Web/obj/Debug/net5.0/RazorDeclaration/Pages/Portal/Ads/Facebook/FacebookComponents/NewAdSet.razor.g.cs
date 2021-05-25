@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Sohi.Web.Pages.Portal.Ads.Facebook
+namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 {
     #line hidden
     using System;
@@ -96,46 +96,13 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/ManageMenu.razor"
-using Sohi.Models;
-
-#line default
-#line hidden
-#nullable disable
-    public partial class ManageMenu : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class NewAdSet : NewAdsetBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 31 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/ManageMenu.razor"
-       
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-    [CascadingParameter(Name = "AdsProfile")]
-    public Profile Profile { get; set; }
-
-    [Parameter]
-    public string Id { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        Id = Profile.Id;
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

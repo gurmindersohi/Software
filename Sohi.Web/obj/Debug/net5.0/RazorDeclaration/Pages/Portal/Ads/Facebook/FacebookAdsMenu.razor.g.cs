@@ -122,7 +122,7 @@ using Sohi.Models;
         collapseNavMenu = !collapseNavMenu;
     }
 
-    [CascadingParameter(Name = "SocialProfile")]
+    [CascadingParameter(Name = "AdsProfile")]
     public Profile Profile { get; set; }
 
     [Parameter]

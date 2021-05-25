@@ -149,5 +149,28 @@ namespace Sohi.Web.Services.Ads
                 return null;
             }
         }
+
+
+
+        public async Task<string> CreateFacebookCampaign(string AccountId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/campaigns", AccountId);
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

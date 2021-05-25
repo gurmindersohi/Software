@@ -1,0 +1,192 @@
+﻿
+@inherits NewCampaignBase
+
+
+<div class="container mt-5 pt-2" style=" margin-top:5rem;  max-width:1000px; ">
+
+    <div class="row p-2">
+        <EditForm Model="@Campaign" OnValidSubmit="HandleValidSubmit">
+
+            <div class="col" style="flex:0;">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+            </div>
+
+            <div class="row">
+
+                <div class="row" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:16px;">
+                                    Campaign Name
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <InputText id="CampaignName" class="form-control"
+                                           @bind-Value="Campaign.Name" />
+                                <ValidationMessage For="@(() => Campaign.Name)" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:16px;">
+                                    Campaign Details
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:12px;">
+                                    Campaign Objective
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="Awareness" class="col-form-label CustomFont" style="font-size:12px; font-weight:400;">
+                                            Awareness
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <InputRadioGroup id="Awareness" class="form-control" @bind-Value="Campaign.Objective">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <InputRadio class="Radio" Value="@("BRAND_AWARENESS")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Brand awareness
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row pt-2">
+                                                <div class="col-md-12">
+                                                    <InputRadio class="Radio" Value="@("REACH")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Reach
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </InputRadioGroup>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="Consideration" class="col-form-label CustomFont" style="font-size:12px; font-weight:400;">
+                                            Consideration
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <InputRadioGroup id="Consideration" class="form-control" @bind-Value="Campaign.Objective">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <InputRadio class="Radio" Value="@("LINK_CLICKS")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Traffic
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row pt-2">
+                                                <div class="col-md-12">
+                                                    <InputRadio class="Radio" Value="@("POST_ENGAGEMENT")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Engagement
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                        </InputRadioGroup>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="Conversion" class="col-form-label CustomFont" style="font-size:12px; font-weight:400;">
+                                            Conversion
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <InputRadioGroup id="Conversions" class="form-control" @bind-Value="Campaign.Objective">
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <InputRadio class="Radio" Value="@("CONVERSIONS")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Conversions
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row pt-2">
+                                                <div class="col-md-12">
+                                                    <InputRadio class="Radio" Value="@("PRODUCT_CATALOG_SALES")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Catalog sales
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                        </InputRadioGroup>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem;">
+
+                    <div class="col ms-auto f-0">
+                        <button type="submit" class="btn btn-primary m-1">Next</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </EditForm>
+
+    </div>
+
+</div>

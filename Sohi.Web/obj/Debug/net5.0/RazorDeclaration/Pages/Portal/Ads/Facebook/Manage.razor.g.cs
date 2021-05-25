@@ -112,7 +112,7 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 20 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor"
+#line 22 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor"
        
 
 

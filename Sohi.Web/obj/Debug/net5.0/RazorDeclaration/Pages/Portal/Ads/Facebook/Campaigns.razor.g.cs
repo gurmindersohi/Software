@@ -98,6 +98,13 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #nullable disable
 #nullable restore
 #line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Campaigns.razor"
+using Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Campaigns.razor"
 using Sohi.Models;
 
 #line default
@@ -106,7 +113,7 @@ using Sohi.Models;
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Manage))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Ads/Facebook/{AccountId}/Create")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Ads/Facebook/{AccountId}/Create/Campaigns")]
-    public partial class Campaigns : CampaignsBase
+    public partial class Campaigns : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -114,15 +121,16 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 148 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Campaigns.razor"
-       
+#line 25 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/Campaigns.razor"
+      
 
-    [CascadingParameter(Name = "SocialProfile")]
+
+    [CascadingParameter(Name = "AdsProfile")]
     public Profile Profile { get; set; }
-
 
     [Parameter]
     public string AccountId { get; set; }
+
 
 #line default
 #line hidden
