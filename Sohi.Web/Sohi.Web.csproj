@@ -41,5 +41,8 @@
     <Folder Include="Services\Settings\" />
     <Folder Include="Services\Accounts\" />
     <Folder Include="Services\Emails\" />
+    <Folder Include="Services\Ads\" />
+    <Folder Include="Pages\Portal\Settings\Ads\" />
+    <Folder Include="Pages\Portal\Ads\Facebook\FacebookComponents\" />
   </ItemGroup>
 </Project>

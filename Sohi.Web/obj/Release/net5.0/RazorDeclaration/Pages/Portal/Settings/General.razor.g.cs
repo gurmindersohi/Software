@@ -98,7 +98,7 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Settings))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Settings/General")]
-    public partial class General : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class General : GeneralBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

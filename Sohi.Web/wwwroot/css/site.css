@@ -59,3 +59,21 @@ a, .btn-link {
     font-size: 14px;
     font-weight: 500;
 }
+
+
+.f-0 {
+    flex: 0 !important;
+}
+
+
+.Radio {
+    height: 25px;
+    width: 25px;
+    vertical-align: middle;
+}
+
+.CampaignFonts {
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-weight: 400;
+}

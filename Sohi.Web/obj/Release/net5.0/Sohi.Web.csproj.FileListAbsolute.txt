@@ -575,3 +575,15 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/scopedcss/Pages/Portal/Settings/Settings.razor.rz.scp.css
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/scopedcss/Pages/Portal/Settings/SettingsMenu.razor.rz.scp.css
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/scopedcss/Shared/Loader.razor.rz.scp.css
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/RazorDeclaration/Pages/Portal/Settings/Business.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/RazorDeclaration/Pages/Portal/Settings/DisplayUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/RazorDeclaration/Pages/Portal/Settings/ManageUsers.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/RazorDeclaration/Pages/Portal/Settings/NewUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/RazorDeclaration/Shared/SmallLoader.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/RazorDeclaration/Shared/Success.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Pages/Portal/Settings/Business.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Pages/Portal/Settings/DisplayUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Pages/Portal/Settings/ManageUsers.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Pages/Portal/Settings/NewUser.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Shared/SmallLoader.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Shared/Success.razor.g.cs

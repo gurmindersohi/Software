@@ -21,6 +21,7 @@
     <Folder Include="Models\Social\" />
     <Folder Include="Models\Settings\" />
     <Folder Include="Models\Accounts\" />
+    <Folder Include="Models\Ads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sohi.Models\Sohi.Models.csproj">

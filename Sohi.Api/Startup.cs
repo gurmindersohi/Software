@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Sohi.Api.Models;
 using Sohi.Api.Models.Accounts;
+using Sohi.Api.Models.Ads;
 using Sohi.Api.Models.Leads;
 using Sohi.Api.Models.Settings;
 using Sohi.Api.Models.Social;
@@ -42,6 +43,7 @@ namespace Sohi.Api
             services.AddScoped<ISocialRepository, SocialRepository>();
             services.AddScoped<ISettingsRepository, SettingsRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAdsRepository, AdsRepository>();
 
 
             services.AddControllers();
