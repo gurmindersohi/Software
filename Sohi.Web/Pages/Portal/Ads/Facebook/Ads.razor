@@ -1,10 +1,18 @@
 ﻿
+@using Sohi.Models;
+
 @layout Manage
 
-@page "/Portal/Ads/Facebook/Manage/Ads"
+@page "/Portal/Ads/Facebook/{AccountId}/Create/Ads"
 
 <h3>Ads</h3>
 
 @code {
 
+    [CascadingParameter(Name = "SocialProfile")]
+    public Profile Profile { get; set; }
+
+
+    [Parameter]
+    public string AccountId { get; set; }
 }
