@@ -63,7 +63,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <InputRadio class="Radio" checked Value="@("REACH")" />
+                                                    <InputRadio class="Radio" Value="@("REACH")" />
 
                                                     <label class="CampaignFonts">
                                                         Website
@@ -112,14 +112,32 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <InputText id="AdsetName" class="form-control"
-                                           @bind-Value="Adset.Name" />
-                                <ValidationMessage For="@(() => Adset.Name)" />
+                                <InputSelect id="Budget" class="form-select"
+                                             @bind-Value="Adset.Budget">
+                                    <option selected>Daily Budget</option>
+                                    <option>Lifetime Budget</option>
+                                </InputSelect>
+                                <ValidationMessage For="@(() => Adset.Budget)" />
                             </div>
                             <div class="col-md-6">
-                                <InputText id="AdsetName" class="form-control"
-                                           @bind-Value="Adset.Name" />
-                                <ValidationMessage For="@(() => Adset.Name)" />
+
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+
+
+                                    <InputNumber id="BudgetAmount" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                               @bind-Value="Adset.DailyBudget">
+                                        <div class="input-group-append">
+                                        </div>
+                                    </InputNumber>
+
+
+                                    <span class="input-group-text">.00</span>
+                                </div>
+
+
+                                <ValidationMessage For="@(() => Adset.DailyBudget)" />
                             </div>
                         </div>
 
@@ -148,7 +166,7 @@
                             <div class="col">
                                 <InputDate id="AdsetName" class="form-control" 
                                            @bind-Value="Adset.StartTime" />
-                                <ValidationMessage For="@(() => Adset.Name)" />
+                                <ValidationMessage For="@(() => Adset.StartTime)" />
                             </div>
                         </div>
 
@@ -162,9 +180,9 @@
 
                         <div class="row">
                             <div class="col-md-3">
-                                <InputText id="AdsetName" class="form-control"
-                                           @bind-Value="Adset.Name" />
-                                <ValidationMessage For="@(() => Adset.Name)" />
+                                <InputDate id="EndDate" class="form-control" minDate="@DateTime.Now"
+                                           @bind-Value="Adset.StartDate" />
+                                <ValidationMessage For="@(() => Adset.StartDate)" />
                             </div>
                             <div class="col-md-3">
                                 <InputText id="AdsetName" class="form-control"

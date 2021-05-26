@@ -20,7 +20,10 @@ namespace Sohi.Models
         public string BidAmount { get; set; }
 
         [Required]
-        public string DailyBudget { get; set; }
+        public string Budget { get; set; }
+
+        [Required]
+        public Int32 DailyBudget { get; set; }
 
         [Required]
         public string CampaignId { get; set; }
@@ -36,8 +39,10 @@ namespace Sohi.Models
 
         [Required]
         [Timestamp]
-        public DateTime StartTime { get; set; }
+        public TimeSpan StartTime { get; set; } = DateTime.Now.TimeOfDay;
 
+        [Required]
+        public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(1);
 
 
     }

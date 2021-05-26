@@ -909,7 +909,6 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/Ads.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/Adsets.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/Campaigns.razor.g.cs
-/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/CampaignsList.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/Create.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/Main.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Dashboard.razor.g.cs
@@ -970,7 +969,6 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/Ads.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/Adsets.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/Campaigns.razor.g.cs
-/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/CampaignsList.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/Create.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/Main.razor.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Dashboard.razor.g.cs
@@ -1730,3 +1728,7 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/FacebookComponents/NewCampaign.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor.g.cs
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor.g.cs
+/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor.g.cs
+/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/FacebookComponents/NewCampaign.razor.g.cs
+/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor.g.cs
+/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/FacebookComponents/NewCampaign.razor.g.cs
