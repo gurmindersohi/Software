@@ -1,14 +1,192 @@
 ﻿
 
-
 @inherits NewAdsetBase
 
-<h3>New Adsets</h3>
 
-@AccountId
-<br />
-@CampaignId
+<div class="container mt-5 pt-2" style=" margin-top:5rem;  max-width:1000px; ">
 
-@code {
+    <div class="row p-2">
+        <EditForm Model="@Adset" OnValidSubmit="HandleValidSubmit">
 
-}
+            <div class="col" style="flex:0;">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+            </div>
+
+            <div class="row">
+
+                <div class="row" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="AdsetName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Ad Set Name
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <InputText id="AdsetName" class="form-control"
+                                           @bind-Value="Adset.Name" />
+                                <ValidationMessage For="@(() => Adset.Name)" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Traffic
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label CustomFont" style="font-size:12px; font-weight:400;">
+                                            Choose where you want to drive traffic. You'll enter more details about the destination later.
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <InputRadioGroup id="" class="form-control" @bind-Value="Adset.OptimizationGoal">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <InputRadio class="Radio" checked Value="@("REACH")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Website
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            @*<div class="row pt-2">
+                                        <div class="col-md-12">
+                                            <InputRadio class="Radio" Value="@("REACH")" />
+
+                                            <label class="CampaignFonts">
+                                                Reach
+                                            </label>
+                                        </div>
+                                    </div>*@
+
+                                        </InputRadioGroup>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row mt-4" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Budget & Schedule
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                    Budget
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <InputText id="AdsetName" class="form-control"
+                                           @bind-Value="Adset.Name" />
+                                <ValidationMessage For="@(() => Adset.Name)" />
+                            </div>
+                            <div class="col-md-6">
+                                <InputText id="AdsetName" class="form-control"
+                                           @bind-Value="Adset.Name" />
+                                <ValidationMessage For="@(() => Adset.Name)" />
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                    Schedule
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:11px;">
+                                    Start Date
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <InputDate id="StartDate" class="form-control" minDate="@DateTime.Now"
+                                           @bind-Value="Adset.StartDate" />
+                                <ValidationMessage For="@(() => Adset.StartDate)" />
+                            </div>
+                            <div class="col">
+                                <InputDate id="AdsetName" class="form-control" 
+                                           @bind-Value="Adset.StartTime" />
+                                <ValidationMessage For="@(() => Adset.Name)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:11px;">
+                                    End (Optional)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <InputText id="AdsetName" class="form-control"
+                                           @bind-Value="Adset.Name" />
+                                <ValidationMessage For="@(() => Adset.Name)" />
+                            </div>
+                            <div class="col-md-3">
+                                <InputText id="AdsetName" class="form-control"
+                                           @bind-Value="Adset.Name" />
+                                <ValidationMessage For="@(() => Adset.Name)" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem;">
+
+                    <div class="col ms-auto f-0">
+                        <button type="submit" class="btn btn-primary m-1">Next</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </EditForm>
+
+    </div>
+
+</div>
