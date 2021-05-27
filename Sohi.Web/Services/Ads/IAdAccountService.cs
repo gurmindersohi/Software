@@ -23,5 +23,7 @@ namespace Sohi.Web.Services.Ads
 
         Task<List<FacebookLocation>> SearchLocation(string accesstoken, string endPoint, string q);
 
+        Task<List<Targeting>> SearchDetailedTargeting(string accesstoken, string endPoint, string q);
+
     }
 }

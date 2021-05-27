@@ -255,5 +255,51 @@ namespace Sohi.Web.Services.Ads
             }
         }
 
+        public async Task<List<Targeting>> SearchDetailedTargeting(string accesstoken, string endPoint, string q)
+        {
+            List<Targeting> targetings = new List<Targeting>();
+
+            string url = string.Format(endPoint + "/targetingsearch?type=adgeolocation&access_token={0}&q={1}", accesstoken, q);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj["data"])
+                {
+                    Targeting targeting = new Targeting();
+
+
+                    if (item["id"] != null)
+                    {
+                        targeting.Id = item["id"].ToString();
+                    }
+                    if (item["name"] != null)
+                    {
+                        targeting.Name = item["name"].ToString();
+                    }
+                    if (item["type"] != null)
+                    {
+                        targeting.Type = item["type"].ToString();
+                    }
+                    if (item["audience_size"] != null)
+                    {
+                        targeting.AudienceSize = item["audience_size"].ToString();
+                    }
+                   
+                    targetings.Add(targeting);
+                }
+
+                return targetings;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

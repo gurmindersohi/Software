@@ -1736,3 +1736,5 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/ref/Sohi.Web.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.pdb
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Sohi.Web.genruntimeconfig.cache
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/RazorDeclaration/Pages/Portal/Ads/Facebook/FacebookComponents/DetailedTargeting.razor.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Portal/Ads/Facebook/FacebookComponents/DetailedTargeting.razor.g.cs

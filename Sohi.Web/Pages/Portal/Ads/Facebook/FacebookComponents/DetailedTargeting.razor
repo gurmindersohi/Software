@@ -1,30 +1,34 @@
 ﻿
 
-@inherits LocationBase
+@inherits DetailedTargetingBase
+
 <div class="mt-2" style="border: 1px solid #dadde1;">
-    @if (SelectedLocation != null)
+    @if (SelectedDetailedTargeting != null)
     {
-        <div class="pt-2 pb-2" style="background-color: rgba(0, 0, 0, .05);">
-            <div class="col px-4">
+        @foreach (var item in SelectedDetailedTargeting)
+        {
+            <div class="pt-2 pb-2" style="background-color: rgba(0, 0, 0, .05);">
+                <div class="col px-4">
 
-                <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
-                    @SelectedLocation.CountryName
-                </label>
+                    <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
+                        @item.Type
+                    </label>
 
-                <div class="">
-                    <div class="col form-control" style="background-color: #fff;">
+                    <div class="">
+                        <div class="col form-control" style="background-color: #fff;">
 
-                        <div class="input-group">
-                            <span class="oi oi-map-marker text-success"></span>
-                            @SelectedLocation.Name
+                            <div class="input-group">
+                                <span class="oi oi-map-marker text-success"></span>
+                                @item.Name
 
-                            <span class="input-group-text" @onclick="() => DeleteSelectedLocation(SelectedLocation)" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-x"></span></span>
+                                <span class="input-group-text" @onclick="() => DeleteSelectedTarget(item)" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-x"></span></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
+        }
     }
 
     <div class="row">
@@ -32,47 +36,41 @@
             <div class="input-group">
                 <span class="input-group-text" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-magnifying-glass"></span></span>
 
-                <input type="text" class="form-control" @bind-value="location" @bind-value:event="oninput" autocomplete="off" autocorrect="off" aria-autocomplete="list" style="border:none; border-bottom: 1px solid #ced4da;"
-                       placeholder="Search Locations" @onkeyup="@HandleKeyUp" />
+                <input type="text" class="form-control" @bind-value="SearchText" @bind-value:event="oninput" autocomplete="off" autocorrect="off" aria-autocomplete="list" style="border:none; border-bottom: 1px solid #ced4da;"
+                       placeholder="Search Your Targeting Audience" @onkeyup="@HandleKeyUp" />
 
 
             </div>
         </div>
     </div>
 
-    @if (facebookLocation != null && facebookLocation.Count != 0)
+    @if (DetailedTargetings != null && DetailedTargetings.Count != 0)
     {
 
-        <div class="row pt-0" style="padding-left: 2.65rem !important;">
+        <div class="row pt-0">
             <div class="col">
                 <div class="Search-List">
-                    @foreach (var location in facebookLocation)
+                    @foreach (var target in DetailedTargetings)
                     {
-                        <div class="row Search-List-Data" @onclick="() => LocationSelected(location)">
+                        <div class="row Search-List-Data" @onclick="() => TargetSelected(target)">
                             <div class="col">
                                 <a>
                                     <span>
-                                        @location.Name
+                                        @target.Name
                                     </span>
 
-                                    @if (location.Region != null)
+                                    @if (target.Type != null)
                                     {
                                         <span>
-                                            , @location.Region
+                                            , @target.Type.First().ToString().ToUpper()@target.Type.Substring(1)
                                         </span>
                                     }
 
-                                    @if (location.CountryName != null)
-                                    {
-                                        <span>
-                                            , @location.CountryName
-                                        </span>
-                                    }
                                 </a>
                             </div>
 
                             <div class="col f-0">
-                                @location.Type.First().ToString().ToUpper()@location.Type.Substring(1)
+                                @String.Format("{0:n0}", Convert.ToInt32(target.AudienceSize))
                             </div>
                         </div>
                     }
@@ -97,6 +95,8 @@
 
 <style>
     .Search-List {
+        max-height: 200px;
+        overflow-y: auto;
         background-color: #fff;
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
