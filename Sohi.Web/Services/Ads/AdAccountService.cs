@@ -172,5 +172,88 @@ namespace Sohi.Web.Services.Ads
             }
         }
 
+       
+        public async Task<List<FacebookLocation>> SearchLocation(string accesstoken, string endPoint, string q)
+        {
+            List<FacebookLocation> locations = new List<FacebookLocation>();
+
+            string url = string.Format(endPoint + "/search?type=adgeolocation&access_token={0}&q={1}", accesstoken, q);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj["data"])
+                {
+                    FacebookLocation location = new FacebookLocation();
+
+
+                    if (item["key"] != null)
+                    {
+                        location.Key = item["key"].ToString();
+                    }
+                    if (item["name"] != null)
+                    {
+                        location.Name = item["name"].ToString();
+                    }
+                    if (item["type"] != null)
+                    {
+                        location.Type = item["type"].ToString();
+                    }
+                    if (item["country_code"] != null)
+                    {
+                        location.CountryCode = item["country_code"].ToString();
+                    }
+                    if (item["country_name"] != null)
+                    {
+                        location.CountryName = item["country_name"].ToString();
+                    }
+                    if (item["region"] != null)
+                    {
+                        location.Region = item["region"].ToString();
+                    }
+                    if (item["region_id"] != null)
+                    {
+                        location.RegionId = item["region_id"].ToString();
+                    }
+                    if (item["primary_city"] != null)
+                    {
+                        location.PrimaryCity = item["primary_city"].ToString();
+                    }
+                    if (item["primary_city_id"] != null)
+                    {
+                        location.PrimaryCityId = item["primary_city_id"].ToString();
+                    }
+                    if (item["supports_region"] != null)
+                    {
+                        location.SupportsRegion = item["supports_region"].ToString();
+                    }
+                    if (item["supports_city"] != null)
+                    {
+                        location.SupportsCity = item["supports_city"].ToString();
+                    }
+                    if (item["latitude"] != null)
+                    {
+                        location.Latitude = item["latitude"].ToString();
+                    }
+                    if (item["longitude"] != null)
+                    {
+                        location.Longitude = item["longitude"].ToString();
+                    }
+
+                    locations.Add(location);
+                }
+
+                return locations;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

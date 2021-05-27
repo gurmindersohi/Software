@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 using Sohi.Models;
+using Sohi.Web.Services.Ads;
 
 namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 {
@@ -18,6 +21,36 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+
+        public bool ScheduleEndDate { get; set; } = false;
+
+        [CascadingParameter(Name = "AdsProfile")]
+        public Profile Profile { get; set; }
+
+        [Inject]
+        public IConfiguration _config { get; set; }
+
+        [Inject]
+        public IAdAccountService AdAccountService { get; set; }
+
+        public List<FacebookLocation> facebookLocation { get; set; }
+
+        protected async Task SearchLocation(string q)
+        {
+
+            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+            var result = await AdAccountService.SearchLocation(AccountId, endPoint, q);
+
+            if (result != null)
+            {
+                facebookLocation = result;
+            }
+
+
+        }
+
+
 
         protected async Task HandleValidSubmit()
         {

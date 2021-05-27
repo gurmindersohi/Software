@@ -10,7 +10,7 @@
 
             <div class="col" style="flex:0;">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
+                @*<ValidationSummary />*@
             </div>
 
             <div class="row">
@@ -39,7 +39,7 @@
                     <div class="col px-3 pb-3 pt-1">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                <label for="TrafficName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
                                     Traffic
                                 </label>
                             </div>
@@ -72,14 +72,14 @@
                                             </div>
 
                                             @*<div class="row pt-2">
-                                        <div class="col-md-12">
-                                            <InputRadio class="Radio" Value="@("REACH")" />
+                                                    <div class="col-md-12">
+                                                        <InputRadio class="Radio" Value="@("REACH")" />
 
-                                            <label class="CampaignFonts">
-                                                Reach
-                                            </label>
-                                        </div>
-                                    </div>*@
+                                                        <label class="CampaignFonts">
+                                                            Reach
+                                                        </label>
+                                                    </div>
+                                                </div>*@
 
                                         </InputRadioGroup>
                                     </div>
@@ -122,18 +122,14 @@
                             <div class="col-md-6">
 
 
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text">$</span>
 
 
                                     <InputNumber id="BudgetAmount" class="form-control" aria-label="Amount (to the nearest dollar)"
-                                               @bind-Value="Adset.DailyBudget">
-                                        <div class="input-group-append">
-                                        </div>
+                                                 @bind-Value="Adset.DailyBudget">
                                     </InputNumber>
 
-
-                                    <span class="input-group-text">.00</span>
                                 </div>
 
 
@@ -141,9 +137,9 @@
                             </div>
                         </div>
 
-                        <div class="row pt-3">
+                        <div class="row pt-2">
                             <div class="col-md-12">
-                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                <label for="CampaignName" class="col-form-label CustomFont pb-0" style="font-size:13px; font-weight:600;">
                                     Schedule
                                 </label>
                             </div>
@@ -158,19 +154,17 @@
                         </div>
 
                         <div class="row">
-                            <div class="col">
-                                <InputDate id="StartDate" class="form-control" minDate="@DateTime.Now"
+                            <div class="col f-0">
+                                <InputDate id="StartDate" class="form-control w-auto" minDate="@DateTime.Now"
                                            @bind-Value="Adset.StartDate" />
                                 <ValidationMessage For="@(() => Adset.StartDate)" />
                             </div>
                             <div class="col">
-                                <InputDate id="AdsetName" class="form-control" 
-                                           @bind-Value="Adset.StartTime" />
-                                <ValidationMessage For="@(() => Adset.StartTime)" />
+                                <input type="time" class="form-control w-auto" @bind-value="Adset.StartTime" required>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row pt-3 pb-0">
                             <div class="col-md-12">
                                 <label for="CampaignName" class="col-form-label CustomFont" style="font-size:11px;">
                                     End (Optional)
@@ -179,15 +173,231 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3">
-                                <InputDate id="EndDate" class="form-control" minDate="@DateTime.Now"
-                                           @bind-Value="Adset.StartDate" />
-                                <ValidationMessage For="@(() => Adset.StartDate)" />
+                            <div class="col-md-12">
+
+                                <input type="checkbox" class="Checkbox" @bind="ScheduleEndDate">
+
+
+                                <label class="CampaignFonts">
+                                    Set an end date
+                                </label>
+
                             </div>
-                            <div class="col-md-3">
-                                <InputText id="AdsetName" class="form-control"
-                                           @bind-Value="Adset.Name" />
-                                <ValidationMessage For="@(() => Adset.Name)" />
+                        </div>
+
+                        @if (ScheduleEndDate) {
+                        <div class="row pt-2">
+                            <div class="col f-0">
+                                <InputDate id="EndDate" class="form-control w-auto"
+                                           @bind-Value="Adset.EndDate" />
+                                <ValidationMessage For="@(() => Adset.EndDate)" />
+                            </div>
+                            <div class="col">
+                                <input type="time" class="form-control w-auto" @bind-value="Adset.EndTime">
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                </div>
+
+
+                <div class="row mt-4" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="AudienceName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Audience
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label CustomFont" style="font-size:12px; font-weight:400;">
+                                            Define who you want to see your ads.
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                            Locations
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <InputSelect id="MinAge" class="form-select"
+                                                     @bind-Value="Adset.LocationType">
+                                            <option selected>People living in or recently in this location</option>
+                                            <option>People living in this location</option>
+                                            <option>People recently in this location</option>
+                                            <option>People traveling in this location</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => Adset.LocationType)" />
+                                    </div>
+                                </div>
+
+                                @*<Location location="@Adset.Location"></Location>*@
+
+
+
+
+                                <div class="row pt-2">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+
+
+                                            <InputText id="Search" class="form-control" @onkeyup="SearchLocation" autocomplete="off" autocorrect="off" aria-autocomplete="list"
+                                                       @bind-Value="Adset.Location">
+                                            </InputText>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if(facebookLocation != null)
+                                {
+
+                                <div class="row pt-0" style="padding-left: 2.65rem !important;">
+                                    <div class="col">
+                                        <div class="Search-List">
+                                            @foreach(var location in facebookLocation)
+                                            {
+                                            <div class="row Search-List-Data">
+                                                <div class="col">
+                                                    <a href="#">location.Name</a>
+                                                </div>
+                                            </div>
+                                            }
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                }
+
+
+
+
+
+                                <div class="row pt-5">
+                                    <div class="col-md-12">
+                                        <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                            Age
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" style="flex:0.2">
+                                        <InputSelect id="MinAge" class="form-select"
+                                                     @bind-Value="Adset.MinAge">
+                                            <option selected>18</option>
+                                            <option>19</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => Adset.MinAge)" />
+                                    </div>
+                                    <div class="col" style="flex:0.2">
+                                        <InputSelect id="MaxAge" class="form-select"
+                                                     @bind-Value="Adset.MaxAge">
+                                            <option selected>64</option>
+                                            <option>65+</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => Adset.MaxAge)" />
+                                    </div>
+                                </div>
+
+                                <div class="row pt-2">
+                                    <div class="col-md-12">
+                                        <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                            Gender
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <InputRadioGroup id="" class="form-control" @bind-Value="Adset.OptimizationGoal">
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <InputRadio class="Radio" Value="@("Gender")" />
+
+                                                    <label class="CampaignFonts">
+                                                        All
+                                                    </label>
+                                                </div>
+                                                <div class="col">
+                                                    <InputRadio class="Radio" Value="@("Gender")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Men
+                                                    </label>
+                                                </div>
+                                                <div class="col">
+                                                    <InputRadio class="Radio" Value="@("Gender")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Women
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </InputRadioGroup>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Placements
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <InputRadioGroup class="form-control" @bind-Value="Adset.Placements">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <InputRadio class="Radio" Value="@("REACH")" />
+
+                                            <label class="CampaignFonts">
+                                                Automatic Placements (Recommended)
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 pt-3">
+
+                                            <InputRadio class="Radio" Value="@("REACH")" />
+
+                                            <label class="CampaignFonts">
+                                                Manual Placements
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </InputRadioGroup>
                             </div>
                         </div>
                     </div>

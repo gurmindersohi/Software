@@ -23,7 +23,8 @@ namespace Sohi.Models
         public string Budget { get; set; }
 
         [Required]
-        public Int32 DailyBudget { get; set; }
+        [Range(1.25, 1000000000000)]
+        public decimal DailyBudget { get; set; }
 
         [Required]
         public string CampaignId { get; set; }
@@ -38,11 +39,33 @@ namespace Sohi.Models
         public DateTime StartDate { get; set; } = DateTime.Now;
 
         [Required]
-        [Timestamp]
-        public TimeSpan StartTime { get; set; } = DateTime.Now.TimeOfDay;
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(1);
+
+        public DateTime EndTime { get; set; }
+
 
         [Required]
-        public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(1);
+        public int MinAge { get; set; }
+
+        [Required]
+        public int MaxAge { get; set; }
+
+
+        [Required]
+        public string Gender { get; set; }
+
+        [Required]
+        public string Placements { get; set; }
+
+        [Required]
+        public string LocationType { get; set; }
+
+
+        [Required]
+        public string Location { get; set; }
+
 
 
     }

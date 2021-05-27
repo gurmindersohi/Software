@@ -19,5 +19,9 @@ namespace Sohi.Web.Services.Ads
         //Create Facebook Ads
 
         Task<string> CreateFacebookCampaign(string AccountId, string endPoint, FormUrlEncodedContent content);
+
+
+        Task<List<FacebookLocation>> SearchLocation(string accesstoken, string endPoint, string q);
+
     }
 }
