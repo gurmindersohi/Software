@@ -11,5 +11,17 @@ namespace Sohi.Models
 
         public string AudienceSize { get; set; }
 
+
+        public string[] Path { get; set; }
+
+
+        public string ParentPath { get; set; }
+
+        public string ChildPath { get; set; }
+
+        public string GrandChildPath { get; set; }
+
+        public string GreatGrandChildPath { get; set; }
+
     }
 }

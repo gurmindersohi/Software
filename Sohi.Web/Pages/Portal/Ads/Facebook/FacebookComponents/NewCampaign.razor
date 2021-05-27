@@ -65,12 +65,12 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <InputRadioGroup id="Awareness" class="form-control" @bind-Value="Campaign.Objective">
+                                        <InputRadioGroup id="Awareness" Name="Objective" class="form-control" @bind-Value="Campaign.Objective">
 
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <InputRadio class="Radio" Value="@("BRAND_AWARENESS")" />
+                                                    <InputRadio class="Radio" Name="Objective" Value="@("BRAND_AWARENESS")" />
 
                                                     <label class="CampaignFonts">
                                                         Brand awareness
@@ -80,7 +80,7 @@
 
                                             <div class="row pt-2">
                                                 <div class="col-md-12">
-                                                    <InputRadio class="Radio" Value="@("REACH")" />
+                                                    <InputRadio class="Radio" Name="Objective" Value="@("REACH")" />
 
                                                     <label class="CampaignFonts">
                                                         Reach

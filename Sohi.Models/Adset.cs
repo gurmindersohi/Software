@@ -7,38 +7,38 @@ namespace Sohi.Models
     {
         public string Id { get; set; }
 
-        [Required]
+        //[Required]
         public string Name { get; set; }
 
-        [Required]
-        public string OptimizationGoal { get; set; }
+        //[Required]
+        public string OptimizationGoal { get; set; } = "REACH";
 
-        [Required]
+        //[Required]
         public string BillingEvent { get; set; }
 
-        [Required]
+        //[Required]
         public string BidAmount { get; set; }
 
-        [Required]
-        public string Budget { get; set; }
+        //[Required]
+        public string Budget { get; set; } = "daily_budget";
 
-        [Required]
+        //[Required]
         [Range(1.25, 1000000000000)]
         public decimal DailyBudget { get; set; }
 
-        [Required]
+        //[Required]
         public string CampaignId { get; set; }
 
-        [Required]
+        //[Required]
         public string Targeting { get; set; }
 
-        [Required]
+        //[Required]
         public string Status { get; set; }
 
-        [Required]
+        //[Required]
         public DateTime StartDate { get; set; } = DateTime.Now;
 
-        [Required]
+        //[Required]
         public DateTime StartTime { get; set; }
 
         public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(1);
@@ -46,26 +46,29 @@ namespace Sohi.Models
         public DateTime EndTime { get; set; }
 
 
-        [Required]
-        public int MinAge { get; set; }
+        //[Required]
+        public int MinAge { get; set; } = 18;
 
-        [Required]
-        public int MaxAge { get; set; }
+        //[Required]
+        public int MaxAge { get; set; } = 65;
 
 
-        [Required]
-        public string Gender { get; set; }
+        //[Required]
+        public string Gender { get; set; } = "All";
 
-        [Required]
-        public string Placements { get; set; }
+        //[Required]
+        public string Placements { get; set; } = "Auto";
 
-        [Required]
+        //[Required]
         public string LocationType { get; set; }
 
 
-        [Required]
+        //[Required]
         public string Location { get; set; }
 
+        public decimal BillingEvents { get; set; }
+
+        public decimal CostControl { get; set; }
 
 
     }

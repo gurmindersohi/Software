@@ -289,7 +289,28 @@ namespace Sohi.Web.Services.Ads
                     {
                         targeting.AudienceSize = item["audience_size"].ToString();
                     }
-                   
+
+                    //if (item["path"] != null)
+                    //{
+
+                    //    if (item["path"][0] != null)
+                    //    {
+                    //        targeting.ParentPath = item["path"][0].ToString();
+                    //    }
+                    //    if (item["path"][1] != null)
+                    //    {
+                    //        targeting.ChildPath = item["path"][1].ToString();
+                    //    }
+                    //    if (item["path"][2] != null)
+                    //    {
+                    //        targeting.GrandChildPath = item["path"][2].ToString();
+                    //    }
+                    //    if (item["path"][3] != null)
+                    //    { 
+                    //        targeting.GreatGrandChildPath = item["path"][3].ToString();
+                    //    }
+                    //}
+
                     targetings.Add(targeting);
                 }
 

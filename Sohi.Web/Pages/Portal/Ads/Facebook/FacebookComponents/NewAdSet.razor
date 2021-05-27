@@ -58,28 +58,18 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <InputRadioGroup id="" class="form-control" @bind-Value="Adset.OptimizationGoal">
+                                        <InputRadioGroup Name="OptimizationGoal" class="form-control" @bind-Value="Adset.OptimizationGoal">
 
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <InputRadio class="Radio" Value="@("REACH")" />
+                                                    <InputRadio Name="OptimizationGoal" checked="checked" class="Radio" Value="@("REACH")" />
 
                                                     <label class="CampaignFonts">
                                                         Website
                                                     </label>
                                                 </div>
                                             </div>
-
-                                            @*<div class="row pt-2">
-                                                    <div class="col-md-12">
-                                                        <InputRadio class="Radio" Value="@("REACH")" />
-
-                                                        <label class="CampaignFonts">
-                                                            Reach
-                                                        </label>
-                                                    </div>
-                                                </div>*@
 
                                         </InputRadioGroup>
                                     </div>
@@ -114,8 +104,8 @@
                             <div class="col-md-6">
                                 <InputSelect id="Budget" class="form-select"
                                              @bind-Value="Adset.Budget">
-                                    <option selected>Daily Budget</option>
-                                    <option>Lifetime Budget</option>
+                                    <option value="@("daily_budget")">Daily Budget</option>
+                                    <option value="@("lifetime_budget")">Lifetime Budget</option>
                                 </InputSelect>
                                 <ValidationMessage For="@(() => Adset.Budget)" />
                             </div>
@@ -185,17 +175,18 @@
                             </div>
                         </div>
 
-                        @if (ScheduleEndDate) {
-                        <div class="row pt-2">
-                            <div class="col f-0">
-                                <InputDate id="EndDate" class="form-control w-auto"
-                                           @bind-Value="Adset.EndDate" />
-                                <ValidationMessage For="@(() => Adset.EndDate)" />
+                        @if (ScheduleEndDate)
+                        {
+                            <div class="row pt-2">
+                                <div class="col f-0">
+                                    <InputDate id="EndDate" class="form-control w-auto"
+                                               @bind-Value="Adset.EndDate" />
+                                    <ValidationMessage For="@(() => Adset.EndDate)" />
+                                </div>
+                                <div class="col">
+                                    <input type="time" class="form-control w-auto" @bind-value="Adset.EndTime">
+                                </div>
                             </div>
-                            <div class="col">
-                                <input type="time" class="form-control w-auto" @bind-value="Adset.EndTime">
-                            </div>
-                        </div>
                         }
                     </div>
 
@@ -248,48 +239,6 @@
 
 
 
-                                @*<div class="row pt-2">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-
-
-                                            <InputText id="Search" class="form-control" @onkeyup="SearchLocation" autocomplete="off" autocorrect="off" aria-autocomplete="list"
-                                                       @bind-Value="Adset.Location">
-                                            </InputText>
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @if(facebookLocation != null)
-                                {
-
-                                <div class="row pt-0" style="padding-left: 2.65rem !important;">
-                                    <div class="col">
-                                        <div class="Search-List">
-                                            @foreach (var location in facebookLocation)
-                                            {
-                                            <div class="row Search-List-Data">
-                                                <div class="col">
-                                                    <a href="#">@location.Name</a>
-                                                </div>
-                                            </div>
-                                            }
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                }*@
-
-
-
-
-
                                 <div class="row pt-5">
                                     <div class="col-md-12">
                                         <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
@@ -325,26 +274,23 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <InputRadioGroup id="" class="form-control" @bind-Value="Adset.OptimizationGoal">
+                                        <InputRadioGroup Name="Gender" class="form-control" @bind-Value="Adset.Gender">
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <InputRadio class="Radio" Value="@("Gender")" />
-
+                                                    <InputRadio class="Radio" Name="Gender" selected Value="@("All")" />
                                                     <label class="CampaignFonts">
                                                         All
                                                     </label>
                                                 </div>
                                                 <div class="col">
-                                                    <InputRadio class="Radio" Value="@("Gender")" />
-
+                                                    <InputRadio class="Radio" Name="Gender" Value="@("1")" />
                                                     <label class="CampaignFonts">
                                                         Men
                                                     </label>
                                                 </div>
                                                 <div class="col">
-                                                    <InputRadio class="Radio" Value="@("Gender")" />
-
+                                                    <InputRadio class="Radio" Name="Gender" Value="@("2")" />
                                                     <label class="CampaignFonts">
                                                         Women
                                                     </label>
@@ -352,6 +298,14 @@
                                             </div>
 
                                         </InputRadioGroup>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-md-12">
+                                        <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                            Detailed Targeting
+                                        </label>
                                     </div>
                                 </div>
 
@@ -374,12 +328,12 @@
                         </div>
                         <div class="row pt-3">
                             <div class="col-md-12">
-                                <InputRadioGroup class="form-control" @bind-Value="Adset.Placements">
+                                <InputRadioGroup Name="Placements" class="form-control" @bind-Value="Adset.Placements">
 
                                     <div class="row">
                                         <div class="col-md-12">
 
-                                            <InputRadio class="Radio" Value="@("REACH")" />
+                                            <InputRadio Name="Placements" class="Radio" checked="checked" Value="@("Auto")" />
 
                                             <label class="CampaignFonts">
                                                 Automatic Placements (Recommended)
@@ -391,7 +345,7 @@
                                     <div class="row">
                                         <div class="col-md-12 pt-3">
 
-                                            <InputRadio class="Radio" Value="@("REACH")" />
+                                            <InputRadio Name="Placements" class="Radio" Value="@("Manual")" />
 
                                             <label class="CampaignFonts">
                                                 Manual Placements
@@ -400,6 +354,54 @@
                                     </div>
 
                                 </InputRadioGroup>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Optimization & Delivery
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                    Optimization for Ad Delivery
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <InputSelect id="BillingEvents" class="form-select"
+                                             @bind-Value="Adset.BillingEvents">
+                                    <option selected>Link Clicks</option>
+                                    <option>Landing Page Views</option>
+                                    <option>Daily Unique Reach</option>
+                                    <option>Impressions</option>
+                                </InputSelect>
+                                <ValidationMessage For="@(() => Adset.BillingEvents)" />
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:13px; font-weight:600;">
+                                    Cost Control (optional)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <InputNumber id="CostControl" class="form-control"
+                                             @bind-Value="Adset.CostControl" />
+                                <ValidationMessage For="@(() => Adset.CostControl)" />
                             </div>
                         </div>
                     </div>

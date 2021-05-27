@@ -38,32 +38,29 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         public Targeting DetailedTargeting { get; set; }
 
 
-        public List<Targeting> SelectedDetailedTargeting { get; set; }
+        public List<Targeting> SelectedDetailedTargeting { get; set; } = new List<Targeting>();
 
 
-        protected async Task TargetSelected(Targeting targeting)
+        protected void TargetSelected(Targeting targeting)
         {
 
-            DetailedTargetings.Clear();
 
-            SearchText = String.Empty;
+            //DetailedTargeting = targeting;
 
-            var item = (SelectedDetailedTargeting.Find(t => t.Id == targeting.Id));
 
-            if (item == null)
+            if (targeting != null)
             {
-                SelectedDetailedTargeting.Add(item);
+                SelectedDetailedTargeting.Add(targeting);
+
+                SearchText = String.Empty;
+
+                DetailedTargetings.Clear();
             }
-            
-
-            SelectedDetailedTargeting.Add(targeting);
-
-
 
 
         }
 
-        protected async Task DeleteSelectedTarget(Targeting targeting)
+        protected void DeleteSelectedTarget(Targeting targeting)
         {
             var item = (SelectedDetailedTargeting.Find(t => t.Id == targeting.Id));
 

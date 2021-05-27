@@ -3,15 +3,16 @@
 @inherits DetailedTargetingBase
 
 <div class="mt-2" style="border: 1px solid #dadde1;">
-    @if (SelectedDetailedTargeting != null)
+    @if (SelectedDetailedTargeting != null && SelectedDetailedTargeting.Count != 0)
     {
         @foreach (var item in SelectedDetailedTargeting)
         {
-            <div class="pt-2 pb-2" style="background-color: rgba(0, 0, 0, .05);">
+            <div class="pt-0 pb-2" style="background-color: rgba(0, 0, 0, .05);">
                 <div class="col px-4">
 
                     <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
-                        @item.Type
+                        @item.Type.First().ToString().ToUpper()@item.Type.Substring(1)
+                        @*@item.ParentPath @item.ChildPath @item.GrandChildPath*@
                     </label>
 
                     <div class="">
