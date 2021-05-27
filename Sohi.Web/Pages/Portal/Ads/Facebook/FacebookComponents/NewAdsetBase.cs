@@ -35,20 +35,20 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
         public List<FacebookLocation> facebookLocation { get; set; }
 
-        protected async Task SearchLocation(string q)
-        {
+        //protected async Task SearchLocation()
+        //{
 
-            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+        //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-            var result = await AdAccountService.SearchLocation(AccountId, endPoint, q);
+        //    var result = await AdAccountService.SearchLocation(AccountId, endPoint, Pr);
 
-            if (result != null)
-            {
-                facebookLocation = result;
-            }
+        //    if (result != null)
+        //    {
+        //        facebookLocation = result;
+        //    }
 
 
-        }
+        //}
 
 
 

@@ -96,35 +96,13 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
-    public partial class Location : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Location : LocationBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 46 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/Location.razor"
-       
-
-
-    [Parameter]
-    public string location { get; set; }
-
-    private void SearchLocation()
-    {
-
-    }
-
-
-    private void SearchLocationBox()
-    {
-
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591
