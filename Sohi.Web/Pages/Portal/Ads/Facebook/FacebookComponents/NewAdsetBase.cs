@@ -91,6 +91,90 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             //SelectedLocation = facebookLocations;
         }
 
+        protected async Task TestFunction()
+        {
+
+            string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+
+
+            //string[] country = { "CA", "US" };
+            List<object> Countries = new List<object>();
+
+            foreach (var item in SelectedCountries)
+            {
+                Countries.Add(item.Key);
+            }
+
+
+            List<object> Regions = new List<object>();
+
+            foreach (var item in SelectedRegions)
+            {
+                var region = new
+                {
+                    key = item.Key,
+                };
+
+                Regions.Add(region);
+            }
+
+
+            List<object> Cities = new List<object>();
+
+            foreach (var item in SelectedCities)
+            {
+                var city = new
+                {
+                    key = item.Key,
+                    radius = "10",
+                    distance_unit = "mile"
+                };
+
+                Cities.Add(city);
+            }
+
+
+            var geoLocations = new
+            {
+                countries = Countries,
+                regions = Regions,
+                cities = Cities
+            };
+
+
+            var targets = new
+            {
+                age_min = "18",
+                age_max = "64",
+
+                geo_locations = geoLocations
+            };
+
+
+            var content = new
+            {
+                name = Adset.Name,
+                optimization_goal = "IMPRESSIONS",
+                billing_event = "IMPRESSIONS",
+                campaign_id = "23847569735650538",
+                status = "PAUSED",
+                access_token = Profile.Token,
+                targeting = targets,
+                daily_budget = "1000",
+                bid_strategy = "LOWEST_COST_WITHOUT_CAP"
+
+
+            };
+
+
+            var adsetId = await AdAccountService.NewCreateFacebookAdSet(AccountId, endPoint, content);
+
+
+            var body = content;
+
+            //using var response = await HttpClient.PostJsonAsync("https://reqres.in/invalid-url", postBody);
+
+        }
 
         protected async Task HandleValidSubmit()
         {
@@ -101,36 +185,48 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
             values.Add(new KeyValuePair<string, string>("name", Adset.Name));
             values.Add(new KeyValuePair<string, string>("optimization_goal", Adset.OptimizationGoal));
-            values.Add(new KeyValuePair<string, string>("billing_event", Adset.BillingEvent));
-            values.Add(new KeyValuePair<string, string>("bid_amount", Adset.CostControl.ToString()));
-            values.Add(new KeyValuePair<string, string>(Adset.Budget, Adset.DailyBudget.ToString()));
+            values.Add(new KeyValuePair<string, string>("billing_event", Adset.BillingEvents));
+            values.Add(new KeyValuePair<string, string>(Adset.Budget, (Adset.DailyBudget * 100).ToString()));
             values.Add(new KeyValuePair<string, string>("campaign_id", "23847554963840538"));
             values.Add(new KeyValuePair<string, string>("status", "PAUSED"));
             values.Add(new KeyValuePair<string, string>("access_token", Profile.Token));
 
-            //values.Add(new KeyValuePair<string, string>("genders", Adset.Gender));
-            //values.Add(new KeyValuePair<string, string>("age_min", Adset.MinAge.ToString()));
-            //values.Add(new KeyValuePair<string, string>("age_max", Adset.MaxAge.ToString()));
 
+            var startDate = Adset.StartDate;
+            var startTime = Adset.StartTime;
 
+            var start_time = "";
+
+            values.Add(new KeyValuePair<string, string>("start_time", start_time));
+
+            if (Adset.CostControl != 0)
+            {
+                values.Add(new KeyValuePair<string, string>("bid_amount", (Adset.CostControl * 100).ToString()));
+            }
+            else
+            {
+                values.Add(new KeyValuePair<string, string>("bid_strategy", "LOWEST_COST_WITHOUT_CAP"));
+            }
 
 
             string geolocation = GetGeoLocation(SelectedCountries, SelectedCities, SelectedRegions);
 
 
-            var targeting = string.Format("{0}'age_min':'{1}','age_max':'{2}','geo_locations':'{3}'{4}", "{", Adset.MinAge.ToString(),
+            var targeting = string.Format("{0}'age_min':'{1}','age_max':'{2}','geo_locations':{3}{4}", "{", Adset.MinAge.ToString(),
                 Adset.MaxAge.ToString(), geolocation, "}");
 
             values.Add(new KeyValuePair<string, string>("targeting", targeting));
 
             var content = new FormUrlEncodedContent(values);
 
-            //var adsetId = await AdAccountService.CreateFacebookAdSet(AccountId, endPoint, content);
 
 
-            //if (CampaignId != null)
+            var adsetId = await AdAccountService.CreateFacebookAdSet(AccountId, endPoint, content);
+
+
+            //if (adsetId != null)
             //{
-            //    NavigationManager.NavigateTo("/Portal/Ads/Facebook/" + AccountId + "/Create/Adsets/" + CampaignId);
+            //    NavigationManager.NavigateTo("/Portal/Ads/Facebook/" + AccountId + "/Create/Ads/" + adsetId);
             //}
 
         }
@@ -203,7 +299,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             foreach (KeyValuePair<string, List<FacebookLocation>> keyValues in dictionary)
             {
                 string result = string.Join(",", keyValues.Value
-                    .Select(x => string.Format("{0}'{1}'{2}'{3}'{4}'{5}'", "{'key':", x.Key, ",'radius':", x.Radius, ",'distance_unit':", x.DistanceUnit, "}")));
+                    .Select(x => string.Format("{0}'{1}'{2}'{3}'{4}'{5}'{6}", "{'key':", x.Key, ",'radius':", x.Radius, ",'distance_unit':", x.DistanceUnit, "}")));
 
                 dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + result + "],";
             }

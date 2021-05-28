@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sohi.Models;
 using System.Collections.Generic;
-
+using System.Net.Http.Json;
 
 namespace Sohi.Web.Services.Ads
 {
@@ -152,12 +152,12 @@ namespace Sohi.Web.Services.Ads
 
 
 
-        public async Task<string> CreateFacebookCampaign(string AccountId, string endPoint, FormUrlEncodedContent content)
+        public async Task<string> CreateFacebookCampaign(string AccountId, string endPoint, object content)
         {
 
             string url = string.Format(endPoint + "/{0}/campaigns", AccountId);
 
-            var response = await httpClient.PostAsync(url, content);
+            var response = await httpClient.PostAsJsonAsync(url, content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -330,6 +330,28 @@ namespace Sohi.Web.Services.Ads
             string url = string.Format(endPoint + "/{0}/adsets", AccountId);
 
             var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> NewCreateFacebookAdSet(string AccountId, string endPoint, object content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/adsets", AccountId);
+
+            //var response = await httpClient.PostJsonAsync(url, content);
+
+            using var response = await httpClient.PostAsJsonAsync(url, content);
 
             if (response.IsSuccessStatusCode)
             {

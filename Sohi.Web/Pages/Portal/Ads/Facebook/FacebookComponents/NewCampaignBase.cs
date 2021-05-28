@@ -38,14 +38,17 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         protected async Task HandleValidSubmit()
         {
             string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-            var content = new FormUrlEncodedContent(new[]
-                           {
-                                new KeyValuePair<string, string>("name", Campaign.Name),
-                                new KeyValuePair<string, string>("objective", Campaign.Objective),
-                                new KeyValuePair<string, string>("status", "PAUSED"),
-                                new KeyValuePair<string, string>("special_ad_categories", "NONE"),
-                                new KeyValuePair<string, string>("access_token", Profile.Token)
-                            });
+
+            var content = new
+            {
+                name = Campaign.Name,
+                objective = Campaign.Objective,
+                status = "PAUSED",
+                special_ad_categories = "NONE",
+                access_token = Profile.Token
+
+            };
+
 
             CampaignId = await AdAccountService.CreateFacebookCampaign(AccountId, endPoint, content);
 
@@ -56,5 +59,29 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             }
 
         }
+
+
+
+        //protected async Task HandleValidSubmit()
+        //{
+        //    string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
+        //    var content = new FormUrlEncodedContent(new[]
+        //                   {
+        //                        new KeyValuePair<string, string>("name", Campaign.Name),
+        //                        new KeyValuePair<string, string>("objective", Campaign.Objective),
+        //                        new KeyValuePair<string, string>("status", "PAUSED"),
+        //                        new KeyValuePair<string, string>("special_ad_categories", "NONE"),
+        //                        new KeyValuePair<string, string>("access_token", Profile.Token)
+        //                    });
+
+        //    CampaignId = await AdAccountService.CreateFacebookCampaign(AccountId, endPoint, content);
+
+
+        //    if (CampaignId != null)
+        //    {
+        //        NavigationManager.NavigateTo("/Portal/Ads/Facebook/" + AccountId + "/Create/Adsets/" + CampaignId);
+        //    }
+
+        //}
     }
 }

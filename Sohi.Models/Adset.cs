@@ -11,10 +11,7 @@ namespace Sohi.Models
         public string Name { get; set; }
 
         //[Required]
-        public string OptimizationGoal { get; set; } = "REACH";
-
-        //[Required]
-        public string BillingEvent { get; set; }
+        public string OptimizationGoal { get; set; } = "LINK_CLICKS";
 
         //[Required]
         public string BidAmount { get; set; }

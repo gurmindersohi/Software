@@ -6,7 +6,7 @@
 <div class="container mt-5 pt-2" style=" margin-top:5rem;  max-width:1000px; ">
 
     <div class="row p-2">
-        <EditForm Model="@Adset" OnValidSubmit="HandleValidSubmit">
+        <EditForm Model="@Adset" OnValidSubmit="TestFunction">
 
             <div class="col" style="flex:0;">
                 <DataAnnotationsValidator />
@@ -63,7 +63,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <InputRadio Name="OptimizationGoal" checked="checked" class="Radio" Value="@("REACH")" />
+                                                    <InputRadio Name="OptimizationGoal" checked="checked" class="Radio" Value="@("LINK_CLICKS")" />
 
                                                     <label class="CampaignFonts">
                                                         Website
