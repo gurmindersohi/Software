@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -75,47 +76,11 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
 
 
-            Dictionary<string, object> targeting = new Dictionary<string, object>();
 
-            Dictionary<string, string[]> geoLocation = new Dictionary<string, string[]>();
-
-
-            ////Dictionary<string, string[]> countries = new Dictionary<string, string[]>();
-
-            //string[] countries = { "US" };
-
-            ////countries.Add("countries", countries);
+            string geolocation = GetGeoLocation();
 
 
-            //Dictionary<string, string[]> city = new Dictionary<string, string[]>();
-
-            //string[] cities = { "Brampton" };
-
-            //city.Add("city", cities);
-
-
-            string[] countries = { "US", "CA" };
-            string[] cities = { "Brampton" };
-
-            geoLocation.Add("countries", countries);
-            geoLocation.Add("city", cities);
-
-            targeting.Add("geo_locations", geoLocation);
-
-
-            string[] platforms = { "facebook" , "audience_network" };
-
-            targeting.Add("publisher_platforms", platforms);
-
-
-            var targets = targeting.ToString();
-
-            var result = GeoLocation(geoLocation);
-
-
-            values.Add(new KeyValuePair<string, string>("targeting", targets));
-
-
+            //var targeting = 
 
             var content = new FormUrlEncodedContent(values);
 
@@ -153,24 +118,102 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         }
 
 
-        public string GeoLocation(Dictionary<string, string[]> dictionary)
+        private string GetGeoLocation()
         {
-            string dictionaryString = "{";
-            foreach (KeyValuePair<string, string[]> keyValues in dictionary)
-            {
-                var str = String.Join(",", "'" + keyValues.Value + "'");
 
-                dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" +  str + "],";
-            }
+            Dictionary<string, List<string>> GeoLocation = new Dictionary<string, List<string>>();
 
-            return dictionaryString.TrimEnd(',', ' ') + "}";
 
-            //String.Format("'geo_locations':{'cities':[{'key':'" + id + "','radius':'" + DropDownList2.SelectedValue + "','distance_unit':'mile'}]}");
+            List<string> countries = new List<string>();
+            countries.Add("US");
+            countries.Add("CA");
+
+            GeoLocation.Add("countries", countries);
+
+
+            Dictionary<string, List<FacebookLocation>> region = new Dictionary<string, List<FacebookLocation>>();
+
+            List<FacebookLocation> regions = new List<FacebookLocation>();
+
+            regions.Add(new FacebookLocation { Key = "12345" });
+            regions.Add(new FacebookLocation { Key = "67890" });
+
+            region.Add("regions", regions);
+
+            var AllRegion = GetRegionLocations(region);
+
+
+            Dictionary<string, List<FacebookLocation>> city = new Dictionary<string, List<FacebookLocation>>();
+
+            List<FacebookLocation> cities = new List<FacebookLocation>();
+
+            cities.Add(new FacebookLocation { Key = "12345" });
+            cities.Add(new FacebookLocation { Key = "67890" });
+
+            city.Add("cities", cities);
+
+            var AllCities = GetCityLocations(city);
+
+
+            //List<string> cities = new List<string>();
+            //cities.Add("Brampton");
+            //cities.Add("Mississauga");
+
+            //GeoLocation.Add("cities", cities);
+
+
+
+            var AllCountries = GetGeoLocations(GeoLocation);
+
+
+            var result = AllCountries + AllRegion + AllCities;
+
+            return result;
 
         }
 
 
-            public string DictionaryToString(Dictionary<string, string[]> dictionary)
+        public string GetGeoLocations(Dictionary<string, List<string>> dictionary)
+        {
+            string dictionaryString = "{";
+            foreach (KeyValuePair<string, List<string>> keyValues in dictionary)
+            {
+                string ws = string.Format("'{0}'", string.Join("','", keyValues.Value.Select(i => i.Replace("'", "''"))));
+                dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + ws + "],";
+            }
+
+            return dictionaryString.TrimEnd(',', ' ') + "}";
+        }
+
+        public string GetRegionLocations(Dictionary<string, List<FacebookLocation>> dictionary)
+        {
+            string dictionaryString = "{";
+            foreach (KeyValuePair<string, List<FacebookLocation>> keyValues in dictionary)
+            {
+                string result = string.Join(",", keyValues.Value.Select(x => string.Format("{0}'{1}'{2}", "{'key':", x.Key, "}")));
+
+                dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + result + "],";
+            }
+
+            return dictionaryString.TrimEnd(',', ' ') + "}";
+        }
+
+        public string GetCityLocations(Dictionary<string, List<FacebookLocation>> dictionary)
+        {
+            string dictionaryString = "{";
+            foreach (KeyValuePair<string, List<FacebookLocation>> keyValues in dictionary)
+            {
+                string result = string.Join(",", keyValues.Value
+                    .Select(x => string.Format("{0}'{1}'{2}'{3}'{4}'{5}'", "{'key':", x.Key, ",'radius':", x.Key, ",'distance_unit':", x.Key, "}")));
+
+                dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + result + "],";
+            }
+
+            return dictionaryString.TrimEnd(',', ' ') + "}";
+        }
+
+
+        public string DictionaryToString(Dictionary<string, string[]> dictionary)
         {
             string dictionaryString = "{";
             foreach (KeyValuePair<string, string[]> keyValues in dictionary)
