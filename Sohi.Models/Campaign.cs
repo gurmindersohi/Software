@@ -11,7 +11,7 @@ namespace Sohi.Models
         public string Name { get; set; }
 
         [Required]
-        public string Objective { get; set; }
+        public string Objective { get; set; } = "LINK_CLICKS";
 
     }
 }

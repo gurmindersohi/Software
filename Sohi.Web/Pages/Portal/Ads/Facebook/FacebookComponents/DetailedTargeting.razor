@@ -1,0 +1,140 @@
+﻿
+
+@inherits DetailedTargetingBase
+
+<div class="mt-2" style="border: 1px solid #dadde1;">
+    @if (SelectedDetailedTargeting != null && SelectedDetailedTargeting.Count != 0)
+    {
+        @foreach (var item in SelectedDetailedTargeting)
+        {
+            <div class="pt-0 pb-2" style="background-color: rgba(0, 0, 0, .05);">
+                <div class="col px-4">
+
+                    <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
+                        @item.Type.First().ToString().ToUpper()@item.Type.Substring(1)
+                        @*@item.ParentPath @item.ChildPath @item.GrandChildPath*@
+                    </label>
+
+                    <div class="">
+                        <div class="col form-control" style="background-color: #fff;">
+
+                            <div class="input-group">
+                                <span class="oi oi-map-marker text-success"></span>
+                                @item.Name
+
+                                <span class="input-group-text" @onclick="() => DeleteSelectedTarget(item)" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-x"></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-magnifying-glass"></span></span>
+
+                <input type="text" class="form-control" @bind-value="SearchText" @bind-value:event="oninput" autocomplete="off" autocorrect="off" aria-autocomplete="list" style="border:none; border-bottom: 1px solid #ced4da;"
+                       placeholder="Search Your Targeting Audience" @onkeyup="@HandleKeyUp" />
+
+
+            </div>
+        </div>
+    </div>
+
+    @if (DetailedTargetings != null && DetailedTargetings.Count != 0)
+    {
+
+        <div class="row pt-0">
+            <div class="col">
+                <div class="Search-List">
+                    @foreach (var target in DetailedTargetings)
+                    {
+                        <div class="row Search-List-Data" @onclick="() => TargetSelected(target)">
+                            <div class="col">
+                                <a>
+                                    <span>
+                                        @target.Name
+                                    </span>
+
+                                    @if (target.Type != null)
+                                    {
+                                        <span>
+                                            , @target.Type.First().ToString().ToUpper()@target.Type.Substring(1)
+                                        </span>
+                                    }
+
+                                </a>
+                            </div>
+
+                            <div class="col f-0">
+                                @String.Format("{0:n0}", Convert.ToInt32(target.AudienceSize))
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group" style="height:4rem;">
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .Search-List {
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #fff;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        padding-left: 12px;
+        padding-right: 12px;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 0.75rem;
+        line-height: 1.33333;
+        letter-spacing: normal;
+        overflow-wrap: normal;
+        text-align: left;
+        color: rgba(0, 0, 0, 0.85);
+        border: 1px solid #ced4da;
+    }
+    .Search-List-Data {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+
+        @*.Search-List-Data a:first-child {
+            border-bottom: none;
+        }
+        .Search-List-Data a:last-child {
+            border-bottom: none;
+        }*@
+
+        .Search-List-Data a:first-of-type {
+            border-bottom: none;
+        }
+
+        .Search-List-Data a:last-of-type {
+            border-bottom: none;
+        }
+
+        .Search-List-Data:hover {
+            background-color: #d4d4d4;
+        }
+</style>
