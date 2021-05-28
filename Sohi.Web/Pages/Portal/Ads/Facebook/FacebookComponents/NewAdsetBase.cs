@@ -36,7 +36,14 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         [Inject]
         public IAdAccountService AdAccountService { get; set; }
 
-        public List<FacebookLocation> facebookLocation { get; set; }
+        //public List<FacebookLocation> facebookLocation { get; set; }
+
+        public List<FacebookLocation> SelectedCountries { get; set; } = new List<FacebookLocation>();
+
+        public List<FacebookLocation> SelectedCities { get; set; } = new List<FacebookLocation>();
+
+        public List<FacebookLocation> SelectedRegions { get; set; } = new List<FacebookLocation>();
+
 
         //protected async Task SearchLocation()
         //{
@@ -54,6 +61,36 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         //}
 
 
+        protected void LocationSelectionChanged(FacebookLocation facebookLocation)
+        {
+
+            if (facebookLocation != null)
+            {
+                if (facebookLocation.Type == "country")
+                {
+                    SelectedCountries.Add(facebookLocation);
+                }
+                else if (facebookLocation.Type == "city")
+                {
+                    SelectedCities.Add(facebookLocation);
+                }
+                else if (facebookLocation.Type == "region")
+                {
+                    SelectedRegions.Add(facebookLocation);
+                }
+            }
+
+            //foreach (var fbLocations in facebookLocations)
+            //{
+            //    if (fbLocations.Type == "country")
+            //    {
+            //        SelectedCountries.Add(fbLocations);
+            //    }
+            //}
+
+            //SelectedLocation = facebookLocations;
+        }
+
 
         protected async Task HandleValidSubmit()
         {
@@ -70,44 +107,25 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             values.Add(new KeyValuePair<string, string>("campaign_id", "23847554963840538"));
             values.Add(new KeyValuePair<string, string>("status", "PAUSED"));
             values.Add(new KeyValuePair<string, string>("access_token", Profile.Token));
-            values.Add(new KeyValuePair<string, string>("genders", Adset.Gender));
-            values.Add(new KeyValuePair<string, string>("age_min", Adset.MinAge.ToString()));
-            values.Add(new KeyValuePair<string, string>("age_max", Adset.MaxAge.ToString()));
+
+            //values.Add(new KeyValuePair<string, string>("genders", Adset.Gender));
+            //values.Add(new KeyValuePair<string, string>("age_min", Adset.MinAge.ToString()));
+            //values.Add(new KeyValuePair<string, string>("age_max", Adset.MaxAge.ToString()));
 
 
 
 
-            string geolocation = GetGeoLocation();
+            string geolocation = GetGeoLocation(SelectedCountries, SelectedCities, SelectedRegions);
 
 
-            //var targeting = 
+            var targeting = string.Format("{0}'age_min':'{1}','age_max':'{2}','geo_locations':'{3}'{4}", "{", Adset.MinAge.ToString(),
+                Adset.MaxAge.ToString(), geolocation, "}");
+
+            values.Add(new KeyValuePair<string, string>("targeting", targeting));
 
             var content = new FormUrlEncodedContent(values);
 
-
-            //var content = new FormUrlEncodedContent(new[]
-            //               {
-            //                    new KeyValuePair<string, string>("name", Adset.Name),
-            //                    new KeyValuePair<string, string>("optimization_goal", Adset.OptimizationGoal),
-            //                    new KeyValuePair<string, string>("billing_event", Adset.BillingEvent),
-            //                    new KeyValuePair<string, string>("bid_amount", Adset.CostControl.ToString()),
-            //                    new KeyValuePair<string, string>(Adset.Budget, Adset.DailyBudget.ToString()),
-            //                    new KeyValuePair<string, string>("campaign_id", "23847554963840538"),
-            //                    new KeyValuePair<string, string>("status", "PAUSED"),
-            //                    new KeyValuePair<string, string>("access_token", Profile.Token),
-            //                    new KeyValuePair<string, string>("genders", Adset.Gender),
-            //                    new KeyValuePair<string, string>("age_min", Adset.MinAge.ToString()),
-            //                    new KeyValuePair<string, string>("age_max", Adset.MaxAge.ToString()),
-
-
-            //                });
-
-
-
-
-            var f = content;
-
-            //CampaignId = await AdAccountService.CreateFacebookCampaign(AccountId, endPoint, content);
+            //var adsetId = await AdAccountService.CreateFacebookAdSet(AccountId, endPoint, content);
 
 
             //if (CampaignId != null)
@@ -118,67 +136,48 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         }
 
 
-        private string GetGeoLocation()
+        private string GetGeoLocation(List<FacebookLocation> selectedCountries, List<FacebookLocation> selectedCities, List<FacebookLocation> selectedRegions)
         {
 
-            Dictionary<string, List<string>> GeoLocation = new Dictionary<string, List<string>>();
+            Dictionary<string, List<FacebookLocation>> GeoLocationCountry = new Dictionary<string, List<FacebookLocation>>();
+            GeoLocationCountry.Add("countries", selectedCountries);
+            var AllCountries = GetCountryLocations(GeoLocationCountry);
 
 
-            List<string> countries = new List<string>();
-            countries.Add("US");
-            countries.Add("CA");
-
-            GeoLocation.Add("countries", countries);
+            Dictionary<string, List<FacebookLocation>> GeoLocationRegion = new Dictionary<string, List<FacebookLocation>>();
+            GeoLocationRegion.Add("regions", selectedRegions);
+            var AllRegion = GetRegionLocations(GeoLocationRegion);
 
 
-            Dictionary<string, List<FacebookLocation>> region = new Dictionary<string, List<FacebookLocation>>();
+            Dictionary<string, List<FacebookLocation>> GeoLocationCity = new Dictionary<string, List<FacebookLocation>>();
+            GeoLocationCity.Add("cities", selectedCities);
+            var AllCities = GetCityLocations(GeoLocationCity);
 
-            List<FacebookLocation> regions = new List<FacebookLocation>();
-
-            regions.Add(new FacebookLocation { Key = "12345" });
-            regions.Add(new FacebookLocation { Key = "67890" });
-
-            region.Add("regions", regions);
-
-            var AllRegion = GetRegionLocations(region);
-
-
-            Dictionary<string, List<FacebookLocation>> city = new Dictionary<string, List<FacebookLocation>>();
-
-            List<FacebookLocation> cities = new List<FacebookLocation>();
-
-            cities.Add(new FacebookLocation { Key = "12345" });
-            cities.Add(new FacebookLocation { Key = "67890" });
-
-            city.Add("cities", cities);
-
-            var AllCities = GetCityLocations(city);
-
-
-            //List<string> cities = new List<string>();
-            //cities.Add("Brampton");
-            //cities.Add("Mississauga");
-
-            //GeoLocation.Add("cities", cities);
-
-
-
-            var AllCountries = GetGeoLocations(GeoLocation);
-
-
-            var result = AllCountries + AllRegion + AllCities;
+            var result = AllCountries + "," + AllRegion + "," + AllCities;
 
             return result;
 
         }
 
 
-        public string GetGeoLocations(Dictionary<string, List<string>> dictionary)
+        //public string GetGeoLocations(Dictionary<string, List<string>> dictionary)
+        //{
+        //    string dictionaryString = "{";
+        //    foreach (KeyValuePair<string, List<string>> keyValues in dictionary)
+        //    {
+        //        string ws = string.Format("'{0}'", string.Join("','", keyValues.Value.Select(i => i.Replace("'", "''"))));
+        //        dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + ws + "],";
+        //    }
+
+        //    return dictionaryString.TrimEnd(',', ' ') + "}";
+        //}
+
+        public string GetCountryLocations(Dictionary<string, List<FacebookLocation>> dictionary)
         {
             string dictionaryString = "{";
-            foreach (KeyValuePair<string, List<string>> keyValues in dictionary)
+            foreach (KeyValuePair<string, List<FacebookLocation>> keyValues in dictionary)
             {
-                string ws = string.Format("'{0}'", string.Join("','", keyValues.Value.Select(i => i.Replace("'", "''"))));
+                string ws = string.Format("'{0}'", string.Join("','", keyValues.Value.Select(i => i.Key.Replace("'", "''"))));
                 dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + ws + "],";
             }
 
@@ -204,7 +203,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             foreach (KeyValuePair<string, List<FacebookLocation>> keyValues in dictionary)
             {
                 string result = string.Join(",", keyValues.Value
-                    .Select(x => string.Format("{0}'{1}'{2}'{3}'{4}'{5}'", "{'key':", x.Key, ",'radius':", x.Key, ",'distance_unit':", x.Key, "}")));
+                    .Select(x => string.Format("{0}'{1}'{2}'{3}'{4}'{5}'", "{'key':", x.Key, ",'radius':", x.Radius, ",'distance_unit':", x.DistanceUnit, "}")));
 
                 dictionaryString += "'" + keyValues.Key + "'" + ":" + "[" + result + "],";
             }

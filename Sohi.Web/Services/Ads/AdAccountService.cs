@@ -177,7 +177,7 @@ namespace Sohi.Web.Services.Ads
         {
             List<FacebookLocation> locations = new List<FacebookLocation>();
 
-            string url = string.Format(endPoint + "/search?type=adgeolocation&access_token={0}&q={1}&limit=5", accesstoken, q);
+            string url = string.Format(endPoint + "/search?type=adgeolocation&access_token={0}&q={1}", accesstoken, q);
 
             var response = await httpClient.GetAsync(url);
 
@@ -315,6 +315,28 @@ namespace Sohi.Web.Services.Ads
                 }
 
                 return targetings;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
+        public async Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/adsets", AccountId);
+
+            var response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
             }
             else
             {

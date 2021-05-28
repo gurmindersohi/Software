@@ -234,7 +234,7 @@
                                     </div>
                                 </div>
 
-                                <Location location="@Adset.Location"></Location>
+                                <Location location="@Adset.Location" OnLocationSelection="LocationSelectionChanged"></Location>
 
 
 
@@ -380,10 +380,8 @@
                             <div class="col-md-12">
                                 <InputSelect id="BillingEvents" class="form-select"
                                              @bind-Value="Adset.BillingEvents">
-                                    <option selected>Link Clicks</option>
-                                    <option>Landing Page Views</option>
-                                    <option>Daily Unique Reach</option>
-                                    <option>Impressions</option>
+                                    <option value="@("LINK_CLICKS")">Link Clicks</option>
+                                    <option value="@("IMPRESSIONS")">Impressions</option>
                                 </InputSelect>
                                 <ValidationMessage For="@(() => Adset.BillingEvents)" />
                             </div>

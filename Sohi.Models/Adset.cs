@@ -66,7 +66,7 @@ namespace Sohi.Models
         //[Required]
         public string Location { get; set; }
 
-        public decimal BillingEvents { get; set; }
+        public string BillingEvents { get; set; } = "LINK_CLICKS";
 
         public decimal CostControl { get; set; }
 

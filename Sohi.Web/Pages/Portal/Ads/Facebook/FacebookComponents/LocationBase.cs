@@ -16,6 +16,11 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         [Parameter]
         public string location { get; set; }
 
+        public string SearchText { get; set; }
+
+        [Parameter]
+        public EventCallback<FacebookLocation> OnLocationSelection { get; set; }
+
         [CascadingParameter(Name = "AdsProfile")]
         public Profile Profile { get; set; }
 
@@ -28,30 +33,41 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         public List<FacebookLocation> facebookLocation { get; set; }
 
 
-        public FacebookLocation SelectedLocation { get; set; }
+        public List<FacebookLocation> SelectedLocation { get; set; } = new List<FacebookLocation>();
 
 
         protected async Task LocationSelected(FacebookLocation selectedLocation)
         {
+            if (selectedLocation != null)
+            {
+                SelectedLocation.Add(selectedLocation);
 
-            SelectedLocation = selectedLocation;
+                SearchText = String.Empty;
 
-            facebookLocation.Clear();
+                facebookLocation.Clear();
+
+                await OnLocationSelection.InvokeAsync(selectedLocation);
+            }
+
 
 
         }
 
         protected async Task DeleteSelectedLocation(FacebookLocation selectedLocation)
         {
+            var item = (SelectedLocation.Find(l => l.Key == selectedLocation.Key));
 
-            SelectedLocation = null;
+            if (item == null)
+            {
+                SelectedLocation.Remove(item);
+            }
         }
 
         protected async Task HandleKeyUp(KeyboardEventArgs e)
         {
             string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-            var result = await AdAccountService.SearchLocation(Profile.Token, endPoint, location);
+            var result = await AdAccountService.SearchLocation(Profile.Token, endPoint, SearchText);
 
             if (result != null)
             {

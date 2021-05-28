@@ -29,5 +29,10 @@ namespace Sohi.Models
 
         public string Longitude { get; set; }
 
+
+        public string Radius { get; set; } = "5";
+
+        public string DistanceUnit { get; set; } = "mile";
+
     }
 }
