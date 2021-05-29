@@ -13,15 +13,19 @@ namespace Sohi.Models
         //[Required]
         public string OptimizationGoal { get; set; } = "LINK_CLICKS";
 
+        public string destination_type { get; set; } = "WEBSITE";
+
         //[Required]
-        public string BidAmount { get; set; }
+
+        //[Range(1, 1000000000000)]
+        //public decimal BidAmount { get; set; }
 
         //[Required]
         public string Budget { get; set; } = "daily_budget";
 
         //[Required]
         [Range(1.25, 1000000000000)]
-        public decimal DailyBudget { get; set; }
+        public decimal DailyBudget { get; set; } = 10;
 
         //[Required]
         public string CampaignId { get; set; }
@@ -38,6 +42,12 @@ namespace Sohi.Models
         //[Required]
         public DateTime StartTime { get; set; }
 
+
+        public string TimeZone { get; set; } = "PDT";
+
+
+        public bool ScheduleEndDate { get; set; } = false;
+
         public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(1);
 
         public DateTime EndTime { get; set; }
@@ -51,7 +61,7 @@ namespace Sohi.Models
 
 
         //[Required]
-        public string Gender { get; set; } = "All";
+        public string Gender { get; set; } = "1,2";
 
         //[Required]
         public string Placements { get; set; } = "Auto";
@@ -63,8 +73,9 @@ namespace Sohi.Models
         //[Required]
         public string Location { get; set; }
 
-        public string BillingEvents { get; set; } = "LINK_CLICKS";
+        public string BillingEvents { get; set; } = "IMPRESSIONS";
 
+        //[Range(1, 1000000000000, ErrorMessage = "Cost control must be greater that 1." )]
         public decimal CostControl { get; set; }
 
 

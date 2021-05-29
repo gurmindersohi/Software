@@ -25,10 +25,10 @@ namespace Sohi.Web.Services.Ads
 
         Task<List<Targeting>> SearchDetailedTargeting(string accesstoken, string endPoint, string q);
 
-        Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content);
+        //Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content);
 
 
-        Task<string> NewCreateFacebookAdSet(string AccountId, string endPoint, object content);
+        Task<string> CreateFacebookAdSet(string AccountId, string endPoint, object content);
 
     }
 }

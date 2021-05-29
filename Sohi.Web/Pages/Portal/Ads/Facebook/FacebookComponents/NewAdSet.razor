@@ -58,12 +58,12 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <InputRadioGroup Name="OptimizationGoal" class="form-control" @bind-Value="Adset.OptimizationGoal">
+                                        <InputRadioGroup Name="DestinationType" class="form-control" @bind-Value="Adset.destination_type">
 
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <InputRadio Name="OptimizationGoal" checked="checked" class="Radio" Value="@("LINK_CLICKS")" />
+                                                    <InputRadio Name="DestinationType" checked="checked" class="Radio" Value="@("WEBSITE")" />
 
                                                     <label class="CampaignFonts">
                                                         Website
@@ -148,6 +148,7 @@
                                 <InputDate id="StartDate" class="form-control w-auto" minDate="@DateTime.Now"
                                            @bind-Value="Adset.StartDate" />
                                 <ValidationMessage For="@(() => Adset.StartDate)" />
+                                
                             </div>
                             <div class="col">
                                 <input type="time" class="form-control w-auto" @bind-value="Adset.StartTime" required>
@@ -165,7 +166,7 @@
                         <div class="row">
                             <div class="col-md-12">
 
-                                <input type="checkbox" class="Checkbox" @bind="ScheduleEndDate">
+                                <input type="checkbox" class="Checkbox" @bind="Adset.ScheduleEndDate">
 
 
                                 <label class="CampaignFonts">
@@ -175,7 +176,7 @@
                             </div>
                         </div>
 
-                        @if (ScheduleEndDate)
+                        @if (Adset.ScheduleEndDate)
                         {
                             <div class="row pt-2">
                                 <div class="col f-0">
@@ -258,8 +259,8 @@
                                     <div class="col" style="flex:0.2">
                                         <InputSelect id="MaxAge" class="form-select"
                                                      @bind-Value="Adset.MaxAge">
-                                            <option selected>64</option>
-                                            <option>65+</option>
+                                            <option value="64">64</option>
+                                            <option value="65">65+</option>
                                         </InputSelect>
                                         <ValidationMessage For="@(() => Adset.MaxAge)" />
                                     </div>
@@ -278,7 +279,7 @@
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <InputRadio class="Radio" Name="Gender" selected Value="@("All")" />
+                                                    <InputRadio class="Radio" Name="Gender" selected Value="@("1,2")" />
                                                     <label class="CampaignFonts">
                                                         All
                                                     </label>
@@ -342,7 +343,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    @*<div class="row">
                                         <div class="col-md-12 pt-3">
 
                                             <InputRadio Name="Placements" class="Radio" Value="@("Manual")" />
@@ -351,7 +352,7 @@
                                                 Manual Placements
                                             </label>
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                 </InputRadioGroup>
                             </div>

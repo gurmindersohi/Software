@@ -1,21 +1,22 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Services/Ads/AdAccountService.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Models/Adset.cs">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" Line="164" Column="1" IsPinned="True" />
-      <File FileName="Sohi.Models/Adset.cs" Line="22" Column="21" NotebookId="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor" Line="11" Column="46" NotebookId="1" />
-      <File FileName="Sohi.Web/Services/Ads/IAdAccountService.cs" Line="31" Column="94" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" Line="108" Column="1" IsPinned="True" />
+      <File FileName="Sohi.Models/Adset.cs" Line="31" Column="21" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor" Line="279" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Services/Ads/IAdAccountService.cs" Line="30" Column="1" NotebookId="1" />
       <File FileName="Sohi.Web/Services/Ads/AdAccountService.cs" Line="356" Column="1" NotebookId="1" />
       <File FileName="Sohi.Web/Services/Leads/LeadService.cs" Line="21" Column="50" NotebookId="1" />
-      <File FileName="Sohi.Api/Program.cs" Line="16" Column="1" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
             <Node name="Sohi.Api" expanded="True" />
-            <Node name="Sohi.Models" expanded="True" />
+            <Node name="Sohi.Models" expanded="True">
+              <Node name="Adset.cs" selected="True" />
+            </Node>
             <Node name="Sohi.Web" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
@@ -27,9 +28,7 @@
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
-                <Node name="Ads" expanded="True">
-                  <Node name="AdAccountService.cs" selected="True" />
-                </Node>
+                <Node name="Ads" expanded="True" />
                 <Node name="Leads" expanded="True" />
               </Node>
             </Node>
@@ -45,7 +44,7 @@
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Services/Ads/AdAccountService.cs" relfile="Sohi.Web/Services/Ads/AdAccountService.cs" line="350" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" relfile="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" line="164" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" relfile="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" line="151" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />
