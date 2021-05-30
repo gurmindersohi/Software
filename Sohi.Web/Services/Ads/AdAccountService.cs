@@ -177,7 +177,7 @@ namespace Sohi.Web.Services.Ads
         {
             List<FacebookLocation> locations = new List<FacebookLocation>();
 
-            string url = string.Format(endPoint + "/search?type=adgeolocation&access_token={0}&q={1}", accesstoken, q);
+            string url = string.Format(endPoint + "/search?type=adgeolocation&location_types=%5B'country','custom_location','city','region'%5D&access_token={0}&q={1}", accesstoken, q);
 
             var response = await httpClient.GetAsync(url);
 

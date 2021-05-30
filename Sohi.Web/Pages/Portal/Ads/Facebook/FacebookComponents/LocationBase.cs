@@ -69,7 +69,10 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         {
             string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-            var result = await AdAccountService.SearchLocation(Profile.Token, endPoint, SearchText);
+            string locationAccessToken = _config.GetSection("Assets").GetSection("LocationAccessToken").Value;
+
+
+            var result = await AdAccountService.SearchLocation(locationAccessToken, endPoint, SearchText);
 
             if (result != null)
             {

@@ -14,7 +14,20 @@
                 <div class="col ps-0">
                     <div class="row">
                         <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
-                            @item.Name @item.Region @item.CountryName
+
+                            @if (item.Type == "city")
+                            {
+                                <span>@item.Name</span> <span>, @item.Region</span> <span>, @item.CountryName</span>
+                            }
+                            else if (item.Type == "region")
+                            {
+                                <span>@item.Name</span> <span>, @item.CountryName</span>
+                            }
+                            else
+                            {
+                                @item.Name
+                            }
+
                         </div>
                         <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
                             @item.Type
@@ -26,39 +39,69 @@
                 @if (item.Type == "city")
                 {
 
-                    <div class="col ps-0">
+                    <div class="col ps-0" style="max-width: 100px;">
 
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="btn-group ms-auto">
+                            <button type="button" class="btn btn-light dropdown-toggle pb-0 ps-2 pe-2" style="font-family:Roboto, sans-serif; font-size:14px;" data-bs-toggle="dropdown" aria-expanded="false">
                                 + @Radius mi
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">+ 10 mi</a></li>
-                                <li><a class="dropdown-item" href="#">+ 11 mi</a></li>
-                                <li><a class="dropdown-item" href="#">+ 12 mi</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end pt-0 pb-0">
+
+                                <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
+                                    <button type="button" class="btn btn-white pb-0 ps-2 pe-2" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Current City only
+                                    </button>
+                                </li>
+
+
+                                <li class="btn-group w-100 border-bottom-0 me-auto pt-1 pb-1" style="border-bottom:none">
+                                    <button type="button" class="btn btn-white pb-0 ps-2 pe-2" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Cities with radius
+                                    </button>
+                                </li>
+
+                                <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
+
+                                    <div class="px-1">
+                                        <table>
+                                            <tr style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
+                                                <td class="pt-0" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
+                                                    10
+                                                </td>
+                                                <td class="pt-0">
+                                                    <input type="range" min="10" max="50" @bind-value="@Radius" />
+                                                </td>
+                                                <td class="pt-0">
+                                                    50
+                                                </td>
+                                                <td class="pt-0 ps-2">
+                                                    <input type="text" style="max-width:30px;" @bind-value="@Radius" />
+                                                </td>
+                                                <td class="pt-0">
+                                                    mi
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+
+                                </li>
                             </ul>
                         </div>
 
-                        @*<InputSelect id="radius" class="form-select"
-                                     @bind-Value="Radius">
-                            <option value="10">+ 10 mi</option>
-                            <option value="11">+ 11 mi</option>
-                            <option value="12">+ 12 mi</option>
-                            <option value="13">+ 13 mi</option>
-                            <option value="25">+ 25 mi</option>
-                        </InputSelect>*@
                     </div>
                 }
 
                 <div class="col p-0" style="flex:0;">
                     <span class="oi oi-check text-success" style="top: -3px; font-size:0.8rem;"></span>
                 </div>
-                <div class="col me-0 pe-0" style="flex:0.5; padding-left:1%;">
-                    <div class="row">
-                        <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                <div class="col" style="flex:0.1; padding-left:1%;">
+                    <div class="row ms-auto">
+                        <div class="ps-0" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
                             Included
                         </div>
-                        <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                        <div class="ps-0" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
                             <a type="button" @onclick="() => DeleteSelectedLocation(item)" style="text-decoration:none;">(Remove)</a>
                         </div>
                     </div>
