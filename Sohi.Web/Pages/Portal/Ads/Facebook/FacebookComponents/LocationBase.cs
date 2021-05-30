@@ -18,6 +18,8 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
         public string SearchText { get; set; }
 
+        public string Radius { get; set; } = "25";
+
         [Parameter]
         public EventCallback<FacebookLocation> OnLocationSelection { get; set; }
 
@@ -57,7 +59,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         {
             var item = (SelectedLocation.Find(l => l.Key == selectedLocation.Key));
 
-            if (item == null)
+            if (item != null)
             {
                 SelectedLocation.Remove(item);
             }
