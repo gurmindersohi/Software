@@ -26,6 +26,9 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         public string AccountId { get; set; }
 
 
+        public int iteration { get; set; } = 0;
+
+
         [Inject]
         public IConfiguration _config { get; set; }
 
@@ -44,10 +47,6 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         protected void TargetSelected(Targeting targeting)
         {
 
-
-            //DetailedTargeting = targeting;
-
-
             if (targeting != null)
             {
                 SelectedDetailedTargeting.Add(targeting);
@@ -64,7 +63,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         {
             var item = (SelectedDetailedTargeting.Find(t => t.Id == targeting.Id));
 
-            if (item == null)
+            if (item != null)
             {
                 SelectedDetailedTargeting.Remove(item);
             }

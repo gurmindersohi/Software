@@ -273,6 +273,7 @@ namespace Sohi.Web.Services.Ads
                     Targeting targeting = new Targeting();
 
 
+
                     if (item["id"] != null)
                     {
                         targeting.Id = item["id"].ToString();
@@ -290,26 +291,15 @@ namespace Sohi.Web.Services.Ads
                         targeting.AudienceSize = item["audience_size"].ToString();
                     }
 
-                    //if (item["path"] != null)
-                    //{
 
-                    //    if (item["path"][0] != null)
-                    //    {
-                    //        targeting.ParentPath = item["path"][0].ToString();
-                    //    }
-                    //    if (item["path"][1] != null)
-                    //    {
-                    //        targeting.ChildPath = item["path"][1].ToString();
-                    //    }
-                    //    if (item["path"][2] != null)
-                    //    {
-                    //        targeting.GrandChildPath = item["path"][2].ToString();
-                    //    }
-                    //    if (item["path"][3] != null)
-                    //    { 
-                    //        targeting.GreatGrandChildPath = item["path"][3].ToString();
-                    //    }
-                    //}
+                    List<string> path = new List<string>();
+
+                    foreach (var p in item["path"]) {
+                        path.Add(p.ToString());
+
+                    }
+
+                    targeting.Path = path;
 
                     targetings.Add(targeting);
                 }
@@ -321,28 +311,6 @@ namespace Sohi.Web.Services.Ads
                 return null;
             }
         }
-
-
-
-        //public async Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content)
-        //{
-
-        //    string url = string.Format(endPoint + "/{0}/adsets", AccountId);
-
-        //    var response = await httpClient.PostAsync(url, content);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var jsonResponse = response.Content.ReadAsStringAsync().Result;
-        //        var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
-
-        //        return parsedobj["id"].ToString();
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
 
         public async Task<string> CreateFacebookAdSet(string AccountId, string endPoint, object content)
         {
