@@ -61,7 +61,7 @@ namespace Sohi.Models
 
 
         //[Required]
-        public string Gender { get; set; } = "1,2";
+        public string Gender { get; set; } = "All";
 
         //[Required]
         public string Placements { get; set; } = "Auto";

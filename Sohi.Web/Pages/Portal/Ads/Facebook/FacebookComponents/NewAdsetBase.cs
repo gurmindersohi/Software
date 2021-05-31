@@ -229,14 +229,23 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 custom_locations = CustomLocations
             };
 
-            string[] gender = { Adset.Gender };
+
+
+            string[] gender = null;
+
+            if (Adset.Gender != "All")
+            {
+                gender.Append(Adset.Gender);
+            }
+
+
 
             var targets = new
             {
                 age_min = Adset.MinAge.ToString(),
                 age_max = Adset.MaxAge.ToString(),
 
-                //genders = gender,
+                genders = gender,
 
                 geo_locations = geoLocations
             };
