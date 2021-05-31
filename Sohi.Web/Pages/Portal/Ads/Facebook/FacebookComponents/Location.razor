@@ -4,133 +4,192 @@
 <div class="mt-2" style="border: 1px solid #dadde1;">
     @if (SelectedLocation != null && SelectedLocation.Count != 0)
     {
-        @foreach (var item in SelectedLocation)
+    @foreach (var item in SelectedLocation)
         {
 
-            <div class="row ms-3 me-3 p-2 pt-3 pb-3" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
-                <div class="col" style="flex:0; padding-left:0;">
-                    <span class="oi oi-map-marker text-success"></span>
-                </div>
-                <div class="col ps-0">
-                    <div class="row">
-                        <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+    <div class="row ms-3 me-3 p-2 pt-3 pb-3" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
+        <div class="col" style="flex:0; padding-left:0;">
+            <span class="oi oi-map-marker text-success"></span>
+        </div>
+        <div class="col ps-0">
+            <div class="row">
+                <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
 
-                            @if (item.Type == "city")
+                    @if (item.Type == "city")
                             {
-                                <span>@item.Name</span> <span>, @item.Region</span> <span>, @item.CountryName</span>
+                    <span>@item.Name</span><span>, @item.Region</span><span>, @item.CountryName</span>
                             }
                             else if (item.Type == "region")
                             {
-                                <span>@item.Name</span> <span>, @item.CountryName</span>
+                    <span>@item.Name</span><span>, @item.CountryName</span>
                             }
                             else
                             {
-                                @item.Name
+                    @item.Name
                             }
 
-                        </div>
-                        <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
-                            @item.Type
-                        </div>
-                    </div>
-
                 </div>
+                <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                    @if (item.Type == "city")
+                            {
+                    <span>City</span>
+                            }
+                            else if (item.Type == "region")
+                            {
+                    <span>Province</span>
+                            }
+                            else if (item.Type == "country")
+                            {
+                    <span>Country</span>
+                            }
+                            else {
+                    <span>Address</span>
 
-                @if (item.Type == "city")
+                            }
+                </div>
+            </div>
+
+        </div>
+
+        @if (item.Type == "city")
                 {
 
-                    <div class="col ps-0" style="max-width: 100px;">
+        <div class="col ps-0" style="max-width: 100px;">
 
-                        <div class="btn-group ms-auto">
-                            <button type="button" class="btn btn-light dropdown-toggle pb-0 ps-2 pe-2" style="font-family:Roboto, sans-serif; font-size:14px;" data-bs-toggle="dropdown" aria-expanded="false">
-                                + @Radius mi
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end pt-0 pb-0">
+            <div class="btn-group ms-auto">
+                <button type="button" class="btn btn-light dropdown-toggle pb-0 ps-2 pe-2" style="font-family:Roboto, sans-serif; font-size:14px;" data-bs-toggle="dropdown" aria-expanded="false">
+                    + @Radius mi
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end pt-0 pb-0">
 
-                                <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
-                                    <button type="button" class="btn btn-white pb-0 ps-2 pe-2" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Current City only
-                                    </button>
-                                </li>
-
-
-                                <li class="btn-group w-100 border-bottom-0 me-auto pt-1 pb-1" style="border-bottom:none">
-                                    <button type="button" class="btn btn-white pb-0 ps-2 pe-2" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Cities with radius
-                                    </button>
-                                </li>
-
-                                <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
-
-                                    <div class="px-1">
-                                        <table>
-                                            <tr style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
-                                                <td class="pt-0" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
-                                                    10
-                                                </td>
-                                                <td class="pt-0">
-                                                    <input type="range" min="10" max="50" @bind-value="@Radius" />
-                                                </td>
-                                                <td class="pt-0">
-                                                    50
-                                                </td>
-                                                <td class="pt-0 ps-2">
-                                                    <input type="text" style="max-width:30px;" @bind-value="@Radius" />
-                                                </td>
-                                                <td class="pt-0">
-                                                    mi
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                    <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
+                        <button type="button" class="btn btn-white pb-0 ps-2 pe-2" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;" data-bs-toggle="dropdown" aria-expanded="false">
+                            Current City only
+                        </button>
+                    </li>
 
 
+                    <li class="btn-group w-100 border-bottom-0 me-auto pt-1 pb-1" style="border-bottom:none">
+                        <button type="button" class="btn btn-white pb-0 ps-2 pe-2" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cities with radius
+                        </button>
+                    </li>
 
-                                </li>
-                            </ul>
+                    <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
+
+                        <div class="px-1">
+                            <table>
+                                <tr style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
+                                    <td class="pt-0" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
+                                        10
+                                    </td>
+                                    <td class="pt-0">
+                                        <input type="range" min="10" max="50" @bind-value="@Radius" />
+                                    </td>
+                                    <td class="pt-0">
+                                        50
+                                    </td>
+                                    <td class="pt-0 ps-2">
+                                        <input type="text" style="max-width:30px;" @bind-value="@Radius" />
+                                    </td>
+                                    <td class="pt-0">
+                                        mi
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
 
-                    </div>
+
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
                 }
 
-                <div class="col p-0" style="flex:0;">
-                    <span class="oi oi-check text-success" style="top: -3px; font-size:0.8rem;"></span>
-                </div>
-                <div class="col" style="flex:0.1; padding-left:1%;">
-                    <div class="row ms-auto">
-                        <div class="ps-0" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
-                            Included
+        @if (item.Type == "custom_location")
+                {
+
+        <div class="col ps-0" style="max-width: 100px;">
+
+            <div class="btn-group ms-auto">
+                <button type="button" class="btn btn-light dropdown-toggle pb-0 ps-2 pe-2" style="font-family:Roboto, sans-serif; font-size:14px;" data-bs-toggle="dropdown" aria-expanded="false">
+                    + @AddressRadius mi
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end pt-0 pb-0">
+
+                    <li class="btn-group w-100 border-bottom-1 me-auto pt-1 pb-1" style="border-bottom:1px solid #dee2e6;">
+
+                        <div class="px-1">
+                            <table>
+                                <tr style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
+                                    <td class="pt-0" style="text-align:left; font-family:Roboto, sans-serif; font-size:12px;">
+                                        1
+                                    </td>
+                                    <td class="pt-0">
+                                        <input type="range" min="1" max="50" @bind-value="@AddressRadius" />
+                                    </td>
+                                    <td class="pt-0">
+                                        50
+                                    </td>
+                                    <td class="pt-0 ps-2">
+                                        <input type="text" style="max-width:30px;" @bind-value="@AddressRadius" />
+                                    </td>
+                                    <td class="pt-0">
+                                        mi
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                        <div class="ps-0" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
-                            <a type="button" @onclick="() => DeleteSelectedLocation(item)" style="text-decoration:none;">(Remove)</a>
+
+
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+                }
+
+        <div class="col p-0" style="flex:0;">
+            <span class="oi oi-check text-success" style="top: -3px; font-size:0.8rem;"></span>
+        </div>
+        <div class="col" style="flex:0.1; padding-left:1%;">
+            <div class="row ms-auto">
+                <div class="ps-0" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                    Included
+                </div>
+                <div class="ps-0" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                    <a type="button" @onclick="() => DeleteSelectedLocation(item)" style="text-decoration:none;">(Remove)</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    @*<div class="pt-2 pb-2" style="background-color: rgba(0, 0, 0, .05);">
+            <div class="col px-4">
+
+                <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
+                    @item.CountryName
+                </label>
+
+                <div class="">
+                    <div class="col form-control" style="background-color: #fff;">
+
+                        <div class="input-group">
+                            <span class="oi oi-map-marker text-success"></span>
+                            @item.Name
+
+                            <span class="input-group-text" @onclick="() => DeleteSelectedLocation(item)" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-x"></span></span>
                         </div>
                     </div>
                 </div>
 
             </div>
-
-
-            @*<div class="pt-2 pb-2" style="background-color: rgba(0, 0, 0, .05);">
-                    <div class="col px-4">
-
-                        <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
-                            @item.CountryName
-                        </label>
-
-                        <div class="">
-                            <div class="col form-control" style="background-color: #fff;">
-
-                                <div class="input-group">
-                                    <span class="oi oi-map-marker text-success"></span>
-                                    @item.Name
-
-                                    <span class="input-group-text" @onclick="() => DeleteSelectedLocation(item)" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-x"></span></span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>*@
+        </div>*@
         }
     }
 
@@ -150,43 +209,58 @@
     @if (facebookLocation != null && facebookLocation.Count != 0)
     {
 
-        <div class="row pt-0" style="padding-left: 2.65rem !important;">
-            <div class="col">
-                <div class="Search-List">
-                    @foreach (var location in facebookLocation)
+    <div class="row pt-0" style="padding-left: 2.65rem !important;">
+        <div class="col">
+            <div class="Search-List">
+                @foreach (var location in facebookLocation)
                     {
-                        <div class="row Search-List-Data" @onclick="() => LocationSelected(location)">
-                            <div class="col">
-                                <a>
-                                    <span>
-                                        @location.Name
-                                    </span>
+                <div class="row Search-List-Data" @onclick="() => LocationSelected(location)">
+                    <div class="col">
+                        <a>
+                            <span>
+                                @location.Name
+                            </span>
 
-                                    @if (location.Region != null)
+                            @if (location.Region != null)
                                     {
-                                        <span>
-                                            , @location.Region
-                                        </span>
+                            <span>
+                                , @location.Region
+                            </span>
                                     }
 
-                                    @if (location.CountryName != null)
+                            @if (location.CountryName != null)
                                     {
-                                        <span>
-                                            , @location.CountryName
-                                        </span>
+                            <span>
+                                , @location.CountryName
+                            </span>
                                     }
-                                </a>
-                            </div>
+                        </a>
+                    </div>
 
-                            <div class="col f-0">
-                                @location.Type.First().ToString().ToUpper()@location.Type.Substring(1)
-                            </div>
-                        </div>
+                    <div class="col f-0">
+                        @if (location.Type == "city")
+                            {
+                        <span>City</span>
+                            }
+                            else if (location.Type == "region")
+                            {
+                        <span>Province</span>
+                            }
+                            else if (location.Type == "country")
+                            {
+                        <span>Country</span>
+                            }
+                            else {
+                        <span>Address</span>
+
+                            }
+                    </div>
+                </div>
                     }
 
-                </div>
             </div>
         </div>
+    </div>
 
 
     }

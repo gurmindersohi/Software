@@ -172,7 +172,7 @@ namespace Sohi.Web.Services.Ads
             }
         }
 
-       
+
         public async Task<List<FacebookLocation>> SearchLocation(string accesstoken, string endPoint, string q)
         {
             List<FacebookLocation> locations = new List<FacebookLocation>();
@@ -350,7 +350,6 @@ namespace Sohi.Web.Services.Ads
             string url = string.Format(endPoint + "/{0}/adsets", AccountId);
 
             //var response = await httpClient.PostJsonAsync(url, content);
-
             using var response = await httpClient.PostAsJsonAsync(url, content);
 
             if (response.IsSuccessStatusCode)
@@ -362,8 +361,9 @@ namespace Sohi.Web.Services.Ads
             }
             else
             {
-                return null;
+                return response.ReasonPhrase;
             }
+
         }
 
     }

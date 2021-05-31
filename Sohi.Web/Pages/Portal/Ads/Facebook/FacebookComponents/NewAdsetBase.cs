@@ -44,6 +44,8 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
         public List<FacebookLocation> SelectedRegions { get; set; } = new List<FacebookLocation>();
 
+        public List<FacebookLocation> SelectedAddress { get; set; } = new List<FacebookLocation>();
+
 
         //protected async Task SearchLocation()
         //{
@@ -78,27 +80,19 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 {
                     SelectedRegions.Add(facebookLocation);
                 }
+                else if (facebookLocation.Type == "custom_location")
+                {
+                    SelectedAddress.Add(facebookLocation);
+                }
             }
-
-            //foreach (var fbLocations in facebookLocations)
-            //{
-            //    if (fbLocations.Type == "country")
-            //    {
-            //        SelectedCountries.Add(fbLocations);
-            //    }
-            //}
-
-            //SelectedLocation = facebookLocations;
         }
 
-        protected async Task TestFunction()
+        protected async Task HandleValidSubmit()
         {
 
             string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
-
             object Targets = GetTargets();
-
 
             string time = "0";
 
@@ -122,9 +116,6 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 bid = (Adset.CostControl * 100).ToString();
             }
 
-
-
-
             var content = new
             {
                 name = Adset.Name,
@@ -140,9 +131,25 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 bid_strategy = bidStrategy,
                 start_time = Adset.StartDate.Date.ToString("yyyy-MM-dd") + " " + Adset.StartTime.ToString("HH:mm:ss") + " " + Adset.TimeZone,
                 end_time = time
-
-
             };
+
+            //var content = new
+            //{
+            //    name = "Test",
+            //    optimization_goal = "LINK_CLICKS",
+            //    destination_type = "WEBSITE",
+            //    billing_event = "IMPRESSIONS",
+            //    campaign_id = "23847569735650538",
+            //    status = "PAUSED",
+            //    access_token = Profile.Token,
+            //    targeting = Targets,
+            //    daily_budget = "1000",
+            //    bid_strategy = "LOWEST_COST_WITHOUT_CAP",
+            //    start_time = "2021-05-30 00:00:00 PDT",
+            //    end_time = 0
+
+
+            //};
 
 
 
@@ -198,11 +205,28 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 Cities.Add(city);
             }
 
+
+            List<object> CustomLocations = new List<object>();
+
+            foreach (var item in SelectedAddress)
+            {
+                var address = new
+                {
+                    address_string = item.Key,
+                    radius = "10",
+                    distance_unit = "mile"
+                };
+
+                CustomLocations.Add(address);
+            }
+
+
             var geoLocations = new
             {
                 countries = Countries,
                 regions = Regions,
-                cities = Cities
+                cities = Cities,
+                custom_locations = CustomLocations
             };
 
             string[] gender = { Adset.Gender };
@@ -212,7 +236,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 age_min = Adset.MinAge.ToString(),
                 age_max = Adset.MaxAge.ToString(),
 
-                genders = gender,
+                //genders = gender,
 
                 geo_locations = geoLocations
             };

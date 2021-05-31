@@ -20,6 +20,8 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
         public string Radius { get; set; } = "25";
 
+        public string AddressRadius { get; set; } = "1";
+
         [Parameter]
         public EventCallback<FacebookLocation> OnLocationSelection { get; set; }
 
