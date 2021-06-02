@@ -44,7 +44,11 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         public List<Targeting> SelectedDetailedTargeting { get; set; } = new List<Targeting>();
 
 
-        protected void TargetSelected(Targeting targeting)
+        [Parameter]
+        public EventCallback<Targeting> OnDetailedTargetingSelection { get; set; }
+
+
+        protected async Task TargetSelected(Targeting targeting)
         {
 
             if (targeting != null)
@@ -54,6 +58,8 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 SearchText = String.Empty;
 
                 DetailedTargetings.Clear();
+
+                await OnDetailedTargetingSelection.InvokeAsync(targeting);
             }
 
 

@@ -226,10 +226,10 @@
                                     <div class="col">
                                         <InputSelect id="MinAge" class="form-select"
                                                      @bind-Value="Adset.LocationType">
-                                            <option selected>People living in or recently in this location</option>
-                                            <option>People living in this location</option>
-                                            <option>People recently in this location</option>
-                                            <option>People traveling in this location</option>
+                                            <option value="@("RecentHome")">People living in or recently in this location</option>
+                                            <option value="@("home")">People living in this location</option>
+                                            <option value="@("recent")">People recently in this location</option>
+                                            <option value="@("travel_in")">People traveling in this location</option>
                                         </InputSelect>
                                         <ValidationMessage For="@(() => Adset.LocationType)" />
                                     </div>
@@ -310,7 +310,7 @@
                                     </div>
                                 </div>
 
-                                <DetailedTargeting AccountId="@AccountId" location="@Adset.Location"></DetailedTargeting>
+                                <DetailedTargeting AccountId="@AccountId" OnDetailedTargetingSelection="DetailedTargetingSelectionChanged" location="@Adset.Location"></DetailedTargeting>
 
                             </div>
                         </div>

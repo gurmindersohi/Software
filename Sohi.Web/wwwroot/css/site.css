@@ -146,7 +146,7 @@ a, .btn-link {
     border-bottom: 1px solid #d4d4d4;
 }
 
-/*@*.Search-List-Data a:first-child {
+    /*@*.Search-List-Data a:first-child {
     border-bottom: none;
 }
 
@@ -156,10 +156,14 @@ a, .btn-link {
 
 *@*/
 
-.Search-List-Data a:first-of-type {
-    border-bottom: none;
-}
+    .Search-List-Data a:first-of-type {
+        border-bottom: none;
+    }
 
-.Search-List-Data a:last-of-type {
-    border-bottom: none;
+    .Search-List-Data a:last-of-type {
+        border-bottom: none;
+    }
+
+.Box-Shadow {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px, rgba(0, 0, 0, 0.1) 0px 0px 1px !important;
 }

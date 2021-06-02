@@ -1,0 +1,202 @@
+﻿
+@inherits NewAdBase
+
+
+<div class="container mt-5 pt-2" style=" margin-top:5rem;  max-width:1000px; ">
+
+    <div class="row p-2">
+        <EditForm Model="@Ad" OnValidSubmit="HandleValidSubmit">
+
+            <div class="col" style="flex:0;">
+                <DataAnnotationsValidator />
+                @*<ValidationSummary />*@
+            </div>
+
+            <div class="row">
+
+                <div class="row Box-Shadow" style="width: 40rem; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="AdName" class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Ad Name
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <InputText id="AdName" class="form-control"
+                                           @bind-Value="Ad.Name" />
+                                <ValidationMessage For="@(() => Ad.Name)" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row mt-2 Box-Shadow" style="width: 40rem; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Ad Setup
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputSelect class="form-select"
+                                             @bind-Value="Ad.AdSetup">
+                                    <option value="@("CreateAd")">Create Ad</option>
+                                    <option value="@("UseExistingPost")">Use Existing Post</option>
+                                </InputSelect>
+                                <ValidationMessage For="@(() => Ad.AdSetup)" />
+                            </div>
+                        </div>
+
+
+                        @if (Ad.AdSetup == "CreateAd")
+                        {
+                            <div class="row pt-3">
+                                <div class="col-md-12">
+                                    <label for="TrafficName" class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                        Format
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label CustomFont pt-0" style="font-size:12px; font-weight:400;">
+                                        Choose how you'd like to structure your ad.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <InputRadioGroup Name="DestinationType" class="form-control" @bind-Value="Ad.AdType">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <InputRadio Name="DestinationType" checked="checked" class="Radio" Value="@("Single")" />
+
+                                                        <label class="CampaignFonts">
+                                                            Single Image or Video
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </InputRadioGroup>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <div class="row mt-2 Box-Shadow" style="width: 40rem; border-radius: 8px; border-radius: 8px;">
+                    <div class="col px-3 pb-3 pt-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont" style="font-size:16px; font-weight:600;">
+                                    Ad Creative
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Media
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-control">
+                                    <input asp-for="File" type="file" class="form-control mt-4 mb-4" id="customFile" />
+                                    <span asp-validation-for="File" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Primary Text
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputText id="AdName" class="form-control"
+                                           @bind-Value="Ad.PrimaryText" />
+                                <ValidationMessage For="@(() => Ad.PrimaryText)" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Destination
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <InputRadioGroup Name="DestinationType" class="form-control" @bind-Value="Ad.Destination">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <InputRadio Name="DestinationType" checked="checked" class="Radio" Value="@("Website")" />
+
+                                                    <label class="CampaignFonts">
+                                                        Website
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </InputRadioGroup>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4" style="width: 40rem;">
+
+                    <div class="col ms-auto f-0">
+                        <button type="submit" class="btn btn-primary m-1">Next</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </EditForm>
+
+    </div>
+
+</div>

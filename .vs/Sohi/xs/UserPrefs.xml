@@ -1,15 +1,13 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/Location.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/wwwroot/css/site.css">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor" Line="16" Column="30" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" Line="72" Column="18" />
-      <File FileName="Sohi.Models/Adset.cs" Line="43" Column="48" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/DetailedTargeting.razor" Line="35" Column="93" />
-      <File FileName="Sohi.Web/Services/Ads/AdAccountService.cs" Line="294" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/DetailedTargetingBase.cs" Line="26" Column="46" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/LocationBase.cs" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/Location.razor" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAd.razor" Line="109" Column="60" />
+      <File FileName="Sohi.Models/Ad.cs" Line="16" Column="61" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdBase.cs" Line="24" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdSet.razor" Line="50" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" Line="110" Column="1" />
+      <File FileName="Sohi.Web/wwwroot/css/site.css" Line="167" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,15 +19,19 @@
                 <Node name="Portal" expanded="True">
                   <Node name="Ads" expanded="True">
                     <Node name="Facebook" expanded="True">
-                      <Node name="FacebookComponents" expanded="True">
-                        <Node name="Location.razor" selected="True" />
-                      </Node>
+                      <Node name="FacebookComponents" expanded="True" />
                     </Node>
                   </Node>
+                  <Node name="Social" expanded="True" />
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
                 <Node name="Ads" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True">
+                  <Node name="site.css" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -41,9 +43,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" relfile="Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" line="92" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" relfile="Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" line="92" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" relfile="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" line="256" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />

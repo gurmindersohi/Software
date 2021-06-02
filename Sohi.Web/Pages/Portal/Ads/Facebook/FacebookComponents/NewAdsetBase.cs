@@ -47,6 +47,9 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         public List<FacebookLocation> SelectedAddress { get; set; } = new List<FacebookLocation>();
 
 
+
+        public List<Targeting> SelectedInterests { get; set; } = new List<Targeting>();
+
         //protected async Task SearchLocation()
         //{
 
@@ -87,6 +90,21 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             }
         }
 
+        protected void DetailedTargetingSelectionChanged(Targeting detailedTargeting)
+        {
+
+            if (detailedTargeting != null)
+            {
+                if (detailedTargeting.Type == "interests")
+                {
+                    SelectedInterests.Add(detailedTargeting);
+                }
+
+            }
+        }
+
+
+
         protected async Task HandleValidSubmit()
         {
 
@@ -96,7 +114,8 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
             string time = "0";
 
-            if (Adset.ScheduleEndDate) {
+            if (Adset.ScheduleEndDate)
+            {
 
                 time = Adset.EndDate.Date.ToString("yyyy-MM-dd") + " " + Adset.EndTime.ToString("HH:mm:ss") + " " + Adset.TimeZone;
 
@@ -220,13 +239,27 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 CustomLocations.Add(address);
             }
 
+            List<string> locationTypes = new List<string>();
+
+
+            if (Adset.LocationType == "RecentHome")
+            {
+                locationTypes.Add("recent");
+                locationTypes.Add("home");
+            }
+            else
+            {
+                locationTypes.Add(Adset.LocationType);
+            }
+
 
             var geoLocations = new
             {
                 countries = Countries,
                 regions = Regions,
                 cities = Cities,
-                custom_locations = CustomLocations
+                custom_locations = CustomLocations,
+                location_types = locationTypes
             };
 
 
@@ -247,10 +280,41 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
                 genders = gender,
 
-                geo_locations = geoLocations
+                geo_locations = geoLocations,
+
+                flexible_spec = GetDetailedTargeting()
             };
 
             return targets;
+        }
+
+
+        private object GetDetailedTargeting()
+        {
+
+            List<object> FlexibleSpec = new List<object>();
+
+            List<object> Interests = new List<object>();
+
+            foreach (var item in SelectedInterests)
+            {
+                var interest = new
+                {
+                    id = item.Id,
+                    name = item.Name
+                };
+
+                Interests.Add(interest);
+            }
+
+            var targeting = new
+            {
+                interests = Interests
+            };
+
+            FlexibleSpec.Add(targeting);
+
+            return FlexibleSpec;
         }
 
 

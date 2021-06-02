@@ -67,7 +67,7 @@ namespace Sohi.Models
         public string Placements { get; set; } = "Auto";
 
         //[Required]
-        public string LocationType { get; set; }
+        public string LocationType { get; set; } = "RecentHome";
 
 
         //[Required]
