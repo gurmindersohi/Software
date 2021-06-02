@@ -125,9 +125,14 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="form-control">
-                                    <input asp-for="File" type="file" class="form-control mt-4 mb-4" id="customFile" />
-                                    <span asp-validation-for="File" class="text-danger"></span>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Add Media
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" type="button" @onclick="AdImagesSelected" >Add Image</a></li>
+                                        <li><a class="dropdown-item" href="#">Add Video</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -282,3 +287,5 @@
     </div>
 
 </div>
+
+<AdImages SelectionChanged="ImageSelected_Click" @ref="OpenAdImagesModalConfirmation" AccountId="@AccountId" ></AdImages>

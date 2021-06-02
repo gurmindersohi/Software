@@ -334,5 +334,45 @@ namespace Sohi.Web.Services.Ads
 
         }
 
+        public async Task<List<AdImage>> GetFacebookAdImages(string accountId, string accesstoken, string endPoint)
+        {
+            List<AdImage> adImages = new List<AdImage>();
+
+            string url = string.Format(endPoint + "/{0}/adimages?fields=id,name,hash,url,width,height&access_token={1}", accountId, accesstoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj["data"])
+                {
+                    AdImage adImage = new AdImage();
+
+                    adImage.Id = item["id"].ToString();
+                    adImage.Name = item["name"].ToString();
+                    adImage.Hash = item["hash"].ToString();
+                    adImage.Url = item["url"].ToString();
+                    adImage.Height = item["height"].ToString();
+                    adImage.Width = item["width"].ToString();
+
+                    //if (item["picture"]["data"]["url"] != null)
+                    //{
+                    //    page.Image = item["picture"]["data"]["url"].ToString();
+                    //}
+
+                    adImages.Add(adImage);
+                }
+
+                return adImages;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }
