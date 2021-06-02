@@ -167,3 +167,43 @@ a, .btn-link {
 .Box-Shadow {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px, rgba(0, 0, 0, 0.1) 0px 0px 1px !important;
 }
+
+input::-webkit-input-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+input::-moz-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+input:-ms-input-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+input:-moz-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+textarea::-webkit-input-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+textarea::-moz-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+textarea:-ms-input-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}
+
+textarea:-moz-placeholder {
+    font-size: 12px;
+    opacity: 0.7
+}

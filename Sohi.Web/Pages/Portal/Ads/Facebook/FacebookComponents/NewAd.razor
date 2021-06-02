@@ -142,12 +142,45 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <InputText id="AdName" class="form-control"
-                                           @bind-Value="Ad.PrimaryText" />
+                                <InputTextArea id="AdName" class="form-control" placeholder="Tell people what your ad is about"
+                                               @bind-Value="Ad.PrimaryText" />
                                 <ValidationMessage For="@(() => Ad.PrimaryText)" />
                             </div>
                         </div>
 
+
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Headline (Optional)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputTextArea id="AdName" class="form-control" placeholder="Write a brief headline" rows="1"
+                                               @bind-Value="Ad.Headline" />
+                                <ValidationMessage For="@(() => Ad.Headline)" />
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Description (Optional)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputTextArea id="AdName" class="form-control" placeholder="Include additional details" rows="1"
+                                               @bind-Value="Ad.Description" />
+                                <ValidationMessage For="@(() => Ad.Description)" />
+                            </div>
+                        </div>
 
 
                         <div class="row pt-3">
@@ -163,12 +196,12 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <InputRadioGroup Name="DestinationType" class="form-control" @bind-Value="Ad.Destination">
+                                        <InputRadioGroup Name="AdFormat" class="form-control" @bind-Value="Ad.Destination">
 
                                             <div class="row">
                                                 <div class="col-md-12">
 
-                                                    <InputRadio Name="DestinationType" checked="checked" class="Radio" Value="@("Website")" />
+                                                    <InputRadio Name="AdFormat" checked="checked" class="Radio" Value="@("Website")" />
 
                                                     <label class="CampaignFonts">
                                                         Website
@@ -180,6 +213,55 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Website Url
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputText id="AdName" class="form-control" placeholder="http://www.example.com/page"
+                                           @bind-Value="Ad.WebsitrUrl" />
+                                <ValidationMessage For="@(() => Ad.WebsitrUrl)" />
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Display Link (Optional)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputText id="AdName" class="form-control" placeholder="Enter the link you want to show on your ad"
+                                           @bind-Value="Ad.DisplayLink" />
+                                <ValidationMessage For="@(() => Ad.DisplayLink)" />
+                            </div>
+                        </div>
+
+
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <label class="col-form-label CustomFont pb-0" style="font-size:14px; font-weight:600;">
+                                    Call to Action
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <InputSelect class="form-select"
+                                             @bind-Value="Ad.CallToAction">
+                                    <option value="@("LEARN_MORE")">Learn More</option>
+                                </InputSelect>
+                                <ValidationMessage For="@(() => Ad.CallToAction)" />
                             </div>
                         </div>
                     </div>
