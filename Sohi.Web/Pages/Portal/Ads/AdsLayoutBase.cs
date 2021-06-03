@@ -21,6 +21,9 @@ namespace Sohi.Web.Pages.Portal.Ads
         [Inject]
         public UserManager<User> userManager { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         [CascadingParameter(Name = "CurrentUser")]
         public User user { get; set; }
 
@@ -70,6 +73,13 @@ namespace Sohi.Web.Pages.Portal.Ads
                     }
 
                     StateHasChanged();
+
+                    if (accounts.Count > 0)
+                    {
+                        var account = accounts[0];
+
+                        NavigationManager.NavigateTo("/Portal/Ads/" + account.Type + "/" + account.UserAccountId);
+                    }
 
                 }
 

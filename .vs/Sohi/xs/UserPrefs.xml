@@ -1,10 +1,12 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/wwwroot/js/bootstrap.js">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor.css" Line="74" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookAdsLayout.razor.css" Line="13" Column="11" />
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor" Line="10" Column="44" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" Line="16" Column="1" />
+      <File FileName="Sohi.Web/Shared/NavMenu.razor" Line="2" Column="21" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/AdsLayout.razor" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Ads/AdsLayoutBase.cs" Line="81" Column="25" />
+      <File FileName="Sohi.Web/wwwroot/js/bootstrap.js" Line="2071" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,14 +17,18 @@
                 <Node name="Portal" expanded="True">
                   <Node name="Ads" expanded="True">
                     <Node name="Facebook" expanded="True">
-                      <Node name="FacebookAdsLayout.razor" expanded="True" />
-                      <Node name="Manage.razor" expanded="True" selected="True" />
-                      <Node name="ManageMenu.razor" expanded="True" />
+                      <Node name="FacebookComponents" expanded="True" />
                     </Node>
                   </Node>
                 </Node>
               </Node>
               <Node name="Shared" expanded="True" />
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+                <Node name="js" expanded="True">
+                  <Node name="bootstrap.js" selected="True" />
+                </Node>
+              </Node>
             </Node>
           </Node>
         </State>
