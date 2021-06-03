@@ -12,8 +12,7 @@
 
 .top-row[b-o232m7mffc] {
     background-color: #fff;
-    padding: 2rem;
-/*    border-bottom: 1px solid #d6d5d5;*/
+    border-bottom: 1px solid #d6d5d5;
     justify-content: flex-start;
     height: 3.5rem;
     display: flex;
@@ -31,13 +30,14 @@
     }
 
 @media (max-width: 800px) {
-/*    .top-row:not(.auth) {
+    /*    .top-row:not(.auth) {
         display: none;
     }*/
 
     .top-row.auth[b-o232m7mffc] {
         justify-content: space-between;
     }
+
     .top-row[b-o232m7mffc]  a, .top-row .btn-link[b-o232m7mffc] {
         white-space: nowrap;
         margin-left: 0rem;
@@ -62,12 +62,12 @@
 
     .top-row[b-o232m7mffc] {
         position: sticky;
-        top: 3.5rem !important;
+        top: 0;
         z-index: 1;
     }
 
     .main > div[b-o232m7mffc] {
-        padding-left: 2rem !important;
+/*        padding-left: 2rem !important;*/
         padding-right: 1.5rem !important;
     }
 }

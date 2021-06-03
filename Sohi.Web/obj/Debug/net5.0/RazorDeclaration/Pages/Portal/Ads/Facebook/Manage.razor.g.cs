@@ -103,7 +103,7 @@ using Sohi.Models;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(FacebookAdsLayout))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(AdsLayout))]
     public partial class Manage : LayoutComponentBase
     {
         #pragma warning disable 1998
