@@ -123,19 +123,41 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Add Media
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" type="button" @onclick="AdImagesSelected" >Add Image</a></li>
-                                        <li><a class="dropdown-item" href="#">Add Video</a></li>
-                                    </ul>
+
+                        @if (SelectedImage != null)
+                        {
+                            <div class="row pt-2">
+                                <div class="col f-0">
+                                    <div style="height:96px; width: 96px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
+                                        <img src="@SelectedImage.Url" class="card-img-top" style="border-radius: 7px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="">
+                                        <button class="btn btn-sm btn-primary m-1" @onclick="AdImagesSelected">Change</button>
+                                    </div>
+                                    <div class="">
+                                        <button class="btn btn-sm btn-danger m-1" @onclick="RemoveSelectedAdImage">Remove</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="Media" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(242, 242, 242); color: black; border: 1px solid rgb(242, 242, 242); box-shadow:none">
+                                            Add Media
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" type="button" @onclick="AdImagesSelected">Add Image</a></li>
+                                            <li><a class="dropdown-item" href="#">Add Video</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
 
 
                         <div class="row pt-3">
@@ -288,4 +310,4 @@
 
 </div>
 
-<AdImages SelectionChanged="ImageSelected_Click" @ref="OpenAdImagesModalConfirmation" AccountId="@AccountId" ></AdImages>
+<AdImages SelectionChanged="ImageSelected_Click" @ref="OpenAdImagesModalConfirmation" AccountId="@AccountId"></AdImages>

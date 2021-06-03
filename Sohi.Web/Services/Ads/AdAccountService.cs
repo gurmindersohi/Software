@@ -374,5 +374,26 @@ namespace Sohi.Web.Services.Ads
             }
         }
 
+
+        public async Task<string> UploadImageToFacebookAdAccount(string endpoint, string accountId, object content)
+        {
+
+
+            string url = string.Format(endpoint + "/{0}/adimages", accountId);
+
+            var response = await httpClient.PostAsJsonAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

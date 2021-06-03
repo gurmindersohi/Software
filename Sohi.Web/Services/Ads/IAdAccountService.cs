@@ -33,5 +33,8 @@ namespace Sohi.Web.Services.Ads
 
         Task<List<AdImage>> GetFacebookAdImages(string accountId, string accesstoken, string endPoint);
 
+
+        Task<string> UploadImageToFacebookAdAccount(string endpoint, string accountId, object content);
+
     }
 }

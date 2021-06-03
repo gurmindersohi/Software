@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Sohi.Models;
 using Sohi.Web.Services.Ads;
 
@@ -21,7 +26,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
         //public string AccountId { get; set; } = "act_2572420379713537";
 
 
-        public string Active { get; set; }
+        public string Active { get; set; } = "";
 
         [CascadingParameter(Name = "AdsProfile")]
         public Profile Profile { get; set; }
@@ -39,10 +44,12 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
 
         private string EndPoint { get; set; }
 
-        public AdImage SelectedImage { get; set; }
+        //public AdImage SelectedImage { get; set; }
 
         [Parameter]
         public EventCallback<AdImage> SelectionChanged { get; set; }
+
+
 
         public void Show()
         {
@@ -55,17 +62,70 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             ShowAdImagesModal = false;
         }
 
-        protected async Task OnSelectionChange()
+        protected async Task OnSelectionChange(AdImage image)
         {
-            //ShowAdImagesModal = false;
-            await SelectionChanged.InvokeAsync(SelectedImage);
+            ShowAdImagesModal = false;
+
+            if (image != null)
+            {
+                await SelectionChanged.InvokeAsync(image);
+            }
+
         }
 
-        protected void SelectImage(AdImage image)
+        private List<IBrowserFile> loadedFiles = new();
+        private long maxFileSize = 5120000;
+        private int maxAllowedFiles = 3;
+        protected bool isLoading = false;
+
+
+        protected async Task LoadFiles(InputFileChangeEventArgs e)
         {
-            if (image != null) {
-                SelectedImage = image;
+            isLoading = true;
+            loadedFiles.Clear();
+
+            List<string> imgUrls = new List<string>();
+            List<FileData> fileData = new List<FileData>();
+
+            foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+            {
+                try
+                {
+                    loadedFiles.Add(file);
+
+                    var buffers = new byte[file.Size];
+                    await file.OpenReadStream(maxFileSize).ReadAsync(buffers);
+                    string imageType = file.ContentType;
+                    //string imgUrl = $"data:{imageType};base64,{Convert.ToBase64String(buffers)}";
+
+                    string imgUrl = Convert.ToBase64String(buffers);
+
+                    var content = new
+                    {
+                        name = file.Name,
+                        bytes = imgUrl,
+                        access_token = Profile.Token
+                    };
+
+
+                    var result = await AdAccountService.UploadImageToFacebookAdAccount(EndPoint, AccountId, content);
+
+                    var images = await GetAdImages();
+
+                    if (images != null)
+                    {
+                        AdImages = images;
+                    }
+
+                    StateHasChanged();
+                }
+                catch (Exception ex)
+                {
+                   
+                }
             }
+
+            isLoading = false;
         }
 
         protected async override Task OnParametersSetAsync()
@@ -86,8 +146,6 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             try
             {
                 List<AdImage> adImages = new List<AdImage>();
-
-                //string UserToken = "EAAQGsEzdprgBAODfCkwKRr9G020E7i6NpZBW7IW9uZB50JMfQYFk6rB2Hupm7jEIzmyofDvoGxTeW0gWILGToAI2M9vdZBOeZB5e8kuoQCZCMkByR6iCzkKhuwWppDD6M9K31b6ZBPMfiheF81P3JI1mrrYRjZCbZBm0xKp5UM0UaUWBsG0GtFhOIG5D5vlZBLWrLexzGIzEZBHAZDZD";
 
                 if (Profile.Token != null)
                 {

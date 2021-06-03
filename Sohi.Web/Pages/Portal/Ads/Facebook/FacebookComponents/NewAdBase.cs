@@ -31,6 +31,13 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             OpenAdImagesModalConfirmation.Show();
         }
 
+        protected void RemoveSelectedAdImage()
+        {
+
+            SelectedImage = null;
+
+        }
+
         protected void ImageSelected_Click(AdImage selectedImage)
         {
             if (selectedImage != null)

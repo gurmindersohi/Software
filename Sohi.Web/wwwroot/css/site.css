@@ -220,3 +220,14 @@ textarea:-moz-placeholder {
     right: 0;
     top: 0;
 }
+
+.Image:hover {
+    /*    border: 1px solid #007CFF;*/
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    cursor: pointer;
+}
+
+#Media:focus:not(:focus-visible) {
+    outline: 0;
+    background-color: rgb(217, 217, 217) !important;
+}
