@@ -18,14 +18,24 @@ namespace Sohi.Web.Services.Ads
 
         //Create Facebook Ads
 
-        Task<string> CreateFacebookCampaign(string AccountId, string endPoint, FormUrlEncodedContent content);
+        Task<string> CreateFacebookCampaign(string AccountId, string endPoint, object content);
 
 
         Task<List<FacebookLocation>> SearchLocation(string accesstoken, string endPoint, string q);
 
         Task<List<Targeting>> SearchDetailedTargeting(string accesstoken, string endPoint, string q);
 
-        Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content);
+        //Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content);
 
+        Task<string> CreateFacebookAdSet(string AccountId, string endPoint, object content);
+
+        Task<List<AdImage>> GetFacebookAdImages(string accountId, string accesstoken, string endPoint);
+
+        Task<string> UploadImageToFacebookAdAccount(string endpoint, string accountId, object content);
+
+
+        Task<string> CreateFacebookAdCreative(string AccountId, string endPoint, object content);
+
+        Task<string> CreateFacebookAd(string AccountId, string endPoint, object content);
     }
 }
