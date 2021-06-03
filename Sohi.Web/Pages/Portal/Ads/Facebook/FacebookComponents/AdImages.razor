@@ -28,19 +28,20 @@
 
                                 <InputFile OnChange="@LoadFiles" id="UploadAdImageInput" type="file" name="file" multiple />
 
-                                @if (isLoading)
-                                {
-                                    <SmallLoader></SmallLoader>
-                                }
-
-
                             </div>
+
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-body pe-0">
-                    <div class="row ps-0 pt-2 pe-0">
+                    <div class="row ps-0 pe-0">
+
+                        @if (isLoading)
+                        {
+                            <SmallLoader></SmallLoader>
+                        }
+
 
                         @if (AdImages == null)
                         {
@@ -50,7 +51,7 @@
                         {
                             foreach (var image in AdImages)
                             {
-                                <a @onclick="() => OnSelectionChange(image)" class="col Image" style="flex:0.1; text-decoration:none;">
+                                <a @onclick="() => OnSelectionChange(image)" class="col Image pt-2 pb-2" style="flex:0.1; text-decoration:none;">
 
                                     <div class="card" style="width: 96px; border:none;">
                                         <div style="height:96px; width: 96px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
