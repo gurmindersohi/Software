@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sohi.Models;
 using System.Collections.Generic;
-
+using System.Net.Http.Json;
 
 namespace Sohi.Web.Services.Ads
 {
@@ -152,12 +152,12 @@ namespace Sohi.Web.Services.Ads
 
 
 
-        public async Task<string> CreateFacebookCampaign(string AccountId, string endPoint, FormUrlEncodedContent content)
+        public async Task<string> CreateFacebookCampaign(string AccountId, string endPoint, object content)
         {
 
             string url = string.Format(endPoint + "/{0}/campaigns", AccountId);
 
-            var response = await httpClient.PostAsync(url, content);
+            var response = await httpClient.PostAsJsonAsync(url, content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -172,12 +172,12 @@ namespace Sohi.Web.Services.Ads
             }
         }
 
-       
+
         public async Task<List<FacebookLocation>> SearchLocation(string accesstoken, string endPoint, string q)
         {
             List<FacebookLocation> locations = new List<FacebookLocation>();
 
-            string url = string.Format(endPoint + "/search?type=adgeolocation&access_token={0}&q={1}", accesstoken, q);
+            string url = string.Format(endPoint + "/search?type=adgeolocation&location_types=%5B'country','custom_location','city','region'%5D&access_token={0}&q={1}", accesstoken, q);
 
             var response = await httpClient.GetAsync(url);
 
@@ -273,6 +273,7 @@ namespace Sohi.Web.Services.Ads
                     Targeting targeting = new Targeting();
 
 
+
                     if (item["id"] != null)
                     {
                         targeting.Id = item["id"].ToString();
@@ -290,26 +291,15 @@ namespace Sohi.Web.Services.Ads
                         targeting.AudienceSize = item["audience_size"].ToString();
                     }
 
-                    //if (item["path"] != null)
-                    //{
 
-                    //    if (item["path"][0] != null)
-                    //    {
-                    //        targeting.ParentPath = item["path"][0].ToString();
-                    //    }
-                    //    if (item["path"][1] != null)
-                    //    {
-                    //        targeting.ChildPath = item["path"][1].ToString();
-                    //    }
-                    //    if (item["path"][2] != null)
-                    //    {
-                    //        targeting.GrandChildPath = item["path"][2].ToString();
-                    //    }
-                    //    if (item["path"][3] != null)
-                    //    { 
-                    //        targeting.GreatGrandChildPath = item["path"][3].ToString();
-                    //    }
-                    //}
+                    List<string> path = new List<string>();
+
+                    foreach (var p in item["path"]) {
+                        path.Add(p.ToString());
+
+                    }
+
+                    targeting.Path = path;
 
                     targetings.Add(targeting);
                 }
@@ -322,14 +312,13 @@ namespace Sohi.Web.Services.Ads
             }
         }
 
-
-
-        public async Task<string> CreateFacebookAdSet(string AccountId, string endPoint, FormUrlEncodedContent content)
+        public async Task<string> CreateFacebookAdSet(string AccountId, string endPoint, object content)
         {
 
             string url = string.Format(endPoint + "/{0}/adsets", AccountId);
 
-            var response = await httpClient.PostAsync(url, content);
+            //var response = await httpClient.PostJsonAsync(url, content);
+            using var response = await httpClient.PostAsJsonAsync(url, content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -340,8 +329,110 @@ namespace Sohi.Web.Services.Ads
             }
             else
             {
+                return response.ReasonPhrase;
+            }
+
+        }
+
+        public async Task<List<AdImage>> GetFacebookAdImages(string accountId, string accesstoken, string endPoint)
+        {
+            List<AdImage> adImages = new List<AdImage>();
+
+            string url = string.Format(endPoint + "/{0}/adimages?fields=id,name,hash,url,width,height&access_token={1}", accountId, accesstoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                foreach (var item in parsedobj["data"])
+                {
+                    AdImage adImage = new AdImage();
+
+                    adImage.Id = item["id"].ToString();
+                    adImage.Name = item["name"].ToString();
+                    adImage.Hash = item["hash"].ToString();
+                    adImage.Url = item["url"].ToString();
+                    adImage.Height = item["height"].ToString();
+                    adImage.Width = item["width"].ToString();
+
+                    //if (item["picture"]["data"]["url"] != null)
+                    //{
+                    //    page.Image = item["picture"]["data"]["url"].ToString();
+                    //}
+
+                    adImages.Add(adImage);
+                }
+
+                return adImages;
+            }
+            else
+            {
                 return null;
             }
+        }
+
+
+        public async Task<string> UploadImageToFacebookAdAccount(string endpoint, string accountId, object content)
+        {
+
+
+            string url = string.Format(endpoint + "/{0}/adimages", accountId);
+
+            var response = await httpClient.PostAsJsonAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> CreateFacebookAdCreative(string AccountId, string endPoint, object content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/adcreatives", AccountId);
+
+            var response = await httpClient.PostAsJsonAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+
+        }
+
+        public async Task<string> CreateFacebookAd(string AccountId, string endPoint, object content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/ads", AccountId);
+
+            var response = await httpClient.PostAsJsonAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+
         }
 
     }

@@ -127,10 +127,8 @@ using Sohi.Models;
     [CascadingParameter(Name = "AdsProfile")]
     public Profile Profile { get; set; }
 
-
     [Parameter]
     public string AccountId { get; set; }
-
 
     [Parameter]
     public string CampaignId { get; set; }

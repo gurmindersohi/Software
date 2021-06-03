@@ -7,29 +7,44 @@
     {
         @foreach (var item in SelectedDetailedTargeting)
         {
-            <div class="pt-0 pb-2" style="background-color: rgba(0, 0, 0, .05);">
+            <div class="pt-0 pb-2" style="background-color: rgb(242, 242, 242);">
                 <div class="col px-4">
 
-                    <label class="col-form-label CustomFont" style="font-size:16px; font-weight:400;">
-                        @item.Type.First().ToString().ToUpper()@item.Type.Substring(1)
-                        @*@item.ParentPath @item.ChildPath @item.GrandChildPath*@
+                    <label class="col-form-label CustomFont" style="font-size:0.875rem; font-weight:400;">
+
+                        @foreach (var itm in @item.Path)
+                        {
+                            <span>
+                                @itm&nbsp;
+                            </span>
+
+                                <span class="oi oi-chevron-right" style="font-size: 0.7rem;">&nbsp;</span>
+                        }
+
                     </label>
 
                     <div class="">
-                        <div class="col form-control" style="background-color: #fff;">
+                        <div class="col form-control" style="background-color: #fff; border:#fff;">
 
                             <div class="input-group">
-                                <span class="oi oi-map-marker text-success"></span>
-                                @item.Name
+                                <div style="font-size:0.875rem;">
+                                    @item.Name
+                                </div>
 
-                                <span class="input-group-text" @onclick="() => DeleteSelectedTarget(item)" style="border:none; border-bottom: 1px solid #ced4da;"><span class="oi oi-x"></span></span>
+                                <div class="ps-0 ms-auto" style="font-size: 12px; font-weight: 500; color:rgb(24, 119, 242)">
+                                    <a type="button" @onclick="() => DeleteSelectedTarget(item)" style="text-decoration:none;">(Remove)</a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
+
                 </div>
             </div>
         }
+
+
     }
 
     <div class="row">
