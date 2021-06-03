@@ -385,14 +385,54 @@ namespace Sohi.Web.Services.Ads
 
             if (response.IsSuccessStatusCode)
             {
-
-
                 return null;
             }
             else
             {
                 return null;
             }
+        }
+
+        public async Task<string> CreateFacebookAdCreative(string AccountId, string endPoint, object content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/adcreatives", AccountId);
+
+            var response = await httpClient.PostAsJsonAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+
+        }
+
+        public async Task<string> CreateFacebookAd(string AccountId, string endPoint, object content)
+        {
+
+            string url = string.Format(endPoint + "/{0}/ads", AccountId);
+
+            var response = await httpClient.PostAsJsonAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                return parsedobj["id"].ToString();
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+
         }
 
     }

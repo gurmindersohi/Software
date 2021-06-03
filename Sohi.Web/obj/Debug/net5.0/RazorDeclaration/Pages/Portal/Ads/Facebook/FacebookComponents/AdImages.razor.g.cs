@@ -96,7 +96,6 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/AdImages")]
     public partial class AdImages : AdImagesBase
     {
         #pragma warning disable 1998
