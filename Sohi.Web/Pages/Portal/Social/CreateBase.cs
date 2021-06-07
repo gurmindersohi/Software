@@ -37,14 +37,20 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public bool flag { get; set; } = false;
 
+        public bool SchedulePost { get; set; } = false;
+
         public List<Profile> TotalAccounts { get; set; } = new List<Profile>();
 
         //public List<Profile> InstagramProfile { get; set; } = new List<Profile>();
 
         public Profile Profile { get; set; } = new Profile();
 
-
         public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
+
+
+        public DateTime ScheduleDate { get; set; } = DateTime.Now;
+
+        public DateTime ScheduleTime { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -211,6 +217,11 @@ namespace Sohi.Web.Pages.Portal.Social
             //{
             //    NavigationManager.NavigateTo("/Portal/Social/Facebook/Posts");
             //}
+        }
+
+        protected void SchedulePost_Click(bool value)
+        {
+            SchedulePost = value;
         }
 
     }

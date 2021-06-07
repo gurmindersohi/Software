@@ -24,7 +24,7 @@ else
 
     </div>
 
-    <div class="container-fluid m-0 pt-2" style="max-width: 800px;">
+    <div class="container-fluid m-0 pt-2 pb-5" style="max-width: 800px;">
         <form method="post">
             <EditForm Model="@Post" OnValidSubmit="CreatePost">
                 <div class="content">
@@ -121,6 +121,54 @@ else
                                 </div>
                             </div>
 
+                            @if (SchedulePost)
+                            {
+                                <div id="Schedule">
+                                    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog" style="background-color:rgba(40,43,49,.7);">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Schedule Post</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                             @onclick="() => SchedulePost_Click(false)">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="CampaignName" class="col-form-label CustomFont" style="font-size:11px;">
+                                                                Schedule Date
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col f-0">
+                                                            <InputDate id="StartDate" class="form-control w-auto" minDate="@DateTime.Now"
+                                                                       @bind-Value="ScheduleDate" />
+                                                            <ValidationMessage For="@(() => ScheduleDate)" />
+
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="time" class="form-control w-auto" @bind-value="ScheduleTime" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                             @onclick="() => SchedulePost_Click(false)">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">
+                                                        Schedule
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
 
                         </div>
 
@@ -147,9 +195,9 @@ else
                     <div asp-validation-summary="All" class="text-danger"></div>
 
                     <div class="footer">
-                        @*<button type="button" class="btn btn-primary">Schedule</button>*@
+                        <button type="button" class="btn btn-primary" @onclick="() => SchedulePost_Click(true)">Schedule</button>
 
-                        <button type="submit" class="btn btn-primary">Share</button>
+                        <button type="submit" class="btn btn-primary ms-2">Share</button>
                     </div>
                 </div>
 
@@ -294,5 +342,4 @@ else
     .no-border:last-of-type {
         border-bottom: none !important;
     }
-
 </style>
