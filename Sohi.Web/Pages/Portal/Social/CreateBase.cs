@@ -4,10 +4,15 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
 using Microsoft.Extensions.Configuration;
 using Sohi.Models;
 using Sohi.Web.Models;
+using Sohi.Web.Pages.Portal.Social.Facebook;
 using Sohi.Web.Services.Social;
 
 namespace Sohi.Web.Pages.Portal.Social
@@ -53,6 +58,11 @@ namespace Sohi.Web.Pages.Portal.Social
         public DateTime ScheduleTime { get; set; }
 
 
+        public AdImage SelectedImage { get; set; }
+
+
+        protected SocialImages OpenSocialImagesModalConfirmation { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authenticateState = await authenticationStateTask;
@@ -62,8 +72,6 @@ namespace Sohi.Web.Pages.Portal.Social
             }
 
             user = await userManager.GetUserAsync(authenticateState.User);
-
-
 
         }
 
@@ -172,7 +180,8 @@ namespace Sohi.Web.Pages.Portal.Social
                         {
                             var content = new FormUrlEncodedContent(new[]
                             {
-                                new KeyValuePair<string, string>("message", "Hello Fans!"),
+                                new KeyValuePair<string, string>("url", SelectedImage.Url),
+                                new KeyValuePair<string, string>("message", Post.Description),
                                 new KeyValuePair<string, string>("access_token", token),
                             });
 
@@ -183,8 +192,8 @@ namespace Sohi.Web.Pages.Portal.Social
                         {
                             var content = new FormUrlEncodedContent(new[]
                             {
-                                new KeyValuePair<string, string>("image_url", "https://sohi.blob.core.windows.net/software/Accounts/DC/DC.png"),
-                                new KeyValuePair<string, string>("caption", "Test!"),
+                                new KeyValuePair<string, string>("image_url", SelectedImage.Url),
+                                new KeyValuePair<string, string>("caption", Post.Description),
                                 new KeyValuePair<string, string>("access_token", token),
                             });
 
@@ -223,6 +232,31 @@ namespace Sohi.Web.Pages.Portal.Social
         {
             SchedulePost = value;
         }
+
+
+        //
+
+        protected void ImageSelected()
+        {
+            OpenSocialImagesModalConfirmation.Show();
+        }
+
+        protected void RemoveSelectedImage()
+        {
+
+            SelectedImage = null;
+
+        }
+
+        protected void ImageSelected_Click(AdImage selectedImage)
+        {
+            if (selectedImage != null)
+            {
+                SelectedImage = selectedImage;
+            }
+        }
+
+
 
     }
 }

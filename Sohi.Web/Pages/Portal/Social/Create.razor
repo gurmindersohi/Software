@@ -50,13 +50,52 @@ else
                                     <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
                                         Media
                                     </div>
-                                    <div class="form-control">
-                                        <input asp-for="File" type="file" class="form-control mt-4 mb-4" id="customFile" />
+                                    @*<div class="form-control">
+
+                                        <InputFile OnChange="@LoadFiles" id="customFile" type="file" name="file" multiple class="form-control mt-4 mb-4" />
+
                                         <span asp-validation-for="File" class="text-danger"></span>
-                                    </div>
+                                    </div>*@
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                             </div>
+
+                            @if (SelectedImage != null)
+                            {
+                                <div class="row pt-2 pb-2">
+                                    <div class="col f-0">
+                                        <div style="height:96px; width: 96px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
+                                            <img src="@SelectedImage.Url" class="card-img-top" style="border-radius: 7px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;" alt="...">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="">
+                                            <button class="btn btn-sm btn-primary m-1" @onclick="ImageSelected">Change</button>
+                                        </div>
+                                        <div class="">
+                                            <button class="btn btn-sm btn-danger m-1" @onclick="RemoveSelectedImage">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row pb-2">
+                                    <div class="col">
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="Media" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(242, 242, 242); color: black; border: 1px solid rgb(242, 242, 242); box-shadow:none">
+                                                Add Media
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item" type="button" @onclick="ImageSelected">Add Image</a></li>
+                                                <li><a class="dropdown-item" href="#">Add Video</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
 
                             <div class="row pt-2 pb-2">
                                 <div class="col-md-12">
@@ -130,7 +169,7 @@ else
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Schedule Post</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                             @onclick="() => SchedulePost_Click(false)">
+                                                            @onclick="() => SchedulePost_Click(false)">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -157,7 +196,7 @@ else
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                             @onclick="() => SchedulePost_Click(false)">
+                                                            @onclick="() => SchedulePost_Click(false)">
                                                         Cancel
                                                     </button>
                                                     <button type="button" class="btn btn-primary">
@@ -207,6 +246,9 @@ else
     </div>
 
 }
+
+<SocialImages SelectionChanged="ImageSelected_Click" @ref="OpenSocialImagesModalConfirmation" user="user"></SocialImages>
+
 <style>
 
 
