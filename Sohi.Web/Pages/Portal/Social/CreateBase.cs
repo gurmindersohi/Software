@@ -14,6 +14,7 @@ using Sohi.Models;
 using Sohi.Web.Models;
 using Sohi.Web.Pages.Portal.Social.Facebook;
 using Sohi.Web.Services.Social;
+using Sohi.Web.Shared;
 
 namespace Sohi.Web.Pages.Portal.Social
 {
@@ -60,8 +61,14 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public AdImage SelectedImage { get; set; }
 
+        public bool Posting { get; set; } = false;
+
+        public bool Success { get; set; } = false;
+
 
         protected SocialImages OpenSocialImagesModalConfirmation { get; set; }
+
+        protected SuccessModal SuccessModal { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -126,8 +133,6 @@ namespace Sohi.Web.Pages.Portal.Social
                         }
                     }
 
-                    //SelectedProfiles = TotalAccounts;
-
                     StateHasChanged();
 
                 }
@@ -160,11 +165,10 @@ namespace Sohi.Web.Pages.Portal.Social
 
         protected async Task CreatePost()
         {
-
+            Posting = true;
 
             if (SelectedProfiles.Count != 0)
             {
-
                 foreach (var profile in SelectedProfiles)
                 {
                     string pageId = profile.Id;
@@ -172,7 +176,6 @@ namespace Sohi.Web.Pages.Portal.Social
                     string endPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
 
                     string token = profile.Token;
-
 
                     try
                     {
@@ -210,6 +213,7 @@ namespace Sohi.Web.Pages.Portal.Social
                                 var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
                             }
                         }
+
                     }
 
                     catch (Exception)
@@ -219,8 +223,10 @@ namespace Sohi.Web.Pages.Portal.Social
 
                 }
 
-
+                SuccessModal.Show();
             }
+
+            Posting = false;
 
             //if (result != null)
             //{
@@ -243,9 +249,7 @@ namespace Sohi.Web.Pages.Portal.Social
 
         protected void RemoveSelectedImage()
         {
-
             SelectedImage = null;
-
         }
 
         protected void ImageSelected_Click(AdImage selectedImage)
@@ -257,6 +261,14 @@ namespace Sohi.Web.Pages.Portal.Social
         }
 
 
+        protected void ConfirmationSuccess(bool value)
+        {
+            if (value == false)
+            {
+                Post.Description = "";
+                SelectedImage = null;
+            }
+        }
 
     }
 }
