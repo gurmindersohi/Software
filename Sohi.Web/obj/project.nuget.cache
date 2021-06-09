@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HA6IaZSis8Bh3pU7TjLpfoG/E2pdtx7taPmILjlCWYUJj5UQ7iU0wKjKpDLVZUJ42M5m8aruWoCyR6PkqJiR/Q==",
+  "dgSpecHash": "fVUntFj0kqS5Sy7+tWumCoVRw+suDdK6y47Aqbfpw0/MwtGumAVlHfwbNlqAPNn1XVUdgj2Glx1DoQS/74XtGQ==",
   "success": true,
   "projectFilePath": "/Users/gurmindersingh/Documents/Software/Sohi.Web/Sohi.Web.csproj",
   "expectedPackageFiles": [
@@ -29,8 +29,11 @@
     "/Users/gurmindersingh/.nuget/packages/microsoft.aspnetcore.razor/2.2.0/microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.aspnetcore.razor.language/5.0.5/microsoft.aspnetcore.razor.language.5.0.5.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.aspnetcore.razor.runtime/2.2.0/microsoft.aspnetcore.razor.runtime.2.2.0.nupkg.sha512",
+    "/Users/gurmindersingh/.nuget/packages/microsoft.azure.keyvault.core/2.0.4/microsoft.azure.keyvault.core.2.0.4.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.azure.signalr/1.1.1/microsoft.azure.signalr.1.1.1.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.azure.signalr.protocols/1.1.1/microsoft.azure.signalr.protocols.1.1.1.nupkg.sha512",
+    "/Users/gurmindersingh/.nuget/packages/microsoft.azure.storage.blob/11.2.3/microsoft.azure.storage.blob.11.2.3.nupkg.sha512",
+    "/Users/gurmindersingh/.nuget/packages/microsoft.azure.storage.common/11.2.3/microsoft.azure.storage.common.11.2.3.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.codeanalysis.analyzers/3.0.0/microsoft.codeanalysis.analyzers.3.0.0.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.codeanalysis.common/3.8.0/microsoft.codeanalysis.common.3.8.0.nupkg.sha512",
@@ -81,6 +84,7 @@
     "/Users/gurmindersingh/.nuget/packages/microsoft.visualstudio.web.codegenerators.mvc/5.0.2/microsoft.visualstudio.web.codegenerators.mvc.5.0.2.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "/Users/gurmindersingh/.nuget/packages/netstandard.library/2.0.1/netstandard.library.2.0.1.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/newtonsoft.json/11.0.2/newtonsoft.json.11.0.2.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/runtime.native.system/4.3.0/runtime.native.system.4.3.0.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/system.buffers/4.5.0/system.buffers.4.5.0.nupkg.sha512",

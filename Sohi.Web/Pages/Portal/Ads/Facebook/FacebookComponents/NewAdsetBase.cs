@@ -141,7 +141,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
                 optimization_goal = Adset.OptimizationGoal,
                 destination_type = Adset.destination_type,
                 billing_event = Adset.BillingEvents,
-                campaign_id = "23847569735650538",
+                campaign_id = CampaignId,
                 status = "PAUSED",
                 access_token = Profile.Token,
                 targeting = Targets,

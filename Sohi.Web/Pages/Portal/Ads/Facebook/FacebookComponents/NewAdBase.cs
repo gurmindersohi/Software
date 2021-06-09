@@ -112,7 +112,7 @@ namespace Sohi.Web.Pages.Portal.Ads.Facebook.FacebookComponents
             var content = new
             {
                 name = Ad.Name,
-                adset_id = "23847596903850538",
+                adset_id = AdsetId,
                 creative = data,
                 status = "PAUSED",
                 access_token = "EAABsbCS1iHgBALXFAjOXP0VXviKoOxDu173aD2GfDrYVC48kAZB46KJOA0Uxw1WgM7ZBCfn9GAQCYECaAxufZB7xz94w6K8DMZBgOH4xi30xwYzTwVsNUH4z5dViv6V9W9Gu3a6w6GJhFl1L79ML0sSK5895qHOP5cnvwaQdPvi5G0FZC0OjZC"

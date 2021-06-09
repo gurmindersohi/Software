@@ -231,3 +231,9 @@ textarea:-moz-placeholder {
     outline: 0;
     background-color: rgb(217, 217, 217) !important;
 }
+
+.CustomInput {
+    border: none;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: unset;
+}
