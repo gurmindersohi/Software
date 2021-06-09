@@ -430,12 +430,12 @@
 
 .top-row[b-o232m7mffc] {
     background-color: #fff;
-    padding: 2rem;
-/*    border-bottom: 1px solid #d6d5d5;*/
+    border-bottom: 1px solid #d6d5d5;
     justify-content: flex-start;
     height: 3.5rem;
     display: flex;
     align-items: center;
+/*    justify-content: center;*/
 }
 
     .top-row[b-o232m7mffc]  a, .top-row .btn-link[b-o232m7mffc] {
@@ -449,13 +449,14 @@
     }
 
 @media (max-width: 800px) {
-/*    .top-row:not(.auth) {
+    /*    .top-row:not(.auth) {
         display: none;
     }*/
 
     .top-row.auth[b-o232m7mffc] {
         justify-content: space-between;
     }
+
     .top-row[b-o232m7mffc]  a, .top-row .btn-link[b-o232m7mffc] {
         white-space: nowrap;
         margin-left: 0rem;
@@ -480,12 +481,12 @@
 
     .top-row[b-o232m7mffc] {
         position: sticky;
-        top: 3.5rem !important;
+        top: 0;
         z-index: 1;
     }
 
     .main > div[b-o232m7mffc] {
-        padding-left: 2rem !important;
+/*        padding-left: 2rem !important;*/
         padding-right: 1.5rem !important;
     }
 }
@@ -604,22 +605,24 @@
 
     .nav-item[b-3t0o7gyl8c]  a {
         color: black;
-        /*        border-radius: 4px;*/
-        height: 3.5rem;
+                border-radius: 5px;
+/*        height: 3.5rem;*/
         display: flex;
         align-items: center;
-        line-height: 3rem;
+/*        line-height: 2.1rem;*/
     }
 
         .nav-item[b-3t0o7gyl8c]  a.active {
             /*            background-color: #D9ECFF !important;*/
             color: #0B90FF;
-            border-bottom: 1px solid #0B90FF !important;
+            background-color: #D9ECFF !important;
+            /*            border-bottom: 1px solid #0B90FF !important;*/
         }
 
         .nav-item[b-3t0o7gyl8c]  a:hover {
             color: #0B90FF;
-            border-bottom: 1px solid #0B90FF !important;
+            background-color: #D9ECFF !important;
+            /*            border-bottom: 1px solid #0B90FF !important;*/
         }
 
 @media (min-width: 641px) {
@@ -692,6 +695,10 @@
     line-height: 28px;
 }
 
+.nav-link[b-3t0o7gyl8c] {
+font-size: 0.9rem;
+
+}
 /* _content/Sohi.Web/Pages/Portal/Settings/Settings.razor.rz.scp.css */
 .page[b-gkyi5dfgig] {
     position: relative;
@@ -1376,20 +1383,20 @@
     line-height: 28px;
 }
 /* _content/Sohi.Web/Shared/Loader.razor.rz.scp.css */
-/*
-.spinner {
+
+.spinner[b-ll1nxg8rlk] {
     border: 16px solid silver;
     border-top: 16px solid #337AB7;
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    animation: spin 700ms linear infinite;
+    animation: spin-b-ll1nxg8rlk 700ms linear infinite;
     top: 30%;
     left: 48%;
     position: absolute;
 }
 
-@keyframes spin {
+@keyframes spin-b-ll1nxg8rlk {
     0% {
         transform: rotate(0deg)
     }
@@ -1401,21 +1408,21 @@
 
 
 @media (max-width: 641px) {
-    .spinner {
+    .spinner[b-ll1nxg8rlk] {
         border: 16px solid silver;
         border-top: 16px solid #337AB7;
         border-radius: 50%;
         width: 80px;
         height: 80px;
-        animation: spin 700ms linear infinite;
+        animation: spin-b-ll1nxg8rlk 700ms linear infinite;
         top: 30%;
         left: 40%;
         position: absolute;
     }
 }
-*/
 
-.lds-spinner[b-ll1nxg8rlk] {
+
+/*.lds-spinner {
     color: official;
     display: inline-block;
     position: absolute;
@@ -1426,7 +1433,7 @@
 }
 
 @media (max-width: 641px) {
-    .lds-spinner[b-ll1nxg8rlk] {
+    .lds-spinner {
         color: official;
         display: inline-block;
         position: absolute;
@@ -1438,12 +1445,12 @@
 }
 
 
-.lds-spinner div[b-ll1nxg8rlk] {
+.lds-spinner div {
     transform-origin: 40px 40px;
-    animation: lds-spinner-b-ll1nxg8rlk 1.2s linear infinite;
+    animation: lds-spinner 1.2s linear infinite;
 }
 
-        .lds-spinner div[b-ll1nxg8rlk]:after {
+        .lds-spinner div:after {
             content: " ";
             display: block;
             position: absolute;
@@ -1455,67 +1462,67 @@
             background: grey;
         }
 
-        .lds-spinner div:nth-child(1)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(1) {
             transform: rotate(0deg);
             animation-delay: -1.1s;
         }
 
-        .lds-spinner div:nth-child(2)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(2) {
             transform: rotate(30deg);
             animation-delay: -1s;
         }
 
-        .lds-spinner div:nth-child(3)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(3) {
             transform: rotate(60deg);
             animation-delay: -0.9s;
         }
 
-        .lds-spinner div:nth-child(4)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(4) {
             transform: rotate(90deg);
             animation-delay: -0.8s;
         }
 
-        .lds-spinner div:nth-child(5)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(5) {
             transform: rotate(120deg);
             animation-delay: -0.7s;
         }
 
-        .lds-spinner div:nth-child(6)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(6) {
             transform: rotate(150deg);
             animation-delay: -0.6s;
         }
 
-        .lds-spinner div:nth-child(7)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(7) {
             transform: rotate(180deg);
             animation-delay: -0.5s;
         }
 
-        .lds-spinner div:nth-child(8)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(8) {
             transform: rotate(210deg);
             animation-delay: -0.4s;
         }
 
-        .lds-spinner div:nth-child(9)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(9) {
             transform: rotate(240deg);
             animation-delay: -0.3s;
         }
 
-        .lds-spinner div:nth-child(10)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(10) {
             transform: rotate(270deg);
             animation-delay: -0.2s;
         }
 
-        .lds-spinner div:nth-child(11)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(11) {
             transform: rotate(300deg);
             animation-delay: -0.1s;
         }
 
-        .lds-spinner div:nth-child(12)[b-ll1nxg8rlk] {
+        .lds-spinner div:nth-child(12) {
             transform: rotate(330deg);
             animation-delay: 0s;
         }
 
-@keyframes lds-spinner-b-ll1nxg8rlk {
+@keyframes lds-spinner {
     0% {
         opacity: 1;
     }
@@ -1524,6 +1531,7 @@
         opacity: 0;
     }
 }
+*/
 /* _content/Sohi.Web/Shared/MainLayout.razor.rz.scp.css */
 .page[b-nxgqjyz87z] {
     position: relative;

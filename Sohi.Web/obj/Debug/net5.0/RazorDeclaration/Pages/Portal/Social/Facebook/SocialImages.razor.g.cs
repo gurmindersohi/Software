@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Sohi.Web.Pages.Portal.Ads.Facebook
+namespace Sohi.Web.Pages.Portal.Social.Facebook
 {
     #line hidden
     using System;
@@ -96,38 +96,13 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor"
-using Sohi.Models;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(AdsLayout))]
-    public partial class Manage : LayoutComponentBase
+    public partial class SocialImages : SocialImagesBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 22 "/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Ads/Facebook/Manage.razor"
-       
-
-
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

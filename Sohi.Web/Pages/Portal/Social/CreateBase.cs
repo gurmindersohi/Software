@@ -4,11 +4,17 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
 using Microsoft.Extensions.Configuration;
 using Sohi.Models;
 using Sohi.Web.Models;
+using Sohi.Web.Pages.Portal.Social.Facebook;
 using Sohi.Web.Services.Social;
+using Sohi.Web.Shared;
 
 namespace Sohi.Web.Pages.Portal.Social
 {
@@ -37,15 +43,32 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public bool flag { get; set; } = false;
 
+        public bool SchedulePost { get; set; } = false;
+
         public List<Profile> TotalAccounts { get; set; } = new List<Profile>();
 
         //public List<Profile> InstagramProfile { get; set; } = new List<Profile>();
 
         public Profile Profile { get; set; } = new Profile();
 
-
         public List<Profile> SelectedProfiles { get; set; } = new List<Profile>();
 
+
+        public DateTime ScheduleDate { get; set; } = DateTime.Now;
+
+        public DateTime ScheduleTime { get; set; }
+
+
+        public AdImage SelectedImage { get; set; }
+
+        public bool Posting { get; set; } = false;
+
+        public bool Success { get; set; } = false;
+
+
+        protected SocialImages OpenSocialImagesModalConfirmation { get; set; }
+
+        protected SuccessModal SuccessModal { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -56,8 +79,6 @@ namespace Sohi.Web.Pages.Portal.Social
             }
 
             user = await userManager.GetUserAsync(authenticateState.User);
-
-
 
         }
 
@@ -112,8 +133,6 @@ namespace Sohi.Web.Pages.Portal.Social
                         }
                     }
 
-                    //SelectedProfiles = TotalAccounts;
-
                     StateHasChanged();
 
                 }
@@ -146,11 +165,10 @@ namespace Sohi.Web.Pages.Portal.Social
 
         protected async Task CreatePost()
         {
-
+            Posting = true;
 
             if (SelectedProfiles.Count != 0)
             {
-
                 foreach (var profile in SelectedProfiles)
                 {
                     string pageId = profile.Id;
@@ -159,14 +177,14 @@ namespace Sohi.Web.Pages.Portal.Social
 
                     string token = profile.Token;
 
-
                     try
                     {
                         if (profile.Type == "Facebook")
                         {
                             var content = new FormUrlEncodedContent(new[]
                             {
-                                new KeyValuePair<string, string>("message", "Hello Fans!"),
+                                new KeyValuePair<string, string>("url", SelectedImage.Url),
+                                new KeyValuePair<string, string>("message", Post.Description),
                                 new KeyValuePair<string, string>("access_token", token),
                             });
 
@@ -177,8 +195,8 @@ namespace Sohi.Web.Pages.Portal.Social
                         {
                             var content = new FormUrlEncodedContent(new[]
                             {
-                                new KeyValuePair<string, string>("image_url", "https://sohi.blob.core.windows.net/software/Accounts/DC/DC.png"),
-                                new KeyValuePair<string, string>("caption", "Test!"),
+                                new KeyValuePair<string, string>("image_url", SelectedImage.Url),
+                                new KeyValuePair<string, string>("caption", Post.Description),
                                 new KeyValuePair<string, string>("access_token", token),
                             });
 
@@ -195,6 +213,7 @@ namespace Sohi.Web.Pages.Portal.Social
                                 var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
                             }
                         }
+
                     }
 
                     catch (Exception)
@@ -204,13 +223,51 @@ namespace Sohi.Web.Pages.Portal.Social
 
                 }
 
-
+                SuccessModal.Show();
             }
+
+            Posting = false;
 
             //if (result != null)
             //{
             //    NavigationManager.NavigateTo("/Portal/Social/Facebook/Posts");
             //}
+        }
+
+        protected void SchedulePost_Click(bool value)
+        {
+            SchedulePost = value;
+        }
+
+
+        //
+
+        protected void ImageSelected()
+        {
+            OpenSocialImagesModalConfirmation.Show();
+        }
+
+        protected void RemoveSelectedImage()
+        {
+            SelectedImage = null;
+        }
+
+        protected void ImageSelected_Click(AdImage selectedImage)
+        {
+            if (selectedImage != null)
+            {
+                SelectedImage = selectedImage;
+            }
+        }
+
+
+        protected void ConfirmationSuccess(bool value)
+        {
+            if (value == false)
+            {
+                Post.Description = "";
+                SelectedImage = null;
+            }
         }
 
     }
