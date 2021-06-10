@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Sohi.Models;
+using Sohi.Web.Models;
 using Sohi.Web.Services.Social;
 
 namespace Sohi.Web.Pages.Portal.Social.Facebook
@@ -31,6 +32,12 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
         [CascadingParameter(Name = "SocialProfile")]
         public Profile Profile { get; set; }
 
+        [CascadingParameter(Name = "CurrentUser")]
+        public User user { get; set; }
+
+        public AdImage SelectedImage { get; set; }
+
+        protected SocialImages OpenSocialImagesModalConfirmation { get; set; }
 
         protected override void OnParametersSet()
         {
@@ -66,15 +73,35 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
            
         }
 
+
+        protected void ImageSelected()
+        {
+            OpenSocialImagesModalConfirmation.Show();
+        }
+
+        protected void RemoveSelectedImage()
+        {
+            SelectedImage = null;
+        }
+
+        protected void ImageSelected_Click(AdImage selectedImage)
+        {
+            if (selectedImage != null)
+            {
+                SelectedImage = selectedImage;
+            }
+        }
+
+
         //private async Task<List<Post>> GetScheduledPosts(string pageid, string pagetoken, string EndPoint)
         //{
         //    try
         //    {
         //        List<Post> posts = new List<Post>();
 
-                
+
         //        posts = await 
-                
+
 
         //        return posts;
 

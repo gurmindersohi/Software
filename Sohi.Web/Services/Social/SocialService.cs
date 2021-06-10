@@ -366,9 +366,9 @@ namespace Sohi.Web.Services.Social
         public async Task<Post> CreatePost(string PageId, string endPoint, FormUrlEncodedContent content)
         {
 
-            string url = string.Format(endPoint + "/{0}/photos", PageId);
+            //string url = string.Format(endPoint + "/{0}/photos", PageId);
 
-            var response = await httpClient.PostAsync(url, content);
+            var response = await httpClient.PostAsync(endPoint, content);
 
             if (response.IsSuccessStatusCode)
             {

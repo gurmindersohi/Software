@@ -61,12 +61,16 @@ namespace Sohi.Web.Pages.Portal.Social
 
         public AdImage SelectedImage { get; set; }
 
+        public AdImage SelectedVideo { get; set; }
+
         public bool Posting { get; set; } = false;
 
         public bool Success { get; set; } = false;
 
 
         protected SocialImages OpenSocialImagesModalConfirmation { get; set; }
+
+        protected SocialVideos SocialVideoModal { get; set; }
 
         protected SuccessModal SuccessModal { get; set; }
 
@@ -177,40 +181,98 @@ namespace Sohi.Web.Pages.Portal.Social
 
                     string token = profile.Token;
 
+
+
                     try
                     {
                         if (profile.Type == "Facebook")
                         {
-                            var content = new FormUrlEncodedContent(new[]
-                            {
-                                new KeyValuePair<string, string>("url", SelectedImage.Url),
-                                new KeyValuePair<string, string>("message", Post.Description),
-                                new KeyValuePair<string, string>("access_token", token),
-                            });
 
-                            var result = await SocialService.CreatePost(pageId, endPoint, content);
+                            if (SelectedImage != null)
+                            {
+
+                                endPoint = string.Format(endPoint + "/{0}/photos", pageId);
+
+                                var content = new FormUrlEncodedContent(new[]
+                                   {
+                                        new KeyValuePair<string, string>("url", SelectedImage.Url),
+                                        new KeyValuePair<string, string>("message", Post.Description),
+                                        new KeyValuePair<string, string>("access_token", token),
+                                   });
+
+
+                                var result = await SocialService.CreatePost(pageId, endPoint, content);
+
+
+                            }
+                            else if (SelectedVideo != null)
+                            {
+
+                                string videoEndPoint = _config.GetSection("FacebookApp").GetSection("VideoEndPoint").Value;
+                                videoEndPoint = string.Format(videoEndPoint + "/{0}/videos", pageId);
+
+                                var content = new FormUrlEncodedContent(new[]
+                                   {
+                                        new KeyValuePair<string, string>("file_url", SelectedVideo.Url),
+                                        new KeyValuePair<string, string>("message", Post.Description),
+                                        new KeyValuePair<string, string>("access_token", token),
+                                   });
+
+
+                                var result = await SocialService.CreatePost(pageId, videoEndPoint, content);
+
+                            }
+
+
                         }
 
                         else if (profile.Type == "Instagram")
                         {
-                            var content = new FormUrlEncodedContent(new[]
+                            if (SelectedImage != null)
+                            {
+                                var content = new FormUrlEncodedContent(new[]
                             {
                                 new KeyValuePair<string, string>("image_url", SelectedImage.Url),
                                 new KeyValuePair<string, string>("caption", Post.Description),
                                 new KeyValuePair<string, string>("access_token", token),
                             });
 
-                            var conatinerId = await SocialService.CreateInstagramPostContainer(pageId, endPoint, content);
+                                var conatinerId = await SocialService.CreateInstagramPostContainer(pageId, endPoint, content);
 
-                            if (conatinerId != null)
-                            {
-                                var post = new FormUrlEncodedContent(new[]
+                                if (conatinerId != null)
                                 {
+                                    var post = new FormUrlEncodedContent(new[]
+                                    {
                                     new KeyValuePair<string, string>("creation_id", conatinerId),
                                     new KeyValuePair<string, string>("access_token", token),
                                 });
 
-                                var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
+                                    var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
+                                }
+                            }
+
+                            if (SelectedVideo != null)
+                            {
+                                var content = new FormUrlEncodedContent(new[]
+                            {
+                                new KeyValuePair<string, string>("media_type", "VIDEO"),
+                                new KeyValuePair<string, string>("video_url", SelectedVideo.Url),
+                                new KeyValuePair<string, string>("caption", Post.Description),
+                                new KeyValuePair<string, string>("access_token", token),
+                            });
+
+                                var conatinerId = await SocialService.CreateInstagramPostContainer(pageId, endPoint, content);
+
+                                if (conatinerId != null)
+                                {
+                                    var post = new FormUrlEncodedContent(new[]
+                                    {
+                                    new KeyValuePair<string, string>("creation_id", conatinerId),
+                                    new KeyValuePair<string, string>("access_token", token),
+                                });
+
+                                    var result = await SocialService.CreateInstagramPost(pageId, endPoint, post);
+                                }
                             }
                         }
 
@@ -268,6 +330,26 @@ namespace Sohi.Web.Pages.Portal.Social
                 Post.Description = "";
                 SelectedImage = null;
             }
+        }
+
+        // Videos
+
+        protected void VideoSelected()
+        {
+            SocialVideoModal.Show();
+        }
+
+        protected void VideoSelected_Click(AdImage selectedVideo)
+        {
+            if (selectedVideo != null)
+            {
+                SelectedVideo = selectedVideo;
+            }
+        }
+
+        protected void RemoveSelectedVideo()
+        {
+            SelectedVideo = null;
         }
 
     }
