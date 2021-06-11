@@ -827,5 +827,66 @@ namespace Sohi.Web.Services.Social
                 return null;
             }
         }
+
+        //Analytics
+
+        public async Task<List<PageInsights>> GetPageInsights(string pageid, string pagetoken, string endPoint, string datePreset)
+        {
+            List<PageInsights> pageInsights = new List<PageInsights>();
+
+
+            string url = string.Format(endPoint + "/{0}/insights?metric=page_total_actions,page_views_total,page_actions_post_reactions_like_total&date_preset={1}&period=day&access_token={2}", pageid, datePreset, pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var data = parsedobj["data"];
+
+
+                foreach (var item in data)
+                {
+
+                    PageInsights pageInsight = new PageInsights();
+                    List<Values> values = new List<Values>();
+
+                    pageInsight.Id = item["id"].ToString();
+                    pageInsight.Name = item["name"].ToString();
+                    pageInsight.Title = item["title"].ToString();
+                    pageInsight.Description = item["description"].ToString();
+                    pageInsight.Period = item["period"].ToString();
+
+                    int totalValue = 0;
+
+                    foreach (var val in item["values"])
+                    {
+                        Values value = new Values();
+
+                        value.Value = val["value"].ToString();
+
+                        value.EndTime = Convert.ToDateTime(val["end_time"]);
+                        totalValue += Convert.ToInt32(val["value"]);
+
+                        values.Add(value);
+                    }
+
+                    pageInsight.TotalValue = totalValue;
+                    pageInsight.Values = values;
+
+                    pageInsights.Add(pageInsight);
+                }
+
+                return pageInsights;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
     }
 }

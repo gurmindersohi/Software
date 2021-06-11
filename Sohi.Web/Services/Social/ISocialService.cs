@@ -47,5 +47,7 @@ namespace Sohi.Web.Services.Social
 
         Task<string> CreateInstagramPost(string PageId, string endPoint, FormUrlEncodedContent content);
 
+        Task<List<PageInsights>> GetPageInsights(string pageid, string pagetoken, string endPoint, string datePreset);
+
     }
 }

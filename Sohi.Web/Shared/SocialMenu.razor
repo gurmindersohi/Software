@@ -56,7 +56,7 @@
                 @foreach (var profile in FacebookProfile)
                 {
                     <NavLink class="nav-link" href="@($"Portal/Social/Facebook/{profile.Id}")" @onclick="() => ReturnPageId(profile)">
-                        <div class="row p-1">
+                        <div class="row p-1" style="line-height:1.3;">
                             <div class="col pe-0" style="flex:0;">
                                 <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
                             </div>
