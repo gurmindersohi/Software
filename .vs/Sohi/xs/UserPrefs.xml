@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Facebook/Analytics.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/wwwroot/js/Charts.js">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Analytics.razor" Line="67" Column="46" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/AnalyticsBase.cs" Line="66" Column="14" />
-      <File FileName="Sohi.Web/Services/Social/SocialService.cs" Line="870" Column="77" />
-      <File FileName="Sohi.Models/PageInsights.cs" Line="17" Column="1" />
-      <File FileName="Sohi.Models/Values.cs" Line="7" Column="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/AnalyticsBase.cs" Line="119" Column="86" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Analytics.razor" />
+      <File FileName="Sohi.Web/wwwroot/js/Charts.js" Line="2" Column="1" />
+      <File FileName="Sohi.Web/wwwroot/js/FacebookJS.js" />
+      <File FileName="Sohi.Web/Pages/_Host.cshtml" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,10 +21,9 @@
                       <Node name="FacebookComponents" expanded="True" />
                     </Node>
                   </Node>
+                  <Node name="Settings" expanded="True" />
                   <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True">
-                      <Node name="Analytics.razor" selected="True" />
-                    </Node>
+                    <Node name="Facebook" expanded="True" />
                     <Node name="Instagram" expanded="True" />
                   </Node>
                 </Node>
@@ -35,6 +34,9 @@
               <Node name="Shared" expanded="True" />
               <Node name="wwwroot" expanded="True">
                 <Node name="css" expanded="True" />
+                <Node name="js" expanded="True">
+                  <Node name="Charts.js" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

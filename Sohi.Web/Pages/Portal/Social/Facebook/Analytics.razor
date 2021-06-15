@@ -26,7 +26,7 @@
                                 <option value="@("last_28d")">Last 28 days</option>
                             </select>
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -54,11 +54,11 @@
                         {
                             <div class="row">
                                 <div class="col">
-                                    <span class="AnalyticsSublabel">@PageTotalActions.Values.First().EndTime.ToString("MMMM dd") - @PageTotalActions.Values.Last().EndTime.ToString("MMMM dd")</span>
+                                    <span class="AnalyticsSublabel" style="font-size: 11px !important;">@PageTotalActions.Values.First().EndTime.ToString("MMMM dd") - @PageTotalActions.Values.Last().EndTime.ToString("MMMM dd")</span>
                                 </div>
                             </div>
 
-                            <div class="row pt-4">
+                            <div class="row pt-3">
                                 <div class="col text-center">
                                     <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
                                 </div>
@@ -66,7 +66,7 @@
 
                             <div class="row">
                                 <div class="col text-center">
-                                    <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                                    <span class="AnalyticsSublabel">Insufficient data for the selected time period.</span>
                                 </div>
                             </div>
                         }
@@ -74,7 +74,7 @@
                         {
                             <div class="row">
                                 <div class="col">
-                                    <span class="AnalyticsSublabel">@SelectedDate</span>
+                                    <span class="AnalyticsSublabel" style="font-size: 11px !important;">@PageTotalActions.Values.First().EndTime.ToString("MMMM dd") - @PageTotalActions.Values.Last().EndTime.ToString("MMMM dd")</span>
                                 </div>
                             </div>
 
@@ -97,7 +97,7 @@
                         }
 
                     </div>
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
+                    <div class="col AnalyticsColumn border-top-0 border-start-0 py-2" style="text-decoration: none;">
                         <div class="row">
                             <div class="col">
                                 <span class="Analyticslabel">Page Views</span>
@@ -112,7 +112,118 @@
                         {
                             <div class="row">
                                 <div class="col">
+                                    <span class="AnalyticsSublabel" style="font-size: 11px !important;">@PageTotalViews.Values.First().EndTime.ToString("MMMM dd") - @PageTotalViews.Values.Last().EndTime.ToString("MMMM dd")</span>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel">Insufficient data for the selected time period.</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col">
                                     <span class="AnalyticsSublabel">@PageTotalViews.Values.First().EndTime.ToString("MMMM dd") - @PageTotalViews.Values.Last().EndTime.ToString("MMMM dd")</span>
+                                </div>
+                            </div>
+
+                            <div class="row pt-4">
+                                <div class="col">
+                                    <span class="Analyticslabel" style="font-size:20px;">@PageTotalViews.TotalValue</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel" style="font-size:16px;">People Viewed</span>
+                                </div>
+                            </div>
+
+                            <!--<div class="row pt-3">
+                                <div class="col text-center">-->
+
+                            @*<a href="#" class="btn btn-primary btn-sm" style="text-decoration:none;" type="button">View in Detail</a>*@
+                            @*<span class="AnalyticsSublabel">-------</span>*@
+
+                            @*<div class="chart-container" style="height:400px; width: 400px;">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+
+                                <button @onclick="ShowLineChart">Generate</button>*@
+
+                            <!--</div>
+                            </div>-->
+                        }
+                    </div>
+                    <div class="col AnalyticsColumn border-top-0 border-start-0 border-end-0 py-2" style="text-decoration: none;">
+                        <div class="row">
+                            <div class="col">
+                                <span class="Analyticslabel">Page Views</span>
+                            </div>
+                        </div>
+
+                        @if (PageTotalLikes == null)
+                        {
+                            <SmallLoader StyleClass="pt-4"></SmallLoader>
+                        }
+                        else if (PageTotalLikes.TotalValue <= 0)
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel" style="font-size: 11px !important;">@PageTotalLikes.Values.First().EndTime.ToString("MMMM dd") - @PageTotalLikes.Values.Last().EndTime.ToString("MMMM dd")</span>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel">Insufficient data for the selected time period.</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@PageTotalLikes.Values.First().EndTime.ToString("MMMM dd") - @PageTotalLikes.Values.Last().EndTime.ToString("MMMM dd")</span>
+                                </div>
+                            </div>
+
+                            <div class="row pt-4">
+                                <div class="col">
+                                    <span class="Analyticslabel" style="font-size:20px;">@PageTotalLikes.TotalValue</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel" style="font-size:16px;">People Likes</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row" style="max-width: 732px;">
+                        <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="Analyticslabel">Post Reach</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@SelectedDate</span>
                                 </div>
                             </div>
 
@@ -127,204 +238,129 @@
                                     <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
                                 </div>
                             </div>
-                        }
-                        else
-                        {
+
+                        </div>
+                        <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
                             <div class="row">
                                 <div class="col">
-                                    <span class="AnalyticsSublabel">@PageTotalViews.Values.First().EndTime.ToString("MMMM dd") - @PageTotalViews.Values.Last().EndTime.ToString("MMMM dd")</span>
+                                    <span class="Analyticslabel">Story Reach</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@SelectedDate</span>
                                 </div>
                             </div>
 
-                            <div class="row pt-2">
-                                <div class="col">
-                                    <span class="Analyticslabel">@PageTotalViews.TotalValue</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <span class="AnalyticsSublabel">People Viewed</span>
+                            <div class="row pt-4">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col text-center">
-                                    <span class="AnalyticsSublabel">-------</span>
+                                    <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
                                 </div>
                             </div>
-                        }
-                    </div>
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 border-end-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Page likes</span>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
+                        <div class="col AnalyticsColumn border-top-0 border-start-0 border-end-0 py-2">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="Analyticslabel">Recommendations</span>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@SelectedDate</span>
+                                </div>
+                            </div>
 
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-thumb-up" style="font-size: 2rem;"></span></span>
+                            <div class="row pt-4">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="max-width: 732px;">
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Post Reach</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
-                            </div>
-                        </div>
-
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Story Reach</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
-                            </div>
-                        </div>
-
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 border-end-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Recommendations</span>
+                    <div class="row" style="max-width: 732px;">
+                        <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="Analyticslabel">Post Engagement</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@SelectedDate</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                            <div class="row pt-4">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="max-width: 732px;">
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Post Engagement</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
-                            </div>
-                        </div>
 
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
-                            </div>
                         </div>
+                        <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="Analyticslabel">Videos</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@SelectedDate</span>
+                                </div>
+                            </div>
 
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                            <div class="row pt-4">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Videos</span>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
+                        <div class="col AnalyticsColumn border-top-0 border-start-0 border-end-0 py-2">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="Analyticslabel">Page Followers</span>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="AnalyticsSublabel">@SelectedDate</span>
+                                </div>
+                            </div>
 
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                            <div class="row pt-4">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col AnalyticsColumn border-top-0 border-start-0 border-end-0 py-2">
-                        <div class="row">
-                            <div class="col">
-                                <span class="Analyticslabel">Page Followers</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="AnalyticsSublabel">@SelectedDate</span>
-                            </div>
-                        </div>
-
-                        <div class="row pt-4">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel"><span class="oi oi-calendar" style="font-size: 2rem;"></span></span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col text-center">
-                                <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <span class="AnalyticsSublabel">We have insufficient data to show for the selected time period.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -332,5 +368,5 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 

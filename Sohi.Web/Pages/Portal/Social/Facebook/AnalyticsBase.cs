@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
 using Sohi.Models;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Social;
@@ -37,7 +38,12 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
         public PageInsights PageTotalViews { get; set; }
 
+        public PageInsights PageTotalLikes { get; set; }
+
         public bool flag { get; set; } = false;
+
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
 
 
         [CascadingParameter(Name = "SocialProfile")]
@@ -75,6 +81,7 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
             PageTotalActions = null;
             PageTotalViews = null;
+            PageTotalLikes = null;
 
             //DateTime d2 = DateTime.Now.AddDays(-1);
 
@@ -99,6 +106,10 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
                     {
                         PageTotalViews = item;
                     }
+                    if (item.Name == "page_actions_post_reactions_like_total")
+                    {
+                        PageTotalLikes = item;
+                    }
                 }
 
                 //flag = true;
@@ -108,5 +119,13 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
                 flag = true;
             }
         }
+
+        protected async Task ShowLineChart()
+        {
+
+            var response = await JSRuntime.InvokeAsync<string>(identifier: "DrawChart");
+
+        }
+
     }
 }
