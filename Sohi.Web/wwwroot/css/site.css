@@ -258,3 +258,9 @@ textarea:-moz-placeholder {
     color: #90949c;
     font-family: inherit;
 }
+
+
+/*.AnalyticsColumn {
+    height: 178px;
+    border: 1px solid rgba(0,0,0,.125);
+}*/
