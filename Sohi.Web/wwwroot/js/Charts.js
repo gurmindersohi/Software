@@ -1,16 +1,23 @@
 ﻿
 
 
-function DrawChart() {
+function DrawChart(datatodisplay, labelstodisplay, headerLabel) {
+
+    document.getElementById("myChart").remove();
+    let canvas = document.createElement('canvas');
+    canvas.setAttribute('id', 'myChart');
+    document.querySelector('#chart-container').appendChild(canvas);
+
     var ctx = document.getElementById('myChart').getContext('2d');
+
 
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [],
+            labels: labelstodisplay,
             datasets: [{
-                label: '',
-                data: [],
+                label: headerLabel,
+                data: datatodisplay,
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 borderWidth: 1
@@ -19,48 +26,23 @@ function DrawChart() {
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    suggestedMin: 5,
+                    ticks: {
+                        callback: function (label, index, labels) {
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+                    }
+                }
+                    
                 }
             }
         }
     });
 
-}
-
-
-
-function AddData(datatodisplay, labelstodisplay) {
-    var ctx = document.getElementById('myChart').getContext('2d');
-
-
-    ctx.myChart.data.labels = labelstodisplay;
-    ctx.myChart.data.datasets[0].data[2] = datatodisplay;
-
-    ctx.myChart.update();
-
-    //var myChart = new Chart(ctx, {
-    //    type: 'line',
-    //    data: {
-    //        labels: labelstodisplay,
-    //        datasets: [{
-    //            label: 'Number of Views',
-    //            data: datatodisplay,
-    //            backgroundColor: 'rgb(255, 99, 132)',
-    //            borderColor: 'rgb(255, 99, 132)',
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //    }
-    //});
 
 }
-
 
 
 //function DrawChart(datatodisplay, labelstodisplay) {

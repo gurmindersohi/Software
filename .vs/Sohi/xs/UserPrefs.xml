@@ -1,40 +1,36 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/wwwroot/js/Charts.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Facebook/AnalyticsBase.cs">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Insights.razor" Line="102" Column="50" />
-      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/InsightsBase.cs" />
-      <File FileName="Sohi.Web/wwwroot/css/site.css" />
-      <File FileName="Sohi.Web/wwwroot/js/Charts.js" Line="14" Column="54" />
-      <File FileName="Sohi.Web/Pages/_Host.cshtml" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Insights.razor" Line="24" Column="56" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/InsightsBase.cs" Line="147" Column="14" />
+      <File FileName="Sohi.Web/wwwroot/js/Charts.js" Line="16" Column="35" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/_Host.cshtml" Line="25" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/Analytics.razor" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Facebook/AnalyticsBase.cs" Line="40" Column="1" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
-                </Node>
-              </Node>
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
+                  <Node name="Ads" expanded="True">
+                    <Node name="Facebook" expanded="True">
+                      <Node name="FacebookComponents" expanded="True" />
+                    </Node>
+                  </Node>
                   <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True" />
+                    <Node name="Facebook" expanded="True">
+                      <Node name="AnalyticsBase.cs" selected="True" />
+                    </Node>
                   </Node>
                 </Node>
               </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Social" expanded="True" />
-              </Node>
-              <Node name="Shared" expanded="True" />
               <Node name="wwwroot" expanded="True">
                 <Node name="css" expanded="True" />
-                <Node name="js" expanded="True">
-                  <Node name="Charts.js" selected="True" />
-                </Node>
+                <Node name="js" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -49,7 +45,6 @@
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" relfile="Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" line="92" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" relfile="Sohi.Web/Pages/Portal/Ads/Facebook/FacebookComponents/NewAdsetBase.cs" line="256" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />

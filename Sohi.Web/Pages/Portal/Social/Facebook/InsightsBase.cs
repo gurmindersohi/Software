@@ -60,31 +60,34 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
         {
 
             EndPoint = _config.GetSection("FacebookApp").GetSection("EndPoint").Value;
-
-            string pageid = Profile.Id;
-
-            string PageToken = Profile.Token;
-
-            string data_Preset = Period;
-
-
-            if (PageToken != null)
-            {
-
-
-                await GetPageInsights(pageid, PageToken, data_Preset);
-
-
-                //var result = await SocialService.GetPageInsights(pageid, PageToken, EndPoint, data_Preset);
-
-            }
+           
 
         }
 
-        //protected override async Task OnAfterRenderAsync(bool firstRender)
-        //{
-        //    await ShowPageViewsChart();
-        //}
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                string pageid = Profile.Id;
+
+                string PageToken = Profile.Token;
+
+                string data_Preset = Period;
+
+
+                if (PageToken != null)
+                {
+
+
+                    await GetPageInsights(pageid, PageToken, data_Preset);
+
+
+                    //var result = await SocialService.GetPageInsights(pageid, PageToken, EndPoint, data_Preset);
+
+                }
+            }
+        }
+
 
         protected async Task OnPeriodChange(ChangeEventArgs e)
         {
@@ -123,7 +126,7 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
                     }
                 }
 
-                await ShowPageViewsChart();
+                await GetInsights(InsightsType);
 
                 //flag = true;
             }
@@ -133,20 +136,50 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
             }
         }
 
-        protected async Task ShowPageViewsChart()
+
+        protected async Task OnInsightsType(ChangeEventArgs e)
+        {
+            InsightsType = e.Value.ToString();
+
+            await GetInsights(InsightsType);
+
+        }
+
+        protected async Task GetInsights(string type)
+        {
+
+            if (InsightsType == "Page_Views")
+            {
+                await ShowChart(PageTotalViews, "Number of Views");
+            }
+
+            if (InsightsType == "Page_Likes")
+            {
+                await ShowChart(PageTotalLikes, "Number of Likes");
+            }
+
+            if (InsightsType == "PageTotalActions")
+            {
+                await ShowChart(PageTotalActions, "Number of Actions");
+            }
+
+        }
+
+        protected async Task ShowChart(PageInsights insights, string label)
         {
             List<string> data = new List<string>();
             List<string> labels = new List<string>();
 
-            foreach (var item in PageTotalViews.Values)
+            string headerLabel = label;
+
+            foreach (var item in insights.Values)
             {
                 data.Add(item.Value);
                 labels.Add(item.EndTime.ToString("MMMM dd"));
 
             }
 
-
-            var response = await JSRuntime.InvokeAsync<string>(identifier: "AddData", data.ToArray(), labels.ToArray());
+            var response = await JSRuntime.InvokeAsync<string>(identifier: "DrawChart", data.ToArray(), labels.ToArray(), headerLabel);
 
         }
 
