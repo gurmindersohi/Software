@@ -887,6 +887,61 @@ namespace Sohi.Web.Services.Social
             }
         }
 
+        public async Task<List<PageInsights>> GetInstagramInsights(string pageid, string pagetoken, string endPoint, string since, string until)
+        {
+            List<PageInsights> pageInsights = new List<PageInsights>();
+
+
+            string url = string.Format(endPoint + "/{0}/insights?metric=impressions,reach,profile_views,phone_call_clicks,text_message_clicks,website_clicks&period=day&since={1}&until={2}&access_token={3}", pageid, since, until, pagetoken);
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                var data = parsedobj["data"];
+
+                foreach (var item in data)
+                {
+                    PageInsights pageInsight = new PageInsights();
+                    List<Values> values = new List<Values>();
+
+                    pageInsight.Id = item["id"].ToString();
+                    pageInsight.Name = item["name"].ToString();
+                    pageInsight.Title = item["title"].ToString();
+                    pageInsight.Description = item["description"].ToString();
+                    pageInsight.Period = item["period"].ToString();
+
+                    int totalValue = 0;
+
+                    foreach (var val in item["values"])
+                    {
+                        Values value = new Values();
+
+                        value.Value = val["value"].ToString();
+
+                        value.EndTime = Convert.ToDateTime(val["end_time"]);
+                        totalValue += Convert.ToInt32(val["value"]);
+
+                        values.Add(value);
+                    }
+
+                    pageInsight.TotalValue = totalValue;
+                    pageInsight.Values = values;
+
+                    pageInsights.Add(pageInsight);
+                }
+
+                return pageInsights;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
     }
 }

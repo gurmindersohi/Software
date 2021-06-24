@@ -49,5 +49,7 @@ namespace Sohi.Web.Services.Social
 
         Task<List<PageInsights>> GetPageInsights(string pageid, string pagetoken, string endPoint, string datePreset);
 
+        Task<List<PageInsights>> GetInstagramInsights(string pageid, string pagetoken, string endPoint, string since, string until);
+
     }
 }
