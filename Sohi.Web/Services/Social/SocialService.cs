@@ -209,12 +209,12 @@ namespace Sohi.Web.Services.Social
             }
         }
 
-        public async Task<List<Post>> GetFacebookPosts(string pageid, string pagetoken, string endPoint)
+        public async Task<List<Post>> GetFacebookPosts(string pageid, string pagetoken, string endPoint, string limit)
         {
             List<Post> posts = new List<Post>();
 
 
-            string url = string.Format(endPoint + "/{0}?fields=id,name,picture,posts%7Bid,full_picture,message,created_time,admin_creator%7D&access_token={1}", pageid, pagetoken);
+            string url = string.Format(endPoint + "/{0}/posts?fields=id,full_picture,message,created_time,admin_creator,attachments%7Bmedia_type,media%7Bsource%7D%7D&limit={1}&access_token={2}", pageid, limit, pagetoken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -229,18 +229,18 @@ namespace Sohi.Web.Services.Social
                 var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
 
 
-                var data = parsedobj["posts"]["data"];
+                var data = parsedobj["data"];
 
                 foreach (var item in data)
                 {
 
                     Post post = new Post();
                     post.Insights = new PostInsights();
-                    post.Profile = new Profile();
+                    //post.Profile = new Profile();
 
-                    post.Profile.Id = parsedobj["id"].ToString();
-                    post.Profile.Name = parsedobj["name"].ToString();
-                    post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
+                    //post.Profile.Id = parsedobj["id"].ToString();
+                    //post.Profile.Name = parsedobj["name"].ToString();
+                    //post.Profile.Image = parsedobj["picture"]["data"]["url"].ToString();
 
                     post.Id = item["id"].ToString();
                     if (item["full_picture"] != null)
@@ -268,6 +268,15 @@ namespace Sohi.Web.Services.Social
                         post.CreatedTime = createdBy;
                     }
 
+                    if (item["attachments"] != null)
+                    {
+                        post.MediaType = item["attachments"]["data"][0]["media_type"].ToString().ToUpper();
+
+                        if (item["attachments"]["data"][0]["media"] != null)
+                        {
+                            post.Picture = item["attachments"]["data"][0]["media"]["source"].ToString();
+                        }
+                    }
 
                     var result = await GetPostInsights(item["id"].ToString(), pagetoken, endPoint);
 
@@ -643,11 +652,11 @@ namespace Sohi.Web.Services.Social
             }
         }
 
-        public async Task<List<Post>> GetInstagramMedia(string accountId, string pagetoken, string endPoint)
+        public async Task<List<Post>> GetInstagramMedia(string accountId, string pagetoken, string endPoint, string limit)
         {
             List<Post> posts = new List<Post>();
 
-            string url = string.Format(endPoint + "/{0}?fields=id,name,profile_picture_url,media%7Bid,caption,media_product_type,media_url%7D&access_token={1}", accountId, pagetoken);
+            string url = string.Format(endPoint + "/{0}/media?fields=id,caption,media_product_type,media_url,media_type&limit={1}&access_token={2}", accountId, limit, pagetoken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -659,18 +668,19 @@ namespace Sohi.Web.Services.Social
 
                 if (parsedobj != null)
                 {
-                    var data = parsedobj["media"]["data"];
+                    var data = parsedobj["data"];
 
                     foreach (var item in data)
                     {
                         Post post = new Post();
-                        post.Profile = new Profile();
 
                         post.Insights = new PostInsights();
 
-                        post.Profile.Id = parsedobj["id"].ToString();
-                        post.Profile.Name = parsedobj["name"].ToString();
-                        post.Profile.Image = parsedobj["profile_picture_url"].ToString();
+                        //post.Profile = new Profile();
+
+                        //post.Profile.Id = parsedobj["id"].ToString();
+                        //post.Profile.Name = parsedobj["name"].ToString();
+                        //post.Profile.Image = parsedobj["profile_picture_url"].ToString();
 
 
 
@@ -688,6 +698,12 @@ namespace Sohi.Web.Services.Social
                         {
                             post.Picture = item["media_url"].ToString();
                         }
+
+                        if (item["media_type"] != null)
+                        {
+                            post.MediaType = item["media_type"].ToString();
+                        }
+
 
                         if (item["username"] != null)
                         {

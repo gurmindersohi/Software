@@ -18,17 +18,17 @@
     {
         @foreach (var post in Posts)
         {
-            <div class="card mt-3">
+            <div class="card mt-3 mb-3">
                 <div class="card-header">
 
                     <div class="row">
                         <div class="col" style="flex:0;">
-                            <img src="@post.Profile.Image" height="50" width="50" class="rounded-circle" />
+                            <img src="@Profile.Image" height="50" width="50" class="rounded-circle" />
                         </div>
                         <div class="col">
                             <div class="row">
                                 <div class="" style="color:black; font-weight:600;">
-                                    @post.Profile.Name
+                                    @Profile.Name
                                 </div>
                                 <div class="" style="font-size: 13px;">
                                     @post.CreatedTime
@@ -45,12 +45,25 @@
                             <p class="card-text">@post.Description</p>
                         </div>
 
+
                         @if (post.Picture != null)
                         {
-                            <div class="col-md-3">
-                                <img src="@post.Picture" height="200" width="200" class="img-fluid rounded mx-auto d-block" asp-append-version="true" />
-                            </div>
+                            @if (post.MediaType == "IMAGE")
+                            {
+                                <div class="col-md-3">
+                                    <img src="@post.Picture" height="200" width="200" class="img-fluid rounded mx-auto d-block" asp-append-version="true" />
+                                </div>
+                            }
+                            else if (post.MediaType == "VIDEO")
+                            {
+                                <div class="col-md-3">
+                                    <video controls height="200" width="200" class="img-fluid rounded mx-auto d-block" asp-append-version="true">
+                                        <source src="@post.Picture" type="video/mp4">
+                                    </video>
+                                </div>
+                            }
                         }
+
                     </div>
                 </div>
 

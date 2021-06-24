@@ -84,7 +84,7 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
 
                 if (PageToken != null)
                 {
-                    posts = await SocialService.GetFacebookPosts(pageid, PageToken, EndPoint);
+                    posts = await SocialService.GetFacebookPosts(pageid, PageToken, EndPoint, "10");
                 }
 
                 return posts;
@@ -95,5 +95,23 @@ namespace Sohi.Web.Pages.Portal.Social.Facebook
                 return null;
             }
         }
+
+
+        //protected async void LoadAll()
+        //{
+        //    try
+        //    {
+        //        var result = await PostsAsync();
+
+        //        if (result != null)
+        //        {
+        //            Posts = result;
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
     }
 }
