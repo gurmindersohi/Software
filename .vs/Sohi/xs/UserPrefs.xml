@@ -1,26 +1,28 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Social/Create.razor">
+    <Files>
+      <File FileName="Sohi.Web/Pages/Portal/Social/Instagram/Insights.razor" Line="60" Column="44" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Instagram/InsightsBase.cs" Line="25" Column="76" />
+      <File FileName="Sohi.Web/Pages/Portal/Social/Create.razor" Line="270" Column="94" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True" selected="True">
+          <Node name="Sohi" expanded="True">
             <Node name="Sohi.Web" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Portal" expanded="True">
-                  <Node name="Leads" expanded="True" />
                   <Node name="Social" expanded="True">
-                    <Node name="Facebook" expanded="True" />
                     <Node name="Instagram" expanded="True" />
+                    <Node name="Create.razor" selected="True" />
                   </Node>
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
                 <Node name="Social" expanded="True" />
               </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True" />
-              </Node>
+              <Node name="Shared" expanded="True" />
             </Node>
           </Node>
         </State>

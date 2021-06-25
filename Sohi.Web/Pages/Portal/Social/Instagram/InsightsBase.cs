@@ -89,6 +89,12 @@ namespace Sohi.Web.Pages.Portal.Social.Instagram
             }
         }
 
+        protected async Task OnDateChanged()
+        {
+            await OnPeriodChange();
+        }
+
+
         protected async Task OnSinceChanged(ChangeEventArgs e)
         {
             Since = Convert.ToDateTime(e.Value);

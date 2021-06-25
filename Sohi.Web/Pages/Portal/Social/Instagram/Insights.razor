@@ -11,7 +11,7 @@
         <div class="card-header">
 
             <div class="row">
-               
+
                 <div class="col">
                     <div class="row">
                         <div class="" style="color:#1c1e21; font-weight:bold; font-size: 14px;">
@@ -36,7 +36,7 @@
                             Since
                         </div>
                         <div class="">
-                            <input class="form-control" type="date" id="since" value="@Since" @onchange="OnSinceChanged">
+                            <input class="form-control" type="date" id="since" @bind-value="Since" >
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,17 @@
                             Until
                         </div>
                         <div class="">
-                            <input class="form-control" type="date" id="until" value="@Until" @onchange="OnUntilChanged">
+                            <input class="form-control" type="date" id="until" @bind-value="Until">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="" style="color:#1c1e21; font-weight:bold; font-size: 14px;">
+                            
+                        </div>
+                        <div class="" style="padding-top: 1.33rem!important;">
+                            <button type="button" class="btn btn-primary ms-2" @onclick="OnDateChanged">Search</button>
                         </div>
                     </div>
                 </div>
