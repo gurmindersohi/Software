@@ -109,12 +109,12 @@
 
 
     .nav-item[b-99jcf2m9x0]  a {
-        color: black;
+        color: white;
         /*        border-radius: 4px;*/
-        height: 3.5rem;
+/*        height: 3.5rem;*/
         display: flex;
         align-items: center;
-        line-height: 3rem;
+/*        line-height: 3rem;*/
     }
 
         .nav-item[b-99jcf2m9x0]  a.active {

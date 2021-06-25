@@ -1,27 +1,20 @@
 ﻿
 @using Sohi.Models;
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+@*<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav">
 
         <li class="nav-item px-0">
-            <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/{Profile.Id}/Create")">
+            <NavLink class="btn btn-primary" href="@($"Portal/Ads/Facebook/{Profile.Id}/Create/Campaigns")">
                 Create
-            </NavLink>
-        </li>
-        <li class="nav-item px-0">
-            <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/{Profile.Id}/Posts")">
-                Campaign List
-            </NavLink>
-        </li>
-
-        <li class="nav-item px-0">
-            <NavLink class="nav-link" href="@($"Portal/Ads/Facebook/{Profile.Id}/Settings")">
-                Settings
             </NavLink>
         </li>
 
     </ul>
+</div>*@
+
+<div class="ms-auto">
+    <a type="button" href="@($"Portal/Ads/Facebook/{Profile.Id}/Create/Campaigns")" class="btn btn-primary">Create</a>
 </div>
 
 

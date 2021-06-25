@@ -111,7 +111,7 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 30 "/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookAdsMenu.razor"
+#line 23 "/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Ads/Facebook/FacebookAdsMenu.razor"
        
     private bool collapseNavMenu = true;
 

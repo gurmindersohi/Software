@@ -97,7 +97,6 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Manage))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Ads/Facebook/{AdAccountId}")]
     public partial class Create : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
