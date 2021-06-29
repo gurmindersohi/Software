@@ -1,33 +1,28 @@
 ﻿<Properties StartupConfiguration="Multiple Projects">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Portal/Ads/Facebook/CampaignsList.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Website/Home.cshtml">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Ads/Facebook/CampaignsList.razor" Line="44" Column="63" />
-      <File FileName="Sohi.Web/Services/Ads/IAdAccountService.cs" Line="42" Column="29" />
-      <File FileName="Sohi.Web/Services/Ads/AdAccountService.cs" Line="454" Column="1" />
-      <File FileName="Sohi.Models/Campaign.cs" Line="15" Column="1" />
+      <File FileName="Sohi.Web/Pages/Website/Home.cshtml" Line="13" Column="23" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Pages" expanded="True">
-                <Node name="Portal" expanded="True">
-                  <Node name="Ads" expanded="True">
-                    <Node name="Facebook" expanded="True">
-                      <Node name="CampaignsList.razor" selected="True" />
-                    </Node>
-                  </Node>
-                  <Node name="Social" expanded="True" />
+              <Node name="Areas" expanded="True">
+                <Node name="Identity" expanded="True">
+                  <Node name="Pages" expanded="True" />
                 </Node>
               </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Ads" expanded="True" />
-                <Node name="Social" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Website" expanded="True">
+                  <Node name="Home.cshtml" selected="True" />
+                </Node>
               </Node>
               <Node name="Shared" expanded="True" />
+              <Node name="wwwroot" expanded="True">
+                <Node name="images" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>

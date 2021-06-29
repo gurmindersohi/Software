@@ -49,7 +49,7 @@ else
 
                     </div>
                 </td>
-                <td><a href="@($"Portal/Leads/LeadDetails/{campaign.Id}")">@campaign.Name</a></td>
+                <td>@campaign.Name</td>
                 <td>@campaign.StatusString</td>
                 <td>@campaign.Objective.Replace("_", " ")</td>
                 <td>@campaign.StartTime.ToLongDateString()</td>
