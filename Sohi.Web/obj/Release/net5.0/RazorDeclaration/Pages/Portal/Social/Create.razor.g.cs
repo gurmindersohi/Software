@@ -98,6 +98,7 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(SocialLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social/Create")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Social")]
     public partial class Create : CreateBase
     {
         #pragma warning disable 1998
