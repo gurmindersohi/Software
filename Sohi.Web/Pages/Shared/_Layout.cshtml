@@ -26,17 +26,23 @@
         }
 
             .C li:before {
-                content: '✓';
+                content: '•';
+                color: #1b6ec2;
+                padding-right: 0.3rem;
+            }
+
+            .empty:before {
+                content: ''!important;
                 color: #1b6ec2;
                 padding-right: 0.3rem;
             }
 
         .popular:before {
-            background-color: #1e8bf7;
+            background-color: green;
             border-radius: 4px 4px 0 0;
             bottom: 100%;
             color: #fff;
-            content: "MOST POPULAR";
+            content: "Most Selling";
             font-size: 1rem;
             font-weight: 600;
             height: 32px;
@@ -70,6 +76,20 @@
             font-weight: 600;
         }
 
+        .CustomFont2 {
+            font-size: 16px;
+        }
+
+        .Bold {
+            font-weight: bold !important;
+        }
+
+        .field-validation-error {
+            font-size: 0.875rem !important;
+        }
+        .input-validation-error {
+            border-color: #dc3545 !important;
+        }
 
     </style>
 </head>

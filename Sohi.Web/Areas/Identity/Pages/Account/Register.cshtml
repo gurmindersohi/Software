@@ -5,25 +5,26 @@
 }
 
 <div class="container">
-    <div class="row pt-5 justify-content-center align-items-center h-75">
+    <div class="row pt-5 justify-content-center h-75">
         <div class="col-md-7 pt-2 pb-3" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="col-md-12">
-                <h2 class="title text-center pb-2">Register</h2>
-                <h6 class="text-center pb-3">Register for a free, two-week trial</h6>
+                <h3 class="title text-center" style="font-size:30px;">Register</h3>
+                @*<h6 class="text-center pb-3">Register for a free, two-week trial</h6>*@
 
                 @*<div asp-validation-summary="All" class="text-danger"></div>*@
+                <hr />
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Input.FirstName" class="mb-0 CustomFont"></label>
-                            <input asp-for="Input.FirstName" class="form-control CustomInput" placeholder="James" />
+                            <input asp-for="Input.FirstName" class="form-control CustomInput" placeholder="Steve" />
                             <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Input.LastName" class="mb-0 CustomFont"></label>
-                            <input asp-for="Input.LastName" class="form-control CustomInput" placeholder="Doe" />
+                            <input asp-for="Input.LastName" class="form-control CustomInput" placeholder="Jobs" />
                             <span asp-validation-for="Input.LastName" class="text-danger"></span>
                         </div>
                     </div>
@@ -38,7 +39,7 @@
 
                 <div class="form-group">
                     <label asp-for="Input.Email" class="mb-0 CustomFont"></label>
-                    <input asp-for="Input.Email" class="form-control CustomInput" placeholder="james.doe@example.com" />
+                    <input asp-for="Input.Email" class="form-control CustomInput" placeholder="steve.jobs@example.com" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -51,8 +52,96 @@
                     <input asp-for="Input.ConfirmPassword" class="form-control CustomInput" placeholder="*********" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+
+
+
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col px-5">
+                            <label class="mb-0 text-center">By signing up, you agree to DC's Terms of Use, Privacy Policy and Cookie Policy.</label>
+
+                        </div>
+                    </div>
+                </div>
             </form>
+        </div>
+
+        <div class="col-md-4 pt-2 pb-3 px-4" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <h3 class="title" style="font-size:30px;">Order Details</h3>
+                        <hr />
+                        @*<label class="mb-0 CustomFont">Order Details</label>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="mb-0 CustomFont2">Plan Type</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group text-right">
+                        <label class="mb-0 CustomFont2 Bold">Premium</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="mb-0 CustomFont2">Plan Price</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group text-right">
+                        <label class="mb-0 CustomFont2 Bold">$99</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="mb-0 CustomFont2">Billing Period</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group text-right">
+                        <label class="mb-0 CustomFont2 Bold">Monthly</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @*<div class="col">
+                    <div class="form-group">
+                        <label class="mb-0 CustomFont"></label>
+                    </div>
+                </div>*@
+                <div class="col">
+                    <div class="form-group text-right">
+                        <label class="mb-0 CustomFont" style="font-size: 18px;">Total due today</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @*<div class="col">
+                    <div class="form-group">
+                        <label class="mb-0 CustomFont"></label>
+                    </div>
+                </div>*@
+                <div class="col" style="line-height:0;">
+                    <div class="form-group text-right">
+                        <label class="mb-0 CustomFont" style="font-size: 26px;">$0.00</label>
+                    </div>
+                </div>
+            </div>
         </div>
 
         @*<div class="col-md-4 col-md-offset-2">
@@ -86,6 +175,7 @@
                 </section>
             </div>*@
     </div>
+
 </div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

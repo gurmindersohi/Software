@@ -66,34 +66,37 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "First Name is required.")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Last Name is required.")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Phone number is required.")]
             [Phone]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Email is required.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Password is required.")]
+            [StringLength(100, ErrorMessage = "Password needs to be at least 6 characters.")]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            //public bool TermsOfService { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
