@@ -88,7 +88,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group text-right">
-                        <label class="mb-0 CustomFont2 Bold">Premium</label>
+                        <label class="mb-0 CustomFont2 Bold">@Model.Plans.Type</label>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group text-right">
-                        <label class="mb-0 CustomFont2 Bold">$99</label>
+                        <label class="mb-0 CustomFont2 Bold">$@Model.Plans.Price</label>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group text-right">
-                        <label class="mb-0 CustomFont2 Bold">Monthly</label>
+                        <label class="mb-0 CustomFont2 Bold">@Model.Plans.BillingPeriod</label>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                 </div>*@
                 <div class="col" style="line-height:0;">
                     <div class="form-group text-right">
-                        <label class="mb-0 CustomFont" style="font-size: 26px;">$0.00</label>
+                        <label class="mb-0 CustomFont" style="font-size: 26px;">$@Model.Plans.Total</label>
                     </div>
                 </div>
             </div>

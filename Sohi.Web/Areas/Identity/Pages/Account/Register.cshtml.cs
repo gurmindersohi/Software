@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Sohi.Models;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Accounts;
 
@@ -60,6 +61,8 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
+        public Plans Plans { get; set; } = new Plans();
+
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
@@ -101,6 +104,12 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            Plans.Id = "101";
+            Plans.Price = "101";
+            Plans.Type = "New";
+            Plans.BillingPeriod = "Monthly";
+            Plans.Total = "0.00";
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
