@@ -69,80 +69,83 @@
             </form>
         </div>
 
-        <div class="col-md-4 pt-2 pb-3 px-4" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
+        @if (Model.IsPlanSelected)
+        {
+            <div class="col-md-4 pt-2 pb-3 px-4" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <h3 class="title" style="font-size:30px;">Order Details</h3>
-                        <hr />
-                        @*<label class="mb-0 CustomFont">Order Details</label>*@
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h3 class="title" style="font-size:30px;">Order Details</h3>
+                            <hr />
+                            @*<label class="mb-0 CustomFont">Order Details</label>*@
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="mb-0 CustomFont2">Plan Type</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-0 CustomFont2">Plan Type</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group text-right">
+                            <label class="mb-0 CustomFont2 Bold">@Model.Plans.Type</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group text-right">
-                        <label class="mb-0 CustomFont2 Bold">@Model.Plans.Type</label>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="mb-0 CustomFont2">Plan Price</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-0 CustomFont2">Plan Price</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group text-right">
+                            <label class="mb-0 CustomFont2 Bold">$@Model.Plans.Price</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group text-right">
-                        <label class="mb-0 CustomFont2 Bold">$@Model.Plans.Price</label>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="mb-0 CustomFont2">Billing Period</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-0 CustomFont2">Billing Period</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group text-right">
+                            <label class="mb-0 CustomFont2 Bold">@Model.Plans.BillingPeriod</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group text-right">
-                        <label class="mb-0 CustomFont2 Bold">@Model.Plans.BillingPeriod</label>
+                <div class="row">
+                    @*<div class="col">
+                            <div class="form-group">
+                                <label class="mb-0 CustomFont"></label>
+                            </div>
+                        </div>*@
+                    <div class="col">
+                        <div class="form-group text-right">
+                            <label class="mb-0 CustomFont" style="font-size: 18px;">Total due today</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @*<div class="col">
+                            <div class="form-group">
+                                <label class="mb-0 CustomFont"></label>
+                            </div>
+                        </div>*@
+                    <div class="col" style="line-height:0;">
+                        <div class="form-group text-right">
+                            <label class="mb-0 CustomFont" style="font-size: 26px;">$@Model.Plans.Total</label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                @*<div class="col">
-                    <div class="form-group">
-                        <label class="mb-0 CustomFont"></label>
-                    </div>
-                </div>*@
-                <div class="col">
-                    <div class="form-group text-right">
-                        <label class="mb-0 CustomFont" style="font-size: 18px;">Total due today</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @*<div class="col">
-                    <div class="form-group">
-                        <label class="mb-0 CustomFont"></label>
-                    </div>
-                </div>*@
-                <div class="col" style="line-height:0;">
-                    <div class="form-group text-right">
-                        <label class="mb-0 CustomFont" style="font-size: 26px;">$@Model.Plans.Total</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
 
         @*<div class="col-md-4 col-md-offset-2">
                 <section>

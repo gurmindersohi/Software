@@ -1,21 +1,16 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Website/Home.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Website/Pricing.cshtml">
     <Files>
-      <File FileName="Sohi.Web/Pages/Website/Pricing.cshtml" Line="141" Column="93" IsPinned="True" />
+      <File FileName="Sohi.Web/Pages/Website/Pricing.cshtml" Line="17" Column="15" IsPinned="True" />
       <File FileName="Sohi.Web/Pages/Website/Pricing.cshtml.cs" Line="1" Column="1" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml" Line="26" Column="83" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml.cs" Line="102" Column="55" />
-      <File FileName="Sohi.Web/Pages/Website/Home.cshtml" Line="35" Column="13" />
-      <File FileName="Sohi.Web/Pages/Website/Contact.cshtml" Line="39" Column="1" />
-      <File FileName="Sohi.Web/Pages/Shared/_Layout.cshtml" Line="95" Column="36" />
-      <File FileName="Sohi.Web/Pages/Website/About.cshtml" Line="37" Column="19" />
+      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml" Line="66" Column="31" />
+      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Register.cshtml.cs" Line="29" Column="49" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Models" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
               <Node name="Areas" expanded="True">
                 <Node name="Identity" expanded="True">
@@ -30,8 +25,8 @@
                 <Node name="Portal" expanded="True" />
                 <Node name="Shared" expanded="True" />
                 <Node name="Website" expanded="True">
-                  <Node name="Home.cshtml" expanded="True" selected="True" />
-                  <Node name="Pricing.cshtml" expanded="True" />
+                  <Node name="Home.cshtml" expanded="True" />
+                  <Node name="Pricing.cshtml" expanded="True" selected="True" />
                 </Node>
               </Node>
               <Node name="Shared" expanded="True" />

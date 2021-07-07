@@ -35,6 +35,9 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
 
 
+        public bool IsPlanSelected { get; set; } = true;
+
+
         private IConfiguration _config;
 
         private readonly IAccountService _accountService;
