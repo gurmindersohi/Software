@@ -7,66 +7,103 @@
 <div class="container">
     <div class="row pt-5 pb-4 justify-content-center h-75">
         <div class="col-md-7 pt-2 pb-3" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; ">
-            <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="col-md-12">
-                <h3 class="title text-center" style="font-size:30px;">Register</h3>
-                @*<h6 class="text-center pb-3">Register for a free, two-week trial</h6>*@
+            @*<form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="col-md-12">
+            <h3 class="title text-center" style="font-size:30px;">Register</h3>
+            <hr />
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Input.FirstName" class="mb-0 CustomFont"></label>
+                        <input asp-for="Input.FirstName" class="form-control CustomInput" placeholder="Steve" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Input.LastName" class="mb-0 CustomFont"></label>
+                        <input asp-for="Input.LastName" class="form-control CustomInput" placeholder="Jobs" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
 
-                @*<div asp-validation-summary="All" class="text-danger"></div>*@
-                <hr />
+
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber" class="mb-0 CustomFont"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control CustomInput" placeholder="1(888) 999-0123" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Email" class="mb-0 CustomFont"></label>
+                <input asp-for="Input.Email" class="form-control CustomInput" placeholder="steve.jobs@example.com" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password" class="mb-0 CustomFont"></label>
+                <input asp-for="Input.Password" class="form-control CustomInput" placeholder="*********" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword" class="mb-0 CustomFont"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control CustomInput" placeholder="*********" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </div>
+            <div class="form-group">
                 <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="Input.FirstName" class="mb-0 CustomFont"></label>
-                            <input asp-for="Input.FirstName" class="form-control CustomInput" placeholder="Steve" />
-                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="Input.LastName" class="mb-0 CustomFont"></label>
-                            <input asp-for="Input.LastName" class="form-control CustomInput" placeholder="Jobs" />
-                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                        </div>
+                    <div class="col px-5">
+                        <label class="mb-0 text-center">By signing up, you agree to DC's Terms of Use, Privacy Policy and Cookie Policy.</label>
+
                     </div>
                 </div>
+            </div>
+        </form>*@
 
-
-                <div class="form-group">
-                    <label asp-for="Input.PhoneNumber" class="mb-0 CustomFont"></label>
-                    <input asp-for="Input.PhoneNumber" class="form-control CustomInput" placeholder="1(888) 999-0123" />
-                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Input.Email" class="mb-0 CustomFont"></label>
-                    <input asp-for="Input.Email" class="form-control CustomInput" placeholder="steve.jobs@example.com" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password" class="mb-0 CustomFont"></label>
-                    <input asp-for="Input.Password" class="form-control CustomInput" placeholder="*********" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.ConfirmPassword" class="mb-0 CustomFont"></label>
-                    <input asp-for="Input.ConfirmPassword" class="form-control CustomInput" placeholder="*********" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>
-
-
-
-                <div class="form-group text-right">
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col px-5">
-                            <label class="mb-0 text-center">By signing up, you agree to DC's Terms of Use, Privacy Policy and Cookie Policy.</label>
-
+            <section>
+                <form id="account" method="post" class="col-md-12">
+                    <h2 class="title">Login</h2>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            @*<label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>*@
                         </div>
                     </div>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                        <p>
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
         </div>
 
         @if (Model.IsPlanSelected)
@@ -140,7 +177,7 @@
                         </div>*@
                     <div class="col" style="line-height:0;">
                         <div class="form-group text-right">
-                            <label class="mb-0 CustomFont" style="font-size: 26px;">$@Model.Plans.Total</label>
+                            <label class="mb-0 CustomFont" style="font-size: 26px;">$@Model.Plans.Price</label>
                         </div>
                     </div>
                 </div>

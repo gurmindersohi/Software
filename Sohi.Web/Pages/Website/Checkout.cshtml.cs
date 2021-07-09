@@ -64,7 +64,7 @@ namespace Sohi.Web.Pages.Website
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public Plans Plans { get; set; } = new Plans();
+        public Plan Plans { get; set; } = new Plan();
 
         public string ReturnUrl { get; set; }
 
@@ -106,15 +106,15 @@ namespace Sohi.Web.Pages.Website
         }
 
 
-        public async Task OnGetAsync(string name, string returnUrl = null)
+        public async Task OnGetAsync(string plan, string returnUrl = null)
         {
-            Plans plans = _accountService.GetPlans(name);
+            Plans = await _accountService.GetPlans(plan);
 
-            Plans.Id = plans.Id;
-            Plans.Price = plans.Price;
-            Plans.Type = plans.Type;
-            Plans.BillingPeriod = plans.BillingPeriod;
-            Plans.Total = "";
+            //Plans.Id = plans.Id;
+            //Plans.Price = plans.Price;
+            //Plans.Type = plans.Type;
+            //Plans.BillingPeriod = plans.BillingPeriod;
+            //Plans.Total = "";
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

@@ -86,5 +86,23 @@ namespace Sohi.Api.Controllers
                     "Error creating new Account record");
             }
         }
+
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Plan>> GetPlan(string name)
+        {
+            try
+            {
+                var result = await _accountRepository.GetPlan(name);
+
+                if (result == null) return NotFound();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
     }
 }

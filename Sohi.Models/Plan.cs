@@ -1,9 +1,9 @@
 ﻿using System;
 namespace Sohi.Models
 {
-    public class Plans
+    public class Plan
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -13,6 +13,10 @@ namespace Sohi.Models
 
         public string Price { get; set; }
 
-        public string Total { get; set; }
+        //public string? Total { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
     }
 }

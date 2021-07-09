@@ -64,7 +64,7 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public Plans Plans { get; set; } = new Plans();
+        public Plan Plans { get; set; } = new Plan();
 
         public string ReturnUrl { get; set; }
 
@@ -107,11 +107,11 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            Plans.Id = "101";
-            Plans.Price = "101";
-            Plans.Type = "New";
-            Plans.BillingPeriod = "Monthly";
-            Plans.Total = "0.00";
+            //Plans.Id = "101";
+            //Plans.Price = "101";
+            //Plans.Type = "New";
+            //Plans.BillingPeriod = "Monthly";
+            //Plans.Total = "0.00";
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
