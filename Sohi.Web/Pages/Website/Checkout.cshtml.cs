@@ -64,6 +64,9 @@ namespace Sohi.Web.Pages.Website
         [BindProperty]
         public InputModel Input { get; set; }
 
+        [BindProperty]
+        public LoginInputModel loginInputModel { get; set; }
+
         public Plan Plans { get; set; } = new Plan();
 
         public string ReturnUrl { get; set; }
@@ -103,6 +106,18 @@ namespace Sohi.Web.Pages.Website
 
 
             //public bool TermsOfService { get; set; }
+        }
+
+        public class LoginInputModel
+        {
+            [Required]
+            [EmailAddress]
+            public string Email { get; set; }
+
+            [Required]
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
+
         }
 
 
