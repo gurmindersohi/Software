@@ -37,6 +37,8 @@ namespace Sohi.Web.Pages.Website
 
         public bool IsPlanSelected { get; set; } = true;
 
+        public bool IsLoggedIn { get; set; } = true;
+
 
         private IConfiguration _config;
 
@@ -66,6 +68,10 @@ namespace Sohi.Web.Pages.Website
 
         [BindProperty]
         public LoginInputModel loginInputModel { get; set; }
+
+        [BindProperty]
+        public CheckoutInputModel checkoutInputModel { get; set; }
+
 
         public Plan Plans { get; set; } = new Plan();
 
@@ -118,6 +124,28 @@ namespace Sohi.Web.Pages.Website
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
+        }
+        public class CheckoutInputModel
+        {
+            [Required(ErrorMessage = "Email is required.")]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            [Required(ErrorMessage = "Card Information is required.")]
+            [EmailAddress]
+            [Display(Name = "Card Information")]
+            public string CardInfo { get; set; }
+
+            [Required(ErrorMessage = "Card holder name is required.")]
+            [EmailAddress]
+            [Display(Name = "Name On Card")]
+            public string NOC { get; set; }
+
+            [Required(ErrorMessage = "Country and Zip code is required.")]
+            [EmailAddress]
+            [Display(Name = "Country or region")]
+            public string Country { get; set; }
         }
 
 
