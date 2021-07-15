@@ -227,7 +227,7 @@ using Sohi.Web.Services.Accounts;
 
     private async Task UpgradeAccount()
     {
-        NavigationManager.NavigateTo("/Website/Pricing");
+        NavigationManager.NavigateTo("/Website/Pricing", forceLoad: true);
     }
 
     

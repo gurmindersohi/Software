@@ -25,6 +25,7 @@ namespace Sohi.Web.Pages.Website
         }
 
         private async Task<IActionResult> RedirectToStripe() {
+
             StripeConfiguration.ApiKey = "sk_test_51J0afCCAgHgewQ1l86OqtHa9Au325LaR56Hj6MMInQEYjTSGNgaXBtjs8UvzuSLjpl3J5UxvomecnZpz8ljw0AOo00bhcWOxGT";
 
             var priceId = "price_1JBOINCAgHgewQ1lVCPssJXG";

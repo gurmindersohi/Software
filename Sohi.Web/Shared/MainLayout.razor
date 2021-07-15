@@ -91,7 +91,7 @@
 
     public User user { get; set; }
 
-    public bool Subscription { get; set; } 
+    public bool Subscription { get; set; } = false;
 
     public bool flag { get; set; } = false;
 
@@ -151,7 +151,7 @@
 
     private async Task UpgradeAccount()
     {
-        NavigationManager.NavigateTo("/Website/Pricing");
+        NavigationManager.NavigateTo("/Website/Pricing", forceLoad: true);
     }
 
     }
