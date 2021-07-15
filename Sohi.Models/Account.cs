@@ -32,6 +32,10 @@ namespace Sohi.Models
 		public Boolean OnHold { get; set; }
 
 		public DateTime HoldDate { get; set; }
-		
+
+		public string CustomerId { get; set; }
+
+		public string SubscriptionId { get; set; }
+
 	}
 }

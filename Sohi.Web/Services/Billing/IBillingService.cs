@@ -8,6 +8,5 @@ namespace Sohi.Web.Services.Billing
     public interface IBillingService
     {
         Task<Sohi.Models.Account> UpdateBillingDetails(Sohi.Models.Account updatedAccount);
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -9,17 +8,11 @@ using Sohi.Models;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 
-
 namespace Sohi.Web.Services.Billing
 {
     public class BillingService : IBillingService
     {
         private readonly HttpClient httpClient;
-
-
-        [Inject]
-        public IConfiguration configuration { get; set; }
-
 
         public BillingService(HttpClient httpClient)
         {

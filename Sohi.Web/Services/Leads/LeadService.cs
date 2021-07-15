@@ -7,7 +7,7 @@ using Sohi.Models;
 
 namespace Sohi.Web.Services.Leads
 {
-    public class LeadService :ILeadService
+    public class LeadService : ILeadService
     {
         private readonly HttpClient httpClient;
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Sohi.Web.Models;
+using Sohi.Web.Services.Accounts;
 using Sohi.Web.Services.Billing;
 using Stripe;
 using Stripe.Checkout;
@@ -19,6 +20,7 @@ namespace Sohi.Web.Pages.Website
         public string CustomerName { get; set; }
 
         private readonly IBillingService _billingService;
+        private readonly IAccountService _accountService;
 
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -30,12 +32,18 @@ namespace Sohi.Web.Pages.Website
         public SuccessModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IBillingService billingService,
+            IAccountService accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
 
             _config = configuration;
+
+            _billingService = billingService;
+
+            _accountService = accountService;
         }
 
         public async Task<ActionResult> OnGet(string session_id)
@@ -63,6 +71,8 @@ namespace Sohi.Web.Pages.Website
             var updatedAccount = new Sohi.Models.Account();
 
             updatedAccount.AccountId = Guid.Parse(AccountId);
+            updatedAccount.CustomerId = session.CustomerId;
+            updatedAccount.SubscriptionId = session.SubscriptionId;
 
             try
             {
@@ -84,7 +94,7 @@ namespace Sohi.Web.Pages.Website
 
         private async Task UpdateBillingDetails(Sohi.Models.Account updatedAccount)
         {
-            await _billingService.UpdateBillingDetails(updatedAccount);
+            var result = await _billingService.UpdateBillingDetails(updatedAccount);
         }
 
 

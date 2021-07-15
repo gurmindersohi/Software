@@ -22,6 +22,7 @@
     <Folder Include="Models\Settings\" />
     <Folder Include="Models\Accounts\" />
     <Folder Include="Models\Ads\" />
+    <Folder Include="Models\Billing\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sohi.Models\Sohi.Models.csproj">

@@ -1476,6 +1476,7 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Newtonsoft.Json.dll
+/Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Stripe.net.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/System.Composition.AttributedModel.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/System.Composition.Convention.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/System.Composition.Hosting.dll
@@ -1554,6 +1555,7 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Sohi.Models.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Sohi.Models.pdb
+/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.csprojAssemblyReference.cache
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.GeneratedMSBuildEditorConfig.editorconfig
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.AssemblyInfoInputs.cache
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.AssemblyInfo.cs
@@ -1755,6 +1757,7 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Website/Home.cshtml.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Website/Index.cshtml.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Website/Pricing.cshtml.g.cs
+/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Website/Success.cshtml.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/_Host.cshtml.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/_ViewImports.cshtml.g.cs
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/_ViewStart.cshtml.g.cs
@@ -1789,6 +1792,3 @@ C:/Users/gurmi/Source/Repos/Software/Sohi.Web/bin/Debug/net5.0/runtimes/win/lib/
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/ref/Sohi.Web.dll
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.pdb
 /Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.genruntimeconfig.cache
-/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Sohi.Web.csprojAssemblyReference.cache
-/Users/gurmindersingh/Documents/Software/Sohi.Web/bin/Debug/net5.0/Stripe.net.dll
-/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/Debug/net5.0/Razor/Pages/Website/Success.cshtml.g.cs
