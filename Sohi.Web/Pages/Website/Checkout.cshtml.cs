@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Sohi.Models;
 using Sohi.Web.Models;
 using Sohi.Web.Services.Accounts;
+using Stripe;
 
 namespace Sohi.Web.Pages.Website
 {
@@ -73,7 +74,7 @@ namespace Sohi.Web.Pages.Website
         public CheckoutInputModel checkoutInputModel { get; set; }
 
 
-        public Plan Plans { get; set; } = new Plan();
+        public Sohi.Models.Plan Plans { get; set; } = new Sohi.Models.Plan();
 
         public string ReturnUrl { get; set; }
 
@@ -133,25 +134,33 @@ namespace Sohi.Web.Pages.Website
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Card Information is required.")]
-            [EmailAddress]
             [Display(Name = "Card Information")]
-            public string CardInfo { get; set; }
+            public string CardNumber { get; set; }
+
+            [Required]
+            public string CardExpiry { get; set; }
+
+            [Required]
+            public string CardCVD { get; set; }
 
             [Required(ErrorMessage = "Card holder name is required.")]
-            [EmailAddress]
             [Display(Name = "Name On Card")]
             public string NOC { get; set; }
 
-            [Required(ErrorMessage = "Country and Zip code is required.")]
-            [EmailAddress]
+            [Required(ErrorMessage = "Country is required.")]
             [Display(Name = "Country or region")]
             public string Country { get; set; }
+
+            [Required(ErrorMessage = "Zip code is required.")]
+            public string ZIP { get; set; }
         }
 
 
         public async Task OnGetAsync(string plan, string returnUrl = null)
         {
             Plans = await _accountService.GetPlans(plan);
+
+            //await GetProduct();
 
             //Plans.Id = plans.Id;
             //Plans.Price = plans.Price;
@@ -247,6 +256,60 @@ namespace Sohi.Web.Pages.Website
 
             return account;
         }
+
+
+        //private async Task GetProduct()
+        //{
+
+        //    string Key = _config.GetSection("Stripe").GetSection("Key").Value;
+
+        //    StripeConfiguration.ApiKey = Key;
+
+        //    var service = new ProductService();
+        //    var product = service.Get("prod_Jp2N6WZ0jnx75m");
+
+        //    //Plans.ProductId = product.Id;
+        //    //Plans.Price = product.;
+
+        //    var abc = product;
+
+
+        //}
+
+        protected string CreateCustomerInStripe(string Key)
+        {
+            var options = new CustomerCreateOptions
+            {
+                Description = "My First Test Customer (created for API docs)",
+            };
+            var service = new CustomerService();
+
+            var customerId = service.Create(options);
+
+            return customerId.Id;
+        }
+
+        protected string CreateSubscriptionInStripe(string customerId, string priceId, string Key)
+        {
+            var options = new SubscriptionCreateOptions
+            {
+                Customer = customerId,
+                Items = new List<SubscriptionItemOptions>
+                {
+                         new SubscriptionItemOptions
+                         {
+                              Price = priceId,
+                         },
+                },
+            };
+            var service = new SubscriptionService();
+
+            var subscriptionId = service.Create(options);
+
+            return subscriptionId.Id;
+        }
+
+
 
     }
 }

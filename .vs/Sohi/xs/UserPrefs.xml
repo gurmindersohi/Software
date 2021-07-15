@@ -1,50 +1,49 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Website/Checkout.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Pages/Shared/_LoginPartial.cshtml">
     <Files>
-      <File FileName="Sohi.Web/Shared/Empty.razor" Line="1" Column="1" IsPinned="True" />
-      <File FileName="Sohi.Web/Pages/Website/Checkout.cshtml" Line="184" Column="9" />
-      <File FileName="Sohi.Web/Pages/Website/Checkout.cshtml.cs" />
-      <File FileName="Sohi.Web/Areas/Identity/Pages/Account/Login.cshtml" />
-      <File FileName="Sohi.Web/Pages/Shared/_Layout.cshtml" />
+      <File FileName="Sohi.Web/Pages/Shared/_LoginPartial.cshtml" Line="23" Column="10" IsPinned="True" />
+      <File FileName="Sohi.Web/Pages/Website/Pricing.cshtml" Line="7" Column="1" />
+      <File FileName="Sohi.Web/Pages/Website/Success.cshtml" Line="11" Column="78" />
+      <File FileName="Sohi.Web/Pages/Website/Success.cshtml.cs" Line="52" Column="48" />
+      <File FileName="Sohi.Web/Services/Billing/IBillingService.cs" Line="12" Column="95" />
+      <File FileName="Sohi.Web/Services/Billing/BillingService.cs" Line="33" Column="10" />
+      <File FileName="Sohi.Web/Services/Accounts/IAccountService.cs" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Services/Accounts/AccountService.cs" Line="42" Column="50" />
+      <File FileName="Sohi.Web/Services/Leads/LeadService.cs" Line="31" Column="37" />
+      <File FileName="Sohi.Web/Pages/Website/Checkout.cshtml.cs" Line="185" Column="90" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Sohi" expanded="True" selected="True">
-            <Node name="Sohi.Api" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Accounts" expanded="True" />
-              </Node>
-            </Node>
-            <Node name="Sohi.Models" expanded="True" />
+          <Node name="Sohi" expanded="True">
             <Node name="Sohi.Web" expanded="True">
               <Node name="Areas" expanded="True">
                 <Node name="Identity" expanded="True">
                   <Node name="Pages" expanded="True">
                     <Node name="Account" expanded="True">
-                      <Node name="Register.cshtml" expanded="True" />
+                      <Node name="Login.cshtml" expanded="True" />
                     </Node>
                   </Node>
                 </Node>
               </Node>
               <Node name="Pages" expanded="True">
-                <Node name="Shared" expanded="True" />
+                <Node name="Portal" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_LoginPartial.cshtml" selected="True" />
+                </Node>
                 <Node name="Website" expanded="True">
                   <Node name="Checkout.cshtml" expanded="True" />
+                  <Node name="Pricing.cshtml" expanded="True" />
+                  <Node name="Success.cshtml" expanded="True" />
                 </Node>
               </Node>
               <Node name="Services" expanded="True">
                 <Node name="Accounts" expanded="True" />
-              </Node>
-              <Node name="Shared" expanded="True" />
-              <Node name="wwwroot" expanded="True">
-                <Node name="css" expanded="True">
-                  <Node name="open-iconic" expanded="True">
-                    <Node name="font" expanded="True" />
-                  </Node>
-                </Node>
+                <Node name="Ads" expanded="True" />
+                <Node name="Billing" expanded="True" />
+                <Node name="Leads" expanded="True" />
+                <Node name="Settings" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -62,6 +61,7 @@
       <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Shared/SocialLayout.razor" relfile="Sohi.Web/Shared/SocialLayout.razor" line="9" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Api/Controllers/AccountController.cs" relfile="Sohi.Api/Controllers/AccountController.cs" line="27" column="1" />
       <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Api/Models/Accounts/AccountRepository.cs" relfile="Sohi.Api/Models/Accounts/AccountRepository.cs" line="81" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Website/Success.cshtml.cs" relfile="Sohi.Web/Pages/Website/Success.cshtml.cs" line="58" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />

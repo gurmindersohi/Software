@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Microsoft.Azure.SignalR" Version="1.1.1" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.3" />
+    <PackageReference Include="Stripe.net" Version="39.58.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sohi.Models\Sohi.Models.csproj">
@@ -45,5 +46,6 @@
     <Folder Include="Services\Ads\" />
     <Folder Include="Pages\Portal\Settings\Ads\" />
     <Folder Include="Pages\Portal\Ads\Facebook\FacebookComponents\" />
+    <Folder Include="Services\Billing\" />
   </ItemGroup>
 </Project>
