@@ -56,5 +56,12 @@ namespace Sohi.Api.Models.Accounts
         {
             return await context.Accounts.FirstOrDefaultAsync(a => a.Email == email);
         }
+
+        public async Task<Plan> GetPlan(string name)
+        {
+            var result = await context.Plans.FirstOrDefaultAsync(e => e.Name == name);
+
+            return result;
+        }
     }
 }

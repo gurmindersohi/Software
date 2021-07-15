@@ -13,5 +13,7 @@ namespace Sohi.Api.Models.Accounts
         Task<Account> CreateAccount(Account newAccount);
 
         Task<Account> GetAccountByEmail(string email);
+
+        Task<Plan> GetPlan(string name);
     }
 }

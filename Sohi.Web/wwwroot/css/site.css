@@ -55,7 +55,7 @@ a, .btn-link {
 }
 
 .CustomFont {
-    color: rgb(99, 99, 99);
+/*    color: rgb(99, 99, 99);*/
     font-size: 14px;
     font-weight: 500;
 }
@@ -237,3 +237,30 @@ textarea:-moz-placeholder {
     border-bottom: 1px solid #ced4da !important;
     border-radius: unset;
 }
+
+.AnalyticsColumn {
+    height: 178px;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+
+.Analyticslabel {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 530;
+    color: #4b4f56;
+    font-family: inherit;
+}
+.AnalyticsSublabel {
+    font-size: 12px;
+    line-height: 16px;
+/*    font-weight: 530;*/
+    color: #90949c;
+    font-family: inherit;
+}
+
+
+/*.AnalyticsColumn {
+    height: 178px;
+    border: 1px solid rgba(0,0,0,.125);
+}*/

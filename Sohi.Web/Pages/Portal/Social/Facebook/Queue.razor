@@ -128,7 +128,7 @@
 <div class="modal fade" id="createPostPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PopupLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
 
-        <form asp-controller="Facebook" asp-action="Share" method="post">
+        <form class="w-100" method="post">
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <h5 class="modal-title " id="PopupLabel">Create Post</h5>
@@ -136,14 +136,14 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="row pb-3">
-                        <div class="col-md-12">
+                    @*<div class="row pb-3">
+                            <div class="col-md-12">
 
-                            <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
-                            <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
+                                <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
+                                <img src="/images/img_avatar.png" height="50" width="50" class="rounded-circle" />
 
-                        </div>
-                    </div>
+                            </div>
+                        </div>*@
 
                     <div class="">
 
@@ -155,8 +155,58 @@
                         </div>
                         <div class="row pt-2 pb-2">
                             <div class="col-md-12">
-                                <input asp-for="File" type="file" class="form-control" id="customFile" />
-                                <span asp-validation-for="File" class="text-danger"></span>
+
+                                <div class="row pt-2 pb-2">
+                                    <div class="col-md-12">
+                                        <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                            Media
+                                        </div>
+                                        @*<div class="form-control">
+
+                                                <InputFile OnChange="@LoadFiles" id="customFile" type="file" name="file" multiple class="form-control mt-4 mb-4" />
+
+                                                <span asp-validation-for="File" class="text-danger"></span>
+                                            </div>*@
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                @if (SelectedImage != null)
+                                {
+                                    <div class="row pt-2 pb-2">
+                                        <div class="col f-0">
+                                            <div style="height:96px; width: 96px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
+                                                <img src="@SelectedImage.Url" class="card-img-top" style="border-radius: 7px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;" alt="...">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="">
+                                                <a class="btn btn-sm btn-primary m-1" type="button" @onclick="ImageSelected">Change</a>
+                                            </div>
+                                            <div class="">
+                                                <a class="btn btn-sm btn-danger m-1" type="button" @onclick="RemoveSelectedImage">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row pb-2">
+                                        <div class="col">
+                                            <div class="dropdown">
+                                                <button class="btn dropdown-toggle" type="button" id="Media" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(242, 242, 242); color: black; border: 1px solid rgb(242, 242, 242); box-shadow:none">
+                                                    Add Media
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item" type="button" @onclick="ImageSelected">Add Image</a></li>
+                                                    <li><a class="dropdown-item" href="#">Add Video</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @*<input asp-for="File" type="file" class="form-control" id="customFile" />
+                                    <span asp-validation-for="File" class="text-danger"></span>*@
 
                             </div>
                         </div>
@@ -190,3 +240,6 @@
         </form>
     </div>
 </div>
+
+
+<SocialImages SelectionChanged="ImageSelected_Click" @ref="OpenSocialImagesModalConfirmation" user="user"></SocialImages>

@@ -15,6 +15,8 @@ namespace Sohi.Api.Models
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AdAccount> AdAccounts { get; set; }
 
+        public DbSet<Plan> Plans { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

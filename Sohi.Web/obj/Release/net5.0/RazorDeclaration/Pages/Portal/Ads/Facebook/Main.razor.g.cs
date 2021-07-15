@@ -96,6 +96,7 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(AdsLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Portal/Ads/Facebook/Create")]
     public partial class Main : Microsoft.AspNetCore.Components.ComponentBase
     {

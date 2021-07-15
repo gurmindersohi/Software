@@ -2,19 +2,21 @@
 @*@page "/Portal/Social"*@
 @page "/Portal/Social/Create"
 
+@page "/Portal/Social"
+
 @inherits CreateBase
 
 
 
 @if (TotalAccounts == null)
 {
-if (!flag)
+    if (!flag)
     {
-<Connect></Connect>
+        <Connect></Connect>
     }
-else
+    else
     {
-<div class="spinner"></div>
+        <div class="spinner"></div>
 
     }
 
@@ -22,242 +24,265 @@ else
 
 else
 {
-@if (Posting)
+    @if (Posting)
     {
-<Loader></Loader>
+        <Loader></Loader>
     }
-else{
+    else
+    {
 
-<div class="top-create-row">
+        <div class="top-create-row">
 
-</div>
+        </div>
 
-<div class="container-fluid m-0 pt-2 pb-5" style="max-width: 800px;">
-    <form method="post">
-        <EditForm Model="@Post" OnValidSubmit="CreatePost">
-            <div class="content">
-                <div class="header text-center">
-                    <h5 class="title " id="PopupLabel">Create Post</h5>
-                </div>
-                <div class="body">
-
-                    <div class="">
-
-                        <div class="row pt-2 pb-2">
-                            <div class="col-md-12">
-                                <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
-                                    Add text to your post
-                                </div>
-                                <textarea asp-for="Description" @bind="@Post.Description" class="form-control" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
+        <div class="container-fluid m-0 pt-2 pb-5" style="max-width: 800px;">
+            <form method="post">
+                <EditForm Model="@Post" OnValidSubmit="CreatePost">
+                    <div class="content">
+                        <div class="header text-center">
+                            <h5 class="title " id="PopupLabel">Create Post</h5>
                         </div>
+                        <div class="body">
 
-                        <div class="row pt-2 pb-2">
-                            <div class="col-md-12">
-                                <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
-                                    Media
+                            <div class="">
+
+                                <div class="row pt-2 pb-2">
+                                    <div class="col-md-12">
+                                        <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                            Add text to your post
+                                        </div>
+                                        <textarea asp-for="Description" @bind="@Post.Description" class="form-control" placeholder="Write something to share..." rows="5" style="box-shadow: none;"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
                                 </div>
-                                @*<div class="form-control">
 
-                                        <InputFile OnChange="@LoadFiles" id="customFile" type="file" name="file" multiple class="form-control mt-4 mb-4" />
+                                <div class="row pt-2 pb-2">
+                                    <div class="col-md-12">
+                                        <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                            Media
+                                        </div>
+                                        @*<div class="form-control">
 
-                                        <span asp-validation-for="File" class="text-danger"></span>
-                                    </div>*@
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
-                        </div>
+                                                <InputFile OnChange="@LoadFiles" id="customFile" type="file" name="file" multiple class="form-control mt-4 mb-4" />
 
-                        @if (SelectedImage != null)
-                            {
-                        <div class="row pt-2 pb-2">
-                            <div class="col f-0">
-                                <div style="height:96px; width: 96px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
-                                    <img src="@SelectedImage.Url" class="card-img-top" style="border-radius: 7px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;" alt="...">
+                                                <span asp-validation-for="File" class="text-danger"></span>
+                                            </div>*@
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="">
-                                    <a class="btn btn-sm btn-primary m-1" type="button" @onclick="ImageSelected">Change</a>
-                                </div>
-                                <div class="">
-                                    <a class="btn btn-sm btn-danger m-1" type="button" @onclick="RemoveSelectedImage">Remove</a>
-                                </div>
-                            </div>
-                        </div>
-                            }
-                            else
-                            {
-                        <div class="row pb-2">
-                            <div class="col">
-                                <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="Media" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(242, 242, 242); color: black; border: 1px solid rgb(242, 242, 242); box-shadow:none">
-                                        Add Media
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" type="button" @onclick="ImageSelected">Add Image</a></li>
-                                        <li><a class="dropdown-item" href="#">Add Video</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                            }
+
+                                @if (SelectedImage != null)
+                                {
+                                    <div class="row pt-2 pb-2">
+                                        <div class="col f-0">
+                                            <div style="height:96px; width: 96px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
+                                                <img src="@SelectedImage.Url" class="card-img-top" style="border-radius: 7px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;" alt="...">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="">
+                                                <a class="btn btn-sm btn-primary m-1" type="button" @onclick="ImageSelected">Change</a>
+                                            </div>
+                                            <div class="">
+                                                <a class="btn btn-sm btn-danger m-1" type="button" @onclick="RemoveSelectedImage">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else if (SelectedVideo != null)
+                                {
+                                    <div class="row pt-2 pb-2">
+                                        <div class="col f-0">
+                                            <div style="height:196px; width: 196px; position:relative;background-color: rgb(242,242,242); border-radius: 7px;">
+                                                <video controls class="card-img-top" style="border-radius: 7px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;" alt="...">
+                                                    <source src="@SelectedVideo.Url" type="video/mp4">
+                                                </video>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="">
+                                                <a class="btn btn-sm btn-primary m-1" type="button" @onclick="VideoSelected">Change</a>
+                                            </div>
+                                            <div class="">
+                                                <a class="btn btn-sm btn-danger m-1" type="button" @onclick="RemoveSelectedVideo">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row pb-2">
+                                        <div class="col">
+                                            <div class="dropdown">
+                                                <button class="btn dropdown-toggle" type="button" id="Media" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(242, 242, 242); color: black; border: 1px solid rgb(242, 242, 242); box-shadow:none">
+                                                    Add Media
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item" type="button" @onclick="ImageSelected">Add Image</a></li>
+                                                    <li><a class="dropdown-item" type="button" @onclick="VideoSelected">Add Video</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
 
 
 
-                        <div class="row pt-2 pb-2">
-                            <div class="col-md-12">
-                                <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
-                                    Post on
-                                </div>
-                                <div class="form-control">
-                                    @if (TotalAccounts.Count == 0)
-                                        {
-                                    @if (!flag)
+                                <div class="row pt-2 pb-2">
+                                    <div class="col-md-12">
+                                        <div class="pb-2" style="color:rgb(99, 99, 99); font-weight:600;">
+                                            Post on
+                                        </div>
+                                        <div class="form-control">
+                                            @if (TotalAccounts.Count == 0)
                                             {
-                                    <SmallLoader StyleClass="p-1"></SmallLoader>
+                                                @if (!flag)
+                                                {
+                                                    <SmallLoader StyleClass="p-1"></SmallLoader>
+                                                }
+                                                else
+                                                {
+                                                    <div class="pb-2 text-center" style="color:rgb(99, 99, 99); font-weight:600;">
+                                                        No account is connected!
+                                                    </div>
+                                                }
                                             }
                                             else
                                             {
-                                    <div class="pb-2 text-center" style="color:rgb(99, 99, 99); font-weight:600;">
-                                        No account is connected!
-                                    </div>
+
+                                                @foreach (var profile in TotalAccounts)
+                                                {
+                                                    @*<img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />*@
+
+                                                    <div class="row p-2 px-3 pt-3 pb-3 no-border" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
+                                                        <div class="col" style="flex:0; padding-left:0;">
+                                                            <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
+                                                        </div>
+                                                        <div class="col ps-0">
+                                                            <div class="row">
+                                                                <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                                                    @profile.Name
+                                                                </div>
+                                                                <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
+                                                                    @profile.Type
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col me-0 pe-0 text-end" style="flex:0.5; padding-left:1%; padding-top: 5px;">
+                                                            <div class="row">
+                                                                <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" checked @onchange="() => CheckboxClicked(profile)">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-
-                                    @foreach (var profile in TotalAccounts)
-                                            {
-                                    @*<img src="@profile.Image" height="50" width="50" class="rounded-circle ms-1" />*@
-
-                                    <div class="row p-2 px-3 pt-3 pb-3 no-border" style="background-color: white; border-bottom: 1px solid rgba(0,0,0,.125);">
-                                        <div class="col" style="flex:0; padding-left:0;">
-                                            <img src="@profile.Image" height="35" width="35" class="rounded-circle" />
-                                        </div>
-                                        <div class="col ps-0">
-                                            <div class="row">
-                                                <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
-                                                    @profile.Name
-                                                </div>
-                                                <div class="" style="font-size: 12px; font-weight: 500; color:rgba(40,43,49,.7);">
-                                                    @profile.Type
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col me-0 pe-0 text-end" style="flex:0.5; padding-left:1%; padding-top: 5px;">
-                                            <div class="row">
-                                                <div class="" style="color:black; font-weight:600; font-size: 15px; line-height: 1.2;">
-                                                    <label class="switch">
-                                                        <input type="checkbox" checked @onchange="() => CheckboxClicked(profile)">
-                                                        <span class="slider round"></span>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                            }
-                                        }
-                                </div>
-                            </div>
-                        </div>
-
-                        @if (SchedulePost)
-                            {
-                        <div id="Schedule">
-                            <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog" style="background-color:rgba(40,43,49,.7);">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Schedule Post</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                    @onclick="() => SchedulePost_Click(false)">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label for="CampaignName" class="col-form-label CustomFont" style="font-size:11px;">
-                                                        Schedule Date
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col f-0">
-                                                    <InputDate id="StartDate" class="form-control w-auto" minDate="@DateTime.Now"
-                                                               @bind-Value="ScheduleDate" />
-                                                    <ValidationMessage For="@(() => ScheduleDate)" />
-
-                                                </div>
-                                                <div class="col">
-                                                    <input type="time" class="form-control w-auto" @bind-value="ScheduleTime" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                                    @onclick="() => SchedulePost_Click(false)">
-                                                Cancel
-                                            </button>
-                                            <button type="button" class="btn btn-primary">
-                                                Schedule
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                            }
 
+                                @if (SchedulePost)
+                                {
+                                    <div id="Schedule">
+                                        <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog" style="background-color:rgba(40,43,49,.7);">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Schedule Post</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                                @onclick="() => SchedulePost_Click(false)">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label for="CampaignName" class="col-form-label CustomFont" style="font-size:11px;">
+                                                                    Schedule Date
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col f-0">
+                                                                <InputDate id="StartDate" class="form-control w-auto" minDate="@DateTime.Now"
+                                                                           @bind-Value="ScheduleDate" />
+                                                                <ValidationMessage For="@(() => ScheduleDate)" />
+
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="time" class="form-control w-auto" @bind-value="ScheduleTime" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                                @onclick="() => SchedulePost_Click(false)">
+                                                            Cancel
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary">
+                                                            Schedule
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
+
+
+                            @*<div class="row pt-3">
+                                    <div class="col-md-11">
+
+                                        <div class="form-check form-switch p-0">
+                                            <label class="form-check-label" for="ScheduleSwitch"><i class="fa fa-calendar" aria-hidden="true"></i>Schedule Post</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <div class="form-check form-switch p-0">
+                                            <input class="form-check-input" type="checkbox" id="ScheduleSwitch">
+                                        </div>
+
+                                    </div>
+                                </div>*@
+                        </div>
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="footer">
+                            <button type="button" class="btn btn-primary" @onclick="() => SchedulePost_Click(true)">Schedule</button>
+
+                            <button type="submit" class="btn btn-primary ms-2">Share</button>
+                        </div>
                     </div>
 
+                </EditForm>
+            </form>
 
+        </div>
 
-                    @*<div class="row pt-3">
-                            <div class="col-md-11">
-
-                                <div class="form-check form-switch p-0">
-                                    <label class="form-check-label" for="ScheduleSwitch"><i class="fa fa-calendar" aria-hidden="true"></i>Schedule Post</label>
-                                </div>
-
-                            </div>
-                            <div class="col-md-1">
-
-                                <div class="form-check form-switch p-0">
-                                    <input class="form-check-input" type="checkbox" id="ScheduleSwitch">
-                                </div>
-
-                            </div>
-                        </div>*@
-                </div>
-
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-                <div class="footer">
-                    <button type="button" class="btn btn-primary" @onclick="() => SchedulePost_Click(true)">Schedule</button>
-
-                    <button type="submit" class="btn btn-primary ms-2">Share</button>
-                </div>
-            </div>
-
-        </EditForm>
-    </form>
-
-</div>
-
-}
+    }
 
 }
 
 <SocialImages SelectionChanged="ImageSelected_Click" @ref="OpenSocialImagesModalConfirmation" user="user"></SocialImages>
+
+<SocialVideos SelectionChanged="VideoSelected_Click" @ref="SocialVideoModal" user="user"></SocialVideos>
 
 <SuccessModal ConfirmationChanged="ConfirmationSuccess" @ref="SuccessModal" ConfirmationTitle="Success" ConfirmationMessage="Your post has been successfully posted!"></SuccessModal>
 

@@ -14,6 +14,7 @@ namespace Sohi.Web.Services.Accounts
 
         Task<Account> UpdateAccount(Account updatedAccount);
 
+        Task<Plan> GetPlans(string name);
 
     }
 }

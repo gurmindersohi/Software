@@ -26,17 +26,23 @@
         }
 
             .C li:before {
-                content: '✓';
+                content: '•';
+                color: #1b6ec2;
+                padding-right: 0.3rem;
+            }
+
+            .empty:before {
+                content: ''!important;
                 color: #1b6ec2;
                 padding-right: 0.3rem;
             }
 
         .popular:before {
-            background-color: #1e8bf7;
+            background-color: green;
             border-radius: 4px 4px 0 0;
             bottom: 100%;
             color: #fff;
-            content: "MOST POPULAR";
+            content: "Most Selling";
             font-size: 1rem;
             font-weight: 600;
             height: 32px;
@@ -70,7 +76,40 @@
             font-weight: 600;
         }
 
+        .CustomFont2 {
+            font-size: 14px;
+            font-weight: 500;
+        }
 
+        .Bold {
+            font-weight: bold !important;
+        }
+
+        .field-validation-error {
+            font-size: 0.875rem !important;
+        }
+        .input-validation-error {
+            border-color: #dc3545 !important;
+        }
+
+        .CustomContact {
+            color: white !important;
+            background-color: transparent !important;
+            font-size: 0.75rem;
+        }
+
+            .CustomContact::placeholder {
+                color: white;
+                font-size: 0.75rem;
+            }
+
+
+        .Checkout-Input:focus {
+            box-shadow: none;
+            border: none;
+            border: 1px solid #0B90FF !important;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -103,10 +142,64 @@
     </header>
 
     <div class="container-fluid p-0 m-0">
-        <main role="main" class="pb-3 pt-5">
+        <main role="main" class="pb-0 pt-5">
             @RenderBody()
         </main>
     </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-light text-lg-start pt-3">
+        <div class="container p-4">
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                    <h2>DC</h2>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <a asp-page="/Website/Home" class="text-dark text-uppercase" style="font-size: 1.25rem; font-weight: 500; line-height: 1;">Home</a>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a asp-page="/Website/About" class="text-dark">About</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Website/Contact" class="text-dark">Contact</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Website/Features" class="text-dark">Features</a>
+                        </li>
+                        <li>
+                            <a asp-page="/Website/Pricing" class="text-dark">Plans & Pricing</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0">Social</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" class="text-dark">Facebook</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Instagram</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Twitter</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">LinkedIn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+
+
     <footer class="footer border-top text-muted">
         <div class="container">
             &copy; 2021 - DC - <a asp-area="" asp-page="Privacy">Privacy</a>

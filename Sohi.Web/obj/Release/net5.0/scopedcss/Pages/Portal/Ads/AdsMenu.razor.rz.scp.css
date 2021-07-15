@@ -1,0 +1,73 @@
+
+
+.sidebar[b-vcylrvuso5] {
+    background-color: #fff !important;
+}
+
+.navbar[b-vcylrvuso5] {
+    /*    justify-content:center;*/
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+}
+.navbar-toggler[b-vcylrvuso5] {
+/*    background-color: rgba(255, 255, 255, 0.1);*/
+}
+
+.top-row[b-vcylrvuso5] {
+    height: 3.5rem;
+    border-bottom: 1px solid #dee2e6 !important;
+    /*    background-color: rgba(0,0,0,0.4);*/
+    background-color: #f7f7f7 !important;
+}
+
+.navbar-brand[b-vcylrvuso5] {
+    font-size: 1.1rem;
+    color: black;
+}
+
+.oi[b-vcylrvuso5] {
+    width: 1rem;
+    font-size: 0.7rem;
+    vertical-align: text-top;
+/*    top: -2px;*/
+}
+
+.nav-item[b-vcylrvuso5] {
+    font-size: 0.9rem;
+/*    border-bottom: 1px solid #dee2e6 !important;*/
+}
+
+    .nav-item:first-of-type[b-vcylrvuso5] {
+/*        padding-top: 1rem;*/
+    }
+
+    .nav-item:last-of-type[b-vcylrvuso5] {
+    }
+
+    .nav-item[b-vcylrvuso5]  a {
+        color: black;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+        .nav-item[b-vcylrvuso5]  a.active {
+            background-color: #D9ECFF !important;
+            color: black;
+        }
+
+        .nav-item[b-vcylrvuso5]  a:hover {
+            background-color: #D9ECFF !important;
+            color: black;
+        }
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-vcylrvuso5] {
+        display: none;
+    }
+
+    .collapse[b-vcylrvuso5] {
+        display: block;
+    }
+}

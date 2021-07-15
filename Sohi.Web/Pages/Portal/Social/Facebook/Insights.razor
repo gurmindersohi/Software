@@ -1,0 +1,118 @@
+﻿
+
+@layout FacebookLayout
+@inherits InsightsBase
+
+@page "/Portal/Social/Facebook/{PageId}/Insights"
+
+<div class="container-fluid m-0" style="max-width: 732px; min-height: calc(100vh - 100px);">
+
+    <div class="card mt-3">
+        <div class="card-header">
+
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="" style="color:#1c1e21; font-weight:bold; font-size: 14px;">
+                            Filters
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="">
+                            <select class="form-select" @onchange="OnInsightsType">
+                                <option selected value="@("Page_Views")">Page Views</option>
+                                <option value="@("Page_Likes")">Page Likes</option>
+                                <option value="@("PageTotalActions")">Page Actions</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="row">
+                        <div class="">
+                            <select class="form-select" @onchange="OnPeriodChange">
+                                <option value="@("today")">Today</option>
+                                <option value="@("yesterday")">Yesterday</option>
+                                <option selected value="@("last_7d")">Last 7 days</option>
+                                <option value="@("last_28d")">Last 28 days</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="" style="color:#1c1e21; font-weight:bold; font-size: 14px;">
+                            Insights
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="">
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body p-0">
+
+            <div class="container">
+                <div class="row" style="max-width: 732px;">
+
+                    <div class="col" style="text-decoration: none;">
+                        @*<div class="row">
+                            <div class="col">
+                                <span class="Analyticslabel">Page Views</span>
+                            </div>
+                        </div>*@
+
+                        @*@if (PageTotalViews == null)
+                        {
+                            <SmallLoader StyleClass="pt-4"></SmallLoader>
+                        }
+                       
+                        else
+                        {*@
+                           
+
+                            <div class="row pt-3">
+                                <div class="col text-center">
+
+                                    <div class="chart-container" id="chart-container" style="height:350px; width: auto;">
+
+                                        <canvas id="myChart">
+                                        </canvas>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @*}*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
