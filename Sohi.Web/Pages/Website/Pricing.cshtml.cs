@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Stripe;
 using Stripe.Checkout;
 
@@ -13,22 +14,56 @@ namespace Sohi.Web.Pages.Website
     [AllowAnonymous]
     public class PricingModel : PageModel
     {
+
+        private IConfiguration _config;
+
+        public PricingModel(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
         public void OnGet()
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPost()
         {
-           var result = await RedirectToStripe();
+            var Key = _config.GetSection("Stripe").GetSection("Key").Value;
+
+            var price = "price_1JBOINCAgHgewQ1lVCPssJXG";
+
+            var result = await RedirectToStripe(Key, price);
 
             return result;
         }
 
-        private async Task<IActionResult> RedirectToStripe() {
+        public async Task<IActionResult> OnPostBasicPlan()
+        {
+            var Key = _config.GetSection("Stripe").GetSection("Key").Value;
 
-            StripeConfiguration.ApiKey = "sk_test_51J0afCCAgHgewQ1l86OqtHa9Au325LaR56Hj6MMInQEYjTSGNgaXBtjs8UvzuSLjpl3J5UxvomecnZpz8ljw0AOo00bhcWOxGT";
+            var price = "price_1JDWNPCAgHgewQ1lA03AvdDH";
 
-            var priceId = "price_1JBOINCAgHgewQ1lVCPssJXG";
+            var result = await RedirectToStripe(Key, price);
+
+            return result;
+        }
+
+        public async Task<IActionResult> OnPostUnlimitedPlan()
+        {
+            var Key = _config.GetSection("Stripe").GetSection("Key").Value;
+
+            var price = "price_1JDYooCAgHgewQ1l2HMmFMBd";
+
+            var result = await RedirectToStripe(Key, price);
+
+            return result;
+        }
+
+        private async Task<IActionResult> RedirectToStripe(string Key, string priceid)
+        {
+
+            StripeConfiguration.ApiKey = Key;
+
+            var priceId = priceid;
 
             var options = new SessionCreateOptions
             {
@@ -70,7 +105,8 @@ namespace Sohi.Web.Pages.Website
 
                 return Redirect(session.Url);
             }
-            else {
+            else
+            {
 
                 string url = "/identity/account/login?returnurl=" + session.Url;
 

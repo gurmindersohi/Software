@@ -24,8 +24,10 @@
                 <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
                     <h1 class="h1-responsive font-weight-bold my-5">Pricing</h1>
                 </div>
-                    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                        <div class="col-md-4">
+                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class="col-md-4">
+
+                        <form method="post" asp-page-handler="BasicPlan">
                             <div class="card mb-4 rounded-3 shadow-sm">
                                 <div class="card-header py-4 pt-3" style="background-color:#fff;">
                                     <div class="row pt-1">
@@ -38,13 +40,8 @@
                                             <h4 class="my-0 fw-normal" style="font-size: 3rem; color:#14456b">$24<span style="font-size: 1.3rem;">/mo</span></h4>
                                         </div>
                                     </div>
-                                    @*<div class="row pt-4">
-                            <div class="col">
-                                <a type="button" href="/Portal/Settings/Accounts" class="btn btn-white btn-lg w-100" style="border: 1px solid #fff; justify-content: center; color: #fff;  font-size: 14px; font-weight: 500;">Get Access Now</a>
-
-                            </div>
-                        </div>*@
                                 </div>
+
                                 <div class="card-body">
                                     <h1 class="card-title pricing-card-title" style="color: #14456b; text-align: start; font-size:21px;">Basic Feature:</h1>
                                     <ul class="list-unstyled mt-3 mb-4 C" style="color: #212529; text-align: start;">
@@ -57,57 +54,56 @@
                                     </ul>
                                     <div class="row pt-4">
                                         <div class="col">
-                                            <a type="button" asp-action="RedirectToStripe" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Start Now</a>
+                                            @*<a type="button" asp-action="RedirectToStripe" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Get Access Now</a>*@
+
+                                            <button type="submit" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Get Access Now</button>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
+                        </form>
+                    </div>
+                    <div class="col-md-4">
 
-                            <form method="post">
-                                <div class="card popular mb-4 rounded-3 shadow-sm" style="border:1px solid #14456b; border-bottom-left-radius:0; border-bottom-right-radius:0;">
-                                    <div class="card-header py-4 pt-3" style="background-color:#fff;">
-                                        <div class="row pt-1">
-                                            <div class="col">
-                                                <h4 class="my-0 fw-normal" style="font-size:18px; color:#14456b">Premium</h4>
-                                            </div>
+                        <form method="post" asp-page-handler="OnPost">
+                            <div class="card popular mb-4 rounded-3 shadow-sm" style="border:1px solid #14456b; border-bottom-left-radius:0; border-bottom-right-radius:0;">
+                                <div class="card-header py-4 pt-3" style="background-color:#fff;">
+                                    <div class="row pt-1">
+                                        <div class="col">
+                                            <h4 class="my-0 fw-normal" style="font-size:18px; color:#14456b">Premium</h4>
                                         </div>
-                                        <div class="row pt-3">
-                                            <div class="col">
-                                                <h4 class="my-0 fw-normal" style="font-size: 3rem; color:#14456b">$99<span style="font-size: 1.3rem;">/mo</span></h4>
-                                            </div>
-                                        </div>
-                                        @*<div class="row pt-4">
-                        <div class="col">
-                            <a type="button" href="/Portal/Settings/Accounts" class="btn btn-white btn-lg w-100" style="border: 1px solid #fff; justify-content: center; color: #fff;  font-size: 14px; font-weight: 500;">Get Access Now</a>
-
-                        </div>
-                    </div>*@
                                     </div>
-                                    <div class="card-body">
-                                        <h1 class="card-title pricing-card-title" style="color: #14456b; text-align: start; font-size:21px;">Premium Feature:</h1>
-                                        <ul class="list-unstyled mt-3 mb-4 C" style="color: #212529; text-align: start;">
-                                            <li>3 users included</li>
-                                            <li>5 social set</li>
-                                            <li>70 scheduled posts</li>
-                                            <li>70 posts per social profile</li>
-                                            <li>3 Facebook ads</li>
-                                            <li>Email support</li>
-                                        </ul>
-                                        <div class="row pt-4">
-                                            <div class="col">
-                                                <button type="submit" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Start Now</button>
-
-                                            </div>
+                                    <div class="row pt-3">
+                                        <div class="col">
+                                            <h4 class="my-0 fw-normal" style="font-size: 3rem; color:#14456b">$99<span style="font-size: 1.3rem;">/mo</span></h4>
                                         </div>
                                     </div>
                                 </div>
-                                </form>
-                        </div>
 
-                        <div class="col-md-4">
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title" style="color: #14456b; text-align: start; font-size:21px;">Premium Feature:</h1>
+                                    <ul class="list-unstyled mt-3 mb-4 C" style="color: #212529; text-align: start;">
+                                        <li>3 users included</li>
+                                        <li>5 social set</li>
+                                        <li>70 scheduled posts</li>
+                                        <li>70 posts per social profile</li>
+                                        <li>3 Facebook ads</li>
+                                        <li>Email support</li>
+                                    </ul>
+                                    <div class="row pt-4">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Get Access Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <form method="post" asp-page-handler="UnlimitedPlan">
                             <div class="card mb-4 rounded-3 shadow-sm">
                                 <div class="card-header py-4 pt-3" style="background-color:#fff;">
                                     <div class="row pt-1">
@@ -120,13 +116,8 @@
                                             <h4 class="my-0 fw-normal" style="font-size: 3rem; color:#14456b">$299<span style="font-size: 1.3rem;">/mo</span></h4>
                                         </div>
                                     </div>
-                                    @*<div class="row pt-4">
-                            <div class="col">
-                                <a type="button" href="/Portal/Settings/Accounts" class="btn btn-white btn-lg w-100" style="border: 1px solid #fff; justify-content: center; color: #fff;  font-size: 14px; font-weight: 500;">Get Access Now</a>
-
-                            </div>
-                        </div>*@
                                 </div>
+
                                 <div class="card-body">
                                     <h1 class="card-title pricing-card-title" style="color: #14456b; text-align: start; font-size:21px;">Unlimited Feature:</h1>
                                     <ul class="list-unstyled mt-3 mb-4 C" style="color: #212529; text-align: start;">
@@ -136,19 +127,19 @@
                                         <li>Unlimited social posts</li>
                                         <li>Unlimited Facebook ads</li>
                                         @*<li>Google ads</li>
-                            <li>LinkedIn ads</li>*@
+                                            <li>LinkedIn ads</li>*@
                                         <li>Priority Email support</li>
                                     </ul>
                                     <div class="row pt-4">
                                         <div class="col">
-                                            <a type="button" asp-page="/Website/Checkout" asp-route-plan="unlimited" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Start Now</a>
-
+                                            <button type="submit" class="btn btn-white btn-lg w-100" style="border: 1px solid #14456b; justify-content: center; color: #14456b;  font-size: 14px; font-weight: 500;">Get Access Now</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
+                </div>
 
             </section>
         </div>
