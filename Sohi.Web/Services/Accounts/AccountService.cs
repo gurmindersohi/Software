@@ -44,5 +44,14 @@ namespace Sohi.Web.Services.Accounts
             return await httpClient.PutJsonAsync<Account>("api/account/", updatedAccount);
         }
 
+        public async Task<Plan> GetPlans(string name)
+        {
+            //var result = _plansList.FirstOrDefault(e => e.Name == name);
+
+            var result = await httpClient.GetJsonAsync<Plan>($"api/account/{name}");
+
+            return result;
+        }
+
     }
 }

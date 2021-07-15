@@ -61,7 +61,7 @@ namespace Sohi.Web.Pages.Portal.Social.Instagram
 
                 if (PageToken != null)
                 {
-                    posts = await SocialService.GetInstagramMedia(pageid, PageToken, EndPoint);
+                    posts = await SocialService.GetInstagramMedia(pageid, PageToken, EndPoint, "10");
                 }
 
                 return posts;

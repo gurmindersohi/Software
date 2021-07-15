@@ -435,5 +435,65 @@ namespace Sohi.Web.Services.Ads
 
         }
 
+        
+        public async Task<List<Campaign>> GetAllCampaigns(string accountid, string endPoint, string accesstoken)
+        {
+            try
+            {
+                List<Campaign> campaigns = new List<Campaign>();
+
+
+                string url = string.Format(endPoint + "/{0}/campaigns?fields=id,name,status,objective,start_time&access_token={1}", accountid, accesstoken);
+
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                    var parsedobj = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+
+                    foreach (var item in parsedobj["data"])
+                    {
+                        Campaign campaign = new Campaign();
+
+                        campaign.Id = item["id"].ToString();
+                        campaign.Name = item["name"].ToString();
+
+                        if (item["status"].ToString() == "ACTIVE")
+                        {
+                            campaign.Status = true;
+                        }
+                        else {
+                            campaign.Status = false;
+                        }
+
+                        campaign.StatusString = item["status"].ToString();
+
+                        campaign.Objective = item["objective"].ToString();
+
+                        var startTime = item["start_time"].ToString();
+
+                        //DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                        //dtDateTime = dtDateTime.AddSeconds(Convert.ToDateTime startTime).ToLocalTime();
+
+                        campaign.StartTime = Convert.ToDateTime(startTime);
+
+                        campaigns.Add(campaign);
+                    }
+
+                    return campaigns;
+                }
+                else
+                {
+                    return null;
+                    //return response.ReasonPhrase;
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                return null;
+            }
+        }
     }
 }

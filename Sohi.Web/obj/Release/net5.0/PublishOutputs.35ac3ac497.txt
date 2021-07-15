@@ -64,6 +64,7 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.js.map
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.min.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/bootstrap.min.js.map
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/Charts.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/FacebookJS.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/js/popper.min.js
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/wwwroot/lib/.DS_Store
@@ -501,9 +502,12 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.AspNetCore.Razor.Language.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Azure.KeyVault.Core.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Azure.SignalR.Common.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Azure.SignalR.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Azure.SignalR.Protocols.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Azure.Storage.Blob.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Azure.Storage.Common.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.CodeAnalysis.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.CodeAnalysis.CSharp.dll

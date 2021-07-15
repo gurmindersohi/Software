@@ -13,5 +13,12 @@ namespace Sohi.Models
         [Required]
         public string Objective { get; set; } = "LINK_CLICKS";
 
+        public bool Status { get; set; }
+
+        public string StatusString { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+
     }
 }
