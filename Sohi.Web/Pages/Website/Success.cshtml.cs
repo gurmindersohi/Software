@@ -54,10 +54,9 @@ namespace Sohi.Web.Pages.Website
             AccountId = user.AccountId;
 
             //Optional Key! Remove when Final Deployment.
-            StripeConfiguration.ApiKey = "sk_test_51J0afCCAgHgewQ1l86OqtHa9Au325LaR56Hj6MMInQEYjTSGNgaXBtjs8UvzuSLjpl3J5UxvomecnZpz8ljw0AOo00bhcWOxGT";
+            //StripeConfiguration.ApiKey = "sk_test_51J0afCCAgHgewQ1l86OqtHa9Au325LaR56Hj6MMInQEYjTSGNgaXBtjs8UvzuSLjpl3J5UxvomecnZpz8ljw0AOo00bhcWOxGT";
 
-
-            session_id = "cs_test_a10JO1PRpSkTRQn4v8GgJiRDBEKQzzPvYnrFCjOkvmh6xwmnfpVtRtxxju";
+            //session_id = "cs_test_a10JO1PRpSkTRQn4v8GgJiRDBEKQzzPvYnrFCjOkvmh6xwmnfpVtRtxxju";
 
             var sessionService = new SessionService();
             Session session = sessionService.Get(session_id);

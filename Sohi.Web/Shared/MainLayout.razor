@@ -1,6 +1,9 @@
 ﻿@inherits LayoutComponentBase
 @using Sohi.Web.Models;
 @using Microsoft.AspNetCore.Identity;
+@using Stripe;
+@using Microsoft.Extensions.Configuration;
+@using Sohi.Web.Services.Accounts;
 
 <AuthorizeView>
     <Authorized>
@@ -17,20 +20,51 @@
         {
 
             <CascadingValue Value="user" Name="CurrentUser">
-                <div class="page">
-                    <div class="sidebar">
-                        <NavMenu />
-                    </div>
+                <CascadingValue Value="Subscription" Name="Subscription">
+                    <div class="page">
+                        <div class="sidebar">
+                            <NavMenu />
+                        </div>
 
-                    <div class="main">
-                        @*<div class="top-row">
-                            <a class="ml-md-auto" style="text-decoration: none;" href="identity/account/logout">Logout</a>
-                        </div>*@
-                        <div class="container-fluid ps-0 pe-0">
-                            @Body
+                        <div class="main">
+                            @*<div class="top-row">
+                                    <a class="ml-md-auto" style="text-decoration: none;" href="identity/account/logout">Logout</a>
+                                </div>*@
+                            @if (Subscription)
+                            {
+                                <div class="container-fluid ps-0 pe-0">
+                                    @Body
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="container-fluid ps-0 pe-0">
+                                    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog" style="background-color:rgba(40,43,49,.7);">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Trial Expired</h5>
+                                                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>*@
+                                                </div>
+                                                <div class="modal-body">
+                                                    Your trial has been expired, please upgrade your account.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" @onclick="() => UpgradeAccount()" class="btn btn-primary" data-dismiss="modal">
+                                                        Upgrade
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
                         </div>
                     </div>
-                </div>
+                </CascadingValue>
             </CascadingValue>
         }
     </Authorized>
@@ -49,7 +83,15 @@
     [Inject]
     public UserManager<User> userManager { get; set; }
 
+    [Inject]
+    public IConfiguration _config { get; set; }
+
+    [Inject]
+    public IAccountService AccountService { get; set; }
+
     public User user { get; set; }
+
+    public bool Subscription { get; set; } 
 
     public bool flag { get; set; } = false;
 
@@ -70,6 +112,8 @@
             if (result != null)
             {
                 user = result;
+
+                @*await GetCustomerSubscription();*@
             }
             else
             {
@@ -86,4 +130,28 @@
 
     }
 
-}
+    private async Task GetCustomerSubscription()
+    {
+        var account = await AccountService.GetAccount(Guid.Parse(user.AccountId));
+
+        StripeConfiguration.ApiKey = _config.GetSection("Stripe").GetSection("Key").Value;
+
+        if (account.SubscriptionId != null)
+        {
+            var service = new SubscriptionService();
+            var subscription = service.Get(account.SubscriptionId);
+
+            if (subscription.Status == "active")
+            {
+
+                Subscription = true;
+            }
+        }
+    }
+
+    private async Task UpgradeAccount()
+    {
+        NavigationManager.NavigateTo("/Website/Pricing");
+    }
+
+    }
