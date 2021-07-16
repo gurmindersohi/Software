@@ -93,6 +93,8 @@ namespace Sohi.Web.Pages.Website
                 Mode = "subscription",
                 SuccessUrl = "https://localhost:5001/Website/Success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = "https://localhost:5001/Website/Pricing",
+                //SuccessUrl = "https://sohi-web-dev.azurewebsites.net/Website/Success?session_id={CHECKOUT_SESSION_ID}",
+                //CancelUrl = "https://sohi-web-dev.azurewebsites.net/Website/Pricing",
             };
 
             var service = new SessionService();

@@ -27,6 +27,7 @@ namespace Sohi.Api.Models.Billing
             {
                 result.CustomerId = account.CustomerId;
                 result.SubscriptionId = account.SubscriptionId;
+                result.AccountType = account.AccountType;
 
                 await context.SaveChangesAsync();
                 return result;

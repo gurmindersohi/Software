@@ -110,6 +110,27 @@ using Microsoft.AspNetCore.Identity;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+using Stripe;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+using Microsoft.Extensions.Configuration;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+using Sohi.Web.Services.Accounts;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -118,7 +139,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 40 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 74 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
       
 
     [CascadingParameter]
@@ -131,7 +152,17 @@ using Microsoft.AspNetCore.Identity;
     [Inject]
     public UserManager<User> userManager { get; set; }
 
+    [Inject]
+    public IConfiguration _config { get; set; }
+
+    [Inject]
+    public IAccountService AccountService { get; set; }
+
     public User user { get; set; }
+
+    public bool Subscription { get; set; }
+
+    public bool TrialExpired { get; set; } = false;
 
     public bool flag { get; set; } = false;
 
@@ -152,6 +183,8 @@ using Microsoft.AspNetCore.Identity;
             if (result != null)
             {
                 user = result;
+
+                await GetCustomerSubscription();
             }
             else
             {
@@ -168,6 +201,35 @@ using Microsoft.AspNetCore.Identity;
 
     }
 
+    private async Task GetCustomerSubscription()
+    {
+        var account = await AccountService.GetAccount(Guid.Parse(user.AccountId));
+
+        StripeConfiguration.ApiKey = _config.GetSection("Stripe").GetSection("Key").Value;
+
+        if (account.SubscriptionId != null)
+        {
+            var service = new SubscriptionService();
+            var subscription = service.Get(account.SubscriptionId);
+
+            if (subscription.Status == "active")
+            {
+                Subscription = true;
+            }
+        }
+        else if (account.TrialExpiry < DateTime.Now)
+        {
+            TrialExpired = true;
+        }
+
+    }
+
+    private async Task UpgradeAccount()
+    {
+        NavigationManager.NavigateTo("/Website/Pricing", forceLoad: true);
+    }
+
+    
 
 #line default
 #line hidden

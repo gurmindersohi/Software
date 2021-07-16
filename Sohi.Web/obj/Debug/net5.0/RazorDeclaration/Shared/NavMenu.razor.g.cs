@@ -104,8 +104,15 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 99 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/NavMenu.razor"
+#line 112 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/NavMenu.razor"
        
+
+    [CascadingParameter(Name = "CurrentAccount")]
+    private Sohi.Models.Account CurrentAccount { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -113,6 +120,11 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void UpgradeAccount()
+    {
+        NavigationManager.NavigateTo("/Website/Pricing", forceLoad: true);
     }
 
 #line default

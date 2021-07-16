@@ -650,3 +650,7 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/scopedcss/Pages/Portal/Ads/Facebook/FacebookAdsMenu.razor.rz.scp.css
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/scopedcss/Pages/Portal/Ads/Facebook/Manage.razor.rz.scp.css
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/scopedcss/Pages/Portal/Ads/Facebook/ManageMenu.razor.rz.scp.css
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/bin/Release/net5.0/Stripe.net.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Areas/Identity/Pages/Account/FreeTrial.cshtml.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Pages/Website/Checkout.cshtml.g.cs
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/Razor/Pages/Website/Success.cshtml.g.cs

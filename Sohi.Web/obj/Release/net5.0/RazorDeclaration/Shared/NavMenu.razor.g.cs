@@ -104,7 +104,7 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 90 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/NavMenu.razor"
+#line 99 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

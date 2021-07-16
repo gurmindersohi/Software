@@ -344,6 +344,7 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.ComponentModel.EventBasedAsync.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.ComponentModel.Primitives.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.ComponentModel.TypeConverter.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Configuration.ConfigurationManager.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Configuration.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Console.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Core.dll
@@ -361,6 +362,7 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Diagnostics.TraceSource.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Diagnostics.Tracing.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Drawing.Common.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Drawing.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Drawing.Primitives.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/refs/System.Dynamic.Runtime.dll
@@ -539,6 +541,7 @@
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Newtonsoft.Json.dll
+/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/Stripe.net.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/System.Composition.AttributedModel.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/System.Composition.Convention.dll
 /Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/Release/net5.0/PubTmp/Out/System.Composition.Hosting.dll

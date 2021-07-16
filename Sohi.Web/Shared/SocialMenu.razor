@@ -32,26 +32,18 @@
             </NavLink>
         </li>
 
-        @if (FacebookProfile.Count == 0 || InstagramProfile.Count == 0)
+        @if (FacebookProfile.Count != 0 || InstagramProfile.Count != 0)
         {
-            @if (!flag)
-            {
-                <SmallLoader StyleClass="pt-5"></SmallLoader>
 
-            }
-            else
-            {
-                <li class="nav-item p-2">
-                    <a type="button" href="/Portal/Settings/Accounts/Connect" class="btn btn-white btn-lg" style="border: 1px solid rgba(0,0,0,.125); justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;">Connect Accounts</a>
-                </li>
-            }
-        }
-        else
-        {
 
             <li class="nav-item px-0">
 
-                <h5 class="ps-3 pt-3 CustomFont">Facebook</h5>
+                @if (FacebookProfile.Count != 0)
+                {
+                    <h5 class="ps-3 pt-3 CustomFont">Facebook</h5>
+
+                }
+
 
                 @foreach (var profile in FacebookProfile)
                 {
@@ -75,10 +67,12 @@
             </li>
 
 
-
             <li class="nav-item px-0">
 
-                <h5 class="ps-3 pt-3 CustomFont">Instagram</h5>
+                @if (InstagramProfile.Count != 0)
+                {
+                    <h5 class="ps-3 pt-3 CustomFont">Instagram</h5>
+                }
 
                 @foreach (var profile in InstagramProfile)
                 {
@@ -102,6 +96,21 @@
 
                 }
             </li>
+        }
+        else
+        {
+            @if (!flag)
+            {
+                <SmallLoader StyleClass="pt-5"></SmallLoader>
+
+            }
+            else
+            {
+                <li class="nav-item p-2">
+                    <a type="button" href="/Portal/Settings/Accounts/Connect" class="btn btn-white btn-lg" style="border: 1px solid rgba(0,0,0,.125); justify-content: center; color: rgb(99, 99, 99);  font-size: 14px; font-weight: 500;">Connect Accounts</a>
+                </li>
+            }
+
         }
 
     </ul>

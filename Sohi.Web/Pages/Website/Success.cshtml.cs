@@ -67,11 +67,19 @@ namespace Sohi.Web.Pages.Website
             var service = new SubscriptionService();
             var subscription = service.Get(session.SubscriptionId);
 
+
+            var productId = subscription.Items.Data[0].Plan.ProductId;
+
+            var productService = new ProductService();
+            var product = productService.Get(productId);
+
             var updatedAccount = new Sohi.Models.Account();
 
             updatedAccount.AccountId = Guid.Parse(AccountId);
             updatedAccount.CustomerId = session.CustomerId;
             updatedAccount.SubscriptionId = session.SubscriptionId;
+
+            updatedAccount.AccountType = product.Name;
 
             try
             {

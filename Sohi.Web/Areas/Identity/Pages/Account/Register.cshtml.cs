@@ -184,7 +184,7 @@ namespace Sohi.Web.Areas.Identity.Pages.Account
         {
             Sohi.Models.Account account = new Sohi.Models.Account();
             account.AccountId = Guid.NewGuid();
-            account.AccountType = "Diamond";
+            account.AccountType = "Trial";
             account.Email = "";
             account.UsersLimit = "10";
 

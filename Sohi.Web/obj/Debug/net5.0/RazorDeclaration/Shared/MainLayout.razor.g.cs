@@ -139,7 +139,7 @@ using Sohi.Web.Services.Accounts;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 74 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 76 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
       
 
     [CascadingParameter]
@@ -160,7 +160,13 @@ using Sohi.Web.Services.Accounts;
 
     public User user { get; set; }
 
+    public Sohi.Models.Account Account { get; set; }
+
+    public Sohi.Models.Plan Plans { get; set; }
+
     public bool Subscription { get; set; }
+
+    public bool TrialExpired { get; set; } = false;
 
     public bool flag { get; set; } = false;
 
@@ -181,6 +187,15 @@ using Sohi.Web.Services.Accounts;
             if (result != null)
             {
                 user = result;
+
+                
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 124 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+                                                                
 
                 await GetCustomerSubscription();
             }
@@ -203,6 +218,8 @@ using Sohi.Web.Services.Accounts;
     {
         var account = await AccountService.GetAccount(Guid.Parse(user.AccountId));
 
+        Account = account;
+
         StripeConfiguration.ApiKey = _config.GetSection("Stripe").GetSection("Key").Value;
 
         if (account.SubscriptionId != null)
@@ -212,10 +229,15 @@ using Sohi.Web.Services.Accounts;
 
             if (subscription.Status == "active")
             {
-
                 Subscription = true;
             }
         }
+        else if (account.TrialExpiry < DateTime.Now)
+        {
+            Subscription = false;
+            TrialExpired = true;
+        }
+
     }
 
     private async Task UpgradeAccount()
@@ -223,7 +245,6 @@ using Sohi.Web.Services.Accounts;
         NavigationManager.NavigateTo("/Website/Pricing", forceLoad: true);
     }
 
-    
 
 #line default
 #line hidden

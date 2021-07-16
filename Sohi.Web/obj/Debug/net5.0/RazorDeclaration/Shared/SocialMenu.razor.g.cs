@@ -111,7 +111,7 @@ using Sohi.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 118 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
+#line 127 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/SocialMenu.razor"
        
 
 
