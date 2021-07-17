@@ -204,7 +204,14 @@ using Sohi.Web.Services.Accounts;
                 flag = true;
 
                 NavigationManager.NavigateTo("/Identity/Account/Login");
-                StateHasChanged();
+                
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 133 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+                                      
             }
         }
         catch (Exception ex)
