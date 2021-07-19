@@ -8495,17 +8495,21 @@
     ]
   },
   "packageFolders": {
-    "/Users/gurmindersingh/.nuget/packages/": {}
+    "/Users/gurmindersingh/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Sohi.Web.csproj",
+      "projectUniqueName": "/Users/gurmindersingh/Documents/Software/Sohi.Web/Sohi.Web.csproj",
       "projectName": "Sohi.Web",
-      "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Sohi.Web.csproj",
+      "projectPath": "/Users/gurmindersingh/Documents/Software/Sohi.Web/Sohi.Web.csproj",
       "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
-      "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/obj/",
+      "outputPath": "/Users/gurmindersingh/Documents/Software/Sohi.Web/obj/",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
       ],
@@ -8519,8 +8523,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj": {
-              "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Models/Sohi.Models.csproj"
+            "/Users/gurmindersingh/Documents/Software/Sohi.Models/Sohi.Models.csproj": {
+              "projectPath": "/Users/gurmindersingh/Documents/Software/Sohi.Models/Sohi.Models.csproj"
             }
           }
         }
@@ -8604,7 +8608,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,33 +1,23 @@
 ﻿<Properties StartupConfiguration="Multiple Projects" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.Sohi.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Shared/MainLayout.razor">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sohi.Web/Shared/NavMenu.razor">
     <Files>
-      <File FileName="Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" Line="92" Column="1" />
-      <File FileName="Sohi.Web/Pages/Portal/Settings/SettingsMenu.razor" />
-      <File FileName="Sohi.Web/Shared/NavMenu.razor" Line="88" Column="1" />
-      <File FileName="Sohi.Web/Shared/MainLayout.razor" Line="79" Column="1" />
-      <File FileName="Sohi.Api/Program.cs" />
-      <File FileName="Sohi.Web/Areas/Identity/IdentityHostingStartup.cs" Line="23" Column="1" />
-      <File FileName="Sohi.Web/Areas/Identity/Data/SohiWebContext.cs" Line="18" Column="1" />
-      <File FileName="Sohi.Web/Startup.cs" Line="70" Column="1" />
-      <File FileName="Sohi.Web/Services/Accounts/AccountService.cs" Line="28" Column="1" />
+      <File FileName="Sohi.Web/Shared/MainLayout.razor" Line="1" Column="1" />
+      <File FileName="Sohi.Web/Shared/NavMenu.razor" Line="76" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Sohi" expanded="True">
-            <Node name="Sohi.Api" expanded="True" />
             <Node name="Sohi.Web" expanded="True">
-              <Node name="Areas" expanded="True">
-                <Node name="Identity" expanded="True">
-                  <Node name="Data" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Website" expanded="True">
+                  <Node name="Checkout.cshtml" expanded="True" />
+                  <Node name="Pricing.cshtml" expanded="True" />
                 </Node>
               </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Accounts" expanded="True" />
-              </Node>
               <Node name="Shared" expanded="True">
-                <Node name="MainLayout.razor" selected="True" />
+                <Node name="NavMenu.razor" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -39,10 +29,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Services/Accounts/AccountService.cs" relfile="Sohi.Web/Services/Accounts/AccountService.cs" line="78" column="1" />
-      <Breakpoint file="/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor" relfile="Sohi.Web/Shared/MainLayout.razor" line="106" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="12" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Areas/Website/Home.cshtml.cs" relfile="Sohi.Web/Areas/Website/Home.cshtml.cs" line="15" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" relfile="Sohi.Web/Pages/Portal/Settings/Ads/FacebookAdsBase.cs" line="92" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Shared/SocialLayout.razor" relfile="Sohi.Web/Shared/SocialLayout.razor" line="9" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Api/Models/Accounts/AccountRepository.cs" relfile="Sohi.Api/Models/Accounts/AccountRepository.cs" line="81" column="1" />
+      <Breakpoint file="/Users/gurmindersingh/Documents/Software/Sohi.Web/Pages/Website/Pricing.cshtml.cs" relfile="Sohi.Web/Pages/Website/Pricing.cshtml.cs" line="29" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Sohi.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />
