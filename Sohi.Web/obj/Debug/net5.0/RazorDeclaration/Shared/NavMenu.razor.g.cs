@@ -104,7 +104,7 @@ using Sohi.Web.Pages.Portal.Social.Facebook;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 112 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/NavMenu.razor"
+#line 119 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/NavMenu.razor"
        
 
     [CascadingParameter(Name = "CurrentAccount")]
