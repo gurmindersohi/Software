@@ -13,119 +13,119 @@ namespace Sohi.Web.Shared
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 1 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 2 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 3 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 4 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 5 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 6 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 7 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 8 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 9 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Sohi.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 10 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Sohi.Web.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 11 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using System.Net;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/_Imports.razor"
+#line 12 "/Users/gurmindersingh/Projects/Software/Sohi.Web/_Imports.razor"
 using Sohi.Web.Pages.Portal.Social.Facebook;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 2 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
 using Sohi.Web.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 3 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 4 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
 using Stripe;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 5 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
 using Microsoft.Extensions.Configuration;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 6 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
 using Sohi.Web.Services.Accounts;
 
 #line default
@@ -139,7 +139,7 @@ using Sohi.Web.Services.Accounts;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 74 "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Shared/MainLayout.razor"
+#line 76 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
       
 
     [CascadingParameter]
@@ -159,6 +159,10 @@ using Sohi.Web.Services.Accounts;
     public IAccountService AccountService { get; set; }
 
     public User user { get; set; }
+
+    public Sohi.Models.Account Account { get; set; }
+
+    public Sohi.Models.Plan Plans { get; set; }
 
     public bool Subscription { get; set; }
 
@@ -184,6 +188,15 @@ using Sohi.Web.Services.Accounts;
             {
                 user = result;
 
+                
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 124 "/Users/gurmindersingh/Projects/Software/Sohi.Web/Shared/MainLayout.razor"
+                                                                
+
                 await GetCustomerSubscription();
             }
             else
@@ -205,6 +218,8 @@ using Sohi.Web.Services.Accounts;
     {
         var account = await AccountService.GetAccount(Guid.Parse(user.AccountId));
 
+        Account = account;
+
         StripeConfiguration.ApiKey = _config.GetSection("Stripe").GetSection("Key").Value;
 
         if (account.SubscriptionId != null)
@@ -219,6 +234,7 @@ using Sohi.Web.Services.Accounts;
         }
         else if (account.TrialExpiry < DateTime.Now)
         {
+            Subscription = false;
             TrialExpired = true;
         }
 
@@ -229,7 +245,6 @@ using Sohi.Web.Services.Accounts;
         NavigationManager.NavigateTo("/Website/Pricing", forceLoad: true);
     }
 
-    
 
 #line default
 #line hidden
