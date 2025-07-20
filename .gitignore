@@ -1,0 +1,8 @@
+/bin/
+/obj/
+**/bin/
+**/cache/
+**/obj/
+**/obj/**
+**/bin/**
+**/cache/**
