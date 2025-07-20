@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YxqUtuUlakM02tPAMwg81cW+8CptlycuwZ2bDolj6uet5dwgLNstDOy3bxuJF7oIUSQ4VQ/F9kDqzRJngQ5ICQ==",
+  "dgSpecHash": "WJADHaUrhzhab49Yg3zOH3uHZ3a96qWPoGkqZB9Ia3unrLh+WLMkiqNRlbvYGVcs0wDFrCMgb/RRBtH34I+Anw==",
   "success": true,
-  "projectFilePath": "/Users/gurmindersingh/Projects/Software/Sohi/Sohi.Web/Sohi.Web.csproj",
+  "projectFilePath": "/Users/gurmindersingh/Projects/Software/Sohi.Web/Sohi.Web.csproj",
   "expectedPackageFiles": [
     "/Users/gurmindersingh/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
     "/Users/gurmindersingh/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
