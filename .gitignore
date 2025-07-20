@@ -1,4 +1,8 @@
 # ...existing code...
-bin/
-cache/
+**/bin/
+**/cache/
+**/obj/
+**/obj/**
+**/bin/**
+**/cache/**
 # ...existing code...
