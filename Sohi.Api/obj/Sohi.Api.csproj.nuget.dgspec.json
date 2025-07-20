@@ -1,33 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gurmindersingh/Projects/Software/Sohi.Api/Sohi.Api.csproj": {}
+    "/Users/gurmindersohi/dev/Software/Sohi.Api/Sohi.Api.csproj": {}
   },
   "projects": {
-    "/Users/gurmindersingh/Projects/Software/Sohi.Api/Sohi.Api.csproj": {
+    "/Users/gurmindersohi/dev/Software/Sohi.Api/Sohi.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi.Api/Sohi.Api.csproj",
+        "projectUniqueName": "/Users/gurmindersohi/dev/Software/Sohi.Api/Sohi.Api.csproj",
         "projectName": "Sohi.Api",
-        "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi.Api/Sohi.Api.csproj",
-        "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
-        "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi.Api/obj/",
+        "projectPath": "/Users/gurmindersohi/dev/Software/Sohi.Api/Sohi.Api.csproj",
+        "packagesPath": "/Users/gurmindersohi/.nuget/packages/",
+        "outputPath": "/Users/gurmindersohi/dev/Software/Sohi.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
+          "/Users/gurmindersohi/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/gurmindersingh/Projects/Software/Sohi.Models/Sohi.Models.csproj": {
-                "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi.Models/Sohi.Models.csproj"
+              "/Users/gurmindersohi/dev/Software/Sohi.Models/Sohi.Models.csproj": {
+                "projectPath": "/Users/gurmindersohi/dev/Software/Sohi.Models/Sohi.Models.csproj"
               }
             }
           }
@@ -36,11 +36,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -63,7 +68,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -75,31 +81,31 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/gurmindersingh/Projects/Software/Sohi.Models/Sohi.Models.csproj": {
+    "/Users/gurmindersohi/dev/Software/Sohi.Models/Sohi.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gurmindersingh/Projects/Software/Sohi.Models/Sohi.Models.csproj",
+        "projectUniqueName": "/Users/gurmindersohi/dev/Software/Sohi.Models/Sohi.Models.csproj",
         "projectName": "Sohi.Models",
-        "projectPath": "/Users/gurmindersingh/Projects/Software/Sohi.Models/Sohi.Models.csproj",
-        "packagesPath": "/Users/gurmindersingh/.nuget/packages/",
-        "outputPath": "/Users/gurmindersingh/Projects/Software/Sohi.Models/obj/",
+        "projectPath": "/Users/gurmindersohi/dev/Software/Sohi.Models/Sohi.Models.csproj",
+        "packagesPath": "/Users/gurmindersohi/.nuget/packages/",
+        "outputPath": "/Users/gurmindersohi/dev/Software/Sohi.Models/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/gurmindersingh/.config/NuGet/NuGet.Config"
+          "/Users/gurmindersohi/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -107,18 +113,24 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "imports": [
             "net461",
             "net462",
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -127,7 +139,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
