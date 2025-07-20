@@ -10,11 +10,10 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sohi.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bbf598ce776d5f8f5b37bf3f5b8a62183ed60dc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6379a72d90747e7e50bf3ac3bd2e2d512f84d7e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sohi.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sohi.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
