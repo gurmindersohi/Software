@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
-from app.api.routes import auth, health
+from app.api.routes import account, ads, auth, billing, health, leads, social
 from app.core.config import settings
 
 app = FastAPI(
@@ -22,8 +22,11 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(auth.router)
-
-# Future routers (Phase 3): accounts, settings, leads, social, ads, billing.
+app.include_router(account.router)
+app.include_router(leads.router)
+app.include_router(social.router)
+app.include_router(ads.router)
+app.include_router(billing.router)
 
 
 @app.get("/", tags=["health"])

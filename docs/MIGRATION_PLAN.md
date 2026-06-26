@@ -91,13 +91,12 @@ Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependenci
 
 ### Phase 3 — Core API (depends on 1, 2)
 Port each controller+repository to a FastAPI router with Pydantic schemas + tests:
-- [ ] **3.1 (S)** Accounts router (get/create/update/get-by-name).
-- [ ] **3.2 (S)** Settings router (get/update account).
-- [ ] **3.3 (M)** Leads router (list/get/create/update/delete/search).
-- [ ] **3.4 (S)** Social tokens router (save/get-by-platform/list/delete).
-- [ ] **3.5 (S)** Ads accounts router (list/save).
-- [ ] **3.6 (S)** Billing router (update plan/subscription).
-- [ ] **3.7 (S)** Wire authz (ownership/role checks) + **multi-tenant account scoping** across routers.
+- [x] **3.1/3.2 (S)** Account router — `GET/PUT /account` + `GET /plans/{name}`. (Old Account & Settings controllers were near-identical → merged.)
+- [x] **3.3 (M)** Leads router — list / get / create / update / delete / `GET /leads/search`.
+- [x] **3.4 (S)** Social tokens router — list / get-by-platform / save / delete. **Read schemas never return `access_token`/`secret`.**
+- [x] **3.5 (S)** Ad-accounts router — list / save (token omitted from read schema).
+- [x] **3.6 (S)** Billing router — `GET/PUT /billing` on the current Account.
+- [x] **3.7 (S)** `get_current_account` dependency → **multi-tenant scoping on every route**; the tenant comes from the JWT, not a client-supplied id (security upgrade over the old API). Cross-tenant read/delete isolation is unit-tested.
 - [ ] **3.8 (M)** **Plan/quota enforcement** — per-plan limits (seats, social sets, scheduled posts, ad allowance) enforced at the API. *(gap found in audit)*
 - [ ] **3.9 (M)** **Trial & subscription lifecycle** — trial expiry, `OnHold`/suspension + reactivation, paid/unpaid state (ties to Stripe webhooks 4.6). *(gap found in audit)*
 
