@@ -13,6 +13,7 @@ from app.api.routes import (
     leads,
     media,
     payments,
+    scheduled_posts,
     social,
 )
 from app.core.config import settings
@@ -41,6 +42,7 @@ app.include_router(billing.router)
 app.include_router(integrations.router)
 app.include_router(payments.router)
 app.include_router(media.router)
+app.include_router(scheduled_posts.router)
 
 
 @app.get("/", tags=["health"])

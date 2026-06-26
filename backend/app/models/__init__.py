@@ -4,6 +4,7 @@ from app.models.account import Account
 from app.models.ad_account import AdAccount
 from app.models.lead import Lead
 from app.models.plan import Plan
+from app.models.scheduled_post import ScheduledPost
 from app.models.social import SocialMedia
 from app.models.user import Role, User, UserRoleLink
 
@@ -12,6 +13,7 @@ __all__ = [
     "AdAccount",
     "Lead",
     "Plan",
+    "ScheduledPost",
     "SocialMedia",
     "User",
     "Role",

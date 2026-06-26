@@ -114,9 +114,9 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **4.8 (S)** Facebook **lead-gen forms** + leads fetch on the Graph client (`get_lead_forms`/`get_leads`); wiring into the Leads table is a follow-up.
 
 ### Phase 5 — Background jobs (depends on 3, 4)
-- [ ] **5.1 (S)** arq worker + Redis wiring; deployment of the worker process.
-- [ ] **5.2 (M)** Scheduled-post **Queue**: enqueue, schedule, publish via Graph, status tracking, retries.
-- [ ] **5.3 (S)** Failure handling / dead-letter + admin visibility.
+- [x] **5.1 (S)** arq `WorkerSettings` (`app/worker/`), Redis from `REDIS_URL`; run via `arq app.worker.settings.WorkerSettings`. Cron sweep enqueues due posts.
+- [x] **5.2 (M)** Scheduled-post **Queue**: `ScheduledPost` table + tenant-scoped CRUD; `select_due_posts` sweep → `publish_scheduled_post` job → Graph publish (FB feed + IG two-step); status tracking. Publish/selection are **pure functions, unit-tested without Redis**.
+- [x] **5.3 (S)** Retries + **dead-letter** (`attempts`/`MAX_ATTEMPTS` → `failed`), `last_error` captured, status/attempts surfaced via `GET` for the Queue UI.
 
 ### Phase 6 — Frontend foundation (depends on 3 for the client)
 - [ ] **6.1 (S)** Next.js (App Router) scaffold, TypeScript, ESLint/Prettier.
