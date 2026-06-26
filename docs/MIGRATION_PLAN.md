@@ -58,19 +58,19 @@
 Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependencies noted.
 
 ### Phase 0 — Foundations
-- [ ] **0.1 (S)** Monorepo scaffold (`/backend`, `/frontend`, `/infra`, `/docs`), root README, `.gitignore`, license.
-- [ ] **0.2 (S)** Backend project: `uv`/`poetry`, FastAPI app skeleton, settings via `pydantic-settings` + `.env`, health endpoint.
-- [ ] **0.3 (S)** `docker-compose` for local Postgres + Redis.
-- [ ] **0.4 (S)** Lint/format/test tooling: `ruff`, `mypy`, `pytest`; pre-commit hooks.
-- [ ] **0.5 (S)** CI pipeline (lint + test for backend & frontend).
-- [ ] **0.6 (S)** **Rotate** Facebook + Stripe secrets; set up secret management; document required env vars.
-- [ ] **0.7 (S)** Object storage (S3-compatible; MinIO in compose) for media — post images/videos, ad creatives, account logos. *(gap found in audit)*
+- [x] **0.1 (S)** Monorepo scaffold (`/backend`, `/frontend`, `/infra`, `/docs`), root README, `.gitignore`, license.
+- [x] **0.2 (S)** Backend project: FastAPI app skeleton, settings via `pydantic-settings` + `.env`, health endpoint.
+- [x] **0.3 (S)** `docker-compose` for local Postgres + Redis.
+- [x] **0.4 (S)** Lint/format/test tooling: `ruff`, `mypy`, `pytest`; pre-commit hooks.
+- [x] **0.5 (S)** CI pipeline (lint + test for backend & frontend).
+- [~] **0.6 (S)** Secret management: `.env.example` + rotation note added. ⚠️ **Actual rotation of the leaked Facebook/Stripe keys is a manual user action — still pending.**
+- [x] **0.7 (S)** Object storage (S3-compatible; MinIO in compose) for media — infra + settings done; upload pipeline is task 4.7.
 - [ ] **0.8 (S)** Observability baseline: structured logging, error tracking (e.g. Sentry), and API rate limiting. *(gap found in audit)*
 
 ### Phase 1 — Data layer
-- [ ] **1.1 (M)** Port 19 domain models → SQLModel tables; decide UUID vs string keys per entity.
-- [ ] **1.2 (S)** Alembic init + initial migration generating the full schema.
-- [ ] **1.3 (M)** Map SQL Server schema → Postgres types (decimal precision, datetime, bool, string IDs).
+- [x] **1.1 (M)** Port domain models → SQLModel tables (Account, Plan, Lead, SocialMedia, AdAccount; Graph DTOs → Pydantic schemas); UUID keys for internal entities, string for external Meta IDs.
+- [x] **1.2 (S)** Alembic init + initial migration generating the full schema (verified: 5 tables, FKs, Numeric(18,2)).
+- [~] **1.3 (M)** Type mapping: decimal precision, datetime, bool, UUID done. Full SQL-Server-specific parity finalised with the ETL (1.4).
 - [ ] **1.4 (M)** One-time **ETL** script: SQL Server → Postgres (preserve IDs, FK integrity, money precision).
 - [ ] **1.5 (S)** Seed/reference data (Plans, etc.) + a smoke test verifying row counts vs source.
 

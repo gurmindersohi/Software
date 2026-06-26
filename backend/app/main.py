@@ -1,0 +1,30 @@
+"""FastAPI application entrypoint."""
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app import __version__
+from app.api.routes import health
+from app.core.config import settings
+
+app = FastAPI(
+    title=settings.app_name,
+    version=__version__,
+    description="Social Media & Ads Manager API (FastAPI re-platform of Sohi.Api).",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[settings.frontend_origin],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(health.router)
+
+# Future routers (Phase 3): accounts, settings, leads, social, ads, billing.
+
+
+@app.get("/", tags=["health"])
+def root() -> dict:
+    return {"app": settings.app_name, "version": __version__, "docs": "/docs"}
