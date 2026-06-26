@@ -192,6 +192,7 @@ export function AdForm({
   const [message, setMessage] = useState("");
   const [link, setLink] = useState("");
   const [headline, setHeadline] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const create = useMutation({
     mutationFn: () =>
@@ -202,6 +203,7 @@ export function AdForm({
         message,
         link,
         headline: headline || undefined,
+        image_url: imageUrl || undefined,
       }),
   });
 
@@ -263,6 +265,13 @@ export function AdForm({
             onChange={(e) => setLink(e.target.value)}
             placeholder="https://…"
             required
+          />
+        </Field>
+        <Field label="Image URL (optional)">
+          <Input
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="https://… (uploaded to the ad account)"
           />
         </Field>
         {create.isError && <ErrorNote>{errMsg(create.error)}</ErrorNote>}

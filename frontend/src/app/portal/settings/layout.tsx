@@ -6,6 +6,7 @@ const TABS = [
   { href: "/portal/settings", label: "General" },
   { href: "/portal/settings/connections", label: "Connections" },
   { href: "/portal/settings/team", label: "Team" },
+  { href: "/portal/settings/media", label: "Media" },
   { href: "/portal/settings/security", label: "Security" },
   { href: "/portal/settings/billing", label: "Billing" },
 ];

@@ -46,6 +46,7 @@ export interface AdInput {
   message: string;
   link: string;
   headline?: string;
+  image_url?: string;
 }
 
 export interface TargetingResult {

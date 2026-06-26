@@ -85,7 +85,7 @@ Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependenci
 - [x] **2.4 (S)** Register + email-confirmation (`/register`, `/verify-email`).
 - [x] **2.5 (S)** Forgot/reset password (`/forgot-password`, `/reset-password`).
 - [x] **2.6 (S)** Email: pluggable sender — `console` + real **Resend** & **SendGrid** providers (httpx, request-building unit-tested).
-- [~] **2.7 (M)** Account management: change-password done; change-email + delete/export personal data TODO.
+- [x] **2.7 (M)** Account management: change-password, **change-email** (re-confirm), and **GDPR export + delete** (PII scrub) — all with frontend (Settings → Security).
 - [x] **2.8 (M)** **2FA** — hand-rolled RFC 6238 TOTP + single-use recovery codes; two-step login (challenge cookie → `/2fa/verify`); Settings → Security UI.
 - [x] **2.9 (S)** Roles/permissions model (`Role` + `user_roles` link table).
 
@@ -111,7 +111,7 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **4.5 (M)** Stripe service: customer + subscription creation (`integrations/stripe_service.py`).
 - [x] **4.6 (S)** Stripe **webhook** → drives Account billing state (also advances **3.9** lifecycle: paid/`on_hold`).
 - [x] **4.7 (M)** **Media upload** (`POST /media/upload`) → pluggable object storage (local FS / S3-MinIO, lazy boto3).
-- [x] **4.8 (S)** Facebook **lead-gen forms** + leads fetch on the Graph client (`get_lead_forms`/`get_leads`); wiring into the Leads table is a follow-up.
+- [x] **4.8 (S)** Facebook **lead-gen sync** — `POST /social/{id}/sync-leads` imports `/leadgen_forms` submissions into the Leads table (dedupe by email); "Sync Facebook leads" button in the UI.
 
 ### Phase 5 — Background jobs (depends on 3, 4)
 - [x] **5.1 (S)** arq `WorkerSettings` (`app/worker/`), Redis from `REDIS_URL`; run via `arq app.worker.settings.WorkerSettings`. Cron sweep enqueues due posts.
@@ -185,3 +185,13 @@ Cross-checked the backlog against `BUSINESS_PLAN.md` and the full feature invent
 - **4.8** Optional Facebook lead-gen forms sync — clarifies the Leads data source.
 
 With these additions the backlog is considered **feature-complete** against the current app. Remaining open scope questions are product decisions (e.g. whether 2FA — 2.8 — ships in v1), not missing tasks.
+
+### Parity port (delete-readiness audit)
+A line-by-line audit of the .NET code surfaced 6 features that lived **only** in the old app; all are now ported (backend + frontend, tested):
+1. **FB photo/video posting** (`/photos`, graph-video `/videos`) — wired into posts + the scheduler.
+2. **FB ad images** (`/adimages` → `image_hash`) in the ad creative builder.
+3. **Instagram insights** endpoint + UI.
+4. **Lead-gen sync** into the Leads table.
+5. **Change email** + **GDPR export/delete**.
+6. **Media library** (`MediaAsset` + browse grid).
+Verified non-gaps: external/social login (only cookie auth was configured) and a real scheduler (the old "Queue" had none — the new arq worker is a net gain). **The `Sohi.*` projects can be deleted once the new app is deployed & validated** (tag `legacy-dotnet-final` first).

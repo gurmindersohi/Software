@@ -1,11 +1,19 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ErrorNote } from "@/components/portal";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { ApiError } from "@/lib/api";
-import { disableTwoFactor, enableTwoFactor, setupTwoFactor } from "@/lib/auth";
+import {
+  changeEmail,
+  deleteAccount,
+  disableTwoFactor,
+  enableTwoFactor,
+  exportPersonalData,
+  setupTwoFactor,
+} from "@/lib/auth";
 import { useCurrentUser } from "@/lib/hooks";
 
 export default function SecurityPage() {
@@ -84,7 +92,8 @@ export default function SecurityPage() {
   }
 
   return (
-    <Card className="max-w-lg space-y-4">
+    <div className="max-w-lg space-y-6">
+    <Card className="space-y-4">
       <div>
         <h2 className="text-lg font-semibold text-slate-800">Two-factor authentication</h2>
         <p className="text-sm text-slate-500">
@@ -129,6 +138,114 @@ export default function SecurityPage() {
           </Button>
         </>
       )}
+    </Card>
+
+      <ChangeEmailCard />
+      <PrivacyCard />
+    </div>
+  );
+}
+
+function ChangeEmailCard() {
+  const queryClient = useQueryClient();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setErr(null);
+    setMsg(null);
+    setBusy(true);
+    try {
+      await changeEmail(email, password);
+      setMsg("Email updated — check your inbox to confirm the new address.");
+      setEmail("");
+      setPassword("");
+      await queryClient.invalidateQueries({ queryKey: ["me"] });
+    } catch (e2) {
+      setErr(e2 instanceof ApiError ? e2.message : "Could not change email.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card className="space-y-4">
+      <h2 className="text-lg font-semibold text-slate-800">Change email</h2>
+      <form onSubmit={submit} className="space-y-3">
+        <Field label="New email">
+          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </Field>
+        <Field label="Current password">
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </Field>
+        {err && <ErrorNote>{err}</ErrorNote>}
+        {msg && <p className="text-sm text-green-600">{msg}</p>}
+        <Button type="submit" disabled={busy}>
+          {busy ? "Saving…" : "Update email"}
+        </Button>
+      </form>
+    </Card>
+  );
+}
+
+function PrivacyCard() {
+  const router = useRouter();
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState<string | null>(null);
+
+  async function exportData() {
+    const data = await exportPersonalData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "my-data.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function remove(e: React.FormEvent) {
+    e.preventDefault();
+    setErr(null);
+    if (!confirm("Permanently delete your account? This cannot be undone.")) return;
+    try {
+      await deleteAccount(password);
+      router.push("/login");
+    } catch (e2) {
+      setErr(e2 instanceof ApiError ? e2.message : "Could not delete account.");
+    }
+  }
+
+  return (
+    <Card className="space-y-4">
+      <h2 className="text-lg font-semibold text-slate-800">Privacy</h2>
+      <Button onClick={exportData} className="bg-slate-600 hover:bg-slate-700">
+        Download my data
+      </Button>
+      <form onSubmit={remove} className="space-y-3 border-t border-slate-200 pt-4">
+        <p className="text-sm text-slate-600">Delete your account and scrub personal data.</p>
+        <Field label="Confirm password">
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </Field>
+        {err && <ErrorNote>{err}</ErrorNote>}
+        <Button type="submit" className="bg-red-600 hover:bg-red-700">
+          Delete account
+        </Button>
+      </form>
     </Card>
   );
 }

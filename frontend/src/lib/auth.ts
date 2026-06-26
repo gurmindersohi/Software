@@ -63,3 +63,21 @@ export function logout(): Promise<{ detail: string }> {
 export function getMe(): Promise<User> {
   return apiFetch<User>("/auth/me");
 }
+
+export function changeEmail(newEmail: string, password: string): Promise<User> {
+  return apiFetch<User>("/auth/change-email", {
+    method: "POST",
+    body: JSON.stringify({ new_email: newEmail, password }),
+  });
+}
+
+export function exportPersonalData(): Promise<Record<string, unknown>> {
+  return apiFetch("/auth/personal-data");
+}
+
+export function deleteAccount(password: string): Promise<{ detail: string }> {
+  return apiFetch("/auth/delete-account", {
+    method: "POST",
+    body: JSON.stringify({ password }),
+  });
+}

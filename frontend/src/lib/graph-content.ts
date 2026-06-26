@@ -23,8 +23,17 @@ export const getPagePosts = (connId: string) => apiFetch<PagePost[]>(`/social/${
 export const getPageInsights = (connId: string) =>
   apiFetch<PageInsight[]>(`/social/${connId}/insights`);
 
-export const createPagePost = (connId: string, data: { message: string; link?: string }) =>
+export const createPagePost = (
+  connId: string,
+  data: { message?: string; link?: string; image_url?: string; video_url?: string },
+) =>
   apiFetch<{ id: string }>(`/social/${connId}/posts`, {
     method: "POST",
     body: JSON.stringify(data),
   });
+
+export const getInstagramInsights = (connId: string) =>
+  apiFetch<PageInsight[]>(`/social/${connId}/instagram-insights`);
+
+export const syncLeads = (connId: string) =>
+  apiFetch<{ imported: number }>(`/social/${connId}/sync-leads`, { method: "POST" });
