@@ -19,6 +19,32 @@ class FakeGraph:
     def create_post(self, page_id, token, message, link=None):
         return {"id": "new_post", "message": message}
 
+    def create_photo_post(self, page_id, token, image_url, message=""):
+        return {"id": "photo_post", "image": image_url}
+
+    def create_video_post(self, page_id, token, video_url, message=""):
+        return {"id": "video_post", "video": video_url}
+
+    def get_instagram_insights(self, ig_user_id, token):
+        return [{"name": "reach", "values": [{"value": 42}]}]
+
+    def get_lead_forms(self, page_id, token):
+        return [{"id": "form_1"}]
+
+    def get_leads(self, form_id, token):
+        return [
+            {
+                "field_data": [
+                    {"name": "email", "values": ["lead@example.com"]},
+                    {"name": "full_name", "values": ["Jane Doe"]},
+                    {"name": "phone_number", "values": ["555-0100"]},
+                ]
+            }
+        ]
+
+    def upload_ad_image(self, ad_account_id, image_url):
+        return "img_hash_123"
+
     def get_campaigns(self, act_id):
         return [{"id": "camp_1", "name": "C"}]
 
@@ -94,6 +120,67 @@ def test_create_page_post(client, session):
         app.dependency_overrides.pop(get_graph_factory, None)
     assert resp.status_code == 201
     assert resp.json()["id"] == "new_post"
+
+
+def test_photo_and_video_posts(client, session):
+    register_confirm_login(client, session)
+    cid = _connect_social(client)
+    app.dependency_overrides[get_graph_factory] = _override()
+    try:
+        photo = client.post(f"/api/v1/social/{cid}/posts", json={"image_url": "http://img/x.jpg"})
+        video = client.post(f"/api/v1/social/{cid}/posts", json={"video_url": "http://v/x.mp4"})
+    finally:
+        app.dependency_overrides.pop(get_graph_factory, None)
+    assert photo.json()["id"] == "photo_post"
+    assert video.json()["id"] == "video_post"
+
+
+def test_instagram_insights(client, session):
+    register_confirm_login(client, session)
+    cid = _connect_social(client)
+    app.dependency_overrides[get_graph_factory] = _override()
+    try:
+        resp = client.get(f"/api/v1/social/{cid}/instagram-insights")
+    finally:
+        app.dependency_overrides.pop(get_graph_factory, None)
+    assert resp.status_code == 200
+    assert resp.json()[0]["name"] == "reach"
+
+
+def test_sync_lead_forms_imports_leads(client, session):
+    register_confirm_login(client, session)
+    cid = _connect_social(client)
+    app.dependency_overrides[get_graph_factory] = _override()
+    try:
+        resp = client.post(f"/api/v1/social/{cid}/sync-leads")
+    finally:
+        app.dependency_overrides.pop(get_graph_factory, None)
+    assert resp.status_code == 200
+    assert resp.json()["imported"] == 1
+    leads = client.get("/api/v1/leads").json()
+    assert any(le["email"] == "lead@example.com" for le in leads)
+
+
+def test_create_ad_with_image_uploads_hash(client, session):
+    register_confirm_login(client, session)
+    aid = _connect_ad_account(client)
+    app.dependency_overrides[get_graph_factory] = _override()
+    try:
+        resp = client.post(
+            f"/api/v1/ad-accounts/{aid}/ads",
+            json={
+                "name": "Ad",
+                "adset_id": "as_1",
+                "page_id": "pg1",
+                "message": "hi",
+                "link": "http://x",
+                "image_url": "http://img/x.jpg",
+            },
+        )
+    finally:
+        app.dependency_overrides.pop(get_graph_factory, None)
+    assert resp.status_code == 201
+    assert resp.json()["id"] == "ad_new"
 
 
 def test_page_posts_cross_tenant_404(client, session):

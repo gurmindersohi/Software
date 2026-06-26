@@ -6,8 +6,18 @@
 
 export interface paths {
   "/health": {
-    /** Health */
+    /**
+     * Health
+     * @description Liveness — the process is up (no dependencies checked).
+     */
     get: operations["health_health_get"];
+  };
+  "/readyz": {
+    /**
+     * Readyz
+     * @description Readiness — verifies the database is reachable (for load balancers).
+     */
+    get: operations["readyz_readyz_get"];
   };
   "/api/v1/auth/register": {
     /** Register */
@@ -44,6 +54,24 @@ export interface paths {
   "/api/v1/auth/change-password": {
     /** Change Password */
     post: operations["change_password_api_v1_auth_change_password_post"];
+  };
+  "/api/v1/auth/change-email": {
+    /** Change Email */
+    post: operations["change_email_api_v1_auth_change_email_post"];
+  };
+  "/api/v1/auth/personal-data": {
+    /**
+     * Export Personal Data
+     * @description GDPR data export — everything we hold about the user (excludes secrets).
+     */
+    get: operations["export_personal_data_api_v1_auth_personal_data_get"];
+  };
+  "/api/v1/auth/delete-account": {
+    /**
+     * Delete Account
+     * @description GDPR delete — verify password, then soft-delete and scrub PII.
+     */
+    post: operations["delete_account_api_v1_auth_delete_account_post"];
   };
   "/api/v1/account": {
     /** Get Account */
@@ -96,6 +124,17 @@ export interface paths {
   "/api/v1/social/{connection_id}/insights": {
     /** Page Insights */
     get: operations["page_insights_api_v1_social__connection_id__insights_get"];
+  };
+  "/api/v1/social/{connection_id}/instagram-insights": {
+    /** Instagram Insights */
+    get: operations["instagram_insights_api_v1_social__connection_id__instagram_insights_get"];
+  };
+  "/api/v1/social/{connection_id}/sync-leads": {
+    /**
+     * Sync Lead Forms
+     * @description Pull Facebook lead-gen form submissions into the Leads table (task 4.8).
+     */
+    post: operations["sync_lead_forms_api_v1_social__connection_id__sync_leads_post"];
   };
   "/api/v1/ad-accounts": {
     /** List Ad Accounts */
@@ -150,6 +189,10 @@ export interface paths {
   "/api/v1/payments/webhook": {
     /** Stripe Webhook */
     post: operations["stripe_webhook_api_v1_payments_webhook_post"];
+  };
+  "/api/v1/media": {
+    /** List Media */
+    get: operations["list_media_api_v1_media_get"];
   };
   "/api/v1/media/upload": {
     /** Upload Media */
@@ -327,6 +370,8 @@ export interface components {
       link: string;
       /** Headline */
       headline?: string | null;
+      /** Image Url */
+      image_url?: string | null;
       /**
        * Status
        * @default PAUSED
@@ -429,6 +474,16 @@ export interface components {
        */
       status?: string;
     };
+    /** ChangeEmailRequest */
+    ChangeEmailRequest: {
+      /**
+       * New Email
+       * Format: email
+       */
+      new_email: string;
+      /** Password */
+      password: string;
+    };
     /** ChangePasswordRequest */
     ChangePasswordRequest: {
       /** Current Password */
@@ -450,6 +505,11 @@ export interface components {
        * @default 0
        */
       pages_connected?: number;
+    };
+    /** DeleteAccountRequest */
+    DeleteAccountRequest: {
+      /** Password */
+      password: string;
     };
     /** FacebookConnectResponse */
     FacebookConnectResponse: {
@@ -655,6 +715,20 @@ export interface components {
       two_factor_required?: boolean;
       user?: components["schemas"]["UserRead"] | null;
     };
+    /** MediaAssetRead */
+    MediaAssetRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Url */
+      url: string;
+      /** Kind */
+      kind: string;
+      /** Content Type */
+      content_type?: string | null;
+    };
     /** MediaUploadResponse */
     MediaUploadResponse: {
       /** Url */
@@ -669,10 +743,17 @@ export interface components {
     };
     /** PagePostInput */
     PagePostInput: {
-      /** Message */
-      message: string;
+      /**
+       * Message
+       * @default
+       */
+      message?: string;
       /** Link */
       link?: string | null;
+      /** Image Url */
+      image_url?: string | null;
+      /** Video Url */
+      video_url?: string | null;
     };
     /** PlanRead */
     PlanRead: {
@@ -755,6 +836,8 @@ export interface components {
       link?: string | null;
       /** Image Url */
       image_url?: string | null;
+      /** Video Url */
+      video_url?: string | null;
       /**
        * Scheduled At
        * Format: date-time
@@ -786,6 +869,8 @@ export interface components {
       link?: string | null;
       /** Image Url */
       image_url?: string | null;
+      /** Video Url */
+      video_url?: string | null;
       /**
        * Scheduled At
        * Format: date-time
@@ -971,8 +1056,25 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  /** Health */
+  /**
+   * Health
+   * @description Liveness — the process is up (no dependencies checked).
+   */
   health_health_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["HealthResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Readyz
+   * @description Readiness — verifies the database is reachable (for load balancers).
+   */
+  readyz_readyz_get: {
     responses: {
       /** @description Successful Response */
       200: {
@@ -1163,6 +1265,99 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["ChangePasswordRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MessageResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Change Email */
+  change_email_api_v1_auth_change_email_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ChangeEmailRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Export Personal Data
+   * @description GDPR data export — everything we hold about the user (excludes secrets).
+   */
+  export_personal_data_api_v1_auth_personal_data_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": {
+            [key: string]: unknown;
+          };
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Delete Account
+   * @description GDPR delete — verify password, then soft-delete and scrub PII.
+   */
+  delete_account_api_v1_auth_delete_account_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DeleteAccountRequest"];
       };
     };
     responses: {
@@ -1632,6 +1827,67 @@ export interface operations {
       };
     };
   };
+  /** Instagram Insights */
+  instagram_insights_api_v1_social__connection_id__instagram_insights_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Sync Lead Forms
+   * @description Pull Facebook lead-gen form submissions into the Leads table (task 4.8).
+   */
+  sync_lead_forms_api_v1_social__connection_id__sync_leads_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": {
+            [key: string]: unknown;
+          };
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** List Ad Accounts */
   list_ad_accounts_api_v1_ad_accounts_get: {
     parameters: {
@@ -2074,6 +2330,31 @@ export interface operations {
           "application/json": {
             [key: string]: unknown;
           };
+        };
+      };
+    };
+  };
+  /** List Media */
+  list_media_api_v1_media_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MediaAssetRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
       };
     };

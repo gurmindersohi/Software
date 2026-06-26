@@ -5,8 +5,10 @@ from pydantic import BaseModel, Field
 
 
 class PagePostInput(BaseModel):
-    message: str
+    message: str = ""
     link: Optional[str] = None
+    image_url: Optional[str] = None
+    video_url: Optional[str] = None
 
 
 class CampaignCreateInput(BaseModel):
@@ -35,4 +37,5 @@ class AdCreateInput(BaseModel):
     message: str
     link: str
     headline: Optional[str] = None
+    image_url: Optional[str] = None  # uploaded to the ad account → image_hash
     status: str = "PAUSED"

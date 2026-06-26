@@ -21,6 +21,19 @@ def test_upload_writes_file_and_returns_url(client, session, tmp_path, monkeypat
     assert written[0].read_bytes() == b"hello world"
 
 
+def test_upload_records_asset_and_library_lists_it(client, session, tmp_path, monkeypatch):
+    monkeypatch.setattr(settings, "storage_backend", "local")
+    monkeypatch.setattr(settings, "local_storage_dir", str(tmp_path))
+    register_confirm_login(client, session)
+
+    client.post("/api/v1/media/upload", files={"file": ("pic.png", b"\x89PNG", "image/png")})
+    library = client.get("/api/v1/media")
+    assert library.status_code == 200
+    assets = library.json()
+    assert len(assets) == 1
+    assert assets[0]["kind"] == "image"
+
+
 def test_upload_requires_auth(client):
     files = {"file": ("x.txt", b"x", "text/plain")}
     assert client.post("/api/v1/media/upload", files=files).status_code == 401

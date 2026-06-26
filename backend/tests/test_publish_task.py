@@ -17,6 +17,12 @@ class FakeGraph:
             raise RuntimeError("boom")
         return {"id": "ext_fb"}
 
+    def create_photo_post(self, page_id, token, image_url, message=""):
+        return {"id": "ext_photo"}
+
+    def create_video_post(self, page_id, token, video_url, message=""):
+        return {"id": "ext_video"}
+
     def create_instagram_media(self, ig, token, image_url, caption):
         return {"id": "container_1"}
 
@@ -24,7 +30,7 @@ class FakeGraph:
         return {"id": "ext_ig"}
 
 
-def _seed(session, *, platform="facebook", delta=timedelta(minutes=-1), attempts=0):
+def _seed(session, *, platform="facebook", delta=timedelta(minutes=-1), attempts=0, image_url=None):
     account = Account(account_name="A")
     session.add(account)
     session.flush()
@@ -38,7 +44,7 @@ def _seed(session, *, platform="facebook", delta=timedelta(minutes=-1), attempts
         social_media_id=conn.id,
         platform=platform,
         message="Hi",
-        image_url="http://img/x.jpg",
+        image_url=image_url,
         attempts=attempts,
         scheduled_at=datetime.utcnow() + delta,
         status="pending",
@@ -61,6 +67,13 @@ def test_publish_instagram_success(session):
     svc.publish_post(session, post, lambda token: FakeGraph(token))
     assert post.status == "published"
     assert post.external_post_id == "ext_ig"
+
+
+def test_publish_facebook_photo(session):
+    post = _seed(session, image_url="http://img/x.jpg")
+    svc.publish_post(session, post, lambda token: FakeGraph(token))
+    assert post.status == "published"
+    assert post.external_post_id == "ext_photo"  # routed to photo post, not feed
 
 
 def test_publish_failure_requeues_then_deadletters(session):

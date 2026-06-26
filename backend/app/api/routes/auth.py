@@ -17,7 +17,9 @@ from app.core.email import send_email
 from app.db.session import get_session
 from app.models.user import User
 from app.schemas.auth import (
+    ChangeEmailRequest,
     ChangePasswordRequest,
+    DeleteAccountRequest,
     ForgotPasswordRequest,
     LoginRequest,
     LoginResponse,
@@ -201,3 +203,85 @@ def change_password(
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Current password is incorrect.")
     auth_service.set_password(session, user, body.new_password)
     return MessageResponse(detail="Password changed.")
+
+
+@router.post("/change-email", response_model=UserRead)
+def change_email(
+    body: ChangeEmailRequest,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+) -> UserRead:
+    ok, _ = security.verify_password(body.password, user.password_hash)
+    if not ok:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Password is incorrect.")
+    if auth_service.get_user_by_email(session, str(body.new_email)) is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "That email is already in use.")
+    user.email = str(body.new_email)
+    user.normalized_email = str(body.new_email).upper()
+    user.email_confirmed = False  # must re-confirm the new address
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+
+    token = security.create_email_token(str(user.id), "email_verify")
+    link = f"{settings.frontend_origin}/verify-email?token={token}"
+    send_email(
+        user.email,
+        "Confirm your new email",
+        f"Confirm your new email: {link}",
+        html=email_templates.render(
+            "Confirm your new email",
+            "Confirm this address to keep using Sohi.",
+            "Confirm email",
+            link,
+        ),
+    )
+    return _to_user_read(user)
+
+
+@router.get("/personal-data")
+def export_personal_data(user: User = Depends(get_current_user)) -> dict:
+    """GDPR data export — everything we hold about the user (excludes secrets)."""
+    return {
+        "id": str(user.id),
+        "email": user.email,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "phone_number": user.phone_number,
+        "date_of_birth": user.date_of_birth.isoformat() if user.date_of_birth else None,
+        "gender": user.gender,
+        "email_confirmed": user.email_confirmed,
+        "two_factor_enabled": user.two_factor_enabled,
+        "account_id": str(user.account_id) if user.account_id else None,
+        "roles": [r.name for r in user.roles],
+        "created_on": user.created_on.isoformat() if user.created_on else None,
+    }
+
+
+@router.post("/delete-account", response_model=MessageResponse)
+def delete_account(
+    body: DeleteAccountRequest,
+    response: Response,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+) -> MessageResponse:
+    """GDPR delete — verify password, then soft-delete and scrub PII."""
+    ok, _ = security.verify_password(body.password, user.password_hash)
+    if not ok:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Password is incorrect.")
+    user.is_deleted = True
+    user.email = f"deleted-{user.id}@deleted.invalid"
+    user.normalized_email = user.email.upper()
+    user.first_name = None
+    user.last_name = None
+    user.phone_number = None
+    user.date_of_birth = None
+    user.gender = None
+    user.photo_path = None
+    user.totp_secret = None
+    user.recovery_codes = None
+    user.two_factor_enabled = False
+    session.add(user)
+    session.commit()
+    clear_auth_cookies(response)
+    return MessageResponse(detail="Account deleted.")

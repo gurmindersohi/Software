@@ -16,6 +16,7 @@ from app.core.quotas import enforce_quota
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphError
 from app.models.account import Account
+from app.models.lead import Lead
 from app.models.social import SocialMedia
 from app.schemas.graph import PagePostInput
 from app.schemas.social import SocialMediaCreate, SocialMediaRead
@@ -128,6 +129,66 @@ def page_insights(
         raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
 
 
+@router.get("/{connection_id}/instagram-insights")
+def instagram_insights(
+    connection_id: UUID,
+    account: Account = Depends(get_current_account),
+    session: Session = Depends(get_session),
+    graph_factory: GraphFactory = Depends(get_graph_factory),
+):
+    conn = _owned_connection(session, connection_id, account)
+    graph, token = _page_graph(conn, graph_factory)
+    try:
+        return graph.get_instagram_insights(conn.page_id, token)
+    except GraphError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+
+
+@router.post("/{connection_id}/sync-leads")
+def sync_lead_forms(
+    connection_id: UUID,
+    account: Account = Depends(require_active_account),
+    session: Session = Depends(get_session),
+    graph_factory: GraphFactory = Depends(get_graph_factory),
+) -> dict:
+    """Pull Facebook lead-gen form submissions into the Leads table (task 4.8)."""
+    conn = _owned_connection(session, connection_id, account)
+    graph, token = _page_graph(conn, graph_factory)
+    try:
+        forms = graph.get_lead_forms(conn.page_id, token)
+        imported = 0
+        for form in forms:
+            for entry in graph.get_leads(form.get("id"), token):
+                fields = {
+                    f.get("name"): (f.get("values") or [None])[0]
+                    for f in entry.get("field_data", [])
+                }
+                email = fields.get("email")
+                if not email:
+                    continue
+                exists = session.exec(
+                    select(Lead).where(Lead.account_id == account.id, Lead.email == email)
+                ).first()
+                if exists:
+                    continue
+                session.add(
+                    Lead(
+                        account_id=account.id,
+                        email=email,
+                        first_name=fields.get("first_name"),
+                        last_name=fields.get("last_name"),
+                        full_name=fields.get("full_name"),
+                        primary_phone=fields.get("phone_number"),
+                        lead_source="facebook_leadgen",
+                    )
+                )
+                imported += 1
+        session.commit()
+    except GraphError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+    return {"imported": imported}
+
+
 @router.post("/{connection_id}/posts", status_code=status.HTTP_201_CREATED)
 def create_page_post(
     connection_id: UUID,
@@ -139,6 +200,10 @@ def create_page_post(
     conn = _owned_connection(session, connection_id, account)
     graph, token = _page_graph(conn, graph_factory)
     try:
+        if body.video_url:
+            return graph.create_video_post(conn.page_id, token, body.video_url, body.message)
+        if body.image_url:
+            return graph.create_photo_post(conn.page_id, token, body.image_url, body.message)
         return graph.create_post(conn.page_id, token, body.message, body.link)
     except GraphError as exc:
         raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc

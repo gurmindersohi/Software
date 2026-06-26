@@ -22,6 +22,7 @@ class ScheduledPost(SQLModel, table=True):
     message: Optional[str] = None
     link: Optional[str] = None
     image_url: Optional[str] = None
+    video_url: Optional[str] = None
 
     scheduled_at: datetime = Field(index=True)
     status: str = Field(default="pending", index=True)  # pending|queued|published|failed

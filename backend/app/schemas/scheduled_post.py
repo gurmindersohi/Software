@@ -12,6 +12,7 @@ class ScheduledPostCreate(BaseModel):
     message: Optional[str] = None
     link: Optional[str] = None
     image_url: Optional[str] = None
+    video_url: Optional[str] = None
     scheduled_at: datetime
 
 
@@ -23,6 +24,7 @@ class ScheduledPostRead(BaseModel):
     message: Optional[str] = None
     link: Optional[str] = None
     image_url: Optional[str] = None
+    video_url: Optional[str] = None
     scheduled_at: datetime
     status: str
     attempts: int

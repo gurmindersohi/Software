@@ -14,6 +14,7 @@ import httpx
 from app.core.config import settings
 
 GRAPH_HOST = "https://graph.facebook.com"
+GRAPH_VIDEO_HOST = "https://graph-video.facebook.com"  # video uploads use a separate host
 
 
 class GraphError(Exception):
@@ -34,12 +35,13 @@ class GraphClient:
         self._client = client or httpx.Client(timeout=30.0)
 
     # --- core -------------------------------------------------------------
-    def _request(self, method, path, *, params=None, data=None, token=None):
+    def _request(self, method, path, *, params=None, data=None, token=None, host=GRAPH_HOST):
         query = dict(params or {})
         effective = token if token is not None else self.access_token
         if effective:
             query.setdefault("access_token", effective)
-        resp = self._client.request(method, f"{self.base_url}{path}", params=query, data=data)
+        url = f"{host}/{self.version}{path}"
+        resp = self._client.request(method, url, params=query, data=data)
         try:
             payload = resp.json()
         except ValueError as exc:
@@ -169,6 +171,15 @@ class GraphClient:
             },
         )
 
+    def upload_ad_image(self, ad_account_id: str, image_url: str) -> Optional[str]:
+        """Register an image with the ad account; returns its image_hash for creatives."""
+        payload = self._request(
+            "POST", f"/{ad_account_id}/adimages", data={"url": image_url}
+        )
+        images = payload.get("images", {}) if isinstance(payload, dict) else {}
+        first = next(iter(images.values()), {}) if images else {}
+        return first.get("hash")
+
     def get_adsets(self, ad_account_id: str) -> List[dict]:
         return self._data(
             self._request(
@@ -216,6 +227,28 @@ class GraphClient:
             data["link"] = link
         return self._request("POST", f"/{page_id}/feed", data=data, token=page_token)
 
+    def create_photo_post(
+        self, page_id: str, page_token: str, image_url: str, message: str = ""
+    ) -> dict:
+        return self._request(
+            "POST",
+            f"/{page_id}/photos",
+            data={"url": image_url, "message": message},
+            token=page_token,
+        )
+
+    def create_video_post(
+        self, page_id: str, page_token: str, video_url: str, message: str = ""
+    ) -> dict:
+        # Video uploads go to the dedicated graph-video host.
+        return self._request(
+            "POST",
+            f"/{page_id}/videos",
+            data={"file_url": video_url, "description": message},
+            token=page_token,
+            host=GRAPH_VIDEO_HOST,
+        )
+
     def get_post_insights(
         self, post_id: str, page_token: str, metrics: str = "post_impressions,post_clicks"
     ) -> List[dict]:
@@ -255,6 +288,22 @@ class GraphClient:
                 "GET",
                 f"/{ig_user_id}/media",
                 params={"fields": "id,caption,media_type,media_url,timestamp"},
+                token=token,
+            )
+        )
+
+    def get_instagram_insights(
+        self,
+        ig_user_id: str,
+        token: str,
+        metrics: str = "impressions,reach,profile_views",
+        period: str = "day",
+    ) -> List[dict]:
+        return self._data(
+            self._request(
+                "GET",
+                f"/{ig_user_id}/insights",
+                params={"metric": metrics, "period": period},
                 token=token,
             )
         )

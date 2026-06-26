@@ -65,6 +65,7 @@ def create_post(
         message=body.message,
         link=body.link,
         image_url=body.image_url,
+        video_url=body.video_url,
     )
 
 

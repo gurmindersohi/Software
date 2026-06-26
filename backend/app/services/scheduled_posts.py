@@ -33,6 +33,7 @@ def create_scheduled_post(
     message: Optional[str] = None,
     link: Optional[str] = None,
     image_url: Optional[str] = None,
+    video_url: Optional[str] = None,
 ) -> ScheduledPost:
     post = ScheduledPost(
         account_id=account_id,
@@ -41,6 +42,7 @@ def create_scheduled_post(
         message=message,
         link=link,
         image_url=image_url,
+        video_url=video_url,
         scheduled_at=_naive_utc(scheduled_at),
         status="pending",
     )
@@ -77,6 +79,14 @@ def publish_post(
                 connection.page_id, token, post.image_url or "", post.message or ""
             )
             result = graph.publish_instagram_media(connection.page_id, token, container["id"])
+        elif post.video_url:
+            result = graph.create_video_post(
+                connection.page_id, token, post.video_url, post.message or ""
+            )
+        elif post.image_url:
+            result = graph.create_photo_post(
+                connection.page_id, token, post.image_url, post.message or ""
+            )
         else:
             result = graph.create_post(connection.page_id, token, post.message or "", post.link)
 

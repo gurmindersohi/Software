@@ -163,14 +163,20 @@ def create_ad(
     graph_factory: GraphFactory = Depends(get_graph_factory),
 ):
     acct = _owned_ad_account(session, conn_id, account)
-    creative = {
-        "object_story_spec": {
-            "page_id": body.page_id,
-            "link_data": {"message": body.message, "link": body.link, "name": body.headline},
-        }
-    }
+    graph = _ads_graph(acct, graph_factory)
+    link_data: dict = {"message": body.message, "link": body.link, "name": body.headline}
+    if body.image_url:
+        try:
+            image_hash = graph.upload_ad_image(acct.user_account_id, body.image_url)
+        except GraphError as exc:
+            raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+        if image_hash:
+            link_data["image_hash"] = image_hash
+        else:
+            link_data["picture"] = body.image_url  # fallback: creative from URL
+    creative = {"object_story_spec": {"page_id": body.page_id, "link_data": link_data}}
     try:
-        return _ads_graph(acct, graph_factory).create_ad(
+        return graph.create_ad(
             acct.user_account_id,
             name=body.name,
             adset_id=body.adset_id,

@@ -1,5 +1,6 @@
 """Schemas for OAuth connect, billing, and media upload."""
 from typing import Optional
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -27,3 +28,12 @@ class SubscriptionResult(BaseModel):
 class MediaUploadResponse(BaseModel):
     url: str
     key: str
+
+
+class MediaAssetRead(BaseModel):
+    id: UUID
+    url: str
+    kind: str
+    content_type: Optional[str] = None
+
+    model_config = {"from_attributes": True}
