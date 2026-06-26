@@ -125,7 +125,10 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **6.4 (M)** Auth wiring: login/register/logout + `useCurrentUser`; **BFF proxy** (`next.config` rewrites `/api/*` → FastAPI) so httpOnly cookies stay first-party; `middleware.ts` guards `/portal/*`.
 
 ### Phase 7 — Frontend: marketing site (depends on 6)
-- [ ] **7.1 (S)** Home/Index. **7.2 (S)** About + Features + Contact. **7.3 (M)** Pricing + Stripe Checkout + Success.
+- [x] **7.1 (S)** Home/Index — hero + feature highlights under a shared `(marketing)` layout (header nav + footer).
+- [x] **7.2 (S)** About + Features (8 original bullets) + Contact (form).
+- [x] **7.3 (M)** Pricing (3 real tiers $24/$99/$299) → `/checkout?plan=` → backend `create-subscription` → Success. ⚠️ Card capture via **Stripe Elements/Checkout Session deferred to cutover (Phase 9)** — current checkout calls the subscription API directly.
+- Verified: `next build` (13 routes), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 8 — Frontend: portal (depends on 6, and matching API/integration phases)
 - [ ] **8.1 (S)** App shell: nav, menus, layouts.
