@@ -1,5 +1,6 @@
 """Auth endpoints: register, login (httpOnly cookies), refresh, logout, me,
 email verification, forgot/reset password, change password."""
+import secrets
 from typing import Optional
 from uuid import UUID
 
@@ -28,6 +29,7 @@ from app.schemas.auth import (
     ResetPasswordRequest,
     UserRead,
 )
+from app.services import audit
 from app.services import auth as auth_service
 
 TWOFA_COOKIE = "twofa_token"
@@ -43,6 +45,7 @@ def _to_user_read(user: User) -> UserRead:
         last_name=user.last_name,
         email_confirmed=user.email_confirmed,
         two_factor_enabled=user.two_factor_enabled,
+        is_superuser=user.is_superuser,
         account_id=user.account_id,
         roles=[r.name for r in user.roles],
     )
@@ -97,6 +100,7 @@ def login(
         )
         return LoginResponse(two_factor_required=True)
     set_auth_cookies(response, user)
+    audit.record(session, action="auth.login", account_id=user.account_id, user_id=user.id)
     return LoginResponse(user=_to_user_read(user))
 
 
@@ -117,6 +121,8 @@ def refresh(
     user = session.get(User, UUID(payload["sub"]))
     if user is None or user.is_deleted:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "User not found.")
+    if payload.get("stamp") != user.security_stamp:  # invalidated by sign-out-everywhere
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Session expired.")
     set_auth_cookies(response, user)
     return MessageResponse(detail="Token refreshed.")
 
@@ -130,6 +136,20 @@ def logout(response: Response) -> MessageResponse:
 @router.get("/me", response_model=UserRead)
 def me(user: User = Depends(get_current_user)) -> UserRead:
     return _to_user_read(user)
+
+
+@router.post("/sign-out-everywhere", response_model=MessageResponse)
+def sign_out_everywhere(
+    response: Response,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+) -> MessageResponse:
+    """Rotate the security stamp → invalidates every existing token/session."""
+    user.security_stamp = secrets.token_hex(16)
+    session.add(user)
+    session.commit()
+    clear_auth_cookies(response)
+    return MessageResponse(detail="Signed out of all sessions.")
 
 
 @router.get("/verify-email", response_model=MessageResponse)

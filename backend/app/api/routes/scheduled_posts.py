@@ -20,6 +20,7 @@ from app.models.scheduled_post import ScheduledPost
 from app.models.social import SocialMedia
 from app.schemas.pagination import Page
 from app.schemas.scheduled_post import ScheduledPostCreate, ScheduledPostRead
+from app.services import audit
 from app.services import scheduled_posts as svc
 
 router = APIRouter(prefix="/api/v1/scheduled-posts", tags=["scheduled-posts"])
@@ -102,6 +103,7 @@ def approve_post(
     session.add(post)
     session.commit()
     session.refresh(post)
+    audit.record(session, action="post.approved", account_id=account.id, detail=str(post.id))
     return post
 
 
@@ -116,6 +118,7 @@ def reject_post(
     session.add(post)
     session.commit()
     session.refresh(post)
+    audit.record(session, action="post.rejected", account_id=account.id, detail=str(post.id))
     return post
 
 

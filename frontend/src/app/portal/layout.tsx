@@ -40,6 +40,14 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               {item.label}
             </Link>
           ))}
+          {user?.is_superuser && (
+            <Link
+              href="/portal/admin"
+              className="rounded-md px-3 py-2 text-sm font-medium text-brand hover:bg-slate-100"
+            >
+              Admin
+            </Link>
+          )}
         </nav>
       </aside>
       <div className="flex flex-1 flex-col">

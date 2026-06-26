@@ -25,6 +25,7 @@ class UserRead(BaseModel):
     last_name: Optional[str] = None
     email_confirmed: bool
     two_factor_enabled: bool = False
+    is_superuser: bool = False
     account_id: Optional[UUID] = None
     roles: List[str] = []
 

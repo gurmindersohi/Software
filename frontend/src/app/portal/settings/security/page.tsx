@@ -13,6 +13,7 @@ import {
   enableTwoFactor,
   exportPersonalData,
   setupTwoFactor,
+  signOutEverywhere,
 } from "@/lib/auth";
 import { useCurrentUser } from "@/lib/hooks";
 
@@ -141,8 +142,36 @@ export default function SecurityPage() {
     </Card>
 
       <ChangeEmailCard />
+      <SessionsCard />
       <PrivacyCard />
     </div>
+  );
+}
+
+function SessionsCard() {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+
+  async function signOutAll() {
+    setBusy(true);
+    try {
+      await signOutEverywhere();
+      router.push("/login");
+    } catch {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card className="space-y-3">
+      <h2 className="text-lg font-semibold text-slate-800">Sessions</h2>
+      <p className="text-sm text-slate-600">
+        Sign out of every device — invalidates all active sessions immediately.
+      </p>
+      <Button onClick={signOutAll} disabled={busy} className="bg-slate-600 hover:bg-slate-700">
+        {busy ? "Signing out…" : "Sign out everywhere"}
+      </Button>
+    </Card>
   );
 }
 

@@ -116,8 +116,10 @@ def create_access_token(subject: str, extra: Optional[dict] = None) -> str:
     )
 
 
-def create_refresh_token(subject: str) -> str:
-    return _create_token(subject, "refresh", timedelta(days=settings.refresh_token_expire_days))
+def create_refresh_token(subject: str, extra: Optional[dict] = None) -> str:
+    return _create_token(
+        subject, "refresh", timedelta(days=settings.refresh_token_expire_days), extra
+    )
 
 
 def create_email_token(subject: str, purpose: str, hours: int = 24) -> str:

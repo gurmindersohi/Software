@@ -54,5 +54,6 @@ class User(AuditMixin, table=True):
     # Client-scoped users (Tier 2 view-only / approver access); null = full account access.
     client_id: Optional[UUID] = Field(default=None, foreign_key="clients.id", index=True)
     is_deleted: bool = False
+    is_superuser: bool = False  # platform admin / back-office access (Tier 4)
 
     roles: List[Role] = Relationship(back_populates="users", link_model=UserRoleLink)

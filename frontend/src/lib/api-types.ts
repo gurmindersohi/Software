@@ -39,6 +39,13 @@ export interface paths {
     /** Me */
     get: operations["me_api_v1_auth_me_get"];
   };
+  "/api/v1/auth/sign-out-everywhere": {
+    /**
+     * Sign Out Everywhere
+     * @description Rotate the security stamp → invalidates every existing token/session.
+     */
+    post: operations["sign_out_everywhere_api_v1_auth_sign_out_everywhere_post"];
+  };
   "/api/v1/auth/verify-email": {
     /** Verify Email */
     get: operations["verify_email_api_v1_auth_verify_email_get"];
@@ -297,6 +304,26 @@ export interface paths {
      */
     post: operations["verify_login_api_v1_auth_2fa_verify_post"];
   };
+  "/api/v1/audit-logs": {
+    /** List Audit Logs */
+    get: operations["list_audit_logs_api_v1_audit_logs_get"];
+  };
+  "/api/v1/admin/accounts": {
+    /** List Accounts */
+    get: operations["list_accounts_api_v1_admin_accounts_get"];
+  };
+  "/api/v1/admin/accounts/{account_id}/suspend": {
+    /** Suspend Account */
+    post: operations["suspend_account_api_v1_admin_accounts__account_id__suspend_post"];
+  };
+  "/api/v1/admin/accounts/{account_id}/unsuspend": {
+    /** Unsuspend Account */
+    post: operations["unsuspend_account_api_v1_admin_accounts__account_id__unsuspend_post"];
+  };
+  "/api/v1/admin/metrics": {
+    /** Platform Metrics */
+    get: operations["platform_metrics_api_v1_admin_metrics_get"];
+  };
   "/": {
     /** Root */
     get: operations["root__get"];
@@ -430,6 +457,35 @@ export interface components {
        */
       status?: string;
     };
+    /** AdminAccountRead */
+    AdminAccountRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Account Name */
+      account_name?: string | null;
+      /** Plan Name */
+      plan_name: string;
+      /** Is Account Paid */
+      is_account_paid: boolean;
+      /** On Hold */
+      on_hold: boolean;
+      /** Is Deleted */
+      is_deleted: boolean;
+    };
+    /** AdminMetrics */
+    AdminMetrics: {
+      /** Accounts */
+      accounts: number;
+      /** Paid Accounts */
+      paid_accounts: number;
+      /** Users */
+      users: number;
+      /** Leads */
+      leads: number;
+    };
     /** AdsetCreateInput */
     AdsetCreateInput: {
       /** Name */
@@ -478,6 +534,25 @@ export interface components {
        * @default PAUSED
        */
       status?: string;
+    };
+    /** AuditLogRead */
+    AuditLogRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Action */
+      action: string;
+      /** Detail */
+      detail?: string | null;
+      /** User Id */
+      user_id?: string | null;
+      /**
+       * Created On
+       * Format: date-time
+       */
+      created_on: string;
     };
     /** BillingRead */
     BillingRead: {
@@ -830,6 +905,17 @@ export interface components {
       image_url?: string | null;
       /** Video Url */
       video_url?: string | null;
+    };
+    /** Page[AuditLogRead] */
+    Page_AuditLogRead_: {
+      /** Items */
+      items: components["schemas"]["AuditLogRead"][];
+      /** Total */
+      total: number;
+      /** Limit */
+      limit: number;
+      /** Offset */
+      offset: number;
     };
     /** Page[LeadRead] */
     Page_LeadRead_: {
@@ -1185,6 +1271,11 @@ export interface components {
        * @default false
        */
       two_factor_enabled?: boolean;
+      /**
+       * Is Superuser
+       * @default false
+       */
+      is_superuser?: boolean;
       /** Account Id */
       account_id?: string | null;
       /**
@@ -1340,6 +1431,34 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["UserRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Sign Out Everywhere
+   * @description Rotate the security stamp → invalidates every existing token/session.
+   */
+  sign_out_everywhere_api_v1_auth_sign_out_everywhere_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MessageResponse"];
         };
       };
       /** @description Validation Error */
@@ -3294,6 +3413,141 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["UserRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Audit Logs */
+  list_audit_logs_api_v1_audit_logs_get: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Page_AuditLogRead_"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Accounts */
+  list_accounts_api_v1_admin_accounts_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminAccountRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Suspend Account */
+  suspend_account_api_v1_admin_accounts__account_id__suspend_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        account_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminAccountRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Unsuspend Account */
+  unsuspend_account_api_v1_admin_accounts__account_id__unsuspend_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        account_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminAccountRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Platform Metrics */
+  platform_metrics_api_v1_admin_metrics_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminMetrics"];
         };
       };
       /** @description Validation Error */

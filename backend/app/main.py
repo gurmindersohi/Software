@@ -6,7 +6,9 @@ from fastapi.responses import JSONResponse
 from app import __version__
 from app.api.routes import (
     account,
+    admin,
     ads,
+    audit,
     auth,
     billing,
     clients,
@@ -70,6 +72,8 @@ app.include_router(media.router)
 app.include_router(scheduled_posts.router)
 app.include_router(team.router)
 app.include_router(twofa.router)
+app.include_router(audit.router)
+app.include_router(admin.router)
 
 
 @app.get("/", tags=["health"])

@@ -30,8 +30,11 @@ def _secure_cookie() -> bool:
 
 
 def set_auth_cookies(response: Response, user: User) -> None:
-    access = security.create_access_token(str(user.id))
-    refresh = security.create_refresh_token(str(user.id))
+    # The security stamp is embedded so "sign out everywhere" (stamp rotation)
+    # invalidates every previously issued token.
+    extra = {"stamp": user.security_stamp}
+    access = security.create_access_token(str(user.id), extra)
+    refresh = security.create_refresh_token(str(user.id), extra)
     response.set_cookie(
         ACCESS_COOKIE,
         access,
@@ -79,6 +82,8 @@ def get_current_user(
         raise _UNAUTHORIZED from exc
     if user is None or user.is_deleted:
         raise _UNAUTHORIZED
+    if payload.get("stamp") != user.security_stamp:  # rotated by "sign out everywhere"
+        raise _UNAUTHORIZED
     return user
 
 
@@ -116,6 +121,13 @@ def require_owner(user: User = Depends(get_current_user)) -> User:
     """Restrict an endpoint to account owners (team/role administration)."""
     if not any(role.name == "Owner" for role in user.roles):
         raise PermissionDeniedError("Owner role required.")
+    return user
+
+
+def require_superuser(user: User = Depends(get_current_user)) -> User:
+    """Restrict an endpoint to platform admins (back-office)."""
+    if not user.is_superuser:
+        raise PermissionDeniedError("Admin access required.")
     return user
 
 

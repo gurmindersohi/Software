@@ -7,6 +7,7 @@ export interface User {
   last_name?: string | null;
   email_confirmed: boolean;
   two_factor_enabled: boolean;
+  is_superuser: boolean;
   account_id?: string | null;
   roles: string[];
 }
@@ -80,4 +81,8 @@ export function deleteAccount(password: string): Promise<{ detail: string }> {
     method: "POST",
     body: JSON.stringify({ password }),
   });
+}
+
+export function signOutEverywhere(): Promise<{ detail: string }> {
+  return apiFetch("/auth/sign-out-everywhere", { method: "POST" });
 }

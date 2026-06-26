@@ -7,6 +7,7 @@ is intentionally out of scope).
 """
 import logging
 import time
+import uuid
 from collections import defaultdict, deque
 
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -18,11 +19,15 @@ logger = logging.getLogger("app.request")
 
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
+        # Correlation id — propagated from the caller or generated, echoed back.
+        request_id = request.headers.get("x-request-id") or uuid.uuid4().hex[:12]
         start = time.perf_counter()
         response = await call_next(request)
         elapsed_ms = (time.perf_counter() - start) * 1000
+        response.headers["X-Request-ID"] = request_id
         logger.info(
-            "%s %s -> %s (%.1fms)",
+            "[%s] %s %s -> %s (%.1fms)",
+            request_id,
             request.method,
             request.url.path,
             response.status_code,

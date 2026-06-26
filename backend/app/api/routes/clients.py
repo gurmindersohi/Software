@@ -12,6 +12,7 @@ from app.models.account import Account
 from app.models.client import Client
 from app.models.user import User
 from app.schemas.client import ClientCreate, ClientRead, ClientUpdate
+from app.services import audit
 from app.services.reports import client_report_pdf
 
 router = APIRouter(prefix="/api/v1/clients", tags=["clients"])
@@ -28,7 +29,7 @@ def list_clients(
 @router.post("", response_model=ClientRead, status_code=status.HTTP_201_CREATED)
 def create_client(
     body: ClientCreate,
-    _: User = Depends(require_owner),
+    owner: User = Depends(require_owner),
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> Client:
@@ -36,6 +37,13 @@ def create_client(
     session.add(client)
     session.commit()
     session.refresh(client)
+    audit.record(
+        session,
+        action="client.created",
+        account_id=account.id,
+        user_id=owner.id,
+        detail=client.name,
+    )
     return client
 
 
@@ -83,7 +91,7 @@ def client_report(
 @router.delete("/{client_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_client(
     client_id: UUID,
-    _: User = Depends(require_owner),
+    owner: User = Depends(require_owner),
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> None:
@@ -91,3 +99,10 @@ def delete_client(
     client.is_deleted = True
     session.add(client)
     session.commit()
+    audit.record(
+        session,
+        action="client.deleted",
+        account_id=account.id,
+        user_id=owner.id,
+        detail=client.name,
+    )
