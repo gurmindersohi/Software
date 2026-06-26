@@ -1,4 +1,5 @@
 import { apiFetch } from "./api";
+import type { Page } from "./pagination";
 
 export interface Lead {
   id: string;
@@ -23,7 +24,14 @@ export interface Lead {
 
 export type LeadInput = Partial<Omit<Lead, "id" | "account_id">> & { email: string };
 
-export const listLeads = () => apiFetch<Lead[]>("/leads");
+export const listLeads = (params?: { limit?: number; offset?: number; source?: string }) => {
+  const q = new URLSearchParams();
+  if (params?.limit != null) q.set("limit", String(params.limit));
+  if (params?.offset != null) q.set("offset", String(params.offset));
+  if (params?.source) q.set("source", params.source);
+  const qs = q.toString();
+  return apiFetch<Page<Lead>>(`/leads${qs ? `?${qs}` : ""}`);
+};
 
 export const searchLeads = (name: string, email: string) => {
   const params = new URLSearchParams();

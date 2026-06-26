@@ -157,7 +157,7 @@ def test_sync_lead_forms_imports_leads(client, session):
         app.dependency_overrides.pop(get_graph_factory, None)
     assert resp.status_code == 200
     assert resp.json()["imported"] == 1
-    leads = client.get("/api/v1/leads").json()
+    leads = client.get("/api/v1/leads").json()["items"]
     assert any(le["email"] == "lead@example.com" for le in leads)
 
 

@@ -35,7 +35,7 @@ def test_create_and_list(client, session):
     )
     assert resp.status_code == 201
     assert resp.json()["status"] == "pending"
-    assert len(client.get("/api/v1/scheduled-posts").json()) == 1
+    assert client.get("/api/v1/scheduled-posts").json()["total"] == 1
 
 
 def test_create_rejects_foreign_connection(client, session):
@@ -55,4 +55,4 @@ def test_cancel_pending(client, session):
         json={"social_media_id": conn_id, "scheduled_at": _future()},
     ).json()["id"]
     assert client.delete(f"/api/v1/scheduled-posts/{post_id}").status_code == 204
-    assert client.get("/api/v1/scheduled-posts").json() == []
+    assert client.get("/api/v1/scheduled-posts").json()["items"] == []

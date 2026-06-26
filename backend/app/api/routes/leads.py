@@ -3,27 +3,33 @@ from datetime import datetime, timezone
 from typing import List, Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy import or_
 from sqlmodel import Session, select
 
 from app.api.deps import get_current_account, require_active_account
 from app.core.exceptions import ConflictError
-from app.core.tenancy import first_owned, list_owned, owned_or_404
+from app.core.tenancy import first_owned, owned_or_404, page_owned
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.lead import Lead
 from app.schemas.lead import LeadCreate, LeadRead, LeadUpdate
+from app.schemas.pagination import Page
 
 router = APIRouter(prefix="/api/v1/leads", tags=["leads"])
 
 
-@router.get("", response_model=List[LeadRead])
+@router.get("", response_model=Page[LeadRead])
 def list_leads(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    source: Optional[str] = None,
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
-) -> List[Lead]:
-    return list_owned(session, Lead, account.id)
+) -> Page[LeadRead]:
+    extra = (Lead.lead_source == source) if source else None
+    items, total = page_owned(session, Lead, account.id, limit=limit, offset=offset, extra=extra)
+    return Page(items=items, total=total, limit=limit, offset=offset)
 
 
 @router.get("/search", response_model=List[LeadRead])

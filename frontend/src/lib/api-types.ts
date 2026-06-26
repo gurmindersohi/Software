@@ -755,6 +755,39 @@ export interface components {
       /** Video Url */
       video_url?: string | null;
     };
+    /** Page[LeadRead] */
+    Page_LeadRead_: {
+      /** Items */
+      items: components["schemas"]["LeadRead"][];
+      /** Total */
+      total: number;
+      /** Limit */
+      limit: number;
+      /** Offset */
+      offset: number;
+    };
+    /** Page[MediaAssetRead] */
+    Page_MediaAssetRead_: {
+      /** Items */
+      items: components["schemas"]["MediaAssetRead"][];
+      /** Total */
+      total: number;
+      /** Limit */
+      limit: number;
+      /** Offset */
+      offset: number;
+    };
+    /** Page[ScheduledPostRead] */
+    Page_ScheduledPostRead_: {
+      /** Items */
+      items: components["schemas"]["ScheduledPostRead"][];
+      /** Total */
+      total: number;
+      /** Limit */
+      limit: number;
+      /** Offset */
+      offset: number;
+    };
     /** PlanRead */
     PlanRead: {
       /**
@@ -1461,6 +1494,11 @@ export interface operations {
   /** List Leads */
   list_leads_api_v1_leads_get: {
     parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+        source?: string | null;
+      };
       header?: {
         authorization?: string | null;
       };
@@ -1472,7 +1510,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["LeadRead"][];
+          "application/json": components["schemas"]["Page_LeadRead_"];
         };
       };
       /** @description Validation Error */
@@ -2337,6 +2375,10 @@ export interface operations {
   /** List Media */
   list_media_api_v1_media_get: {
     parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
       header?: {
         authorization?: string | null;
       };
@@ -2348,7 +2390,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["MediaAssetRead"][];
+          "application/json": components["schemas"]["Page_MediaAssetRead_"];
         };
       };
       /** @description Validation Error */
@@ -2392,6 +2434,11 @@ export interface operations {
   /** List Posts */
   list_posts_api_v1_scheduled_posts_get: {
     parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+        status?: string | null;
+      };
       header?: {
         authorization?: string | null;
       };
@@ -2403,7 +2450,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["ScheduledPostRead"][];
+          "application/json": components["schemas"]["Page_ScheduledPostRead_"];
         };
       };
       /** @description Validation Error */

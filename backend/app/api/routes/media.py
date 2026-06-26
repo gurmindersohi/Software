@@ -1,16 +1,16 @@
 """Media upload + library (tasks 4.7 / gap #7). Files go to object storage and
 are tracked per-tenant so the post/ad builders can browse them."""
-from typing import List
-
-from fastapi import APIRouter, Depends, File, UploadFile, status
-from sqlmodel import Session, select
+from fastapi import APIRouter, Depends, File, Query, UploadFile, status
+from sqlmodel import Session
 
 from app.api.deps import get_current_account
 from app.core import storage
+from app.core.tenancy import page_owned
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.media_asset import MediaAsset
 from app.schemas.integrations import MediaAssetRead, MediaUploadResponse
+from app.schemas.pagination import Page
 
 router = APIRouter(prefix="/api/v1/media", tags=["media"])
 
@@ -23,14 +23,15 @@ def _kind(content_type: str) -> str:
     return "file"
 
 
-@router.get("", response_model=List[MediaAssetRead])
+@router.get("", response_model=Page[MediaAssetRead])
 def list_media(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
-) -> List[MediaAsset]:
-    return session.exec(
-        select(MediaAsset).where(MediaAsset.account_id == account.id)
-    ).all()
+) -> Page[MediaAssetRead]:
+    items, total = page_owned(session, MediaAsset, account.id, limit=limit, offset=offset)
+    return Page(items=items, total=total, limit=limit, offset=offset)
 
 
 @router.post("/upload", response_model=MediaUploadResponse, status_code=status.HTTP_201_CREATED)

@@ -34,10 +34,10 @@ export default function MediaPage() {
         <span className="text-sm text-slate-500">Images and videos for posts &amp; ads.</span>
       </div>
 
-      {media.data && media.data.length === 0 && <Empty message="No media uploaded yet." />}
+      {media.data && media.data.items.length === 0 && <Empty message="No media uploaded yet." />}
 
       <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {media.data?.map((asset) => (
+        {media.data?.items.map((asset) => (
           <Card key={asset.id} className="p-2">
             {asset.kind === "image" ? (
               // eslint-disable-next-line @next/next/no-img-element

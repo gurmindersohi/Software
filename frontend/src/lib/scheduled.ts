@@ -1,4 +1,5 @@
 import { apiFetch } from "./api";
+import type { Page } from "./pagination";
 
 export interface ScheduledPost {
   id: string;
@@ -24,7 +25,7 @@ export interface ScheduledPostInput {
   scheduled_at: string;
 }
 
-export const listScheduledPosts = () => apiFetch<ScheduledPost[]>("/scheduled-posts");
+export const listScheduledPosts = () => apiFetch<Page<ScheduledPost>>("/scheduled-posts");
 
 export const createScheduledPost = (data: ScheduledPostInput) =>
   apiFetch<ScheduledPost>("/scheduled-posts", {

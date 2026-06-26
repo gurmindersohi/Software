@@ -29,9 +29,9 @@ def test_upload_records_asset_and_library_lists_it(client, session, tmp_path, mo
     client.post("/api/v1/media/upload", files={"file": ("pic.png", b"\x89PNG", "image/png")})
     library = client.get("/api/v1/media")
     assert library.status_code == 200
-    assets = library.json()
-    assert len(assets) == 1
-    assert assets[0]["kind"] == "image"
+    body = library.json()
+    assert body["total"] == 1
+    assert body["items"][0]["kind"] == "image"
 
 
 def test_upload_requires_auth(client):

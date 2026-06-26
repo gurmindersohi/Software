@@ -102,9 +102,9 @@ export default function SocialQueuePage() {
       )}
 
       {posts.isLoading && <p className="text-slate-500">Loading…</p>}
-      {posts.data && posts.data.length === 0 && <Empty message="No scheduled posts yet." />}
+      {posts.data && posts.data.items.length === 0 && <Empty message="No scheduled posts yet." />}
 
-      {posts.data && posts.data.length > 0 && (
+      {posts.data && posts.data.items.length > 0 && (
         <Card className="overflow-x-auto p-0">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-slate-200 text-slate-500">
@@ -116,7 +116,7 @@ export default function SocialQueuePage() {
               </tr>
             </thead>
             <tbody>
-              {posts.data.map((post) => (
+              {posts.data.items.map((post) => (
                 <tr key={post.id} className="border-b border-slate-100">
                   <td className="max-w-xs truncate px-4 py-3">{post.message}</td>
                   <td className="px-4 py-3 text-slate-600">

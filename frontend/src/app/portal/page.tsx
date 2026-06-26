@@ -20,7 +20,7 @@ function Stat({ label, value }: { label: string; value: number | string }) {
 export default function DashboardPage() {
   const { data: user } = useCurrentUser();
   const account = useQuery({ queryKey: ["account"], queryFn: getAccount });
-  const leads = useQuery({ queryKey: ["leads"], queryFn: listLeads });
+  const leads = useQuery({ queryKey: ["leads"], queryFn: () => listLeads() });
   const social = useQuery({ queryKey: ["social"], queryFn: listSocialConnections });
   const ads = useQuery({ queryKey: ["ad-accounts"], queryFn: listAdAccounts });
   const scheduled = useQuery({ queryKey: ["scheduled"], queryFn: listScheduledPosts });
@@ -36,10 +36,10 @@ export default function DashboardPage() {
       </h1>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Leads" value={leads.data?.length ?? "—"} />
+        <Stat label="Leads" value={leads.data?.total ?? "—"} />
         <Stat label="Connected pages" value={social.data?.length ?? "—"} />
         <Stat label="Ad accounts" value={ads.data?.length ?? "—"} />
-        <Stat label="Scheduled posts" value={scheduled.data?.length ?? "—"} />
+        <Stat label="Scheduled posts" value={scheduled.data?.total ?? "—"} />
       </div>
 
       <Card className="max-w-lg">

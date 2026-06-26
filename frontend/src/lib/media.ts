@@ -1,4 +1,5 @@
 import { apiFetch } from "./api";
+import type { Page } from "./pagination";
 
 export interface MediaAsset {
   id: string;
@@ -7,7 +8,7 @@ export interface MediaAsset {
   content_type?: string | null;
 }
 
-export const listMedia = () => apiFetch<MediaAsset[]>("/media");
+export const listMedia = () => apiFetch<Page<MediaAsset>>("/media");
 
 export async function uploadMedia(file: File): Promise<{ url: string; key: string }> {
   // multipart upload — not via apiFetch (which forces a JSON content-type)
