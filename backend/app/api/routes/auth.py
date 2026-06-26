@@ -11,7 +11,7 @@ from app.api.deps import (
     get_current_user,
     set_auth_cookies,
 )
-from app.core import security
+from app.core import email_templates, security
 from app.core.config import settings
 from app.core.email import send_email
 from app.db.session import get_session
@@ -61,10 +61,17 @@ def register(body: RegisterRequest, session: Session = Depends(get_session)) -> 
         raise HTTPException(status.HTTP_409_CONFLICT, str(exc)) from exc
 
     token = security.create_email_token(str(user.id), "email_verify")
+    link = f"{settings.frontend_origin}/verify-email?token={token}"
     send_email(
         user.email,
         "Confirm your email",
-        f"Verify your account: {settings.frontend_origin}/verify-email?token={token}",
+        f"Verify your account: {link}",
+        html=email_templates.render(
+            "Confirm your email",
+            "Welcome to Sohi! Confirm your email address to get started.",
+            "Confirm email",
+            link,
+        ),
     )
     return _to_user_read(user)
 
@@ -151,10 +158,17 @@ def forgot_password(
     user = auth_service.get_user_by_email(session, str(body.email))
     if user is not None:  # never reveal whether the email exists
         token = security.create_email_token(str(user.id), "reset", hours=2)
+        link = f"{settings.frontend_origin}/reset-password?token={token}"
         send_email(
             user.email,
             "Reset your password",
-            f"Reset link: {settings.frontend_origin}/reset-password?token={token}",
+            f"Reset link: {link}",
+            html=email_templates.render(
+                "Reset your password",
+                "We received a request to reset your password. This link expires in 2 hours.",
+                "Reset password",
+                link,
+            ),
         )
     return MessageResponse(detail="If that email exists, a reset link has been sent.")
 

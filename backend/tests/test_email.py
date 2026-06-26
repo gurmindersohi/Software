@@ -28,6 +28,20 @@ def test_resend_builds_request(monkeypatch):
     assert "to@example.com" in captured["body"]
 
 
+def test_resend_includes_html_when_provided(monkeypatch):
+    monkeypatch.setattr(settings, "resend_api_key", "re_test")
+    captured = {}
+
+    def handler(request):
+        captured["body"] = request.content.decode()
+        return httpx.Response(200, json={"id": "email_1"})
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    email._send_resend("to@example.com", "S", "plain", "<b>rich</b>", client=client)
+    assert '"html"' in captured["body"]
+    assert "rich" in captured["body"]
+
+
 def test_resend_raises_on_error(monkeypatch):
     monkeypatch.setattr(settings, "resend_api_key", "re_test")
     client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(422, json={})))

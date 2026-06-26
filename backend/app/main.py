@@ -21,6 +21,16 @@ from app.api.routes import (
 from app.core.config import settings
 from app.core.middleware import RateLimitMiddleware, RequestLoggingMiddleware
 
+# Error tracking — only active when SENTRY_DSN is configured.
+if settings.sentry_dsn:
+    import sentry_sdk
+
+    sentry_sdk.init(
+        dsn=settings.sentry_dsn,
+        environment=settings.environment,
+        traces_sample_rate=0.1,
+    )
+
 app = FastAPI(
     title=settings.app_name,
     version=__version__,

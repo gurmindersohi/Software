@@ -6,6 +6,12 @@ def test_health(client):
     assert body["version"]
 
 
+def test_readyz_checks_db(client):
+    resp = client.get("/readyz")
+    assert resp.status_code == 200
+    assert resp.json()["status"] == "ready"
+
+
 def test_root(client):
     resp = client.get("/")
     assert resp.status_code == 200

@@ -40,6 +40,7 @@ class Settings(BaseSettings):
 
     # Observability (task 0.8)
     rate_limit_per_minute: int = 1000
+    sentry_dsn: Optional[str] = None  # error tracking; disabled when unset
 
     # Email (Phase 2.6)
     email_provider: str = "console"  # console | resend | sendgrid

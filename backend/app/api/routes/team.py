@@ -13,7 +13,7 @@ from app.api.deps import (
     require_active_account,
     require_owner,
 )
-from app.core import security
+from app.core import email_templates, security
 from app.core.config import settings
 from app.core.email import send_email
 from app.core.quotas import enforce_quota
@@ -78,10 +78,17 @@ def invite_member(
     session.refresh(member)
 
     token = security.create_email_token(str(member.id), "reset", hours=72)
+    link = f"{settings.frontend_origin}/reset-password?token={token}"
     send_email(
         member.email,
         "You've been invited to Sohi",
-        f"Set your password: {settings.frontend_origin}/reset-password?token={token}",
+        f"Set your password: {link}",
+        html=email_templates.render(
+            "You've been invited",
+            "You've been added to a Sohi account. Set your password to sign in.",
+            "Set password",
+            link,
+        ),
     )
     return _to_member(member)
 
