@@ -1,6 +1,7 @@
 """FastAPI application entrypoint."""
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app import __version__
 from app.api.routes import (
@@ -19,6 +20,7 @@ from app.api.routes import (
     twofa,
 )
 from app.core.config import settings
+from app.core.exceptions import AppError
 from app.core.middleware import RateLimitMiddleware, RequestLoggingMiddleware
 
 # Error tracking — only active when SENTRY_DSN is configured.
@@ -36,6 +38,12 @@ app = FastAPI(
     version=__version__,
     description="Social Media & Ads Manager API (FastAPI re-platform of Sohi.Api).",
 )
+
+@app.exception_handler(AppError)
+async def _app_error_handler(request: Request, exc: AppError) -> JSONResponse:
+    """Translate domain exceptions to HTTP at the edge."""
+    return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
+
 
 app.add_middleware(RequestLoggingMiddleware)
 app.add_middleware(RateLimitMiddleware, limit_per_minute=settings.rate_limit_per_minute)

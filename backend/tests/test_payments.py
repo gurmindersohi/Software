@@ -64,6 +64,33 @@ def test_webhook_subscription_updated_marks_paid(client, session, monkeypatch):
     assert account.on_hold is False
 
 
+def test_webhook_is_idempotent_on_replay(client, session, monkeypatch):
+    register_confirm_login(client, session)
+    account = session.exec(select(Account)).first()
+    account.customer_id = "cus_idem"
+    session.add(account)
+    session.commit()
+
+    event = {
+        "id": "evt_1",
+        "type": "invoice.payment_failed",
+        "data": {"object": {"customer": "cus_idem"}},
+    }
+    monkeypatch.setattr(stripe_service, "construct_event", lambda payload, sig: event)
+
+    client.post("/api/v1/payments/webhook", content=b"{}", headers={"stripe-signature": "x"})
+    session.refresh(account)
+    assert account.on_hold is True
+
+    # operator clears the hold; Stripe redelivers the SAME event id
+    account.on_hold = False
+    session.add(account)
+    session.commit()
+    client.post("/api/v1/payments/webhook", content=b"{}", headers={"stripe-signature": "x"})
+    session.refresh(account)
+    assert account.on_hold is False  # not re-applied
+
+
 def test_webhook_payment_failed_puts_account_on_hold(client, session, monkeypatch):
     register_confirm_login(client, session)
     account = session.exec(select(Account)).first()

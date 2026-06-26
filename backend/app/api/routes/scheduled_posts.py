@@ -5,11 +5,13 @@ Creating a row is all the API does; the arq worker sweep publishes due rows.
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session, select
+from fastapi import APIRouter, Depends, status
+from sqlmodel import Session
 
 from app.api.deps import get_current_account, require_active_account
+from app.core.exceptions import ConflictError
 from app.core.quotas import enforce_quota
+from app.core.tenancy import list_owned, owned_or_404
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.scheduled_post import ScheduledPost
@@ -20,21 +22,12 @@ from app.services import scheduled_posts as svc
 router = APIRouter(prefix="/api/v1/scheduled-posts", tags=["scheduled-posts"])
 
 
-def _get_owned(session: Session, post_id: UUID, account: Account) -> ScheduledPost:
-    post = session.get(ScheduledPost, post_id)
-    if post is None or post.account_id != account.id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Scheduled post not found.")
-    return post
-
-
 @router.get("", response_model=List[ScheduledPostRead])
 def list_posts(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> List[ScheduledPost]:
-    return session.exec(
-        select(ScheduledPost).where(ScheduledPost.account_id == account.id)
-    ).all()
+    return list_owned(session, ScheduledPost, account.id)
 
 
 @router.post("", response_model=ScheduledPostRead, status_code=status.HTTP_201_CREATED)
@@ -44,9 +37,9 @@ def create_post(
     session: Session = Depends(get_session),
 ) -> ScheduledPost:
     # The target social connection must belong to this tenant.
-    connection = session.get(SocialMedia, body.social_media_id)
-    if connection is None or connection.account_id != account.id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Social connection not found.")
+    owned_or_404(
+        session, SocialMedia, body.social_media_id, account.id, name="Social connection"
+    )
     # Quota counts posts still in the pipeline (not yet published/failed).
     enforce_quota(
         session,
@@ -75,7 +68,7 @@ def get_post(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> ScheduledPost:
-    return _get_owned(session, post_id, account)
+    return owned_or_404(session, ScheduledPost, post_id, account.id, name="Scheduled post")
 
 
 @router.delete("/{post_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -84,8 +77,8 @@ def cancel_post(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> None:
-    post = _get_owned(session, post_id, account)
+    post = owned_or_404(session, ScheduledPost, post_id, account.id, name="Scheduled post")
     if post.status == "published":
-        raise HTTPException(status.HTTP_409_CONFLICT, "Cannot cancel an already-published post.")
+        raise ConflictError("Cannot cancel an already-published post.")
     session.delete(post)
     session.commit()

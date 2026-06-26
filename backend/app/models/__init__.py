@@ -8,6 +8,7 @@ from app.models.plan import Plan
 from app.models.scheduled_post import ScheduledPost
 from app.models.social import SocialMedia
 from app.models.user import Role, User, UserRoleLink
+from app.models.webhook_event import ProcessedWebhookEvent
 
 __all__ = [
     "Account",
@@ -15,6 +16,7 @@ __all__ = [
     "Lead",
     "MediaAsset",
     "Plan",
+    "ProcessedWebhookEvent",
     "ScheduledPost",
     "SocialMedia",
     "User",

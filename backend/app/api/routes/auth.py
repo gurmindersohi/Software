@@ -50,18 +50,14 @@ def _to_user_read(user: User) -> UserRead:
 
 @router.post("/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 def register(body: RegisterRequest, session: Session = Depends(get_session)) -> UserRead:
-    try:
-        user = auth_service.register_user(
-            session,
-            email=str(body.email),
-            password=body.password,
-            first_name=body.first_name,
-            last_name=body.last_name,
-            account_name=body.account_name,
-        )
-    except ValueError as exc:
-        raise HTTPException(status.HTTP_409_CONFLICT, str(exc)) from exc
-
+    user = auth_service.register_user(
+        session,
+        email=str(body.email),
+        password=body.password,
+        first_name=body.first_name,
+        last_name=body.last_name,
+        account_name=body.account_name,
+    )
     token = security.create_email_token(str(user.id), "email_verify")
     link = f"{settings.frontend_origin}/verify-email?token={token}"
     send_email(

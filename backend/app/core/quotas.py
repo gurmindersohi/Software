@@ -1,10 +1,12 @@
-"""Per-plan quota enforcement (task 3.8). Limits mirror the pricing tiers;
-`None` means unlimited."""
+"""Per-plan quota enforcement (task 3.8). Pure domain logic — no HTTP. Limits
+mirror the pricing tiers; `None` means unlimited."""
 from typing import Optional, Type
 from uuid import UUID
 
-from fastapi import HTTPException, status
-from sqlmodel import Session, SQLModel, select
+from sqlmodel import Session, SQLModel
+
+from app.core.exceptions import PaymentRequiredError
+from app.core.tenancy import count_owned
 
 PLAN_QUOTAS = {
     "trial": {"seats": 1, "social_sets": 3, "scheduled_posts": 30},
@@ -28,16 +30,11 @@ def enforce_quota(
     model: Type[SQLModel],
     extra=None,
 ) -> None:
-    """Raise 402 if creating one more `resource` would exceed the plan limit."""
+    """Raise if creating one more `resource` would exceed the plan limit."""
     limit = limit_for(plan_name, resource)
     if limit is None:
         return  # unlimited
-    stmt = select(model).where(model.account_id == account_id)
-    if extra is not None:
-        stmt = stmt.where(extra)
-    current = len(session.exec(stmt).all())
-    if current >= limit:
-        raise HTTPException(
-            status.HTTP_402_PAYMENT_REQUIRED,
-            f"Your plan allows {limit} {resource.replace('_', ' ')}. Upgrade to add more.",
+    if count_owned(session, model, account_id, extra) >= limit:
+        raise PaymentRequiredError(
+            f"Your plan allows {limit} {resource.replace('_', ' ')}. Upgrade to add more."
         )

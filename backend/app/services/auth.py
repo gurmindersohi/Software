@@ -6,6 +6,7 @@ from typing import Optional
 from sqlmodel import Session, select
 
 from app.core import security
+from app.core.exceptions import ConflictError
 from app.models.account import Account
 from app.models.user import Role, User
 
@@ -38,7 +39,7 @@ def register_user(
     account_name: Optional[str] = None,
 ) -> User:
     if get_user_by_email(session, email) is not None:
-        raise ValueError("A user with this email already exists.")
+        raise ConflictError("A user with this email already exists.")
 
     # First user of a new signup owns a fresh tenant Account on a trial.
     account = Account(

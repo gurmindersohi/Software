@@ -4,26 +4,42 @@ Facebook/Instagram/ad-account access tokens are encrypted with Fernet
 (AES-128-CBC + HMAC) before they touch the database, and decrypted only
 server-side when a Graph call needs them. They are never returned to clients.
 
-The key comes from `TOKEN_ENCRYPTION_KEY` (a urlsafe-base64 32-byte Fernet key).
-If unset, it is derived deterministically from `SECRET_KEY` so local/dev works
-out of the box — production MUST set a dedicated key.
+Keys (design hardening):
+- `TOKEN_ENCRYPTION_KEY` is the **primary** key — separate from `SECRET_KEY`, so
+  a JWT-signing leak does not also expose stored tokens (production enforces this
+  via config validation).
+- `TOKEN_ENCRYPTION_KEY_OLD` (comma-separated) holds retired keys → **MultiFernet**
+  encrypts with the primary and still decrypts with the old ones, enabling
+  zero-downtime key rotation (add new primary, keep old, re-encrypt, then drop old).
+- If neither is set, a key is derived from `SECRET_KEY` for local/dev only.
 """
 import base64
 import hashlib
-from functools import lru_cache
+from typing import List
 
-from cryptography.fernet import Fernet, InvalidToken
+from cryptography.fernet import Fernet, InvalidToken, MultiFernet
 
 from app.core.config import settings
 
+# Cache MultiFernet per key-set so a config change (tests / rotation) rebuilds it.
+_cache: dict = {}
 
-@lru_cache(maxsize=1)
-def _fernet() -> Fernet:
+
+def _keys() -> List[str]:
     if settings.token_encryption_key:
-        return Fernet(settings.token_encryption_key.encode())
-    # Derive a valid 32-byte Fernet key from the app secret (dev fallback).
+        keys = [settings.token_encryption_key]
+        if settings.token_encryption_key_old:
+            keys += [k.strip() for k in settings.token_encryption_key_old.split(",") if k.strip()]
+        return keys
     digest = hashlib.sha256(settings.secret_key.encode()).digest()
-    return Fernet(base64.urlsafe_b64encode(digest))
+    return [base64.urlsafe_b64encode(digest).decode()]
+
+
+def _fernet() -> MultiFernet:
+    key_tuple = tuple(_keys())
+    if key_tuple not in _cache:
+        _cache[key_tuple] = MultiFernet([Fernet(k.encode()) for k in key_tuple])
+    return _cache[key_tuple]
 
 
 def encrypt(plaintext: str) -> str:

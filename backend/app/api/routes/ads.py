@@ -3,7 +3,7 @@ from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session, select
+from sqlmodel import Session
 
 from app.api.deps import (
     GraphFactory,
@@ -12,6 +12,7 @@ from app.api.deps import (
     require_active_account,
 )
 from app.core import crypto
+from app.core.tenancy import list_owned, owned_or_404
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphError
 from app.models.account import Account
@@ -27,9 +28,7 @@ def list_ad_accounts(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> List[AdAccount]:
-    return session.exec(
-        select(AdAccount).where(AdAccount.account_id == account.id)
-    ).all()
+    return list_owned(session, AdAccount, account.id)
 
 
 @router.post("", response_model=AdAccountRead, status_code=status.HTTP_201_CREATED)
@@ -50,10 +49,7 @@ def save_ad_account(
 
 # --- Graph-proxy: live campaigns/adsets/ads (task 8.7) --------------------
 def _owned_ad_account(session: Session, conn_id: UUID, account: Account) -> AdAccount:
-    acct = session.get(AdAccount, conn_id)
-    if acct is None or acct.account_id != account.id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Ad account not found.")
-    return acct
+    return owned_or_404(session, AdAccount, conn_id, account.id, name="Ad account")
 
 
 def _ads_graph(acct: AdAccount, graph_factory: GraphFactory):

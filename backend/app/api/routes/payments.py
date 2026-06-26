@@ -8,6 +8,7 @@ from app.core.config import settings
 from app.db.session import get_session
 from app.integrations import stripe_service
 from app.models.account import Account
+from app.models.webhook_event import ProcessedWebhookEvent
 from app.schemas.integrations import SubscriptionRequest, SubscriptionResult
 
 router = APIRouter(prefix="/api/v1/payments", tags=["payments"])
@@ -56,30 +57,36 @@ async def stripe_webhook(
 
 
 def _apply_event(session: Session, event) -> None:
+    # Idempotency: Stripe can redeliver — apply each event id at most once.
+    event_id = event.get("id")
+    if event_id and session.get(ProcessedWebhookEvent, event_id) is not None:
+        return
+
     event_type = event["type"]
     obj = event["data"]["object"]
     customer_id = obj.get("customer")
-    if not customer_id:
-        return
-    account = session.exec(
-        select(Account).where(Account.customer_id == customer_id)
-    ).first()
-    if account is None:
-        return
+    account = (
+        session.exec(select(Account).where(Account.customer_id == customer_id)).first()
+        if customer_id
+        else None
+    )
 
-    if event_type in ("customer.subscription.created", "customer.subscription.updated"):
-        sub_status = obj.get("status")
-        account.subscription_id = obj.get("id")
-        account.is_account_paid = sub_status in _PAID_STATUSES
-        account.on_hold = sub_status in _HOLD_STATUSES
-    elif event_type == "customer.subscription.deleted":
-        account.is_account_paid = False
-        account.on_hold = True
-    elif event_type == "invoice.payment_failed":
-        account.on_hold = True
-    elif event_type == "invoice.payment_succeeded":
-        account.on_hold = False
-        account.is_account_paid = True
+    if account is not None:
+        if event_type in ("customer.subscription.created", "customer.subscription.updated"):
+            sub_status = obj.get("status")
+            account.subscription_id = obj.get("id")
+            account.is_account_paid = sub_status in _PAID_STATUSES
+            account.on_hold = sub_status in _HOLD_STATUSES
+        elif event_type == "customer.subscription.deleted":
+            account.is_account_paid = False
+            account.on_hold = True
+        elif event_type == "invoice.payment_failed":
+            account.on_hold = True
+        elif event_type == "invoice.payment_succeeded":
+            account.on_hold = False
+            account.is_account_paid = True
+        session.add(account)
 
-    session.add(account)
+    if event_id:
+        session.add(ProcessedWebhookEvent(id=event_id))
     session.commit()

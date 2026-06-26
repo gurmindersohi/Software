@@ -4,7 +4,7 @@ import secrets
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlmodel import Session, select
 
 from app.api.deps import (
@@ -16,7 +16,9 @@ from app.api.deps import (
 from app.core import email_templates, security
 from app.core.config import settings
 from app.core.email import send_email
+from app.core.exceptions import BadRequestError, ConflictError
 from app.core.quotas import enforce_quota
+from app.core.tenancy import owned_or_404
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.user import Role, User
@@ -55,7 +57,7 @@ def invite_member(
     session: Session = Depends(get_session),
 ) -> TeamMemberRead:
     if auth_service.get_user_by_email(session, str(body.email)) is not None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "A user with this email already exists.")
+        raise ConflictError("A user with this email already exists.")
     enforce_quota(
         session,
         plan_name=account.plan_name,
@@ -101,10 +103,8 @@ def remove_member(
     session: Session = Depends(get_session),
 ) -> None:
     if user_id == owner.id:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, "You cannot remove yourself.")
-    member = session.get(User, user_id)
-    if member is None or member.account_id != account.id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Member not found.")
+        raise BadRequestError("You cannot remove yourself.")
+    member = owned_or_404(session, User, user_id, account.id, name="Member")
     member.is_deleted = True
     session.add(member)
     session.commit()
@@ -125,7 +125,7 @@ def create_role(
     session: Session = Depends(get_session),
 ) -> Role:
     if session.exec(select(Role).where(Role.name == body.name)).first() is not None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Role already exists.")
+        raise ConflictError("Role already exists.")
     role = Role(name=body.name)
     session.add(role)
     session.commit()

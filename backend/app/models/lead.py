@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID, uuid4
 
+from sqlalchemy import UniqueConstraint
 from sqlmodel import Field
 
 from app.models.base import AuditMixin
@@ -10,6 +11,8 @@ from app.models.base import AuditMixin
 
 class Lead(AuditMixin, table=True):
     __tablename__ = "leads"
+    # DB-level backstop for the app's per-tenant dedup (closes the race window).
+    __table_args__ = (UniqueConstraint("account_id", "email", name="uq_lead_account_email"),)
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)  # was LeadId
     first_name: Optional[str] = None

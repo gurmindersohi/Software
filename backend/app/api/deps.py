@@ -7,6 +7,7 @@ from sqlmodel import Session
 
 from app.core import security
 from app.core.config import settings
+from app.core.exceptions import NotFoundError, PaymentRequiredError, PermissionDeniedError
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphClient
 from app.models.account import Account
@@ -88,10 +89,10 @@ def get_current_account(
     """The tenant Account owned by the current user. Every tenant-scoped route
     depends on this so callers can only ever touch their own account's data."""
     if user.account_id is None:
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "User is not linked to an account.")
+        raise PermissionDeniedError("User is not linked to an account.")
     account = session.get(Account, user.account_id)
     if account is None or account.is_deleted:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Account not found.")
+        raise NotFoundError("Account not found.")
     return account
 
 
@@ -99,9 +100,7 @@ def require_active_account(account: Account = Depends(get_current_account)) -> A
     """Gate mutating endpoints: blocks suspended (`on_hold`) accounts and expired
     trials that haven't subscribed (task 3.9). Reads/billing stay accessible."""
     if account.on_hold:
-        raise HTTPException(
-            status.HTTP_402_PAYMENT_REQUIRED, "Account is on hold — please update billing."
-        )
+        raise PaymentRequiredError("Account is on hold — please update billing.")
     if not account.is_account_paid and account.trial_expiry is not None:
         from datetime import datetime, timezone
 
@@ -109,16 +108,14 @@ def require_active_account(account: Account = Depends(get_current_account)) -> A
         if expiry.tzinfo is None:
             expiry = expiry.replace(tzinfo=timezone.utc)
         if expiry < datetime.now(timezone.utc):
-            raise HTTPException(
-                status.HTTP_402_PAYMENT_REQUIRED, "Your trial has expired — please subscribe."
-            )
+            raise PaymentRequiredError("Your trial has expired — please subscribe.")
     return account
 
 
 def require_owner(user: User = Depends(get_current_user)) -> User:
     """Restrict an endpoint to account owners (team/role administration)."""
     if not any(role.name == "Owner" for role in user.roles):
-        raise HTTPException(status.HTTP_403_FORBIDDEN, "Owner role required.")
+        raise PermissionDeniedError("Owner role required.")
     return user
 
 

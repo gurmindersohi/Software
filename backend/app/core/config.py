@@ -1,6 +1,7 @@
 """Application settings, loaded from environment / .env (pydantic-settings)."""
 from typing import Optional
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -27,8 +28,10 @@ class Settings(BaseSettings):
     s3_access_key: Optional[str] = None
     s3_secret_key: Optional[str] = None
 
-    # Token encryption at rest (task 4.1). If unset, derived from secret_key.
+    # Token encryption at rest (task 4.1). Separate from secret_key; if unset,
+    # derived from secret_key (dev only). `_old` holds retired keys for rotation.
     token_encryption_key: Optional[str] = None
+    token_encryption_key_old: Optional[str] = None
 
     # Auth
     jwt_algorithm: str = "HS256"
@@ -60,6 +63,24 @@ class Settings(BaseSettings):
     )
     stripe_secret_key: Optional[str] = None
     stripe_webhook_secret: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _reject_insecure_production(self) -> "Settings":
+        """Fail fast at startup rather than shipping insecure defaults to prod."""
+        if self.environment != "production":
+            return self
+        problems = []
+        if self.secret_key.startswith("dev-insecure"):
+            problems.append("SECRET_KEY must be a strong random value")
+        if not self.token_encryption_key:
+            problems.append("TOKEN_ENCRYPTION_KEY must be set (separate from SECRET_KEY)")
+        if self.database_url.startswith("sqlite"):
+            problems.append("DATABASE_URL must point to PostgreSQL, not SQLite")
+        if self.debug:
+            problems.append("DEBUG must be false")
+        if problems:
+            raise ValueError("Insecure production config — " + "; ".join(problems))
+        return self
 
 
 settings = Settings()

@@ -12,7 +12,9 @@ from app.api.deps import (
     require_active_account,
 )
 from app.core import crypto
+from app.core.exceptions import NotFoundError
 from app.core.quotas import enforce_quota
+from app.core.tenancy import first_owned, list_owned, owned_or_404
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphError
 from app.models.account import Account
@@ -29,9 +31,7 @@ def list_tokens(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> List[SocialMedia]:
-    return session.exec(
-        select(SocialMedia).where(SocialMedia.account_id == account.id)
-    ).all()
+    return list_owned(session, SocialMedia, account.id)
 
 
 @router.get("/{platform}", response_model=SocialMediaRead)
@@ -40,13 +40,9 @@ def get_token_by_platform(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> SocialMedia:
-    row = session.exec(
-        select(SocialMedia).where(
-            SocialMedia.account_id == account.id, SocialMedia.type == platform
-        )
-    ).first()
+    row = first_owned(session, SocialMedia, account.id, SocialMedia.type == platform)
     if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "No connection for that platform.")
+        raise NotFoundError("No connection for that platform.")
     return row
 
 
@@ -79,19 +75,14 @@ def delete_token(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> None:
-    token = session.get(SocialMedia, token_id)
-    if token is None or token.account_id != account.id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Connection not found.")
+    token = owned_or_404(session, SocialMedia, token_id, account.id, name="Connection")
     session.delete(token)
     session.commit()
 
 
 # --- Graph-proxy: live page content/insights (tasks 8.5/8.6) --------------
 def _owned_connection(session: Session, connection_id: UUID, account: Account) -> SocialMedia:
-    conn = session.get(SocialMedia, connection_id)
-    if conn is None or conn.account_id != account.id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Connection not found.")
-    return conn
+    return owned_or_404(session, SocialMedia, connection_id, account.id, name="Connection")
 
 
 def _page_graph(conn: SocialMedia, graph_factory: GraphFactory):
