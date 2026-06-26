@@ -1,7 +1,9 @@
 """Observability middleware (task 0.8): request logging + basic rate limiting.
 
-The rate limiter is in-process (per-worker) — a sensible baseline DoS guard.
-For multi-instance production, move it to Redis (the infra is already there).
+The rate limiter is in-process (per-worker) by design — a coarse, best-effort
+DoS guard, not a precise distributed limit. Across multiple instances each worker
+counts independently; that trade-off is accepted (a shared Redis-backed limiter
+is intentionally out of scope).
 """
 import logging
 import time

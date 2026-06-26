@@ -1,9 +1,9 @@
 """Centralized tenant-scoped data access.
 
-Every tenant query goes through here, so isolation is enforced in ONE audited
-place instead of relying on each route remembering `.where(account_id == ...)`.
-This is the app-layer first line of defense; Postgres Row-Level Security is the
-production backstop (see migrations / docs).
+Isolation is enforced **at the application layer**: every tenant query funnels
+through this module, so the scoping lives in one auditable place instead of each
+route remembering `.where(account_id == ...)`. Database-level Row-Level Security
+would be a stronger backstop but is intentionally out of scope for this project.
 """
 from typing import List, Optional, Type, TypeVar
 from uuid import UUID
