@@ -823,6 +823,71 @@
         }
       }
     },
+    "/api/v1/account/usage": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Account Usage",
+        "operationId": "account_usage_api_v1_account_usage_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Access Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/plans/{name}": {
       "get": {
         "tags": [
@@ -3141,6 +3206,71 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubscriptionResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payments/portal": {
+      "post": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "Billing Portal",
+        "operationId": "billing_portal_api_v1_payments_portal_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Access Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalSession"
                 }
               }
             }
@@ -6049,6 +6179,19 @@
         ],
         "title": "PlanRead"
       },
+      "PortalSession": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "PortalSession"
+      },
       "RecoveryCodesResponse": {
         "properties": {
           "recovery_codes": {
@@ -6694,6 +6837,55 @@
           "otpauth_uri"
         ],
         "title": "TwoFASetupResponse"
+      },
+      "UsageItem": {
+        "properties": {
+          "used": {
+            "type": "integer",
+            "title": "Used"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          }
+        },
+        "type": "object",
+        "required": [
+          "used"
+        ],
+        "title": "UsageItem"
+      },
+      "UsageResponse": {
+        "properties": {
+          "plan": {
+            "type": "string",
+            "title": "Plan"
+          },
+          "seats": {
+            "$ref": "#/components/schemas/UsageItem"
+          },
+          "social_sets": {
+            "$ref": "#/components/schemas/UsageItem"
+          },
+          "scheduled_posts": {
+            "$ref": "#/components/schemas/UsageItem"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan",
+          "seats",
+          "social_sets",
+          "scheduled_posts"
+        ],
+        "title": "UsageResponse"
       },
       "UserRead": {
         "properties": {

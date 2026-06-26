@@ -40,6 +40,18 @@ class AccountUpdate(BaseModel):
     logo: Optional[str] = None
 
 
+class UsageItem(BaseModel):
+    used: int
+    limit: Optional[int] = None  # None = unlimited
+
+
+class UsageResponse(BaseModel):
+    plan: str
+    seats: UsageItem
+    social_sets: UsageItem
+    scheduled_posts: UsageItem
+
+
 class PlanRead(BaseModel):
     id: UUID
     name: Optional[str] = None

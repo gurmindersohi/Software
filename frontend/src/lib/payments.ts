@@ -12,3 +12,7 @@ export function createSubscription(priceId: string, plan: string): Promise<Subsc
     body: JSON.stringify({ price_id: priceId, plan }),
   });
 }
+
+export function openBillingPortal(): Promise<{ url: string }> {
+  return apiFetch("/payments/portal", { method: "POST" });
+}

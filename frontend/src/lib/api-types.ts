@@ -79,6 +79,10 @@ export interface paths {
     /** Update Account */
     put: operations["update_account_api_v1_account_put"];
   };
+  "/api/v1/account/usage": {
+    /** Account Usage */
+    get: operations["account_usage_api_v1_account_usage_get"];
+  };
   "/api/v1/plans/{name}": {
     /** Get Plan */
     get: operations["get_plan_api_v1_plans__name__get"];
@@ -185,6 +189,10 @@ export interface paths {
   "/api/v1/payments/create-subscription": {
     /** Create Subscription */
     post: operations["create_subscription_api_v1_payments_create_subscription_post"];
+  };
+  "/api/v1/payments/portal": {
+    /** Billing Portal */
+    post: operations["billing_portal_api_v1_payments_portal_post"];
   };
   "/api/v1/payments/webhook": {
     /** Stripe Webhook */
@@ -808,6 +816,11 @@ export interface components {
       /** Total */
       total: string;
     };
+    /** PortalSession */
+    PortalSession: {
+      /** Url */
+      url: string;
+    };
     /** RecoveryCodesResponse */
     RecoveryCodesResponse: {
       /** Recovery Codes */
@@ -1030,6 +1043,21 @@ export interface components {
       secret: string;
       /** Otpauth Uri */
       otpauth_uri: string;
+    };
+    /** UsageItem */
+    UsageItem: {
+      /** Used */
+      used: number;
+      /** Limit */
+      limit?: number | null;
+    };
+    /** UsageResponse */
+    UsageResponse: {
+      /** Plan */
+      plan: string;
+      seats: components["schemas"]["UsageItem"];
+      social_sets: components["schemas"]["UsageItem"];
+      scheduled_posts: components["schemas"]["UsageItem"];
     };
     /** UserRead */
     UserRead: {
@@ -1453,6 +1481,31 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AccountRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Account Usage */
+  account_usage_api_v1_account_usage_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UsageResponse"];
         };
       };
       /** @description Validation Error */
@@ -2349,6 +2402,31 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["SubscriptionResult"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Billing Portal */
+  billing_portal_api_v1_payments_portal_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PortalSession"];
         };
       };
       /** @description Validation Error */

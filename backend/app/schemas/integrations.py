@@ -25,6 +25,10 @@ class SubscriptionResult(BaseModel):
     client_secret: Optional[str] = None
 
 
+class PortalSession(BaseModel):
+    url: str
+
+
 class MediaUploadResponse(BaseModel):
     url: str
     key: str

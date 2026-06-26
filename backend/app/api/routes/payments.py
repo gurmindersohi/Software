@@ -5,11 +5,12 @@ from sqlmodel import Session, select
 
 from app.api.deps import get_current_account
 from app.core.config import settings
+from app.core.exceptions import ConflictError
 from app.db.session import get_session
 from app.integrations import stripe_service
 from app.models.account import Account
 from app.models.webhook_event import ProcessedWebhookEvent
-from app.schemas.integrations import SubscriptionRequest, SubscriptionResult
+from app.schemas.integrations import PortalSession, SubscriptionRequest, SubscriptionResult
 
 router = APIRouter(prefix="/api/v1/payments", tags=["payments"])
 
@@ -40,6 +41,20 @@ def create_subscription(
         status=sub["status"],
         client_secret=sub.get("client_secret"),
     )
+
+
+@router.post("/portal", response_model=PortalSession)
+def billing_portal(
+    account: Account = Depends(get_current_account),
+) -> PortalSession:
+    if not settings.stripe_secret_key:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Billing is not configured.")
+    if not account.customer_id:
+        raise ConflictError("No billing account yet — subscribe first.")
+    url = stripe_service.create_portal_session(
+        account.customer_id, f"{settings.frontend_origin}/portal/settings/billing"
+    )
+    return PortalSession(url=url)
 
 
 @router.post("/webhook")

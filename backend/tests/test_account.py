@@ -21,6 +21,15 @@ def test_get_and_update_account(client, session):
     assert updated.json()["phone"] == "555-1234"
 
 
+def test_account_usage(client, session):
+    register_confirm_login(client, session)
+    body = client.get("/api/v1/account/usage").json()
+    assert body["plan"] == "trial"
+    assert body["seats"] == {"used": 1, "limit": 1}  # owner fills the only trial seat
+    assert body["social_sets"]["limit"] == 3
+    assert body["scheduled_posts"]["used"] == 0
+
+
 def test_get_plan_by_name(client, session):
     register_confirm_login(client, session)
     session.add(

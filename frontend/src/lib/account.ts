@@ -47,3 +47,17 @@ export interface Billing {
 }
 
 export const getBilling = () => apiFetch<Billing>("/billing");
+
+export interface UsageItem {
+  used: number;
+  limit: number | null; // null = unlimited
+}
+
+export interface Usage {
+  plan: string;
+  seats: UsageItem;
+  social_sets: UsageItem;
+  scheduled_posts: UsageItem;
+}
+
+export const getUsage = () => apiFetch<Usage>("/account/usage");

@@ -33,6 +33,28 @@ def test_create_subscription_updates_account(client, session, monkeypatch):
     assert account.is_account_paid is True
 
 
+def test_billing_portal_returns_url(client, session, monkeypatch):
+    monkeypatch.setattr(settings, "stripe_secret_key", "sk_test_x")
+    monkeypatch.setattr(
+        stripe_service, "create_portal_session", lambda cid, ret: "https://billing.stripe/session"
+    )
+    register_confirm_login(client, session)
+    account = session.exec(select(Account)).first()
+    account.customer_id = "cus_1"
+    session.add(account)
+    session.commit()
+
+    resp = client.post("/api/v1/payments/portal")
+    assert resp.status_code == 200
+    assert resp.json()["url"].startswith("https://billing.stripe")
+
+
+def test_billing_portal_409_without_customer(client, session, monkeypatch):
+    monkeypatch.setattr(settings, "stripe_secret_key", "sk_test_x")
+    register_confirm_login(client, session)
+    assert client.post("/api/v1/payments/portal").status_code == 409
+
+
 def test_create_subscription_503_when_unconfigured(client, session):
     register_confirm_login(client, session)
     assert (

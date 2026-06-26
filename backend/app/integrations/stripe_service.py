@@ -37,6 +37,13 @@ def create_subscription(customer_id: str, price_id: str) -> dict:
     }
 
 
+def create_portal_session(customer_id: str, return_url: str) -> str:
+    """Stripe-hosted billing portal (update card, cancel, invoices)."""
+    _init()
+    session = stripe.billing_portal.Session.create(customer=customer_id, return_url=return_url)
+    return session.url
+
+
 def construct_event(payload: bytes, sig_header: str):
     """Verify + parse a webhook event. Patched in tests to bypass signatures."""
     return stripe.Webhook.construct_event(payload, sig_header, settings.stripe_webhook_secret)
