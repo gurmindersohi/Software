@@ -119,10 +119,10 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **5.3 (S)** Retries + **dead-letter** (`attempts`/`MAX_ATTEMPTS` → `failed`), `last_error` captured, status/attempts surfaced via `GET` for the Queue UI.
 
 ### Phase 6 — Frontend foundation (depends on 3 for the client)
-- [ ] **6.1 (S)** Next.js (App Router) scaffold, TypeScript, ESLint/Prettier.
-- [ ] **6.2 (S)** UI kit choice (e.g. Tailwind + shadcn/ui) + base layout/theme matching current look.
-- [ ] **6.3 (S)** **Generate typed API client** from FastAPI OpenAPI (`orval`/`openapi-typescript`); data layer (TanStack Query).
-- [ ] **6.4 (M)** Auth wiring: login/register/logout, cookie/session handling, route middleware, protected layouts.
+- [x] **6.1 (S)** Next.js 14 (App Router) + TypeScript (strict) + ESLint. `npm run build` passes (tsc + lint clean). Pinned to patched `next@14.2.35`.
+- [x] **6.2 (S)** Tailwind + a small base UI kit (`components/ui.tsx`: Button/Input/Card/Field) + portal shell (sidebar nav + header).
+- [x] **6.3 (S)** **Typed API client** generated from the backend OpenAPI dump via `openapi-typescript` (`npm run gen:api` → `src/lib/api-types.ts`); data layer on **TanStack Query**.
+- [x] **6.4 (M)** Auth wiring: login/register/logout + `useCurrentUser`; **BFF proxy** (`next.config` rewrites `/api/*` → FastAPI) so httpOnly cookies stay first-party; `middleware.ts` guards `/portal/*`.
 
 ### Phase 7 — Frontend: marketing site (depends on 6)
 - [ ] **7.1 (S)** Home/Index. **7.2 (S)** About + Features + Contact. **7.3 (M)** Pricing + Stripe Checkout + Success.

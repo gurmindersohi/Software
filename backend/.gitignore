@@ -12,3 +12,4 @@ venv/
 .env
 *.db
 sohi_dev.db
+_media/
