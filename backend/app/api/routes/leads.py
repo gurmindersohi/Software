@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import or_
 from sqlmodel import Session, select
 
-from app.api.deps import get_current_account
+from app.api.deps import get_current_account, require_active_account
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.lead import Lead
@@ -65,7 +65,7 @@ def get_lead(
 @router.post("", response_model=LeadRead, status_code=status.HTTP_201_CREATED)
 def create_lead(
     body: LeadCreate,
-    account: Account = Depends(get_current_account),
+    account: Account = Depends(require_active_account),
     session: Session = Depends(get_session),
 ) -> Lead:
     # Duplicate-email check is scoped to the tenant (old API checked globally — a bug).

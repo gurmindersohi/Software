@@ -7,10 +7,16 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
-from app.api.deps import get_current_account, get_current_user, require_owner
+from app.api.deps import (
+    get_current_account,
+    get_current_user,
+    require_active_account,
+    require_owner,
+)
 from app.core import security
 from app.core.config import settings
 from app.core.email import send_email
+from app.core.quotas import enforce_quota
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.user import Role, User
@@ -45,11 +51,19 @@ def list_team(
 def invite_member(
     body: TeamInvite,
     _: User = Depends(require_owner),
-    account: Account = Depends(get_current_account),
+    account: Account = Depends(require_active_account),
     session: Session = Depends(get_session),
 ) -> TeamMemberRead:
     if auth_service.get_user_by_email(session, str(body.email)) is not None:
         raise HTTPException(status.HTTP_409_CONFLICT, "A user with this email already exists.")
+    enforce_quota(
+        session,
+        plan_name=account.plan_name,
+        account_id=account.id,
+        resource="seats",
+        model=User,
+        extra=User.is_deleted == False,  # noqa: E712 — SQL boolean comparison
+    )
     member = User(
         email=str(body.email),
         normalized_email=str(body.email).upper(),

@@ -31,6 +31,7 @@ def create_subscription(
     sub = stripe_service.create_subscription(account.customer_id, body.price_id)
     account.subscription_id = sub["id"]
     account.is_account_paid = sub["status"] in _PAID_STATUSES
+    account.plan_name = body.plan  # drives quota limits (task 3.8)
     session.add(account)
     session.commit()
     return SubscriptionResult(subscription_id=sub["id"], status=sub["status"])

@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     # Email (Phase 2.6)
     email_provider: str = "console"  # console | resend | sendgrid
     email_from: str = "no-reply@sohi.app"
+    resend_api_key: Optional[str] = None
+    sendgrid_api_key: Optional[str] = None
 
     # Integrations (filled in Phase 4)
     facebook_app_id: Optional[str] = None

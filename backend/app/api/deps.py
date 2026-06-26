@@ -95,6 +95,26 @@ def get_current_account(
     return account
 
 
+def require_active_account(account: Account = Depends(get_current_account)) -> Account:
+    """Gate mutating endpoints: blocks suspended (`on_hold`) accounts and expired
+    trials that haven't subscribed (task 3.9). Reads/billing stay accessible."""
+    if account.on_hold:
+        raise HTTPException(
+            status.HTTP_402_PAYMENT_REQUIRED, "Account is on hold — please update billing."
+        )
+    if not account.is_account_paid and account.trial_expiry is not None:
+        from datetime import datetime, timezone
+
+        expiry = account.trial_expiry
+        if expiry.tzinfo is None:
+            expiry = expiry.replace(tzinfo=timezone.utc)
+        if expiry < datetime.now(timezone.utc):
+            raise HTTPException(
+                status.HTTP_402_PAYMENT_REQUIRED, "Your trial has expired — please subscribe."
+            )
+    return account
+
+
 def require_owner(user: User = Depends(get_current_user)) -> User:
     """Restrict an endpoint to account owners (team/role administration)."""
     if not any(role.name == "Owner" for role in user.roles):

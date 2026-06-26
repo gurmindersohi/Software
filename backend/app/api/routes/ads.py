@@ -5,7 +5,12 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
-from app.api.deps import GraphFactory, get_current_account, get_graph_factory
+from app.api.deps import (
+    GraphFactory,
+    get_current_account,
+    get_graph_factory,
+    require_active_account,
+)
 from app.core import crypto
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphError
@@ -74,7 +79,7 @@ def list_campaigns(
 def create_campaign(
     conn_id: UUID,
     body: CampaignCreateInput,
-    account: Account = Depends(get_current_account),
+    account: Account = Depends(require_active_account),
     session: Session = Depends(get_session),
     graph_factory: GraphFactory = Depends(get_graph_factory),
 ):

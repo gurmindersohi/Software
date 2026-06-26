@@ -13,6 +13,7 @@ class ConnectionResult(BaseModel):
 
 class SubscriptionRequest(BaseModel):
     price_id: str
+    plan: str = "premium"  # basic | premium | unlimited — drives quota limits
 
 
 class SubscriptionResult(BaseModel):

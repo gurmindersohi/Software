@@ -5,8 +5,14 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
-from app.api.deps import GraphFactory, get_current_account, get_graph_factory
+from app.api.deps import (
+    GraphFactory,
+    get_current_account,
+    get_graph_factory,
+    require_active_account,
+)
 from app.core import crypto
+from app.core.quotas import enforce_quota
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphError
 from app.models.account import Account
@@ -46,9 +52,16 @@ def get_token_by_platform(
 @router.post("", response_model=SocialMediaRead, status_code=status.HTTP_201_CREATED)
 def save_token(
     body: SocialMediaCreate,
-    account: Account = Depends(get_current_account),
+    account: Account = Depends(require_active_account),
     session: Session = Depends(get_session),
 ) -> SocialMedia:
+    enforce_quota(
+        session,
+        plan_name=account.plan_name,
+        account_id=account.id,
+        resource="social_sets",
+        model=SocialMedia,
+    )
     data = body.model_dump()
     data["access_token"] = crypto.encrypt_optional(data.get("access_token"))
     data["secret"] = crypto.encrypt_optional(data.get("secret"))
@@ -119,7 +132,7 @@ def page_insights(
 def create_page_post(
     connection_id: UUID,
     body: PagePostInput,
-    account: Account = Depends(get_current_account),
+    account: Account = Depends(require_active_account),
     session: Session = Depends(get_session),
     graph_factory: GraphFactory = Depends(get_graph_factory),
 ):

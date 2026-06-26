@@ -23,6 +23,7 @@ class Account(AuditMixin, table=True):
     postal_code: Optional[str] = None
     users_limit: Optional[str] = None
     logo: Optional[str] = None
+    plan_name: str = Field(default="trial")  # trial | basic | premium | unlimited
 
     # Trial / subscription lifecycle (drives tasks 3.9 + billing)
     trial_expiry: Optional[datetime] = None

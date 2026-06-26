@@ -3,8 +3,17 @@ from uuid import UUID
 
 from sqlmodel import select
 
+from app.models.account import Account
 from app.models.user import User
 from tests.conftest import register_confirm_login
+
+
+def _upgrade_to_premium(session):
+    """Trial accounts have 1 seat; bump the plan so invites are allowed."""
+    account = session.exec(select(Account)).first()
+    account.plan_name = "premium"
+    session.add(account)
+    session.commit()
 
 
 def test_list_team_includes_owner(client, session):
@@ -17,6 +26,7 @@ def test_list_team_includes_owner(client, session):
 
 def test_invite_member(client, session):
     register_confirm_login(client, session)
+    _upgrade_to_premium(session)
     resp = client.post(
         "/api/v1/team", json={"email": "member@acme.com", "first_name": "Mem", "role": "User"}
     )
@@ -52,6 +62,7 @@ def test_cannot_remove_self(client, session):
 
 def test_remove_member_soft_deletes(client, session):
     register_confirm_login(client, session)
+    _upgrade_to_premium(session)
     member_id = client.post("/api/v1/team", json={"email": "member@acme.com"}).json()["id"]
     assert client.delete(f"/api/v1/team/{member_id}").status_code == 204
     member = session.get(User, UUID(member_id))

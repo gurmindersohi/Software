@@ -8,7 +8,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
-from app.api.deps import get_current_account
+from app.api.deps import get_current_account, require_active_account
+from app.core.quotas import enforce_quota
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.scheduled_post import ScheduledPost
@@ -39,13 +40,22 @@ def list_posts(
 @router.post("", response_model=ScheduledPostRead, status_code=status.HTTP_201_CREATED)
 def create_post(
     body: ScheduledPostCreate,
-    account: Account = Depends(get_current_account),
+    account: Account = Depends(require_active_account),
     session: Session = Depends(get_session),
 ) -> ScheduledPost:
     # The target social connection must belong to this tenant.
     connection = session.get(SocialMedia, body.social_media_id)
     if connection is None or connection.account_id != account.id:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Social connection not found.")
+    # Quota counts posts still in the pipeline (not yet published/failed).
+    enforce_quota(
+        session,
+        plan_name=account.plan_name,
+        account_id=account.id,
+        resource="scheduled_posts",
+        model=ScheduledPost,
+        extra=ScheduledPost.status.in_(["pending", "queued"]),
+    )
     return svc.create_scheduled_post(
         session,
         account_id=account.id,
