@@ -24,3 +24,4 @@ class AdAccount(SQLModel, table=True):
     email: Optional[str] = None
     user_id: Optional[str] = None
     account_id: UUID = Field(foreign_key="accounts.id", index=True)
+    client_id: Optional[UUID] = Field(default=None, foreign_key="clients.id", index=True)

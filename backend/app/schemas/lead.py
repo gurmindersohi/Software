@@ -7,6 +7,7 @@ from pydantic import BaseModel, EmailStr
 
 
 class LeadBase(BaseModel):
+    client_id: Optional[UUID] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     full_name: Optional[str] = None

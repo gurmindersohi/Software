@@ -17,6 +17,7 @@ class SocialMediaCreate(BaseModel):
     token_expiry_date: Optional[datetime] = None
     email: Optional[str] = None
     user_id: Optional[str] = None
+    client_id: Optional[UUID] = None
 
 
 class SocialMediaRead(BaseModel):
@@ -28,5 +29,6 @@ class SocialMediaRead(BaseModel):
     token_expiry_date: Optional[datetime] = None
     email: Optional[str] = None
     account_id: UUID
+    client_id: Optional[UUID] = None
 
     model_config = {"from_attributes": True}

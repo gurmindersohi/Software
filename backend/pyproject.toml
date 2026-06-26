@@ -20,6 +20,7 @@ dependencies = [
     "python-multipart>=0.0.9",  # multipart/form-data (file uploads)
     "arq>=0.26",            # Redis-backed background worker (scheduled posts)
     "sentry-sdk[fastapi]>=2.0",  # optional error tracking (active when SENTRY_DSN set)
+    "reportlab>=4.0",       # white-labeled PDF client reports
 ]
 
 [project.optional-dependencies]

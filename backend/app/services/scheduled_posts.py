@@ -62,9 +62,12 @@ def create_scheduled_post(
     link: Optional[str] = None,
     image_url: Optional[str] = None,
     video_url: Optional[str] = None,
+    client_id=None,
+    requires_approval: bool = False,
 ) -> ScheduledPost:
     post = ScheduledPost(
         account_id=account_id,
+        client_id=client_id,
         social_media_id=social_media_id,
         platform=platform,
         message=message,
@@ -73,6 +76,8 @@ def create_scheduled_post(
         video_url=video_url,
         scheduled_at=_naive_utc(scheduled_at),
         status="pending",
+        requires_approval=requires_approval,
+        approval_status="pending" if requires_approval else "approved",
     )
     session.add(post)
     session.commit()
@@ -85,6 +90,7 @@ def select_due_posts(session: Session, now: Optional[datetime] = None) -> List[S
     return session.exec(
         select(ScheduledPost).where(
             ScheduledPost.status == "pending",
+            ScheduledPost.approval_status == "approved",  # never auto-publish unapproved
             ScheduledPost.scheduled_at <= moment,
         )
     ).all()

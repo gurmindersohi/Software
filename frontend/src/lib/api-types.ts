@@ -87,6 +87,24 @@ export interface paths {
     /** Get Plan */
     get: operations["get_plan_api_v1_plans__name__get"];
   };
+  "/api/v1/clients": {
+    /** List Clients */
+    get: operations["list_clients_api_v1_clients_get"];
+    /** Create Client */
+    post: operations["create_client_api_v1_clients_post"];
+  };
+  "/api/v1/clients/{client_id}": {
+    /** Get Client */
+    get: operations["get_client_api_v1_clients__client_id__get"];
+    /** Update Client */
+    put: operations["update_client_api_v1_clients__client_id__put"];
+    /** Delete Client */
+    delete: operations["delete_client_api_v1_clients__client_id__delete"];
+  };
+  "/api/v1/clients/{client_id}/report": {
+    /** Client Report */
+    get: operations["client_report_api_v1_clients__client_id__report_get"];
+  };
   "/api/v1/leads": {
     /** List Leads */
     get: operations["list_leads_api_v1_leads_get"];
@@ -224,6 +242,14 @@ export interface paths {
     get: operations["get_post_api_v1_scheduled_posts__post_id__get"];
     /** Cancel Post */
     delete: operations["cancel_post_api_v1_scheduled_posts__post_id__delete"];
+  };
+  "/api/v1/scheduled-posts/{post_id}/approve": {
+    /** Approve Post */
+    post: operations["approve_post_api_v1_scheduled_posts__post_id__approve_post"];
+  };
+  "/api/v1/scheduled-posts/{post_id}/reject": {
+    /** Reject Post */
+    post: operations["reject_post_api_v1_scheduled_posts__post_id__reject_post"];
   };
   "/api/v1/team": {
     /** List Team */
@@ -506,6 +532,26 @@ export interface components {
       /** New Password */
       new_password: string;
     };
+    /** ClientCreate */
+    ClientCreate: {
+      /** Name */
+      name: string;
+    };
+    /** ClientRead */
+    ClientRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Name */
+      name: string;
+    };
+    /** ClientUpdate */
+    ClientUpdate: {
+      /** Name */
+      name?: string | null;
+    };
     /** CodeRequest */
     CodeRequest: {
       /** Code */
@@ -556,6 +602,8 @@ export interface components {
     };
     /** LeadCreate */
     LeadCreate: {
+      /** Client Id */
+      client_id?: string | null;
       /** First Name */
       first_name?: string | null;
       /** Last Name */
@@ -610,6 +658,8 @@ export interface components {
     };
     /** LeadRead */
     LeadRead: {
+      /** Client Id */
+      client_id?: string | null;
       /** First Name */
       first_name?: string | null;
       /** Last Name */
@@ -878,6 +928,8 @@ export interface components {
        * Format: uuid
        */
       social_media_id: string;
+      /** Client Id */
+      client_id?: string | null;
       /**
        * Platform
        * @default facebook
@@ -896,6 +948,11 @@ export interface components {
        * Format: date-time
        */
       scheduled_at: string;
+      /**
+       * Requires Approval
+       * @default false
+       */
+      requires_approval?: boolean;
     };
     /** ScheduledPostRead */
     ScheduledPostRead: {
@@ -909,6 +966,8 @@ export interface components {
        * Format: uuid
        */
       account_id: string;
+      /** Client Id */
+      client_id?: string | null;
       /**
        * Social Media Id
        * Format: uuid
@@ -916,6 +975,16 @@ export interface components {
       social_media_id: string;
       /** Platform */
       platform: string;
+      /**
+       * Requires Approval
+       * @default false
+       */
+      requires_approval?: boolean;
+      /**
+       * Approval Status
+       * @default approved
+       */
+      approval_status?: string;
       /** Message */
       message?: string | null;
       /** Link */
@@ -958,6 +1027,8 @@ export interface components {
       email?: string | null;
       /** User Id */
       user_id?: string | null;
+      /** Client Id */
+      client_id?: string | null;
     };
     /** SocialMediaRead */
     SocialMediaRead: {
@@ -983,6 +1054,8 @@ export interface components {
        * Format: uuid
        */
       account_id: string;
+      /** Client Id */
+      client_id?: string | null;
     };
     /** SubscriptionRequest */
     SubscriptionRequest: {
@@ -1551,6 +1624,176 @@ export interface operations {
       };
     };
   };
+  /** List Clients */
+  list_clients_api_v1_clients_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ClientRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create Client */
+  create_client_api_v1_clients_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ClientCreate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["ClientRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Client */
+  get_client_api_v1_clients__client_id__get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        client_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ClientRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Update Client */
+  update_client_api_v1_clients__client_id__put: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        client_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ClientUpdate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ClientRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Delete Client */
+  delete_client_api_v1_clients__client_id__delete: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        client_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      204: {
+        content: never;
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Client Report */
+  client_report_api_v1_clients__client_id__report_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        client_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** List Leads */
   list_leads_api_v1_leads_get: {
     parameters: {
@@ -1558,6 +1801,7 @@ export interface operations {
         limit?: number;
         offset?: number;
         source?: string | null;
+        client_id?: string | null;
       };
       header?: {
         authorization?: string | null;
@@ -1730,6 +1974,9 @@ export interface operations {
   /** List Tokens */
   list_tokens_api_v1_social_get: {
     parameters: {
+      query?: {
+        client_id?: string | null;
+      };
       header?: {
         authorization?: string | null;
       };
@@ -2554,6 +2801,7 @@ export interface operations {
         limit?: number;
         offset?: number;
         status?: string | null;
+        client_id?: string | null;
       };
       header?: {
         authorization?: string | null;
@@ -2652,6 +2900,62 @@ export interface operations {
       /** @description Successful Response */
       204: {
         content: never;
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Approve Post */
+  approve_post_api_v1_scheduled_posts__post_id__approve_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        post_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ScheduledPostRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Reject Post */
+  reject_post_api_v1_scheduled_posts__post_id__reject_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        post_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ScheduledPostRead"];
+        };
       };
       /** @description Validation Error */
       422: {

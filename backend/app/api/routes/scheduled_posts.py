@@ -6,6 +6,7 @@ from typing import Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, status
+from sqlalchemy import and_
 from sqlmodel import Session
 
 from app.api.deps import get_current_account, require_active_account
@@ -14,6 +15,7 @@ from app.core.quotas import enforce_quota
 from app.core.tenancy import owned_or_404, page_owned
 from app.db.session import get_session
 from app.models.account import Account
+from app.models.client import Client
 from app.models.scheduled_post import ScheduledPost
 from app.models.social import SocialMedia
 from app.schemas.pagination import Page
@@ -28,10 +30,16 @@ def list_posts(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
     status_filter: Optional[str] = Query(None, alias="status"),
+    client_id: Optional[UUID] = None,
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> Page[ScheduledPostRead]:
-    extra = (ScheduledPost.status == status_filter) if status_filter else None
+    conds = []
+    if status_filter:
+        conds.append(ScheduledPost.status == status_filter)
+    if client_id:
+        conds.append(ScheduledPost.client_id == client_id)
+    extra = and_(*conds) if conds else None
     items, total = page_owned(
         session, ScheduledPost, account.id, limit=limit, offset=offset, extra=extra
     )
@@ -48,6 +56,8 @@ def create_post(
     owned_or_404(
         session, SocialMedia, body.social_media_id, account.id, name="Social connection"
     )
+    if body.client_id is not None:
+        owned_or_404(session, Client, body.client_id, account.id, name="Client")
     # Quota counts posts still in the pipeline (not yet published/failed).
     enforce_quota(
         session,
@@ -67,6 +77,8 @@ def create_post(
         link=body.link,
         image_url=body.image_url,
         video_url=body.video_url,
+        client_id=body.client_id,
+        requires_approval=body.requires_approval,
     )
 
 
@@ -77,6 +89,34 @@ def get_post(
     session: Session = Depends(get_session),
 ) -> ScheduledPost:
     return owned_or_404(session, ScheduledPost, post_id, account.id, name="Scheduled post")
+
+
+@router.post("/{post_id}/approve", response_model=ScheduledPostRead)
+def approve_post(
+    post_id: UUID,
+    account: Account = Depends(get_current_account),
+    session: Session = Depends(get_session),
+) -> ScheduledPost:
+    post = owned_or_404(session, ScheduledPost, post_id, account.id, name="Scheduled post")
+    post.approval_status = "approved"
+    session.add(post)
+    session.commit()
+    session.refresh(post)
+    return post
+
+
+@router.post("/{post_id}/reject", response_model=ScheduledPostRead)
+def reject_post(
+    post_id: UUID,
+    account: Account = Depends(get_current_account),
+    session: Session = Depends(get_session),
+) -> ScheduledPost:
+    post = owned_or_404(session, ScheduledPost, post_id, account.id, name="Scheduled post")
+    post.approval_status = "rejected"
+    session.add(post)
+    session.commit()
+    session.refresh(post)
+    return post
 
 
 @router.delete("/{post_id}", status_code=status.HTTP_204_NO_CONTENT)

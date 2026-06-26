@@ -47,6 +47,23 @@ def test_create_rejects_foreign_connection(client, session):
     assert resp.status_code == 404
 
 
+def test_approval_workflow(client, session):
+    register_confirm_login(client, session)
+    conn_id = _make_connection(client)
+    created = client.post(
+        "/api/v1/scheduled-posts",
+        json={"social_media_id": conn_id, "scheduled_at": _future(), "requires_approval": True},
+    )
+    assert created.status_code == 201
+    assert created.json()["approval_status"] == "pending"
+    post_id = created.json()["id"]
+
+    approved = client.post(f"/api/v1/scheduled-posts/{post_id}/approve")
+    assert approved.json()["approval_status"] == "approved"
+    rejected = client.post(f"/api/v1/scheduled-posts/{post_id}/reject")
+    assert rejected.json()["approval_status"] == "rejected"
+
+
 def test_cancel_pending(client, session):
     register_confirm_login(client, session)
     conn_id = _make_connection(client)

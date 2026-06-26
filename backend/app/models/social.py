@@ -26,3 +26,4 @@ class SocialMedia(SQLModel, table=True):
     user_id: Optional[str] = None
     # Normalised to a real FK to the tenant (was a loose string in the C# model).
     account_id: UUID = Field(foreign_key="accounts.id", index=True)
+    client_id: Optional[UUID] = Field(default=None, foreign_key="clients.id", index=True)

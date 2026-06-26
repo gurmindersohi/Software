@@ -1,5 +1,5 @@
 """Connected social accounts (tokens), scoped to the caller's tenant."""
-from typing import List
+from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -18,6 +18,7 @@ from app.core.tenancy import first_owned, list_owned, owned_or_404
 from app.db.session import get_session
 from app.integrations.facebook.graph import GraphError
 from app.models.account import Account
+from app.models.client import Client
 from app.models.lead import Lead
 from app.models.social import SocialMedia
 from app.schemas.graph import PagePostInput
@@ -28,10 +29,12 @@ router = APIRouter(prefix="/api/v1/social", tags=["social"])
 
 @router.get("", response_model=List[SocialMediaRead])
 def list_tokens(
+    client_id: Optional[UUID] = None,
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> List[SocialMedia]:
-    return list_owned(session, SocialMedia, account.id)
+    extra = (SocialMedia.client_id == client_id) if client_id else None
+    return list_owned(session, SocialMedia, account.id, extra)
 
 
 @router.get("/{platform}", response_model=SocialMediaRead)
@@ -59,6 +62,8 @@ def save_token(
         resource="social_sets",
         model=SocialMedia,
     )
+    if body.client_id is not None:
+        owned_or_404(session, Client, body.client_id, account.id, name="Client")
     data = body.model_dump()
     data["access_token"] = crypto.encrypt_optional(data.get("access_token"))
     data["secret"] = crypto.encrypt_optional(data.get("secret"))

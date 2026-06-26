@@ -30,6 +30,7 @@ class Lead(AuditMixin, table=True):
     postal_code: Optional[str] = None
 
     account_id: UUID = Field(foreign_key="accounts.id", index=True)
+    client_id: Optional[UUID] = Field(default=None, foreign_key="clients.id", index=True)
     lead_source: Optional[str] = None
 
     is_phone_call_allowed: bool = False

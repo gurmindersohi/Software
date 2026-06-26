@@ -51,6 +51,8 @@ class User(AuditMixin, table=True):
     security_stamp: Optional[str] = Field(default_factory=lambda: uuid4().hex)
 
     account_id: Optional[UUID] = Field(default=None, foreign_key="accounts.id", index=True)
+    # Client-scoped users (Tier 2 view-only / approver access); null = full account access.
+    client_id: Optional[UUID] = Field(default=None, foreign_key="clients.id", index=True)
     is_deleted: bool = False
 
     roles: List[Role] = Relationship(back_populates="users", link_model=UserRoleLink)

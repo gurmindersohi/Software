@@ -111,6 +111,17 @@ def test_retry_does_not_invoke_failure_hook(session):
     assert calls == []  # not notified on a retry
 
 
+def test_select_due_excludes_unapproved(session):
+    approved = _seed(session, delta=timedelta(minutes=-5))  # approval_status defaults "approved"
+    pending = _seed(session, delta=timedelta(minutes=-5))
+    pending.approval_status = "pending"
+    session.add(pending)
+    session.commit()
+    ids = {p.id for p in svc.select_due_posts(session)}
+    assert approved.id in ids
+    assert pending.id not in ids  # not auto-published until approved
+
+
 def test_select_due_posts_excludes_future(session):
     due = _seed(session, delta=timedelta(minutes=-5))
     future = _seed(session, delta=timedelta(hours=2))

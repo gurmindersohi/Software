@@ -4,7 +4,7 @@ from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, status
-from sqlalchemy import or_
+from sqlalchemy import and_, or_
 from sqlmodel import Session, select
 
 from app.api.deps import get_current_account, require_active_account
@@ -12,6 +12,7 @@ from app.core.exceptions import ConflictError
 from app.core.tenancy import first_owned, owned_or_404, page_owned
 from app.db.session import get_session
 from app.models.account import Account
+from app.models.client import Client
 from app.models.lead import Lead
 from app.schemas.lead import LeadCreate, LeadRead, LeadUpdate
 from app.schemas.pagination import Page
@@ -24,10 +25,16 @@ def list_leads(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
     source: Optional[str] = None,
+    client_id: Optional[UUID] = None,
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> Page[LeadRead]:
-    extra = (Lead.lead_source == source) if source else None
+    conds = []
+    if source:
+        conds.append(Lead.lead_source == source)
+    if client_id:
+        conds.append(Lead.client_id == client_id)
+    extra = and_(*conds) if conds else None
     items, total = page_owned(session, Lead, account.id, limit=limit, offset=offset, extra=extra)
     return Page(items=items, total=total, limit=limit, offset=offset)
 
@@ -72,6 +79,8 @@ def create_lead(
     # Duplicate-email check is scoped to the tenant (old API checked globally — a bug).
     if first_owned(session, Lead, account.id, Lead.email == body.email) is not None:
         raise ConflictError("A lead with this email already exists.")
+    if body.client_id is not None:
+        owned_or_404(session, Client, body.client_id, account.id, name="Client")
     lead = Lead(**body.model_dump(), account_id=account.id)
     session.add(lead)
     session.commit()

@@ -9,6 +9,7 @@ from app.api.routes import (
     ads,
     auth,
     billing,
+    clients,
     health,
     integrations,
     leads,
@@ -58,6 +59,7 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(account.router)
+app.include_router(clients.router)
 app.include_router(leads.router)
 app.include_router(social.router)
 app.include_router(ads.router)

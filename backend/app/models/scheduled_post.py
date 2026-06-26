@@ -16,6 +16,7 @@ class ScheduledPost(SQLModel, table=True):
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)
     account_id: UUID = Field(foreign_key="accounts.id", index=True)
+    client_id: Optional[UUID] = Field(default=None, foreign_key="clients.id", index=True)
     social_media_id: UUID = Field(foreign_key="social_media_accounts.id", index=True)
 
     platform: str = "facebook"  # facebook | instagram
@@ -26,6 +27,9 @@ class ScheduledPost(SQLModel, table=True):
 
     scheduled_at: datetime = Field(index=True)
     status: str = Field(default="pending", index=True)  # pending|queued|published|failed
+    # Approval workflow (Tier 2): approved|pending|rejected — worker only publishes "approved".
+    requires_approval: bool = False
+    approval_status: str = Field(default="approved", index=True)
     attempts: int = 0
     last_error: Optional[str] = None
     external_post_id: Optional[str] = None

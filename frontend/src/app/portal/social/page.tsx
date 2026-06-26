@@ -1,27 +1,37 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { Empty, ErrorNote, StatusBadge } from "@/components/portal";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { ApiError } from "@/lib/api";
+import { listClients } from "@/lib/clients";
 import { listSocialConnections } from "@/lib/connections";
 import {
+  approveScheduledPost,
   cancelScheduledPost,
   createScheduledPost,
   listScheduledPosts,
+  rejectScheduledPost,
 } from "@/lib/scheduled";
 
 export default function SocialQueuePage() {
   const queryClient = useQueryClient();
   const connections = useQuery({ queryKey: ["social"], queryFn: listSocialConnections });
+  const clients = useQuery({ queryKey: ["clients"], queryFn: listClients });
   const posts = useQuery({ queryKey: ["scheduled"], queryFn: listScheduledPosts });
 
   const [connId, setConnId] = useState("");
+  const [clientId, setClientId] = useState("");
   const [message, setMessage] = useState("");
   const [when, setWhen] = useState("");
+  const [requiresApproval, setRequiresApproval] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["scheduled"] });
+  const approve = useMutation({ mutationFn: approveScheduledPost, onSuccess: invalidate });
+  const reject = useMutation({ mutationFn: rejectScheduledPost, onSuccess: invalidate });
 
   async function schedule(e: React.FormEvent) {
     e.preventDefault();
@@ -35,13 +45,15 @@ export default function SocialQueuePage() {
     try {
       await createScheduledPost({
         social_media_id: conn.id,
+        client_id: clientId || undefined,
         platform: conn.type ?? "facebook",
         message,
         scheduled_at: new Date(when).toISOString(),
+        requires_approval: requiresApproval,
       });
       setMessage("");
       setWhen("");
-      await queryClient.invalidateQueries({ queryKey: ["scheduled"] });
+      await invalidate();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Could not schedule post.");
     } finally {
@@ -93,6 +105,30 @@ export default function SocialQueuePage() {
                 required
               />
             </Field>
+            {clients.data && clients.data.length > 0 && (
+              <Field label="Client (optional)">
+                <select
+                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                  value={clientId}
+                  onChange={(e) => setClientId(e.target.value)}
+                >
+                  <option value="">No client</option>
+                  {clients.data.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+            )}
+            <label className="flex items-center gap-2 text-sm text-slate-700">
+              <input
+                type="checkbox"
+                checked={requiresApproval}
+                onChange={(e) => setRequiresApproval(e.target.checked)}
+              />
+              Requires client approval before publishing
+            </label>
             {error && <ErrorNote>{error}</ErrorNote>}
             <Button type="submit" disabled={busy}>
               {busy ? "Scheduling…" : "Schedule post"}
@@ -112,6 +148,7 @@ export default function SocialQueuePage() {
                 <th className="px-4 py-3">Message</th>
                 <th className="px-4 py-3">When</th>
                 <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Approval</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -124,6 +161,30 @@ export default function SocialQueuePage() {
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={post.status} />
+                  </td>
+                  <td className="px-4 py-3">
+                    {post.requires_approval ? (
+                      post.approval_status === "pending" ? (
+                        <span className="flex gap-2 text-sm">
+                          <button
+                            className="text-green-600 hover:underline"
+                            onClick={() => approve.mutate(post.id)}
+                          >
+                            Approve
+                          </button>
+                          <button
+                            className="text-red-600 hover:underline"
+                            onClick={() => reject.mutate(post.id)}
+                          >
+                            Reject
+                          </button>
+                        </span>
+                      ) : (
+                        <StatusBadge status={post.approval_status} />
+                      )
+                    ) : (
+                      <span className="text-xs text-slate-400">—</span>
+                    )}
                   </td>
                   <td className="px-4 py-3 text-right">
                     {post.status !== "published" && (
