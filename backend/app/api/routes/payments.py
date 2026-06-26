@@ -34,7 +34,11 @@ def create_subscription(
     account.plan_name = body.plan  # drives quota limits (task 3.8)
     session.add(account)
     session.commit()
-    return SubscriptionResult(subscription_id=sub["id"], status=sub["status"])
+    return SubscriptionResult(
+        subscription_id=sub["id"],
+        status=sub["status"],
+        client_secret=sub.get("client_secret"),
+    )
 
 
 @router.post("/webhook")

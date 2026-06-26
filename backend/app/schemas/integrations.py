@@ -1,4 +1,6 @@
 """Schemas for OAuth connect, billing, and media upload."""
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -19,6 +21,7 @@ class SubscriptionRequest(BaseModel):
 class SubscriptionResult(BaseModel):
     subscription_id: str
     status: str
+    client_secret: Optional[str] = None
 
 
 class MediaUploadResponse(BaseModel):

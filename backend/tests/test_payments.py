@@ -11,13 +11,21 @@ def test_create_subscription_updates_account(client, session, monkeypatch):
     monkeypatch.setattr(settings, "stripe_secret_key", "sk_test_x")
     monkeypatch.setattr(stripe_service, "create_customer", lambda email, name=None: "cus_123")
     monkeypatch.setattr(
-        stripe_service, "create_subscription", lambda cid, pid: {"id": "sub_1", "status": "active"}
+        stripe_service,
+        "create_subscription",
+        lambda cid, pid: {"id": "sub_1", "status": "active", "client_secret": "pi_secret"},
     )
     register_confirm_login(client, session)
 
-    resp = client.post("/api/v1/payments/create-subscription", json={"price_id": "price_1"})
+    resp = client.post(
+        "/api/v1/payments/create-subscription", json={"price_id": "price_1", "plan": "premium"}
+    )
     assert resp.status_code == 200
-    assert resp.json() == {"subscription_id": "sub_1", "status": "active"}
+    assert resp.json() == {
+        "subscription_id": "sub_1",
+        "status": "active",
+        "client_secret": "pi_secret",
+    }
 
     account = session.exec(select(Account)).first()
     assert account.customer_id == "cus_123"

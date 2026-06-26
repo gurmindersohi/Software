@@ -18,9 +18,23 @@ def create_customer(email: str, name: Optional[str] = None) -> str:
 
 
 def create_subscription(customer_id: str, price_id: str) -> dict:
+    """Create an incomplete subscription and return the PaymentIntent client
+    secret so the frontend can collect a card with Stripe Elements."""
     _init()
-    sub = stripe.Subscription.create(customer=customer_id, items=[{"price": price_id}])
-    return {"id": sub.id, "status": sub.status}
+    sub = stripe.Subscription.create(
+        customer=customer_id,
+        items=[{"price": price_id}],
+        payment_behavior="default_incomplete",
+        payment_settings={"save_default_payment_method": "on_subscription"},
+        expand=["latest_invoice.payment_intent"],
+    )
+    invoice = sub.latest_invoice
+    payment_intent = getattr(invoice, "payment_intent", None) if invoice else None
+    return {
+        "id": sub.id,
+        "status": sub.status,
+        "client_secret": getattr(payment_intent, "client_secret", None),
+    }
 
 
 def construct_event(payload: bytes, sig_header: str):
