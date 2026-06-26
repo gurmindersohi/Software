@@ -3,7 +3,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
-from app.api.routes import account, ads, auth, billing, health, leads, social
+from app.api.routes import (
+    account,
+    ads,
+    auth,
+    billing,
+    health,
+    integrations,
+    leads,
+    media,
+    payments,
+    social,
+)
 from app.core.config import settings
 
 app = FastAPI(
@@ -27,6 +38,9 @@ app.include_router(leads.router)
 app.include_router(social.router)
 app.include_router(ads.router)
 app.include_router(billing.router)
+app.include_router(integrations.router)
+app.include_router(payments.router)
+app.include_router(media.router)
 
 
 @app.get("/", tags=["health"])

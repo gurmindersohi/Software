@@ -101,14 +101,17 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [ ] **3.9 (M)** **Trial & subscription lifecycle** — trial expiry, `OnHold`/suspension + reactivation, paid/unpaid state (ties to Stripe webhooks 4.6). *(gap found in audit)*
 
 ### Phase 4 — Integrations (depends on 2, 3)
-- [ ] **4.1 (M)** Facebook OAuth connect flow (redirect URIs now hit FastAPI); store tokens **encrypted at rest**.
-- [ ] **4.2 (L)** Facebook Graph **client service**, upgraded v10 → current: ad accounts, campaigns, adsets, ads, targeting, locations, images.
-- [ ] **4.3 (L)** Facebook Graph for Social: pages, posts, create post, insights, analytics, images, videos.
-- [ ] **4.4 (M)** Instagram Graph: posts, insights, publishing.
-- [ ] **4.5 (M)** Stripe service: customer + subscription creation (port Checkout logic).
-- [ ] **4.6 (S)** Stripe **webhook** endpoint (subscription lifecycle → Billing).
-- [ ] **4.7 (M)** **Media upload pipeline** → object storage; used by social posts and ad creatives (replaces `AdImage`/`SocialImages`/`SaveFile`/logo flows). *(gap found in audit)*
-- [ ] **4.8 (S)** *Optional:* Facebook **lead-gen forms** sync into Leads (if that's the current lead source). *(gap found in audit)*
+> Externals can't be hit from the dev box, so live calls are structured behind mockable
+> clients and **unit-tested offline** (mock HTTP transport / patched SDK). Marked `[~]` where
+> the live path still needs a CI integration test against real Facebook/Stripe sandboxes.
+- [x] **4.1 (M)** Facebook OAuth `connect`/`callback`; **token encryption at rest** (Fernet, `app/core/crypto.py`) wired into social + ad-account saves and the OAuth page import.
+- [~] **4.2 (L)** Graph **client** (`integrations/facebook/graph.py`), pinned to v19.0: ad accounts, campaigns (+create), adsets, ads, targeting & geo search. Request/parse unit-tested; live calls need sandbox creds.
+- [~] **4.3 (L)** Graph social: pages, page posts, create post, post & page insights. Unit-tested via mock transport.
+- [~] **4.4 (M)** Instagram Graph: business-account lookup, media list, container create + publish.
+- [x] **4.5 (M)** Stripe service: customer + subscription creation (`integrations/stripe_service.py`).
+- [x] **4.6 (S)** Stripe **webhook** → drives Account billing state (also advances **3.9** lifecycle: paid/`on_hold`).
+- [x] **4.7 (M)** **Media upload** (`POST /media/upload`) → pluggable object storage (local FS / S3-MinIO, lazy boto3).
+- [x] **4.8 (S)** Facebook **lead-gen forms** + leads fetch on the Graph client (`get_lead_forms`/`get_leads`); wiring into the Leads table is a follow-up.
 
 ### Phase 5 — Background jobs (depends on 3, 4)
 - [ ] **5.1 (S)** arq worker + Redis wiring; deployment of the worker process.

@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, status
 from sqlmodel import Session, select
 
 from app.api.deps import get_current_account
+from app.core import crypto
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.ad_account import AdAccount
@@ -29,7 +30,10 @@ def save_ad_account(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> AdAccount:
-    ad_account = AdAccount(**body.model_dump(), account_id=account.id)
+    data = body.model_dump()
+    data["access_token"] = crypto.encrypt_optional(data.get("access_token"))
+    data["secret"] = crypto.encrypt_optional(data.get("secret"))
+    ad_account = AdAccount(**data, account_id=account.id)
     session.add(ad_account)
     session.commit()
     session.refresh(ad_account)

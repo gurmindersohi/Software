@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 
 from app.api.deps import get_current_account
+from app.core import crypto
 from app.db.session import get_session
 from app.models.account import Account
 from app.models.social import SocialMedia
@@ -46,7 +47,10 @@ def save_token(
     account: Account = Depends(get_current_account),
     session: Session = Depends(get_session),
 ) -> SocialMedia:
-    token = SocialMedia(**body.model_dump(), account_id=account.id)
+    data = body.model_dump()
+    data["access_token"] = crypto.encrypt_optional(data.get("access_token"))
+    data["secret"] = crypto.encrypt_optional(data.get("secret"))
+    token = SocialMedia(**data, account_id=account.id)
     session.add(token)
     session.commit()
     session.refresh(token)
