@@ -20,12 +20,15 @@ from app.schemas.auth import (
     ChangePasswordRequest,
     ForgotPasswordRequest,
     LoginRequest,
+    LoginResponse,
     MessageResponse,
     RegisterRequest,
     ResetPasswordRequest,
     UserRead,
 )
 from app.services import auth as auth_service
+
+TWOFA_COOKIE = "twofa_token"
 
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
 
@@ -37,6 +40,7 @@ def _to_user_read(user: User) -> UserRead:
         first_name=user.first_name,
         last_name=user.last_name,
         email_confirmed=user.email_confirmed,
+        two_factor_enabled=user.two_factor_enabled,
         account_id=user.account_id,
         roles=[r.name for r in user.roles],
     )
@@ -65,17 +69,30 @@ def register(body: RegisterRequest, session: Session = Depends(get_session)) -> 
     return _to_user_read(user)
 
 
-@router.post("/login", response_model=UserRead)
+@router.post("/login", response_model=LoginResponse)
 def login(
     body: LoginRequest, response: Response, session: Session = Depends(get_session)
-) -> UserRead:
+) -> LoginResponse:
     user = auth_service.authenticate(session, str(body.email), body.password)
     if user is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Invalid email or password.")
     if not user.email_confirmed:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Please confirm your email first.")
+    if user.two_factor_enabled:
+        # Issue a short-lived challenge cookie; full cookies are set after /2fa/verify.
+        challenge = security.create_email_token(str(user.id), "2fa_login", hours=1)
+        response.set_cookie(
+            TWOFA_COOKIE,
+            challenge,
+            httponly=True,
+            secure=settings.environment != "local",
+            samesite="lax",
+            max_age=300,
+            path="/",
+        )
+        return LoginResponse(two_factor_required=True)
     set_auth_cookies(response, user)
-    return _to_user_read(user)
+    return LoginResponse(user=_to_user_read(user))
 
 
 @router.post("/refresh", response_model=MessageResponse)

@@ -24,8 +24,14 @@ class UserRead(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     email_confirmed: bool
+    two_factor_enabled: bool = False
     account_id: Optional[UUID] = None
     roles: List[str] = []
+
+
+class LoginResponse(BaseModel):
+    two_factor_required: bool = False
+    user: Optional[UserRead] = None
 
 
 class MessageResponse(BaseModel):

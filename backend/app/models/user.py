@@ -43,6 +43,8 @@ class User(AuditMixin, table=True):
 
     # Identity security/lockout fields
     two_factor_enabled: bool = False
+    totp_secret: Optional[str] = None  # encrypted at rest when set
+    recovery_codes: Optional[str] = None  # comma-separated sha256 hashes
     lockout_enabled: bool = True
     lockout_end: Optional[datetime] = None
     access_failed_count: int = 0

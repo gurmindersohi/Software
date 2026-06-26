@@ -16,6 +16,7 @@ from app.api.routes import (
     scheduled_posts,
     social,
     team,
+    twofa,
 )
 from app.core.config import settings
 
@@ -45,6 +46,7 @@ app.include_router(payments.router)
 app.include_router(media.router)
 app.include_router(scheduled_posts.router)
 app.include_router(team.router)
+app.include_router(twofa.router)
 
 
 @app.get("/", tags=["health"])

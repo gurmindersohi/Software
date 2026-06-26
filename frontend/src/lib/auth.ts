@@ -6,6 +6,7 @@ export interface User {
   first_name?: string | null;
   last_name?: string | null;
   email_confirmed: boolean;
+  two_factor_enabled: boolean;
   account_id?: string | null;
   roles: string[];
 }
@@ -17,11 +18,35 @@ export interface RegisterInput {
   first_name?: string;
 }
 
-export function login(email: string, password: string): Promise<User> {
-  return apiFetch<User>("/auth/login", {
+export interface LoginResponse {
+  two_factor_required: boolean;
+  user: User | null;
+}
+
+export function login(email: string, password: string): Promise<LoginResponse> {
+  return apiFetch<LoginResponse>("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
+}
+
+export function verifyTwoFactor(code: string): Promise<User> {
+  return apiFetch<User>("/auth/2fa/verify", {
+    method: "POST",
+    body: JSON.stringify({ code }),
+  });
+}
+
+export function setupTwoFactor(): Promise<{ secret: string; otpauth_uri: string }> {
+  return apiFetch("/auth/2fa/setup", { method: "POST" });
+}
+
+export function enableTwoFactor(code: string): Promise<{ recovery_codes: string[] }> {
+  return apiFetch("/auth/2fa/enable", { method: "POST", body: JSON.stringify({ code }) });
+}
+
+export function disableTwoFactor(code: string): Promise<{ detail: string }> {
+  return apiFetch("/auth/2fa/disable", { method: "POST", body: JSON.stringify({ code }) });
 }
 
 export function register(data: RegisterInput): Promise<User> {

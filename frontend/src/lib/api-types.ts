@@ -171,6 +171,25 @@ export interface paths {
     /** Create Role */
     post: operations["create_role_api_v1_roles_post"];
   };
+  "/api/v1/auth/2fa/setup": {
+    /** Setup */
+    post: operations["setup_api_v1_auth_2fa_setup_post"];
+  };
+  "/api/v1/auth/2fa/enable": {
+    /** Enable */
+    post: operations["enable_api_v1_auth_2fa_enable_post"];
+  };
+  "/api/v1/auth/2fa/disable": {
+    /** Disable */
+    post: operations["disable_api_v1_auth_2fa_disable_post"];
+  };
+  "/api/v1/auth/2fa/verify": {
+    /**
+     * Verify Login
+     * @description Login step 2: validate the TOTP / recovery code against the challenge cookie.
+     */
+    post: operations["verify_login_api_v1_auth_2fa_verify_post"];
+  };
   "/": {
     /** Root */
     get: operations["root__get"];
@@ -335,6 +354,11 @@ export interface components {
       current_password: string;
       /** New Password */
       new_password: string;
+    };
+    /** CodeRequest */
+    CodeRequest: {
+      /** Code */
+      code: string;
     };
     /** ConnectionResult */
     ConnectionResult: {
@@ -541,6 +565,15 @@ export interface components {
       /** Password */
       password: string;
     };
+    /** LoginResponse */
+    LoginResponse: {
+      /**
+       * Two Factor Required
+       * @default false
+       */
+      two_factor_required?: boolean;
+      user?: components["schemas"]["UserRead"] | null;
+    };
     /** MediaUploadResponse */
     MediaUploadResponse: {
       /** Url */
@@ -579,6 +612,11 @@ export interface components {
       tax: string;
       /** Total */
       total: string;
+    };
+    /** RecoveryCodesResponse */
+    RecoveryCodesResponse: {
+      /** Recovery Codes */
+      recovery_codes: string[];
     };
     /** RegisterRequest */
     RegisterRequest: {
@@ -731,6 +769,11 @@ export interface components {
     SubscriptionRequest: {
       /** Price Id */
       price_id: string;
+      /**
+       * Plan
+       * @default premium
+       */
+      plan?: string;
     };
     /** SubscriptionResult */
     SubscriptionResult: {
@@ -780,6 +823,13 @@ export interface components {
        */
       roles?: string[];
     };
+    /** TwoFASetupResponse */
+    TwoFASetupResponse: {
+      /** Secret */
+      secret: string;
+      /** Otpauth Uri */
+      otpauth_uri: string;
+    };
     /** UserRead */
     UserRead: {
       /**
@@ -798,6 +848,11 @@ export interface components {
       last_name?: string | null;
       /** Email Confirmed */
       email_confirmed: boolean;
+      /**
+       * Two Factor Enabled
+       * @default false
+       */
+      two_factor_enabled?: boolean;
       /** Account Id */
       account_id?: string | null;
       /**
@@ -877,7 +932,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["UserRead"];
+          "application/json": components["schemas"]["LoginResponse"];
         };
       };
       /** @description Validation Error */
@@ -2077,6 +2132,121 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["RoleRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Setup */
+  setup_api_v1_auth_2fa_setup_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TwoFASetupResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Enable */
+  enable_api_v1_auth_2fa_enable_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CodeRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RecoveryCodesResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Disable */
+  disable_api_v1_auth_2fa_disable_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CodeRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MessageResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Verify Login
+   * @description Login step 2: validate the TOTP / recovery code against the challenge cookie.
+   */
+  verify_login_api_v1_auth_2fa_verify_post: {
+    parameters: {
+      cookie?: {
+        twofa_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CodeRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserRead"];
         };
       };
       /** @description Validation Error */
