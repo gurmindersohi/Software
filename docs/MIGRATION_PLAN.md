@@ -144,11 +144,15 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - Verified: `next build` (19 routes), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 9 — Cutover
-- [ ] **9.1 (M)** Final data migration dry-run + verification.
-- [ ] **9.2 (M)** Infra/deploy: Postgres host, containerized FastAPI + worker, Next.js (Vercel or container), Redis, secrets.
-- [ ] **9.3 (S)** End-to-end parity QA against the old app.
-- [ ] **9.4 (S)** DNS cutover + rollback plan.
-- [ ] **9.5 (S)** Decommission .NET app; archive old repo state.
+> Artifacts are built and verified; **execution requires your environment** (real DB,
+> rotated secrets, deploy target). Full runbook: [`CUTOVER.md`](CUTOVER.md).
+- [A] **9.1 (M)** ETL script `backend/scripts/etl_sqlserver_to_postgres.py` — maps all legacy/Identity tables, **preserves password hashes**, **encrypts tokens at load**, keeps GUIDs + Numeric(18,2); `--dry-run` + row-count verification. (compiles + ruff clean; run against real DBs at cutover.)
+- [A] **9.2 (M)** `backend/Dockerfile` + `frontend/Dockerfile` (Next standalone) + `infra/docker-compose.prod.yml` (db/redis/api/worker/frontend, api runs migrations) + `infra/.env.production.example` (consolidated, rotated-secret manifest).
+- [A] **9.3 (S)** Parity QA smoke-test checklist (CUTOVER §3).
+- [A] **9.4 (S)** DNS cutover + **rollback** plan — old DB is read-only during ETL, so rollback is a DNS repoint (CUTOVER §4).
+- [A] **9.5 (S)** Decommission steps + `legacy-dotnet-final` tag guidance (CUTOVER §5).
+
+*Legend: [x] done · [~] partial · [A] artifact ready, execution pending your environment.*
 
 ---
 

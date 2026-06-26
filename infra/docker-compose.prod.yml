@@ -1,0 +1,63 @@
+# Full-stack production-style compose (task 9.2). Build context is the repo root:
+#   docker compose -f infra/docker-compose.prod.yml --env-file infra/.env.production up -d --build
+#
+# For real prod, run Postgres/Redis/object storage as managed services and keep
+# only api/worker/frontend here. This file shows the whole stack for staging.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sohi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sohi}
+      POSTGRES_DB: ${POSTGRES_DB:-sohi}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sohi}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: ../backend
+    env_file: .env.production
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    # Apply migrations, then serve.
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "8000:8000"
+
+  worker:
+    build:
+      context: ../backend
+    env_file: .env.production
+    depends_on:
+      redis: { condition: service_healthy }
+      db: { condition: service_healthy }
+    command: arq app.worker.settings.WorkerSettings
+
+  frontend:
+    build:
+      context: ../frontend
+    environment:
+      BACKEND_URL: http://api:8000
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:
