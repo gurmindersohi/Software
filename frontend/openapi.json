@@ -2000,6 +2000,87 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "ads"
+        ],
+        "summary": "Create Adset",
+        "operationId": "create_adset_api_v1_ad_accounts__conn_id__adsets_post",
+        "parameters": [
+          {
+            "name": "conn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Conn Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Access Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdsetCreateInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/ad-accounts/{conn_id}/ads": {
@@ -2018,6 +2099,251 @@
               "type": "string",
               "format": "uuid",
               "title": "Conn Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Access Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ads"
+        ],
+        "summary": "Create Ad",
+        "operationId": "create_ad_api_v1_ad_accounts__conn_id__ads_post",
+        "parameters": [
+          {
+            "name": "conn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Conn Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Access Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdCreateInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ad-accounts/{conn_id}/targeting-search": {
+      "get": {
+        "tags": [
+          "ads"
+        ],
+        "summary": "Targeting Search",
+        "operationId": "targeting_search_api_v1_ad_accounts__conn_id__targeting_search_get",
+        "parameters": [
+          {
+            "name": "conn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Conn Id"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Q"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Access Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ad-accounts/{conn_id}/location-search": {
+      "get": {
+        "tags": [
+          "ads"
+        ],
+        "summary": "Location Search",
+        "operationId": "location_search_api_v1_ad_accounts__conn_id__location_search_get",
+        "parameters": [
+          {
+            "name": "conn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Conn Id"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Q"
             }
           },
           {
@@ -3883,6 +4209,123 @@
         ],
         "title": "AdAccountRead"
       },
+      "AdCreateInput": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "adset_id": {
+            "type": "string",
+            "title": "Adset Id"
+          },
+          "page_id": {
+            "type": "string",
+            "title": "Page Id"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "link": {
+            "type": "string",
+            "title": "Link"
+          },
+          "headline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headline"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "PAUSED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "adset_id",
+          "page_id",
+          "message",
+          "link"
+        ],
+        "title": "AdCreateInput"
+      },
+      "AdsetCreateInput": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "campaign_id": {
+            "type": "string",
+            "title": "Campaign Id"
+          },
+          "daily_budget": {
+            "type": "integer",
+            "minimum": 100.0,
+            "title": "Daily Budget",
+            "description": "minor currency units (e.g. cents)"
+          },
+          "optimization_goal": {
+            "type": "string",
+            "title": "Optimization Goal",
+            "default": "LINK_CLICKS"
+          },
+          "billing_event": {
+            "type": "string",
+            "title": "Billing Event",
+            "default": "IMPRESSIONS"
+          },
+          "age_min": {
+            "type": "integer",
+            "title": "Age Min",
+            "default": 18
+          },
+          "age_max": {
+            "type": "integer",
+            "title": "Age Max",
+            "default": 65
+          },
+          "country_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Country Codes",
+            "default": [
+              "US"
+            ]
+          },
+          "interest_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interest Ids",
+            "default": []
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "PAUSED"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "campaign_id",
+          "daily_budget"
+        ],
+        "title": "AdsetCreateInput"
+      },
       "BillingRead": {
         "properties": {
           "customer_id": {
@@ -5360,6 +5803,17 @@
           "status": {
             "type": "string",
             "title": "Status"
+          },
+          "client_secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Secret"
           }
         },
         "type": "object",

@@ -31,6 +31,18 @@ class FakeGraph:
     def get_ads(self, act_id):
         return [{"id": "ad_1"}]
 
+    def create_adset(self, act_id, **kwargs):
+        return {"id": "adset_new"}
+
+    def create_ad(self, act_id, **kwargs):
+        return {"id": "ad_new"}
+
+    def search_targeting(self, q):
+        return [{"id": "int_1", "name": q}]
+
+    def search_locations(self, q):
+        return [{"key": "loc_1", "name": q}]
+
 
 def _override(captured=None):
     def factory():
@@ -115,3 +127,36 @@ def test_ad_campaigns_list_and_create(client, session):
     assert created.status_code == 201
     assert created.json()["id"] == "camp_new"
     assert captured["token"] == "ADTOK"
+
+
+def test_create_adset_ad_and_search(client, session):
+    register_confirm_login(client, session)
+    aid = _connect_ad_account(client)
+    app.dependency_overrides[get_graph_factory] = _override()
+    try:
+        adset = client.post(
+            f"/api/v1/ad-accounts/{aid}/adsets",
+            json={"name": "AS", "campaign_id": "camp_1", "daily_budget": 500},
+        )
+        ad = client.post(
+            f"/api/v1/ad-accounts/{aid}/ads",
+            json={
+                "name": "Ad",
+                "adset_id": "adset_new",
+                "page_id": "pg1",
+                "message": "hi",
+                "link": "http://x",
+            },
+        )
+        targeting = client.get(
+            f"/api/v1/ad-accounts/{aid}/targeting-search", params={"q": "yoga"}
+        )
+        location = client.get(
+            f"/api/v1/ad-accounts/{aid}/location-search", params={"q": "Toronto"}
+        )
+    finally:
+        app.dependency_overrides.pop(get_graph_factory, None)
+    assert adset.status_code == 201 and adset.json()["id"] == "adset_new"
+    assert ad.status_code == 201 and ad.json()["id"] == "ad_new"
+    assert targeting.json()[0]["name"] == "yoga"
+    assert location.json()[0]["name"] == "Toronto"

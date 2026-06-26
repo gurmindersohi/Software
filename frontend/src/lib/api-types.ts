@@ -112,10 +112,22 @@ export interface paths {
   "/api/v1/ad-accounts/{conn_id}/adsets": {
     /** List Adsets */
     get: operations["list_adsets_api_v1_ad_accounts__conn_id__adsets_get"];
+    /** Create Adset */
+    post: operations["create_adset_api_v1_ad_accounts__conn_id__adsets_post"];
   };
   "/api/v1/ad-accounts/{conn_id}/ads": {
     /** List Ads */
     get: operations["list_ads_api_v1_ad_accounts__conn_id__ads_get"];
+    /** Create Ad */
+    post: operations["create_ad_api_v1_ad_accounts__conn_id__ads_post"];
+  };
+  "/api/v1/ad-accounts/{conn_id}/targeting-search": {
+    /** Targeting Search */
+    get: operations["targeting_search_api_v1_ad_accounts__conn_id__targeting_search_get"];
+  };
+  "/api/v1/ad-accounts/{conn_id}/location-search": {
+    /** Location Search */
+    get: operations["location_search_api_v1_ad_accounts__conn_id__location_search_get"];
   };
   "/api/v1/billing": {
     /** Get Billing */
@@ -300,6 +312,75 @@ export interface components {
        * Format: uuid
        */
       account_id: string;
+    };
+    /** AdCreateInput */
+    AdCreateInput: {
+      /** Name */
+      name: string;
+      /** Adset Id */
+      adset_id: string;
+      /** Page Id */
+      page_id: string;
+      /** Message */
+      message: string;
+      /** Link */
+      link: string;
+      /** Headline */
+      headline?: string | null;
+      /**
+       * Status
+       * @default PAUSED
+       */
+      status?: string;
+    };
+    /** AdsetCreateInput */
+    AdsetCreateInput: {
+      /** Name */
+      name: string;
+      /** Campaign Id */
+      campaign_id: string;
+      /**
+       * Daily Budget
+       * @description minor currency units (e.g. cents)
+       */
+      daily_budget: number;
+      /**
+       * Optimization Goal
+       * @default LINK_CLICKS
+       */
+      optimization_goal?: string;
+      /**
+       * Billing Event
+       * @default IMPRESSIONS
+       */
+      billing_event?: string;
+      /**
+       * Age Min
+       * @default 18
+       */
+      age_min?: number;
+      /**
+       * Age Max
+       * @default 65
+       */
+      age_max?: number;
+      /**
+       * Country Codes
+       * @default [
+       *   "US"
+       * ]
+       */
+      country_codes?: string[];
+      /**
+       * Interest Ids
+       * @default []
+       */
+      interest_ids?: string[];
+      /**
+       * Status
+       * @default PAUSED
+       */
+      status?: string;
     };
     /** BillingRead */
     BillingRead: {
@@ -781,6 +862,8 @@ export interface components {
       subscription_id: string;
       /** Status */
       status: string;
+      /** Client Secret */
+      client_secret?: string | null;
     };
     /** TeamInvite */
     TeamInvite: {
@@ -1693,9 +1776,137 @@ export interface operations {
       };
     };
   };
+  /** Create Adset */
+  create_adset_api_v1_ad_accounts__conn_id__adsets_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdsetCreateInput"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** List Ads */
   list_ads_api_v1_ad_accounts__conn_id__ads_get: {
     parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create Ad */
+  create_ad_api_v1_ad_accounts__conn_id__ads_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdCreateInput"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Targeting Search */
+  targeting_search_api_v1_ad_accounts__conn_id__targeting_search_get: {
+    parameters: {
+      query: {
+        q: string;
+      };
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Location Search */
+  location_search_api_v1_ad_accounts__conn_id__location_search_get: {
+    parameters: {
+      query: {
+        q: string;
+      };
       header?: {
         authorization?: string | null;
       };

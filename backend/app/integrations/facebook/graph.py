@@ -118,6 +118,57 @@ class GraphClient:
             },
         )
 
+    def create_adset(
+        self,
+        ad_account_id: str,
+        *,
+        name: str,
+        campaign_id: str,
+        daily_budget: int,
+        optimization_goal: str = "LINK_CLICKS",
+        billing_event: str = "IMPRESSIONS",
+        targeting: Optional[dict] = None,
+        status: str = "PAUSED",
+    ) -> dict:
+        import json
+
+        return self._request(
+            "POST",
+            f"/{ad_account_id}/adsets",
+            data={
+                "name": name,
+                "campaign_id": campaign_id,
+                "daily_budget": str(int(daily_budget)),  # minor currency units
+                "billing_event": billing_event,
+                "optimization_goal": optimization_goal,
+                "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+                "targeting": json.dumps(targeting or {"geo_locations": {"countries": ["US"]}}),
+                "status": status,
+            },
+        )
+
+    def create_ad(
+        self,
+        ad_account_id: str,
+        *,
+        name: str,
+        adset_id: str,
+        creative: dict,
+        status: str = "PAUSED",
+    ) -> dict:
+        import json
+
+        return self._request(
+            "POST",
+            f"/{ad_account_id}/ads",
+            data={
+                "name": name,
+                "adset_id": adset_id,
+                "creative": json.dumps(creative),
+                "status": status,
+            },
+        )
+
     def get_adsets(self, ad_account_id: str) -> List[dict]:
         return self._data(
             self._request(

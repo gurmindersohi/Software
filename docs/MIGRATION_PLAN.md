@@ -84,9 +84,9 @@ Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependenci
 - [x] **2.3 (S)** JWT access + refresh in **httpOnly cookies**; `/refresh` + `/logout` endpoints.
 - [x] **2.4 (S)** Register + email-confirmation (`/register`, `/verify-email`).
 - [x] **2.5 (S)** Forgot/reset password (`/forgot-password`, `/reset-password`).
-- [~] **2.6 (S)** Email: pluggable sender with a `console` provider done; real Resend/SendGrid provider + templates TODO.
+- [x] **2.6 (S)** Email: pluggable sender — `console` + real **Resend** & **SendGrid** providers (httpx, request-building unit-tested).
 - [~] **2.7 (M)** Account management: change-password done; change-email + delete/export personal data TODO.
-- [ ] **2.8 (M)** *Optional/deferrable:* 2FA (TOTP) + recovery codes (`two_factor_enabled` field stubbed).
+- [x] **2.8 (M)** **2FA** — hand-rolled RFC 6238 TOTP + single-use recovery codes; two-step login (challenge cookie → `/2fa/verify`); Settings → Security UI.
 - [x] **2.9 (S)** Roles/permissions model (`Role` + `user_roles` link table).
 
 ### Phase 3 — Core API (depends on 1, 2)
@@ -97,8 +97,8 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **3.5 (S)** Ad-accounts router — list / save (token omitted from read schema).
 - [x] **3.6 (S)** Billing router — `GET/PUT /billing` on the current Account.
 - [x] **3.7 (S)** `get_current_account` dependency → **multi-tenant scoping on every route**; the tenant comes from the JWT, not a client-supplied id (security upgrade over the old API). Cross-tenant read/delete isolation is unit-tested.
-- [ ] **3.8 (M)** **Plan/quota enforcement** — per-plan limits (seats, social sets, scheduled posts, ad allowance) enforced at the API. *(gap found in audit)*
-- [ ] **3.9 (M)** **Trial & subscription lifecycle** — trial expiry, `OnHold`/suspension + reactivation, paid/unpaid state (ties to Stripe webhooks 4.6). *(gap found in audit)*
+- [x] **3.8 (M)** **Plan/quota enforcement** — `core/quotas.py` enforces seats / social sets / scheduled posts per tier on create (402 over limit); `Account.plan_name` set at subscription.
+- [x] **3.9 (M)** **Trial & suspension enforcement** — `require_active_account` gates mutations (402 on `on_hold` or expired trial); webhook drives the state.
 
 ### Phase 4 — Integrations (depends on 2, 3)
 > Externals can't be hit from the dev box, so live calls are structured behind mockable
@@ -127,7 +127,7 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 ### Phase 7 — Frontend: marketing site (depends on 6)
 - [x] **7.1 (S)** Home/Index — hero + feature highlights under a shared `(marketing)` layout (header nav + footer).
 - [x] **7.2 (S)** About + Features (8 original bullets) + Contact (form).
-- [x] **7.3 (M)** Pricing (3 real tiers $24/$99/$299) → `/checkout?plan=` → backend `create-subscription` → Success. ⚠️ Card capture via **Stripe Elements/Checkout Session deferred to cutover (Phase 9)** — current checkout calls the subscription API directly.
+- [x] **7.3 (M)** Pricing (3 real tiers $24/$99/$299) → `/checkout?plan=` → **Stripe Elements** card capture (subscription with `default_incomplete` → PaymentIntent `client_secret` → `<PaymentElement>` → `/success`).
 - Verified: `next build` (13 routes), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 8 — Frontend: portal (depends on 6, and matching API/integration phases)
@@ -146,7 +146,7 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **8.4 (L)** Settings — General/Business, Connections (Connect Facebook OAuth + disconnect), Billing, **Team** (members table, invite, remove, roles list/create) wired to `/team` + `/roles`.
 - [x] **8.5 (L)** Social/Facebook — **Queue** + **Pages** (per-page: create-post, recent posts, insights) on the Graph-proxy routes; graceful "needs live connection" states.
 - [x] **8.6 (M)** Social/Instagram — Queue (platform-aware) + the Pages content view works for IG connections too (same endpoints).
-- [x] **8.7 (L)** Ads/Facebook — per ad-account **campaigns** list + **create**; adsets/ads endpoints available. *Full ad-set/ad creation wizard (targeting/creative builder) left as a future enhancement.*
+- [x] **8.7 (L)** Ads/Facebook — campaigns list/create **+ full ad-set/ad creation wizard**: budget, age, countries, **interest targeting search**, page-creative ad builder (backend `create_adset`/`create_ad` + targeting/location search routes).
 - Verified: `next build` (**24 routes**), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 9 — Cutover

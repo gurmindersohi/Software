@@ -3,11 +3,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
+import { AdForm, AdSetForm } from "@/components/ad-wizard";
 import { ErrorNote, PageHeader, StatusBadge } from "@/components/portal";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { ApiError } from "@/lib/api";
 import { createCampaign, getCampaigns } from "@/lib/ads";
-import { listAdAccounts } from "@/lib/connections";
+import { listAdAccounts, listSocialConnections } from "@/lib/connections";
 
 const OBJECTIVES = ["LINK_CLICKS", "REACH", "CONVERSIONS", "POST_ENGAGEMENT"];
 
@@ -16,9 +17,12 @@ export default function AdAccountPage() {
   const queryClient = useQueryClient();
   const [name, setName] = useState("");
   const [objective, setObjective] = useState(OBJECTIVES[0]);
+  const [newAdsetId, setNewAdsetId] = useState("");
 
   const accounts = useQuery({ queryKey: ["ad-accounts"], queryFn: listAdAccounts });
   const account = accounts.data?.find((a) => a.id === id);
+  const connections = useQuery({ queryKey: ["social"], queryFn: listSocialConnections });
+  const facebookPages = (connections.data ?? []).filter((c) => c.type === "facebook");
 
   const campaigns = useQuery({
     queryKey: ["campaigns", id],
@@ -97,6 +101,14 @@ export default function AdAccountPage() {
           ))}
         </div>
       </section>
+
+      <AdSetForm
+        adAccountId={id}
+        campaigns={campaigns.data ?? []}
+        onCreated={(adsetId) => setNewAdsetId(adsetId)}
+      />
+
+      <AdForm adAccountId={id} pages={facebookPages} defaultAdsetId={newAdsetId} />
     </div>
   );
 }
