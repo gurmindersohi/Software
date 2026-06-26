@@ -6,3 +6,6 @@
 **/obj/**
 **/bin/**
 **/cache/**
+
+# macOS
+.DS_Store
