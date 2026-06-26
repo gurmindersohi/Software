@@ -143,11 +143,11 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - [x] **8.1 (S)** App shell: sidebar nav + header + logout; settings sub-nav.
 - [x] **8.2 (S)** Dashboard — real data (lead/connection/ad-account/scheduled counts + account/trial status).
 - [x] **8.3 (M)** Leads — list, **search**, create, edit, delete (full CRUD on `/leads`).
-- [~] **8.4 (L)** Settings — General/Business (`/account`), Connections (social + ad accounts; **Connect Facebook** OAuth; disconnect), Billing view. *ManageUsers/NewUser/Roles need backend team-management endpoints (not yet built).*
-- [~] **8.5 (L)** Social/Facebook — **Queue** (schedule/list/cancel on `/scheduled-posts`) done. Pages/Posts/CreatePost/Insights/Analytics/Images need Graph-proxy routes.
-- [~] **8.6 (M)** Social/Instagram — covered by the Queue (platform-aware). Posts/Insights need Graph-proxy routes.
-- [~] **8.7 (L)** Ads/Facebook — connected ad-accounts list done. Campaigns/Adsets/Ads + create flow need Graph-proxy + create routes.
-- Verified: `next build` (19 routes), `tsc --noEmit` clean, `next lint` clean.
+- [x] **8.4 (L)** Settings — General/Business, Connections (Connect Facebook OAuth + disconnect), Billing, **Team** (members table, invite, remove, roles list/create) wired to `/team` + `/roles`.
+- [x] **8.5 (L)** Social/Facebook — **Queue** + **Pages** (per-page: create-post, recent posts, insights) on the Graph-proxy routes; graceful "needs live connection" states.
+- [x] **8.6 (M)** Social/Instagram — Queue (platform-aware) + the Pages content view works for IG connections too (same endpoints).
+- [x] **8.7 (L)** Ads/Facebook — per ad-account **campaigns** list + **create**; adsets/ads endpoints available. *Full ad-set/ad creation wizard (targeting/creative builder) left as a future enhancement.*
+- Verified: `next build` (**24 routes**), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 9 — Cutover
 > Artifacts are built and verified; **execution requires your environment** (real DB,

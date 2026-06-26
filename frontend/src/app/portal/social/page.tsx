@@ -2,7 +2,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { Empty, ErrorNote, PageHeader, StatusBadge } from "@/components/portal";
+import { Empty, ErrorNote, StatusBadge } from "@/components/portal";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { ApiError } from "@/lib/api";
 import { listSocialConnections } from "@/lib/connections";
@@ -53,8 +53,6 @@ export default function SocialQueuePage() {
 
   return (
     <div>
-      <PageHeader title="Scheduled posts" />
-
       {!hasConnections ? (
         <Empty
           message="Connect a Facebook or Instagram page to schedule posts."
