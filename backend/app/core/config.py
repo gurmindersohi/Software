@@ -38,6 +38,9 @@ class Settings(BaseSettings):
     # CORS
     frontend_origin: str = "http://localhost:3000"
 
+    # Observability (task 0.8)
+    rate_limit_per_minute: int = 1000
+
     # Email (Phase 2.6)
     email_provider: str = "console"  # console | resend | sendgrid
     email_from: str = "no-reply@sohi.app"

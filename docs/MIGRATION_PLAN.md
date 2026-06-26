@@ -65,14 +65,14 @@ Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependenci
 - [x] **0.5 (S)** CI pipeline (lint + test for backend & frontend).
 - [~] **0.6 (S)** Secret management: `.env.example` + rotation note added. ⚠️ **Actual rotation of the leaked Facebook/Stripe keys is a manual user action — still pending.**
 - [x] **0.7 (S)** Object storage (S3-compatible; MinIO in compose) for media — infra + settings done; upload pipeline is task 4.7.
-- [ ] **0.8 (S)** Observability baseline: structured logging, error tracking (e.g. Sentry), and API rate limiting. *(gap found in audit)*
+- [x] **0.8 (S)** Observability: request logging + in-process **rate limiting** middleware + CORS. (Sentry/error-tracking left as an optional add-on.)
 
 ### Phase 1 — Data layer
 - [x] **1.1 (M)** Port domain models → SQLModel tables (Account, Plan, Lead, SocialMedia, AdAccount; Graph DTOs → Pydantic schemas); UUID keys for internal entities, string for external Meta IDs.
 - [x] **1.2 (S)** Alembic init + initial migration generating the full schema (verified: 5 tables, FKs, Numeric(18,2)).
 - [~] **1.3 (M)** Type mapping: decimal precision, datetime, bool, UUID done. Full SQL-Server-specific parity finalised with the ETL (1.4).
-- [ ] **1.4 (M)** One-time **ETL** script: SQL Server → Postgres (preserve IDs, FK integrity, money precision).
-- [ ] **1.5 (S)** Seed/reference data (Plans, etc.) + a smoke test verifying row counts vs source.
+- [N/A] **1.4 (M)** ETL script exists (`backend/scripts/etl_sqlserver_to_postgres.py`) but **not needed — no legacy data to import** (fresh start).
+- [x] **1.5 (S)** Seed (`backend/scripts/seed.py`): the 3 Plans + an optional `--demo` owner account. **App booted on SQLite and smoke-tested over HTTP** (login → me → plan → lead CRUD; 401 gate; /docs).
 
 ### Phase 2 — Auth (depends on 1)
 > **Decision change:** implemented auth as our **own focused module (JWT + PBKDF2)** rather than
@@ -80,7 +80,7 @@ Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependenci
 > the whole sync data layer to async right now, and the legacy ASP.NET hash + rehash-on-login is
 > custom work regardless. Fewer deps, fully unit-tested offline. Revisit if the stack goes async.
 - [x] **2.1 (M)** User + Role models (unifies old `IdentityUser` + `IdentityRole`); register creates a tenant Account + Owner role.
-- [x] **2.2 (M)** **ASP.NET Identity PBKDF2 verifier** ported (v2 0x00 + v3 0x01) with transparent re-hash on login. ⚠️ Verified against spec-built vectors + round-trip; **final sign-off needs a sample of real exported hashes**.
+- [x] **2.2 (M)** **ASP.NET Identity PBKDF2 verifier** ported (v2 0x00 + v3 0x01) with transparent re-hash on login. *(Kept for safety, but **not exercised** — no legacy users to import; new signups use the modern `pbkdf2_sha256` format.)*
 - [x] **2.3 (S)** JWT access + refresh in **httpOnly cookies**; `/refresh` + `/logout` endpoints.
 - [x] **2.4 (S)** Register + email-confirmation (`/register`, `/verify-email`).
 - [x] **2.5 (S)** Forgot/reset password (`/forgot-password`, `/reset-password`).

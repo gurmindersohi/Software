@@ -19,6 +19,7 @@ from app.api.routes import (
     twofa,
 )
 from app.core.config import settings
+from app.core.middleware import RateLimitMiddleware, RequestLoggingMiddleware
 
 app = FastAPI(
     title=settings.app_name,
@@ -26,6 +27,8 @@ app = FastAPI(
     description="Social Media & Ads Manager API (FastAPI re-platform of Sohi.Api).",
 )
 
+app.add_middleware(RequestLoggingMiddleware)
+app.add_middleware(RateLimitMiddleware, limit_per_minute=settings.rate_limit_per_minute)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.frontend_origin],

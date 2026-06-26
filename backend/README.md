@@ -9,22 +9,29 @@ Re-platform of the .NET `Sohi.Api` + the backend logic that lived in `Sohi.Web`
 - **Redis** + **arq** for background jobs (scheduled posts) — Phase 5
 - **MinIO/S3** for media — Phase 4.7
 
-## Quickstart
+## Quickstart (Postgres, via Docker)
 ```bash
-# 1. infra
-docker compose -f ../infra/docker-compose.yml up -d
-
-# 2. env
-cp .env.example .env            # fill in rotated secrets
-
-# 3. install
+docker compose -f ../infra/docker-compose.yml up -d   # Postgres + Redis + MinIO
+cp .env.example .env                                  # fill in rotated secrets
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-
-# 4. migrate + run
 alembic upgrade head
+python scripts/seed.py --demo                         # plans + demo@sohi.app / demo1234
 uvicorn app.main:app --reload
 ```
+
+## Quickstart (no Docker — SQLite)
+The app defaults to a local SQLite file, so you can run the API with nothing else:
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+export DATABASE_URL="sqlite:///./sohi_dev.db"
+alembic upgrade head
+python scripts/seed.py --demo
+uvicorn app.main:app --reload
+```
+(The arq worker still needs Redis; everything else works on SQLite.)
+
 Open http://localhost:8000/docs for the OpenAPI UI, http://localhost:8000/health for liveness.
 
 ## Tests
