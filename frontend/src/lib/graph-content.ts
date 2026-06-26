@@ -37,3 +37,15 @@ export const getInstagramInsights = (connId: string) =>
 
 export const syncLeads = (connId: string) =>
   apiFetch<{ imported: number }>(`/social/${connId}/sync-leads`, { method: "POST" });
+
+export interface Snapshot {
+  metric: string;
+  value: number;
+  captured_at: string;
+}
+
+export const captureInsights = (connId: string) =>
+  apiFetch<{ captured: number }>(`/social/${connId}/capture-insights`, { method: "POST" });
+
+export const getAnalytics = (connId: string) =>
+  apiFetch<Snapshot[]>(`/social/${connId}/analytics`);

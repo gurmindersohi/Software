@@ -151,6 +151,17 @@ export interface paths {
     /** Instagram Insights */
     get: operations["instagram_insights_api_v1_social__connection_id__instagram_insights_get"];
   };
+  "/api/v1/social/{connection_id}/capture-insights": {
+    /**
+     * Capture Insights
+     * @description Snapshot the page's current insights into the time series (Tier 3).
+     */
+    post: operations["capture_insights_api_v1_social__connection_id__capture_insights_post"];
+  };
+  "/api/v1/social/{connection_id}/analytics": {
+    /** Connection Analytics */
+    get: operations["connection_analytics_api_v1_social__connection_id__analytics_get"];
+  };
   "/api/v1/social/{connection_id}/sync-leads": {
     /**
      * Sync Lead Forms
@@ -1006,6 +1017,18 @@ export interface components {
       last_error?: string | null;
       /** External Post Id */
       external_post_id?: string | null;
+    };
+    /** SnapshotRead */
+    SnapshotRead: {
+      /** Metric */
+      metric: string;
+      /** Value */
+      value: number;
+      /**
+       * Captured At
+       * Format: date-time
+       */
+      captured_at: string;
     };
     /** SocialMediaCreate */
     SocialMediaCreate: {
@@ -2190,6 +2213,71 @@ export interface operations {
       200: {
         content: {
           "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Capture Insights
+   * @description Snapshot the page's current insights into the time series (Tier 3).
+   */
+  capture_insights_api_v1_social__connection_id__capture_insights_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": {
+            [key: string]: unknown;
+          };
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Connection Analytics */
+  connection_analytics_api_v1_social__connection_id__analytics_get: {
+    parameters: {
+      query?: {
+        days?: number;
+        metric?: string | null;
+      };
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SnapshotRead"][];
         };
       };
       /** @description Validation Error */

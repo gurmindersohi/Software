@@ -3,12 +3,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import { ErrorNote } from "@/components/portal";
+import { ErrorNote, Sparkline } from "@/components/portal";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { ApiError } from "@/lib/api";
 import { listSocialConnections } from "@/lib/connections";
 import {
+  captureInsights,
   createPagePost,
+  getAnalytics,
   getInstagramInsights,
   getPageInsights,
   getPagePosts,
@@ -36,6 +38,14 @@ export default function PageContent() {
   const isInstagram = page?.type === "instagram";
 
   const sync = useMutation({ mutationFn: () => syncLeads(id) });
+  const analytics = useQuery({ queryKey: ["analytics", id], queryFn: () => getAnalytics(id) });
+  const capture = useMutation({
+    mutationFn: () => captureInsights(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["analytics", id] }),
+  });
+
+  const byMetric: Record<string, number[]> = {};
+  for (const s of analytics.data ?? []) (byMetric[s.metric] ??= []).push(s.value);
   const igInsights = useQuery({
     queryKey: ["ig-insights", id],
     queryFn: () => getInstagramInsights(id),
@@ -176,6 +186,34 @@ export default function PageContent() {
           </div>
         </section>
       )}
+
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="font-medium text-slate-800">Analytics over time</h3>
+          <Button
+            className="bg-slate-600 hover:bg-slate-700"
+            disabled={capture.isPending}
+            onClick={() => capture.mutate()}
+          >
+            {capture.isPending ? "Capturing…" : "Capture now"}
+          </Button>
+        </div>
+        {analytics.data && analytics.data.length === 0 ? (
+          <p className="text-sm text-slate-500">
+            No snapshots yet — capture insights to start a trend line.
+          </p>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(byMetric).map(([metric, vals]) => (
+              <Card key={metric}>
+                <p className="text-sm text-slate-500">{metric}</p>
+                <p className="text-2xl font-bold text-slate-900">{vals[vals.length - 1]}</p>
+                <Sparkline values={vals} />
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

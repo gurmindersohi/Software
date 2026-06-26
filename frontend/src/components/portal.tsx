@@ -51,3 +51,24 @@ export function Empty({ message, cta }: { message: string; cta?: { href: string;
 export function ErrorNote({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-red-600">{children}</p>;
 }
+
+export function Sparkline({ values }: { values: number[] }) {
+  if (values.length === 0) return null;
+  const w = 140;
+  const h = 36;
+  const max = Math.max(...values, 1);
+  const min = Math.min(...values, 0);
+  const range = max - min || 1;
+  const points = values
+    .map((v, i) => {
+      const x = values.length === 1 ? w : (i / (values.length - 1)) * w;
+      const y = h - ((v - min) / range) * h;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+  return (
+    <svg width={w} height={h} className="text-brand" aria-hidden>
+      <polyline points={points} fill="none" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}

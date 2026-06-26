@@ -1,4 +1,5 @@
 """Connected social accounts (tokens), scoped to the caller's tenant."""
+from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 from uuid import UUID
 
@@ -20,7 +21,9 @@ from app.integrations.facebook.graph import GraphError
 from app.models.account import Account
 from app.models.client import Client
 from app.models.lead import Lead
+from app.models.metric_snapshot import MetricSnapshot
 from app.models.social import SocialMedia
+from app.schemas.analytics import SnapshotRead
 from app.schemas.graph import PagePostInput
 from app.schemas.social import SocialMediaCreate, SocialMediaRead
 
@@ -138,6 +141,63 @@ def instagram_insights(
         return graph.get_instagram_insights(conn.page_id, token)
     except GraphError as exc:
         raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+
+
+@router.post("/{connection_id}/capture-insights")
+def capture_insights(
+    connection_id: UUID,
+    account: Account = Depends(require_active_account),
+    session: Session = Depends(get_session),
+    graph_factory: GraphFactory = Depends(get_graph_factory),
+) -> dict:
+    """Snapshot the page's current insights into the time series (Tier 3)."""
+    conn = _owned_connection(session, connection_id, account)
+    graph, token = _page_graph(conn, graph_factory)
+    try:
+        metrics = graph.get_page_insights(conn.page_id, token)
+    except GraphError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+
+    captured = 0
+    for metric in metrics:
+        name = metric.get("name")
+        values = metric.get("values") or []
+        if not name or not values:
+            continue
+        try:
+            value = int(values[-1].get("value"))
+        except (TypeError, ValueError):
+            continue
+        session.add(
+            MetricSnapshot(
+                account_id=account.id,
+                social_media_id=conn.id,
+                client_id=conn.client_id,
+                metric=name,
+                value=value,
+            )
+        )
+        captured += 1
+    session.commit()
+    return {"captured": captured}
+
+
+@router.get("/{connection_id}/analytics", response_model=List[SnapshotRead])
+def connection_analytics(
+    connection_id: UUID,
+    days: int = 30,
+    metric: Optional[str] = None,
+    account: Account = Depends(get_current_account),
+    session: Session = Depends(get_session),
+) -> List[MetricSnapshot]:
+    conn = _owned_connection(session, connection_id, account)
+    since = datetime.now(timezone.utc) - timedelta(days=days)
+    stmt = select(MetricSnapshot).where(
+        MetricSnapshot.social_media_id == conn.id, MetricSnapshot.captured_at >= since
+    )
+    if metric:
+        stmt = stmt.where(MetricSnapshot.metric == metric)
+    return session.exec(stmt.order_by(MetricSnapshot.captured_at)).all()
 
 
 @router.post("/{connection_id}/sync-leads")

@@ -5,6 +5,7 @@ from app.models.ad_account import AdAccount
 from app.models.client import Client
 from app.models.lead import Lead
 from app.models.media_asset import MediaAsset
+from app.models.metric_snapshot import MetricSnapshot
 from app.models.plan import Plan
 from app.models.scheduled_post import ScheduledPost
 from app.models.social import SocialMedia
@@ -17,6 +18,7 @@ __all__ = [
     "Client",
     "Lead",
     "MediaAsset",
+    "MetricSnapshot",
     "Plan",
     "ProcessedWebhookEvent",
     "ScheduledPost",
