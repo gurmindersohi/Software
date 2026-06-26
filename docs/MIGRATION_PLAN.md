@@ -131,13 +131,17 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - Verified: `next build` (13 routes), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 8 — Frontend: portal (depends on 6, and matching API/integration phases)
-- [ ] **8.1 (S)** App shell: nav, menus, layouts.
-- [ ] **8.2 (S)** Dashboard.
-- [ ] **8.3 (M)** Leads (list, details, edit, search).
-- [ ] **8.4 (L)** Settings area: General, Business, Accounts/Connect, Facebook/Instagram connect, ManageUsers/NewUser/Roles, Ads account connect.
-- [ ] **8.5 (L)** Social/Facebook: Pages, Posts, CreatePost, Queue, Insights, Analytics, Images, Settings.
-- [ ] **8.6 (M)** Social/Instagram: Posts, Queue, Insights.
-- [ ] **8.7 (L)** Ads/Facebook: Campaigns/list, Adsets, Ads, Create flow (NewCampaign/NewAdSet/NewAd), targeting/location/age/images, Manage.
+> The screens backed by **existing REST endpoints** are built and verified. The **live-Graph
+> screens** (page posts/insights, campaign/ad-set/ad management) need **new backend Graph-proxy
+> routes** first — flagged below as the remaining slice (depends on exposing the `GraphClient` 4.2–4.4 methods as endpoints).
+- [x] **8.1 (S)** App shell: sidebar nav + header + logout; settings sub-nav.
+- [x] **8.2 (S)** Dashboard — real data (lead/connection/ad-account/scheduled counts + account/trial status).
+- [x] **8.3 (M)** Leads — list, **search**, create, edit, delete (full CRUD on `/leads`).
+- [~] **8.4 (L)** Settings — General/Business (`/account`), Connections (social + ad accounts; **Connect Facebook** OAuth; disconnect), Billing view. *ManageUsers/NewUser/Roles need backend team-management endpoints (not yet built).*
+- [~] **8.5 (L)** Social/Facebook — **Queue** (schedule/list/cancel on `/scheduled-posts`) done. Pages/Posts/CreatePost/Insights/Analytics/Images need Graph-proxy routes.
+- [~] **8.6 (M)** Social/Instagram — covered by the Queue (platform-aware). Posts/Insights need Graph-proxy routes.
+- [~] **8.7 (L)** Ads/Facebook — connected ad-accounts list done. Campaigns/Adsets/Ads + create flow need Graph-proxy + create routes.
+- Verified: `next build` (19 routes), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 9 — Cutover
 - [ ] **9.1 (M)** Final data migration dry-run + verification.
