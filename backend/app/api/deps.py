@@ -1,5 +1,5 @@
 """Shared FastAPI dependencies: current user + auth cookie helpers."""
-from typing import Optional
+from typing import Callable, Optional
 from uuid import UUID
 
 from fastapi import Cookie, Depends, Header, HTTPException, Response, status
@@ -8,8 +8,11 @@ from sqlmodel import Session
 from app.core import security
 from app.core.config import settings
 from app.db.session import get_session
+from app.integrations.facebook.graph import GraphClient
 from app.models.account import Account
 from app.models.user import User
+
+GraphFactory = Callable[[Optional[str]], GraphClient]
 
 ACCESS_COOKIE = "access_token"
 REFRESH_COOKIE = "refresh_token"
@@ -90,3 +93,15 @@ def get_current_account(
     if account is None or account.is_deleted:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Account not found.")
     return account
+
+
+def require_owner(user: User = Depends(get_current_user)) -> User:
+    """Restrict an endpoint to account owners (team/role administration)."""
+    if not any(role.name == "Owner" for role in user.roles):
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Owner role required.")
+    return user
+
+
+def get_graph_factory() -> GraphFactory:
+    """Builds a Graph client from a (decrypted) token. Overridden in tests."""
+    return lambda token: GraphClient(access_token=token)

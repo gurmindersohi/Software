@@ -131,9 +131,15 @@ Port each controller+repository to a FastAPI router with Pydantic schemas + test
 - Verified: `next build` (13 routes), `tsc --noEmit` clean, `next lint` clean.
 
 ### Phase 8 — Frontend: portal (depends on 6, and matching API/integration phases)
-> The screens backed by **existing REST endpoints** are built and verified. The **live-Graph
-> screens** (page posts/insights, campaign/ad-set/ad management) need **new backend Graph-proxy
-> routes** first — flagged below as the remaining slice (depends on exposing the `GraphClient` 4.2–4.4 methods as endpoints).
+> The screens backed by **existing REST endpoints** are built and verified.
+> **Backend unblock done:** Graph-proxy routes + team endpoints now exist (see *8.b* below),
+> so the remaining live-Graph + team **frontend screens** are unblocked (UI is the remaining work).
+
+> **8.b — Backend unblock (done):** added tenant-scoped Graph-proxy routes — `GET/POST
+> /social/{id}/posts`, `GET /social/{id}/insights`, `GET/POST /ad-accounts/{id}/campaigns`,
+> `GET /ad-accounts/{id}/adsets|ads` (decrypt token → `GraphClient`, injectable for tests) — and
+> **team management**: `GET/POST /team`, `DELETE /team/{id}`, `GET/POST /roles` (Owner-gated).
+> 67 backend tests pass; OpenAPI now 36 paths; frontend types regenerated.
 - [x] **8.1 (S)** App shell: sidebar nav + header + logout; settings sub-nav.
 - [x] **8.2 (S)** Dashboard — real data (lead/connection/ad-account/scheduled counts + account/trial status).
 - [x] **8.3 (M)** Leads — list, **search**, create, edit, delete (full CRUD on `/leads`).

@@ -87,11 +87,35 @@ export interface paths {
     /** Delete Token */
     delete: operations["delete_token_api_v1_social__token_id__delete"];
   };
+  "/api/v1/social/{connection_id}/posts": {
+    /** Page Posts */
+    get: operations["page_posts_api_v1_social__connection_id__posts_get"];
+    /** Create Page Post */
+    post: operations["create_page_post_api_v1_social__connection_id__posts_post"];
+  };
+  "/api/v1/social/{connection_id}/insights": {
+    /** Page Insights */
+    get: operations["page_insights_api_v1_social__connection_id__insights_get"];
+  };
   "/api/v1/ad-accounts": {
     /** List Ad Accounts */
     get: operations["list_ad_accounts_api_v1_ad_accounts_get"];
     /** Save Ad Account */
     post: operations["save_ad_account_api_v1_ad_accounts_post"];
+  };
+  "/api/v1/ad-accounts/{conn_id}/campaigns": {
+    /** List Campaigns */
+    get: operations["list_campaigns_api_v1_ad_accounts__conn_id__campaigns_get"];
+    /** Create Campaign */
+    post: operations["create_campaign_api_v1_ad_accounts__conn_id__campaigns_post"];
+  };
+  "/api/v1/ad-accounts/{conn_id}/adsets": {
+    /** List Adsets */
+    get: operations["list_adsets_api_v1_ad_accounts__conn_id__adsets_get"];
+  };
+  "/api/v1/ad-accounts/{conn_id}/ads": {
+    /** List Ads */
+    get: operations["list_ads_api_v1_ad_accounts__conn_id__ads_get"];
   };
   "/api/v1/billing": {
     /** Get Billing */
@@ -130,6 +154,22 @@ export interface paths {
     get: operations["get_post_api_v1_scheduled_posts__post_id__get"];
     /** Cancel Post */
     delete: operations["cancel_post_api_v1_scheduled_posts__post_id__delete"];
+  };
+  "/api/v1/team": {
+    /** List Team */
+    get: operations["list_team_api_v1_team_get"];
+    /** Invite Member */
+    post: operations["invite_member_api_v1_team_post"];
+  };
+  "/api/v1/team/{user_id}": {
+    /** Remove Member */
+    delete: operations["remove_member_api_v1_team__user_id__delete"];
+  };
+  "/api/v1/roles": {
+    /** List Roles */
+    get: operations["list_roles_api_v1_roles_get"];
+    /** Create Role */
+    post: operations["create_role_api_v1_roles_post"];
   };
   "/": {
     /** Root */
@@ -273,6 +313,21 @@ export interface components {
        * Format: binary
        */
       file: string;
+    };
+    /** CampaignCreateInput */
+    CampaignCreateInput: {
+      /** Name */
+      name: string;
+      /**
+       * Objective
+       * @default LINK_CLICKS
+       */
+      objective?: string;
+      /**
+       * Status
+       * @default PAUSED
+       */
+      status?: string;
     };
     /** ChangePasswordRequest */
     ChangePasswordRequest: {
@@ -498,6 +553,13 @@ export interface components {
       /** Detail */
       detail: string;
     };
+    /** PagePostInput */
+    PagePostInput: {
+      /** Message */
+      message: string;
+      /** Link */
+      link?: string | null;
+    };
     /** PlanRead */
     PlanRead: {
       /**
@@ -540,6 +602,21 @@ export interface components {
       token: string;
       /** New Password */
       new_password: string;
+    };
+    /** RoleCreate */
+    RoleCreate: {
+      /** Name */
+      name: string;
+    };
+    /** RoleRead */
+    RoleRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Name */
+      name: string;
     };
     /** ScheduledPostCreate */
     ScheduledPostCreate: {
@@ -661,6 +738,47 @@ export interface components {
       subscription_id: string;
       /** Status */
       status: string;
+    };
+    /** TeamInvite */
+    TeamInvite: {
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** First Name */
+      first_name?: string | null;
+      /**
+       * Role
+       * @default User
+       */
+      role?: string;
+    };
+    /** TeamMemberRead */
+    TeamMemberRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** First Name */
+      first_name?: string | null;
+      /** Last Name */
+      last_name?: string | null;
+      /** Email Confirmed */
+      email_confirmed: boolean;
+      /** Is Deleted */
+      is_deleted: boolean;
+      /**
+       * Roles
+       * @default []
+       */
+      roles?: string[];
     };
     /** UserRead */
     UserRead: {
@@ -1287,6 +1405,95 @@ export interface operations {
       };
     };
   };
+  /** Page Posts */
+  page_posts_api_v1_social__connection_id__posts_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create Page Post */
+  create_page_post_api_v1_social__connection_id__posts_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PagePostInput"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Page Insights */
+  page_insights_api_v1_social__connection_id__insights_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        connection_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** List Ad Accounts */
   list_ad_accounts_api_v1_ad_accounts_get: {
     parameters: {
@@ -1332,6 +1539,123 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["AdAccountRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Campaigns */
+  list_campaigns_api_v1_ad_accounts__conn_id__campaigns_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create Campaign */
+  create_campaign_api_v1_ad_accounts__conn_id__campaigns_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CampaignCreateInput"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Adsets */
+  list_adsets_api_v1_ad_accounts__conn_id__adsets_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Ads */
+  list_ads_api_v1_ad_accounts__conn_id__ads_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        conn_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
@@ -1618,6 +1942,142 @@ export interface operations {
       /** @description Successful Response */
       204: {
         content: never;
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Team */
+  list_team_api_v1_team_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TeamMemberRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Invite Member */
+  invite_member_api_v1_team_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TeamInvite"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["TeamMemberRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Remove Member */
+  remove_member_api_v1_team__user_id__delete: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        user_id: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      204: {
+        content: never;
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Roles */
+  list_roles_api_v1_roles_get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RoleRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create Role */
+  create_role_api_v1_roles_post: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RoleCreate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["RoleRead"];
+        };
       };
       /** @description Validation Error */
       422: {
