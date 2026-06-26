@@ -75,15 +75,19 @@ Sizes: **S** ≈ <½ day, **M** ≈ ½–1 day, **L** ≈ 1–2 days. Dependenci
 - [ ] **1.5 (S)** Seed/reference data (Plans, etc.) + a smoke test verifying row counts vs source.
 
 ### Phase 2 — Auth (depends on 1)
-- [ ] **2.1 (M)** Integrate **FastAPI-Users**; User model unifying the two old user tables.
-- [ ] **2.2 (M)** **Port ASP.NET Identity PBKDF2** verifier so legacy password hashes validate; re-hash on next login.
-- [ ] **2.3 (S)** JWT access + refresh in **httpOnly cookies**; logout/refresh endpoints.
-- [ ] **2.4 (S)** Register + email-confirmation flow.
-- [ ] **2.5 (S)** Forgot/reset password flow.
-- [ ] **2.6 (S)** Pick + wire **email provider** (Resend/SendGrid); templates.
-- [ ] **2.7 (M)** Account management: change/set password, change email, delete/export personal data.
-- [ ] **2.8 (M)** *Optional/deferrable:* 2FA (TOTP) + recovery codes (port from Identity).
-- [ ] **2.9 (S)** Roles/permissions model (ManageUsers, Roles screens depend on this).
+> **Decision change:** implemented auth as our **own focused module (JWT + PBKDF2)** rather than
+> pulling in **FastAPI-Users**. Rationale: FastAPI-Users is async-only and would force converting
+> the whole sync data layer to async right now, and the legacy ASP.NET hash + rehash-on-login is
+> custom work regardless. Fewer deps, fully unit-tested offline. Revisit if the stack goes async.
+- [x] **2.1 (M)** User + Role models (unifies old `IdentityUser` + `IdentityRole`); register creates a tenant Account + Owner role.
+- [x] **2.2 (M)** **ASP.NET Identity PBKDF2 verifier** ported (v2 0x00 + v3 0x01) with transparent re-hash on login. ⚠️ Verified against spec-built vectors + round-trip; **final sign-off needs a sample of real exported hashes**.
+- [x] **2.3 (S)** JWT access + refresh in **httpOnly cookies**; `/refresh` + `/logout` endpoints.
+- [x] **2.4 (S)** Register + email-confirmation (`/register`, `/verify-email`).
+- [x] **2.5 (S)** Forgot/reset password (`/forgot-password`, `/reset-password`).
+- [~] **2.6 (S)** Email: pluggable sender with a `console` provider done; real Resend/SendGrid provider + templates TODO.
+- [~] **2.7 (M)** Account management: change-password done; change-email + delete/export personal data TODO.
+- [ ] **2.8 (M)** *Optional/deferrable:* 2FA (TOTP) + recovery codes (`two_factor_enabled` field stubbed).
+- [x] **2.9 (S)** Roles/permissions model (`Role` + `user_roles` link table).
 
 ### Phase 3 — Core API (depends on 1, 2)
 Port each controller+repository to a FastAPI router with Pydantic schemas + tests:

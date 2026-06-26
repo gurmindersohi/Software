@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     app_name: str = "Sohi API"
     environment: str = "local"
     debug: bool = True
-    secret_key: str = "dev-insecure-change-me"
+    secret_key: str = "dev-insecure-change-me-0123456789-please-override-in-env"
 
     # Database — default to local SQLite so tests/dev run without Postgres.
     database_url: str = "sqlite:///./sohi_dev.db"
@@ -32,6 +32,10 @@ class Settings(BaseSettings):
 
     # CORS
     frontend_origin: str = "http://localhost:3000"
+
+    # Email (Phase 2.6)
+    email_provider: str = "console"  # console | resend | sendgrid
+    email_from: str = "no-reply@sohi.app"
 
     # Integrations (filled in Phase 4)
     facebook_app_id: Optional[str] = None

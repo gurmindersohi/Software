@@ -5,5 +5,15 @@ from app.models.ad_account import AdAccount
 from app.models.lead import Lead
 from app.models.plan import Plan
 from app.models.social import SocialMedia
+from app.models.user import Role, User, UserRoleLink
 
-__all__ = ["Account", "AdAccount", "Lead", "Plan", "SocialMedia"]
+__all__ = [
+    "Account",
+    "AdAccount",
+    "Lead",
+    "Plan",
+    "SocialMedia",
+    "User",
+    "Role",
+    "UserRoleLink",
+]
