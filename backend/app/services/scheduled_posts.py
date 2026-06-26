@@ -6,14 +6,42 @@ from uuid import UUID
 
 from sqlmodel import Session, select
 
-from app.core import crypto
+from app.core import crypto, email_templates
+from app.core.config import settings
+from app.core.email import send_email
 from app.models.scheduled_post import ScheduledPost
 from app.models.social import SocialMedia
+from app.models.user import User
 
 MAX_ATTEMPTS = 3
 
 # A factory that builds a Graph-like client from a (decrypted) page token.
 GraphFactory = Callable[[Optional[str]], object]
+# Optional callback invoked when a post is dead-lettered (status -> failed).
+FailureHook = Callable[[ScheduledPost], None]
+
+
+def notify_publish_failure(session: Session, post: ScheduledPost) -> None:
+    """Email the account owner that a scheduled post could not be published."""
+    user = session.exec(
+        select(User).where(
+            User.account_id == post.account_id, User.is_deleted == False  # noqa: E712
+        )
+    ).first()
+    if user is None:
+        return
+    link = f"{settings.frontend_origin}/portal/social"
+    send_email(
+        user.email,
+        "A scheduled post failed to publish",
+        f"After {MAX_ATTEMPTS} attempts the post could not be published. Error: {post.last_error}",
+        html=email_templates.render(
+            "A scheduled post failed",
+            f"After {MAX_ATTEMPTS} attempts it could not publish. Error: {post.last_error}",
+            "Open the queue",
+            link,
+        ),
+    )
 
 
 def _naive_utc(dt: datetime) -> datetime:
@@ -63,10 +91,15 @@ def select_due_posts(session: Session, now: Optional[datetime] = None) -> List[S
 
 
 def publish_post(
-    session: Session, post: ScheduledPost, graph_factory: GraphFactory
+    session: Session,
+    post: ScheduledPost,
+    graph_factory: GraphFactory,
+    *,
+    on_failure: Optional[FailureHook] = None,
 ) -> ScheduledPost:
     """Publish one scheduled post. On failure, increments attempts and either
-    re-queues (status=pending) or dead-letters (status=failed) past MAX_ATTEMPTS."""
+    re-queues (status=pending) or dead-letters (status=failed) past MAX_ATTEMPTS.
+    `on_failure` is called only when the post is dead-lettered (notifications)."""
     connection = session.get(SocialMedia, post.social_media_id)
     try:
         if connection is None:
@@ -102,4 +135,6 @@ def publish_post(
     session.add(post)
     session.commit()
     session.refresh(post)
+    if post.status == "failed" and on_failure is not None:
+        on_failure(post)
     return post

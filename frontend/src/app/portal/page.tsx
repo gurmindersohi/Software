@@ -1,5 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 import { Card } from "@/components/ui";
 import { getAccount } from "@/lib/account";
@@ -17,6 +18,32 @@ function Stat({ label, value }: { label: string; value: number | string }) {
   );
 }
 
+function OnboardingStep({
+  done,
+  label,
+  href,
+  cta,
+}: {
+  done: boolean;
+  label: string;
+  href: string;
+  cta: string;
+}) {
+  return (
+    <li className="flex items-center justify-between">
+      <span className={done ? "text-slate-400 line-through" : "text-slate-700"}>
+        <span className="mr-2">{done ? "✓" : "○"}</span>
+        {label}
+      </span>
+      {!done && (
+        <Link href={href} className="text-sm font-medium text-brand hover:underline">
+          {cta}
+        </Link>
+      )}
+    </li>
+  );
+}
+
 export default function DashboardPage() {
   const { data: user } = useCurrentUser();
   const account = useQuery({ queryKey: ["account"], queryFn: getAccount });
@@ -29,11 +56,43 @@ export default function DashboardPage() {
     ? new Date(account.data.trial_expiry).toLocaleDateString()
     : null;
 
+  const connected = (social.data?.length ?? 0) > 0;
+  const hasScheduled = (scheduled.data?.total ?? 0) > 0;
+  const hasLead = (leads.data?.total ?? 0) > 0;
+  const showOnboarding =
+    social.isSuccess && scheduled.isSuccess && leads.isSuccess && !(connected && hasScheduled && hasLead);
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-slate-900">
         Welcome{user?.first_name ? `, ${user.first_name}` : ""}
       </h1>
+
+      {showOnboarding && (
+        <Card className="max-w-lg border-brand/30 bg-brand/5">
+          <h2 className="mb-3 text-lg font-semibold text-slate-800">Get started</h2>
+          <ul className="space-y-2 text-sm">
+            <OnboardingStep
+              done={connected}
+              label="Connect a Facebook or Instagram page"
+              href="/portal/settings/connections"
+              cta="Connect"
+            />
+            <OnboardingStep
+              done={hasScheduled}
+              label="Schedule your first post"
+              href="/portal/social"
+              cta="Schedule"
+            />
+            <OnboardingStep
+              done={hasLead}
+              label="Add your first lead"
+              href="/portal/leads/new"
+              cta="Add lead"
+            />
+          </ul>
+        </Card>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Leads" value={leads.data?.total ?? "—"} />

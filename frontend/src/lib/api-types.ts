@@ -206,6 +206,13 @@ export interface paths {
     /** Upload Media */
     post: operations["upload_media_api_v1_media_upload_post"];
   };
+  "/api/v1/media/file/{key}": {
+    /**
+     * Serve File
+     * @description Serve a local-storage file (dev). Tenant-scoped by the key prefix.
+     */
+    get: operations["serve_file_api_v1_media_file__key__get"];
+  };
   "/api/v1/scheduled-posts": {
     /** List Posts */
     get: operations["list_posts_api_v1_scheduled_posts_get"];
@@ -2499,6 +2506,37 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["MediaUploadResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Serve File
+   * @description Serve a local-storage file (dev). Tenant-scoped by the key prefix.
+   */
+  serve_file_api_v1_media_file__key__get: {
+    parameters: {
+      header?: {
+        authorization?: string | null;
+      };
+      path: {
+        key: string;
+      };
+      cookie?: {
+        access_token?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */

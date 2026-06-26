@@ -11,7 +11,11 @@ from sqlmodel import Session
 from app.db.session import engine
 from app.integrations.facebook.graph import GraphClient
 from app.models.scheduled_post import ScheduledPost
-from app.services.scheduled_posts import publish_post, select_due_posts
+from app.services.scheduled_posts import (
+    notify_publish_failure,
+    publish_post,
+    select_due_posts,
+)
 
 
 def _graph_factory(token):
@@ -23,7 +27,12 @@ def _publish_sync(post_id: str) -> str:
         post = session.get(ScheduledPost, UUID(post_id))
         if post is None:
             return "missing"
-        publish_post(session, post, _graph_factory)
+        publish_post(
+            session,
+            post,
+            _graph_factory,
+            on_failure=lambda p: notify_publish_failure(session, p),
+        )
         return post.status
 
 

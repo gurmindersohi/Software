@@ -14,6 +14,10 @@ from app.core.config import settings
 class StorageBackend(Protocol):
     def save(self, key: str, data: bytes, content_type: str = ...) -> str: ...
 
+    def public_url(self, key: str) -> str:
+        """A fetchable URL — Meta must be able to GET it to publish media."""
+        ...
+
 
 class LocalStorage:
     def __init__(self, base_dir: str) -> None:
@@ -25,6 +29,17 @@ class LocalStorage:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(data)
         return path.resolve().as_uri()
+
+    def public_url(self, key: str) -> str:
+        # Served by the app (dev only — Meta can't reach localhost regardless).
+        return f"/api/v1/media/file/{key}"
+
+    def resolve(self, key: str) -> Path:
+        """Resolve a key to a path, refusing traversal outside the base dir."""
+        path = (self.base / key).resolve()
+        if not str(path).startswith(str(self.base.resolve())):
+            raise ValueError("Invalid media key.")
+        return path
 
 
 class S3Storage:
@@ -41,8 +56,13 @@ class S3Storage:
 
     def save(self, key: str, data: bytes, content_type: str = "application/octet-stream") -> str:
         self._s3.put_object(Bucket=self._bucket, Key=key, Body=data, ContentType=content_type)
-        base = settings.s3_endpoint_url or "https://s3.amazonaws.com"
-        return f"{base}/{self._bucket}/{key}"
+        return key
+
+    def public_url(self, key: str) -> str:
+        # Presigned GET URL → publicly fetchable (signed), no bucket-public needed.
+        return self._s3.generate_presigned_url(
+            "get_object", Params={"Bucket": self._bucket, "Key": key}, ExpiresIn=3600
+        )
 
 
 def get_storage() -> StorageBackend:

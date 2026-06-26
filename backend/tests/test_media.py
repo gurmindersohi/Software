@@ -14,11 +14,32 @@ def test_upload_writes_file_and_returns_url(client, session, tmp_path, monkeypat
 
     body = resp.json()
     assert body["key"].endswith(".txt")
-    assert body["url"].startswith("file://")
+    assert body["url"].startswith("/api/v1/media/file/")  # fetchable, not file://
 
     written = list(tmp_path.rglob("*.txt"))
     assert len(written) == 1
     assert written[0].read_bytes() == b"hello world"
+
+
+def test_serve_file_round_trip_and_tenant_guard(client, session, tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+
+    monkeypatch.setattr(settings, "storage_backend", "local")
+    monkeypatch.setattr(settings, "local_storage_dir", str(tmp_path))
+    register_confirm_login(client, session)
+    url = client.post(
+        "/api/v1/media/upload", files={"file": ("a.txt", b"payload", "text/plain")}
+    ).json()["url"]
+
+    served = client.get(url)
+    assert served.status_code == 200
+    assert served.content == b"payload"
+
+    other = TestClient(app)
+    register_confirm_login(other, session, email="other@acme.com")
+    assert other.get(url).status_code == 404  # cross-tenant blocked by key prefix
 
 
 def test_upload_records_asset_and_library_lists_it(client, session, tmp_path, monkeypatch):

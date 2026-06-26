@@ -91,6 +91,26 @@ def test_publish_failure_requeues_then_deadletters(session):
     assert "boom" in post.last_error
 
 
+def test_deadletter_invokes_failure_hook(session):
+    calls = []
+    post = _seed(session, attempts=svc.MAX_ATTEMPTS - 1)
+    svc.publish_post(
+        session, post, lambda t: FakeGraph(t, fail=True), on_failure=lambda p: calls.append(p.id)
+    )
+    assert post.status == "failed"
+    assert calls == [post.id]  # notified on dead-letter
+
+
+def test_retry_does_not_invoke_failure_hook(session):
+    calls = []
+    post = _seed(session, attempts=0)
+    svc.publish_post(
+        session, post, lambda t: FakeGraph(t, fail=True), on_failure=lambda p: calls.append(p.id)
+    )
+    assert post.status == "pending"
+    assert calls == []  # not notified on a retry
+
+
 def test_select_due_posts_excludes_future(session):
     due = _seed(session, delta=timedelta(minutes=-5))
     future = _seed(session, delta=timedelta(hours=2))
